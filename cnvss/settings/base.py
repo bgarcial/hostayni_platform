@@ -14,7 +14,9 @@ import os
 from django.core.exceptions import ImproperlyConfigured
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
+# which points to the folder containing the actual file, i.e. the folder cnvss.
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+
 
 
 # Quick-start development settings - unsuitable for production
@@ -62,7 +64,12 @@ ROOT_URLCONF = 'cnvss.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+
+        # Like with the static files, Django will look for templates located
+        # at a folder named templates inside each app and inside the
+        # cnvss/templates folder we just created - root of the site
+        'DIRS': [os.path.join(BASE_DIR, "templates")],
+
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -124,5 +131,19 @@ USE_TZ = True
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/1.11/howto/static-files/
+# This line tells Django to look for static files in a folder named static
+# inside each of our apps.
+# cnvss_project/cnvss/assets/ - This directory will contain all the static files
+# that are global for the project, like CSS or javascript files.
 
-STATIC_URL = '/static/'
+STATIC_URL = '/assets/'
+
+
+# To tell Django to look for static files in the cnvss/assets directory
+# that we just created. With this configuration, Django will look for
+# static files in a folder named assets/ inside each app and into the
+# cnvss/assets folder we just created.
+# BASE_DIR is the root directory
+STATICFILES_DIRS = (
+    os.path.join(BASE_DIR, "assets"),
+)
