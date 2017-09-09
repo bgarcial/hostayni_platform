@@ -1,0 +1,16 @@
+# humanstxt.org/
+# The humans responsible & technology CNVSS project
+
+# TEAM
+
+    <name> -- <role> -- <twitter>
+
+# THANKS
+
+    <name>
+
+# TECHNOLOGY COLOPHON
+    Django
+    Django REST Framework
+    Python
+    Unity (C#)
