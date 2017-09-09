@@ -1,0 +1,1 @@
+web: gunicorn cnvss.wsgi --log-file -
