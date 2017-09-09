@@ -1,5 +1,5 @@
-# Collaborative Networked Virtual Surgical Simulator
-* Powered by Sim Design
+# Template Django Empty Project
+
 
 
 
