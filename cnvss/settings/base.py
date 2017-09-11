@@ -151,6 +151,13 @@ STATICFILES_DIRS = (
     os.path.join(BASE_DIR, "assets"),
 )
 
+# https://www.udemy.com/tweetme-django/learn/v4/t/lecture/6134596?start=0 statc serve files
+# Usually is a CDN or another server to manage static files
+# /webapps/cnvss/assets/
+# collectstatic va a static root directory y si no al static
+# STATIC_ROOT = os.path.join(BASE_DIR, "assets")
+
+
 FIXTURE_DIRS = (
    os.path.join(BASE_DIR, 'fixtures'),
 )
@@ -172,10 +179,15 @@ AWS_S3_CUSTOM_DOMAIN = 's3-sa-east-1.amazonaws.com/%s' % AWS_STORAGE_BUCKET_NAME
 # For media files to S3
 STATICFILES_LOCATION = 'assets'
 STATICFILES_STORAGE = 'custom_storages.StaticStorage'
+
 STATIC_URL = "https://%s/%s/" % (AWS_S3_CUSTOM_DOMAIN, STATICFILES_LOCATION)
+
 MEDIAFILES_LOCATION = 'media'
+
 MEDIA_URL = "https://%s/%s/" % (AWS_S3_CUSTOM_DOMAIN, MEDIAFILES_LOCATION)
+
 DEFAULT_FILE_STORAGE = 'custom_storages.MediaStorage'
+
 
 
 # That will tell boto that when it uploads files to S3, it should set properties on them so that when S3 serves them, it'll include those HTTP headers in the response.
