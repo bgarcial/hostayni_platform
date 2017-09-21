@@ -1,4 +1,4 @@
-# Template Django Empty Project
+# Hostayni Platform
 
 
 
