@@ -62,6 +62,10 @@ INSTALLED_APPS = [
     'taggit',
     'storages',
     # 'raven.contrib.django.raven_compat',
+
+    # Project apps
+    'accounts.apps.AccountsConfig',
+    'host_information.apps.HostInformationConfig',
 ]
 
 MIDDLEWARE = [
@@ -175,7 +179,7 @@ FIXTURE_DIRS = (
    os.path.join(BASE_DIR, 'fixtures'),
 )
 
-# AUTH_USER_MODEL = "accounts.User"
+AUTH_USER_MODEL = "accounts.User"
 
 #Amazon S3 Storage
 AWS_STORAGE_BUCKET_NAME = get_env_variable('AWS_STORAGE_BUCKET_NAME')
