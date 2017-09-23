@@ -65,8 +65,9 @@ INSTALLED_APPS = [
 
     # Project apps
     'accounts.apps.AccountsConfig',
-    'host_information.apps.HostInformationConfig',
     'blog.apps.BlogConfig',
+    'host_information.apps.HostInformationConfig',
+    'hosts.apps.HostsConfig',
 ]
 
 MIDDLEWARE = [
@@ -148,6 +149,22 @@ USE_I18N = True
 USE_L10N = True
 
 USE_TZ = True
+
+REST_FRAMEWORK = {
+    # Use Django's standard `django.contrib.auth` permissions,
+    # or allow read-only access for unauthenticated users.
+    '''
+    'DEFAULT_AUTHENTICATION_CLASSES': (
+        'rest_framework.authentication.TokenAuthentication',
+    ),
+    '''
+    'DEFAULT_PERMISSION_CLASSES': [
+        # 'rest_framework.permissions.DjangoModelPermissionsOrAnonReadOnly'
+        'rest_framework.permissions.AllowAny',
+    ],
+    'DEFAULT_FILTER_BACKENDS': (
+        'django_filters.rest_framework.DjangoFilterBackend',),
+}
 
 
 # Static files (CSS, JavaScript, Images)

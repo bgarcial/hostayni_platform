@@ -1,0 +1,28 @@
+{% extends 'layout.html' %}
+{% block title_tag %}Lodging Offert | {{ block.super }}{% endblock %}
+{% block body_content %}
+
+<div class="container">
+ <div class="panel panel-default">
+ <!-- Default panel contents -->
+  <div class="panel-heading">My Lodging Offers</div>
+   <!-- Table -->
+   <table class="table">
+    <tr>
+     <th>Offer</th>    
+     <th>Actions</th>    
+    </tr>
+  {% for offers in lodging_offers %}
+    <tr>
+     <td>
+      <h5><a href="{% url 'host:detail' offers.pk %}">{{ offers.ad_title }}</a> 
+     </td>
+     <td>
+     <p><a class='btn btn-warning' href = "{% url 'host:edit-lodging-offer' pk=offers.pk %}">Update</a>
+   <a class='btn btn-danger' href = "{% url 'host:delete-lodging-offer' pk=offers.pk %}">Delete</a></p>
+     </td>
+    {% endfor %}
+   </table>
+ </div>
+</div>
+{% endblock %}

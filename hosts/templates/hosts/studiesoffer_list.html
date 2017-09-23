@@ -1,0 +1,28 @@
+{% extends 'layout.html' %}
+{% block title_tag %}Studies Offert | {{ block.super }}{% endblock %}
+{% block body_content %}
+<div class="container">
+ <div class="panel panel-default">
+ <!-- Default panel contents -->
+  <div class="panel-heading">My Study Offers</div>
+   <!-- Table -->
+   <table class="table">
+    <tr>
+     <th>Offer</th>    
+     <th>Actions</th>    
+    </tr>
+  {% for offers in studies_offers %}
+    <tr>
+     <td>
+      <h5><a href="{% url 'host:studyoffertdetail' offers.pk %}">{{ offers.ad_title }}</a></h5> 
+     </td>
+     <td>
+     <p><a class='btn btn-warning' href = "{% url 'host:edit-study-offer' offers.pk %}">Update</a>
+   <a class='btn btn-danger' href = "{% url 'host:delete-study-offer' pk=offers.pk %}">Delete</a></p>
+     </td>
+    </tr>
+    {% endfor %}
+   </table>
+ </div>
+</div>
+{% endblock %}

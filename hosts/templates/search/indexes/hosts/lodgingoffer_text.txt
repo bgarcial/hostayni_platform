@@ -1,0 +1,25 @@
+{{ object.ad_title }}
+{{ object.room_type_offered }}
+{{ object.lodging_offer_type }}
+{{ object.number_guest_room_type }}
+{{ object.room_value }}
+
+{% for services in object.offered_services.all %}
+    {{ services.name }}
+{% endfor %}
+
+{% for caracteristics in object.room_information.all %}
+    {{ caracteristics.name }}
+{% endfor %}
+
+{{ object.stars }}
+
+{% for amenities in object.featured_amenities.all %}
+    {{ amenities.name }}
+{% endfor %}
+
+{{ object.country }}
+{{ object.city }}
+{{ object.address }}
+{{ object.bed_type }}
+{{ object.bathroom }}

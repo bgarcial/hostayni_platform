@@ -1,0 +1,12 @@
+{{ object.ad_title }}
+{{ object.country }}
+{{ object.city }}
+{{ object.institute_character }}
+{{ object.maximum_quota }}
+{{ object.studies_type_offered }}
+
+{{ object.knowledge_topics.all|join:", " }}
+
+{{ object.academic_mobility_programs }}
+{{ object.duration }}
+{{ object.pub_date }}

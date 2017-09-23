@@ -1,0 +1,62 @@
+{% extends 'layout.html' %}
+{% load staticfiles %}
+{% block title_tag %}Lodging Offert Search | {{ block.super }}{% endblock %}
+{% block body_content %}
+
+
+<div class="offert-form">
+  <form class="stayhost" action="." method="get">
+    <div class="head">
+      <div class="ofert-icon">
+        <img src="{% static 'img/icons/search.svg' %}" alt="">
+        <div class="title">
+          <h2>Stayhost</h2>
+          <span>Search</span>
+        </div>
+      </div>
+      <div class="submit-button-cont">
+                <div>
+                  <input type="image" src="{% static 'img/icons/ok.png' %}" alt="Submit" width="48" height="48">
+                  <input type="submit" value="Buscar" class="submit-button">
+                </div>
+        <button type="submit" class="btn btn-success">Buscar</button>
+            </div>
+    </div>
+    {% csrf_token %}
+    <div class="formgroup">
+      <span></span>
+        {{ form.query }}
+    </div> 
+  </form>
+  {% if "query" in request.GET %}<br />
+  <div class="main">
+    <p><h3>Lodging Offers containing: "{{ cd.query }}"</h3></p>
+    <span>Found {{ total_results }} result{{ total_results|pluralize }}</span>
+  </div>
+  <br /><br />
+
+
+  
+  <table>
+    <tbody>
+      <tr>
+        <th>Lodging Offer Title</th>    
+        <th>Room type</th>    
+        <th>Guess Number</th>    
+      </tr>
+      {% for result in results %}
+        {% with lodgingoffer=result.object %}
+        <tr>
+          <td><a href="{% url 'host:detail' lodgingoffer.pk %}">{{ lodgingoffer.ad_title }}</a></td>
+          <td>{{ lodgingoffer.room_type_offered }}</td>
+          <td>{{ lodgingoffer.number_guest_room_type }}</td>
+        </tr>
+        {% endwith %}
+        {% empty %}
+          <p>There are no results for your query.</p>
+      {% endfor %}   
+    </tbody>
+  </table>
+  {% endif %}
+</div>
+{% endblock %}

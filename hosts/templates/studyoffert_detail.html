@@ -1,0 +1,206 @@
+{% extends 'layout.html' %}
+{% load staticfiles %}
+{% load bootstrap3 %}
+{% bootstrap_css %}
+{% bootstrap_javascript %}
+{% block title_tag %}{{ lodgingofferdetail.ad_title }} | {{ block.super }}{% endblock %}
+{% block body_content %}
+
+<!-- Columna a la derecha -->
+<div class="search-column">
+    <div class="post-column">
+        <div class="info">
+            <div class="icon">
+                <img src="{% static 'img/icons/info.svg' %}" alt="">
+                <span>Información</span>
+            </div>
+            <div class="autor">
+                <p class="title">Autor</p>
+                <div class="profile">
+                    <div class="img-cont">
+                        <a href="#">
+                        <img src="{{ studyofferdetail.created_by.avatar.url }}" alt="">
+                        </a>
+                    </div>
+                    <div class="name-review-cont">
+                        {% if userprofile.user.user_type == "P" %}
+                            <span>{{ studyofferdetail.created_by.first_name }}</span>
+                        {% else %}
+                            <span>{{studyofferdetail.created_by.enterprise_name }}</span>
+                        </a>
+                        {% endif %}
+                        <img src="{% static 'img/stars.svg' %}" alt="">
+                        <div class="average">
+                            <span>546</span>
+                            <span>valoraciones</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="date">
+                <p class="title">Fecha de creación</p>
+                <span>{{ studyofferdetail.pub_date }}</span>
+
+            </div>
+            <div class="review">
+                <p class="title">Calificación de la oferta</p>
+                <img src="{% static 'img/stars.svg' %}" alt="">
+                <div class="average">
+                    <span>546</span>
+                    <span>valoraciones</span>
+                </div>
+            </div>
+        </div>
+        <div class="photos">
+            <div class="icon">
+                <img src="{% static 'img/icons/photo.svg' %}" alt="">
+                <span>Fotos</span>
+            </div>
+            <div class="cont">
+                <div id="photo1" style="background: url('{% static "img/canada-toronto.jpg"%}') no-repeat center; background-size:cover;"></div>
+                <div id="photo2" style="background: url('{% static "img/canada-toronto.jpg"%}') no-repeat center; background-size:cover;"></div>
+                <div id="photo3" style="background: url('{% static "img/canada-toronto.jpg"%}') no-repeat center; background-size:cover;"></div>
+                <div id="photo4" style="background: url('{% static "img/canada-toronto.jpg"%}') no-repeat center; background-size:cover;"></div>
+                <div id="photo5" style="background: url('{% static "img/canada-toronto.jpg"%}') no-repeat center; background-size:cover;"></div>
+                <div id="photo6" style="background: url('{% static "img/canada-toronto.jpg"%}') no-repeat center; background-size:cover;"></div>
+            </div>
+        </div>
+        <div class="recomendation">
+            <div class="icon">
+                <img src="{% static 'img/icons/recomend.svg' %}" alt="">
+                <span>Te puede interesar</span>
+            </div>
+            <div class="cont innovate">
+                <a href="#">
+                    <div class="img" style="background: url('{% static "img/canada-toronto.jpg"%}') no-repeat center; background-size:cover;">
+                        <div class="title">
+                            <span>Otra oferta de innovación</span>
+                        </div>
+                    </div>
+                </a>
+                <div class="info">
+                    <div class="post-type"><i>innovatehost</i></div>
+                    <img src="{% static 'img/stars.svg' %}" alt="">
+                </div>
+            </div>
+            <div class="cont innovate">
+                <a href="#">
+                    <div class="img" style="background: url('{% static "img/canada-toronto.jpg"%}') no-repeat center; background-size:cover;">
+                        <div class="title">
+                            <span>Otra oferta de innovación</span>
+                        </div>
+                    </div>
+                </a>
+                <div class="info">
+                    <div class="post-type"><i>innovatehost</i></div>
+                    <img src="{% static 'img/stars.svg' %}" alt="">
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- //Columna a la derecha -->
+
+<!-- Contenido principal (ofertas) -->
+		<main>
+			<div class="post-body">
+				<div class="banner" style="background: url('{{ studyofferdetail.photo.url }}') no-repeat center; background-size:cover;">
+					<div class="title-cont">
+						<h1>{{ studyofferdetail.ad_title }}</h1>
+					</div>
+				</div>
+				<div class="post-type innovate">
+					<i class="host">hostinghost</i>
+				</div>
+				<div class="main-content hosting">
+					<div class="cont type">
+						<h2>{{ studyofferdetail.studies_type_offered }}</h2>
+						<p align="justify">{{ studyofferdetail.additional_description }}</p>
+					</div>
+					<div class="cont amenities">
+						<h2>Topics</h2>
+						<div>
+							<img src="{% static 'img/icons/diary-button.svg' %}" alt="">
+							<span>{{ studyofferdetail.knowledge_topics.all|join:", " }}</span>
+						</div>
+                        <h2>Duration</h2>
+                        <div>
+                            <img src="{% static 'img/icons/diary-button.svg' %}" alt="">
+                            <span>{{ studyofferdetail.duration }}</span>
+                        </div>
+
+                        <h2>Academic Mobility program</h2>
+                        <div>
+                            <img src="{% static 'img/icons/diary-button.svg' %}" alt="">
+                            <span>{{ studyofferdetail.academic_mobility_programs }}</span>
+                        </div>
+
+                        <h2>Cupo de estudiantes para esta oferta</h2>
+                        <div>
+                            <img src="{% static 'img/icons/diary-button.svg' %}" alt="">
+                            <span>{{ studyofferdetail.maximum_quota }}</span>
+                        </div>
+
+					</div>
+					<div class="cont location">
+						<h2>Ubicación</h2>
+						<span>{{ studyofferdetail.address }}, {{ studyofferdetail.city }} - {{ studyofferdetail.country }}</span>
+						<div class="map-cont">
+							<iframe src="https://www.google.com/maps/embed?pb=!1m10!1m8!1m3!1d1983.0517024099001!2d-75.56337732682343!3d6.25010353077667!3m2!1i1024!2i768!4f13.1!5e0!3m2!1ses!2sco!4v1501007278560" frameborder="0" style="border:0" allowfullscreen></iframe>
+						</div>
+					</div>
+					<div class="cont services">
+						<h2>Servicios</h2>
+						<table>
+							<tbody>
+								<tr>
+									<th>Valor</th>
+									<th>Descripción</th>
+								</tr>
+								<tr>
+									<td>{{ studyofferdetail.studies_value }}</td>
+									<td>{{ studyofferdetail.additional_description }}</td>
+								</tr>
+							</tbody>
+						</table>
+					</div>
+					<div class="contact">
+						<a class="contact-button" href="#">
+							<img src="{% static 'img/icons/contact.svg' %}" alt="">
+							<span>Contactar</span>
+						</a>
+					</div>
+				</div>
+			</div>
+			<div class="comment-form-cont grey-background">
+				<h3>Agregar comentario</h3>
+				<form action="." method="post"> <br>
+        <input type="hidden" name="csrfmiddlewaretoken" value="ttphP2uPW8jCaysY2c6ZRHjq3oCuRSCZC2szbF4dm7JzKmdUaUYFVAazTsk47k7r">
+
+        <div class="formgroup">
+            <span>Name</span>
+            <input class="textinputclass" id="id_name" maxlength="80" name="name" type="text" required="">
+        </div>
+        <div class="formgroup">
+            <span>Email</span>
+            <input id="id_email" maxlength="254" name="email" type="email" required="" placeholder="Email">
+        </div>
+        <div class="formgroup">
+            <span>Message</span>
+            <textarea class="editable medium-editor-textarea " cols="40" id="id_body" name="body" rows="10" required=""></textarea>
+        </div>
+        <div class="submit-button-cont">
+					<div>
+	          <input type="image" src="https://s3-sa-east-1.amazonaws.com/ihost-project/assets/img/icons/ok.png" alt="Submit" width="48" height="48">
+						<input type="submit" value="Add comment" class="submit-button">
+	        </div>
+        </div>
+      </form>
+			</div>
+
+		</main>
+		<!-- //Contenido principal (posts) -->
+
+
+{% endblock  %}
+

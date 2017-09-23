@@ -1,0 +1,121 @@
+{% extends 'layout.html' %}
+{% load staticfiles %}
+{% load bootstrap3 %}
+{% block title_tag %}Lodging Offert | {{ block.super }}{% endblock %}
+{% block body_content %}
+
+{% comment %}
+<script>
+  $(function() {
+    $( ".datepicker" ).datepicker({
+      changeMonth: true,
+      changeYear: true,
+      yearRange: "1900:2050",
+      altField: "#alternate",
+      altFormat: "DD, d MM, yy"
+      // You can put more options here.
+
+    });
+  });
+</script>
+{% endcomment %}
+<div class="offert-form">
+    <h1>
+      {% if not form.instance.pk %}
+        {{ form.title }}
+      {% else %}
+      Actualizar oferta de estudio
+      {% endif %}
+    </h1>
+    <form class="stayhost" method="POST" enctype="multipart/form-data">
+      <div class="head">
+        <div class="ofert-icon">
+          <img src="{% static 'img/icons/learn.svg' %}" alt="">
+          <div class="title">
+            <h2>LearnHost</h2>
+            <span>Crear oferta</span>
+          </div>
+        </div>
+        <div class="submit-button-cont">
+            <div>
+              <input type="image" src="{% static 'img/icons/ok.png' %}" alt="Submit" width="48" height="48">
+              <input type="submit" value="Guardar" class="submit-button">
+            </div>
+        </div>
+
+        <!-- botón opcional, creo que por el momento sería mejor no aplicar esta funcionalidad ya que había que hacer una pantalla de ofertas guardadas -->
+        {% comment %}
+        <div class="save">
+          <a href="#">
+              <img src="img/icons/save.png" alt="">
+              <span>Guardar</span>
+              </a>
+        </div>
+        {% endcomment %}
+      </div>
+      {% csrf_token %}
+      <div class="col margin-right">
+          <div class="formgroup">
+              {% bootstrap_field form.ad_title %}
+          </div>
+          <div class="formgroup">
+              {% bootstrap_field form.country %}
+          </div>
+          <div class="formgroup">
+              {% bootstrap_field form.city %}
+          </div>
+          <div class="formgroup">
+              {% bootstrap_field form.address %}
+          </div>
+          <div class="formgroup">
+              {% bootstrap_field form.institute_character %}
+          </div>
+          <div class="formgroup">
+              {% bootstrap_field form.maximum_quota %}
+          </div>
+          <div class="formgroup">
+              {% bootstrap_field form.knowledge_topics %}
+          </div>
+          <div class="formgroup">
+              {% bootstrap_field form.studies_type_offered %}
+          </div>
+          <div class="formgroup">
+              {% bootstrap_field form.academic_mobility_programs %}
+          </div>
+          <div class="formgroup">
+              {% bootstrap_field form.duration %}
+          </div>
+          <div class="formgroup">
+              {% bootstrap_field form.modality %}
+          </div>
+          <div class="formgroup">
+              {% bootstrap_field form.studies_value %}
+              {% bootstrap_field form.additional_description %}
+              {% bootstrap_field form.photo %}
+          </div>
+      </div>
+      <div class="col">
+        <div class="formgroup">
+            {% bootstrap_field form.address %}
+          <div class="map-cont">
+            <iframe src="https://www.google.com/maps/embed?pb=!1m10!1m8!1m3!1d1983.0517024099001!2d-75.56337732682343!3d6.25010353077667!3m2!1i1024!2i768!4f13.1!5e0!3m2!1ses!2sco!4v1501007278560" frameborder="0" style="border:0" allowfullscreen></iframe>
+          </div>
+        </div>
+        <div class="formgroup">
+          {% bootstrap_field form.studies_value %}
+        </div>
+
+      </div>
+
+        <div class="submit-button-cont">
+            <div>
+              <input type="image" src="{% static 'img/icons/ok.png' %}" alt="Submit" width="48" height="48">
+              <input type="submit" value="Guardar" class="submit-button">
+            </div>
+        </div>
+        <button type="submit" class="btn btn-success">Guardar</button>
+        
+    </form>
+    
+</div>
+{% endblock %}

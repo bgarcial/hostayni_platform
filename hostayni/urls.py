@@ -18,6 +18,15 @@ from django.contrib import admin
 from django.conf import settings
 from .views import HomePageView
 
+from hosts.views import LodgingOfferViewSet,StudiesOffertViewSet
+
+from rest_framework import routers
+
+# Routers provide an easy way of automatically determining the URL conf.
+router = routers.DefaultRouter()
+router.register(r'lodging-offers', LodgingOfferViewSet)
+router.register(r'studies-offers', StudiesOffertViewSet)
+
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
     # url(r'^$', HomePageView.as_view(), name='home'),
@@ -37,6 +46,11 @@ urlpatterns = [
     # para autorizacion
 
     url(r'^', include('blog.urls', namespace='articles')),
+
+    url(r'^host/', include('hosts.urls', namespace='host')),
+
+    # Wire up our API using automatic URL routing.
+    url(r'^api/', include(router.urls,)),
 
 
 

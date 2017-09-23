@@ -197,6 +197,7 @@
   <form action="." method="post"> <br />
     {% csrf_token %}
 
+
     <div class="formgroup">
         <span>Name</span>
         {{ comment_form.name }}
@@ -205,6 +206,7 @@
         <span>Email</span>
         {{ comment_form.email }}
     </div>
+
     <div class="formgroup">
         <span>Message</span>
         {{ comment_form.body }}

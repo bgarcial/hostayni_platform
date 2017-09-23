@@ -1,0 +1,22 @@
+{% extends "layout.html" %}
+{% block script %}
+    Llamada AJAX para traernos datos de ofertas de alojamient de REST
+    <script>
+    $(document).ready(function(){
+        console.log("Haciendo un GET a ofertas de alojamiento");
+        $.ajax({
+            url: "/api/lodging-offers/", // por defecto toma localhost:8000 el puerto por el uqe corre el server actual
+            method: "GET",
+            success: function (data) {
+                console.log("Las ofertas son")
+                console.log(data)
+
+            },
+            error: function(data){
+                console.log("error")
+                console.log(data)
+            }
+        })
+    });
+    </script>
+{% endblock script %}
