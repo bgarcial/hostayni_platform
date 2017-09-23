@@ -1,0 +1,61 @@
+{% extends "layout.html" %}
+{% load bootstrap3 %}
+{% load staticfiles %}
+{% block title_tag %}Crear un artículo en {{ block.super }}{% endblock %}
+
+
+{% block body_content %}
+<div class="offert-form">
+    <h1>
+    {% if not form.instance.slug %}
+        {{ form.ad }}
+      {% else %}
+      Actualizar artículo
+      {% endif %}
+    </h1>
+
+    <form class="stayhost" method="POST" enctype="multipart/form-data">
+    <div class="head">
+        <div class="ofert-icon">
+          <img src="{% static 'img/icons/lang.svg' %}" alt="">
+          <div class="title">
+            <h2>Contenidos</h2>
+            <span>Crear un Artículo</span>
+          </div>
+        </div>
+        <div class="submit-button-cont">
+            <div>
+              <input type="image" src="{% static 'img/icons/ok.png' %}" alt="Submit" width="48" height="48">
+              <input type="submit" value="Guardar" class="submit-button">
+            </div>
+        </div>
+        <button type="submit" class="btn btn-success">Guardar</button>
+    </div>
+    {% csrf_token %}
+        <div class="formgroup">
+        {% bootstrap_field form.title %}
+        </div>
+         <div class="formgroup">
+        {% bootstrap_field form.text %}
+        </div>
+        <div class="formgroup">
+        {% bootstrap_field form.image %}
+        </div>
+        {% comment %}
+        <div class="formgroup">
+            <span>Title</span>
+            {{ form.title }}
+        </div>
+        <div class="formgroup">
+            <span>Text</span>
+            {{form.text}}
+        </div>
+        <div class="formgroup">
+            <span>Photo</span>
+            {{ form.image }}
+        </div>
+        {% endcomment %}
+
+    </form>
+</div>
+{% endblock %}

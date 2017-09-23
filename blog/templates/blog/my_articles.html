@@ -1,0 +1,68 @@
+{% extends 'layout.html' %}
+{% load bootstrap3 %}
+{% block title_tag %}Articles created | {{ block.super }}{% endblock %}
+
+{% block body_content %}
+  <div class="container">
+ <div class="panel panel-default">
+ <!-- Default panel contents -->
+  <div class="panel-heading">Mis Artículos</div>
+   <!-- Table -->
+   <table class="table">
+    <tr>
+     <th>Artículo</th>
+     <th>Acciones</th>
+    </tr>
+  {% for article in articles %}
+    <tr>
+     <td>
+      <h5><a href="{% url 'articles:article_detail' article.slug %}">{{ article.title }}</a>
+     </td>
+     <td>
+     <p><a class='btn btn-warning' href = "{% url 'articles:article_edit' article.slug %}">Update</a>
+   <a class='btn btn-danger' href = "{% url 'articles:article_remove' article.slug %}">Delete</a>
+   <a class='btn btn-success' href = "{% url 'articles:article_new' %}">Crear Artículo</a></p>
+     </td>
+    {% endfor %}
+   </table>
+ </div>
+</div>
+{% endblock %}
+
+{%comment%}
+
+<style>
+table {
+    font-family: arial, sans-serif;
+    border-collapse: collapse;
+    width: 100%;
+}
+
+td, th {
+    border: 1px solid #dddddd;
+    text-align: left;
+    padding: 8px;
+}
+
+tr:nth-child(even) {
+    background-color: #dddddd;
+}
+</style>
+{% block body_content %}
+<table>
+  <tr>
+    <th>Article</th>
+    <th>Actions</th>
+  </tr>
+  {% for article in articles %}
+  <tr>
+    <td><h5><a href="{% url 'articles:article_detail' article.slug %}">{{ article.title }}</a></h5></td>
+    <td><p><a href = "{% url 'articles:article_edit' article.slug %}">Update</a></td>
+    <td><p><a href = "{% url 'articles:article_remove' article.slug %}">Delete</a></td>
+    
+  </tr>
+  {% endfor %}
+</table>
+
+{% endblock %}
+{% endcomment%}

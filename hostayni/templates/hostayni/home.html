@@ -1515,21 +1515,26 @@
 <!-- End Columna del logo, mapa, filtro -->
 
 <!-- Contenido principal articulos -->
+{% for article in article_list %}
 
 <main>
     <!-- la clase full-width es para las ofertas que ocupan las dos columnas -->
     <article class="innovate full-width">
         <div class="img-title-cont">
             <!-- la imagen de las publicaciones debe ser una imagen de background para poder modificar el contenedor independientemente del tamaño de la imagen -->
-            <div class="img" style="background: url(img/canada-toronto.jpg) no-repeat center; background-size:cover;"></div>
+            <div class="img" style="background: url('{{ article.image.url }}') no-repeat center; background-size:cover;"></div>
             <div class="title-cont">
-                <h3>Lorem ipsum dolor sit amet, consectetur adipiscing elit Donec erat sem, rutrum nec pulvinar cursus, imperdiet nec lectus. Integer sagittis ipsum sed urna malesuada, </h3>
+                <h3><a href="{% url 'articles:article_detail' slug=article.slug %}">{{ article.title }}</h3>
+                <h3>{{ article.title }}</h3>
             </div>
         </div>
+
         <div class="post-info">
             <!-- Este es el ícono que muestra el tipo de oferta, el color de la etiqueda depende de la clase que tenga el artículo, en este caso es innovate-->
             <div class="post-type"><i>innovatehost</i></div>
+            {% comment %}
             <div class="description">Lorem ipsum dolor sit amet, consectetur adipiscing elit Donec erat sem, rutrum nec pulvinar cursus, imperdiet nec lectus. Integer sagittis ipsum.</div>
+            {% endcomment %}
             <!-- Calificaciones -->
             <div class="review">
                 <p class="cost"><span>$ </span>147.000</p>
@@ -1544,6 +1549,10 @@
             </div>
             <!-- //Calificaciones -->
         </div>
+
+
+
+    {% comment %}
     </article>
     <article class="social">
         <div class="img-title-cont">
@@ -1627,6 +1636,9 @@
             <!-- //Calificaciones -->
         </div>
     </article>
+    {% endcomment %}
+    {% endfor %}
+        {% include "pagination.html" with page=page_obj %}
 </main>
 <!-- //Contenido principal (posts) -->
 

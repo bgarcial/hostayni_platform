@@ -73,13 +73,13 @@ class AccountSettingsUpdateView(LoginRequiredMixin, UserProfileDataMixin, Update
     model = get_user_model()
     form_class = UserUpdateForm
     #success_url = reverse_lazy('articles:article_list')
-    success_url = reverse_lazy('home')
+    success_url = reverse_lazy('articles:article_list')
 
 
 
 class LogoutView(generic.RedirectView):
     # Redirect back to article list
-    url = reverse_lazy('home')
+    url = reverse_lazy('articles:article_list')
 
     # se dispara cuando entra el request entrante
     def get(self, request, *args, **kwargs):

@@ -1,0 +1,254 @@
+{% extends "layout.html" %}
+{% load staticfiles %}
+
+
+{% block body_content %}
+
+<!-- Columna a la derecha -->
+<div class="search-column">
+    <div class="post-column">
+        <div class="info">
+            <div class="icon">
+                <img src="{% static 'img/icons/info.svg' %}" alt="">
+                <span>Información</span>
+            </div>
+
+            <div class="autor">
+                <p class="title">Autor</p>
+                <div class="profile">
+                    <div class="img-cont">
+                        <a href="#">
+                        <img src="{{ article.image_url|default_if_none:'#' }}" alt="">
+                        </a>
+                    </div>
+
+                    <div class="name-review-cont">
+                        <a href="#">
+                        {% if userprofile.user.user_type == "P" %}
+                            <p>{{ article.author.email }}</p>
+                        {% else %}
+                            <span>{{object.author.enterprise_name }}</span>
+                        </a>
+                        {% endif %}
+                        <img src="{% static 'img/stars.svg' %}" alt="">
+                        <div class="average">
+                            <span>546</span>
+                            <span>valoraciones</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="date">
+                <p class="title">Fecha de creación</p>
+                <span>12 Enero 2017</span>
+            </div>
+            <div class="review">
+                <p class="title">Calificación de la oferta</p>
+                <img src="{% static 'img/stars.svg' %}" alt="">
+                <div class="average">
+                    <span>546</span>
+                    <span>valoraciones</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="blog">
+            <div class="button">
+                <img src="{% static 'img/icons/blog.svg' %}">
+                <span>Te puede interesar</span>
+            </div>
+            <div id="blog-scroll">
+                <div class="blog-entry">
+                    <!-- Título del blog -->
+                    <a class="title" href="#">Mi experiencia en Londres, viaje educativo a la ciudad</a>
+                    <div class="views">
+                        <img src="{% static 'img/icons/views.svg' %}" alt="">
+                        <span>543</span>
+                    </div>
+                    <div class="rating">
+                        <img src="{% static 'img/stars.svg' %}" alt="">
+                        <span>124</span>
+                    </div>
+                </div>
+                <div class="blog-entry">
+                    <!-- Título del blog -->
+                    <a class="title" href="#">Mi experiencia en Londres, viaje educativo a la ciudad</a>
+                    <div class="views">
+                        <img src="{% static 'img/icons/views.svg' %}" alt="">
+                        <span>543</span>
+                    </div>
+                    <div class="rating">
+                        <img src="{% static 'img/stars.svg' %}" alt="">
+                        <span>124</span>
+                    </div>
+                </div>
+                <div class="blog-entry">
+                    <!-- Título del blog -->
+                    <a class="title" href="#">Mi experiencia en Londres, viaje educativo a la ciudad</a>
+                    <div class="views">
+                        <img src="{% static 'img/icons/views.svg' %}" alt="">
+                        <span>543</span>
+                    </div>
+                    <div class="rating">
+                        <img src="{% static 'img/stars.svg' %}" alt="">
+                        <span>124</span>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+<!-- //Columna a la derecha -->
+
+
+<!-- Contenido principal (ofertas) -->
+		<main>
+			<div class="blog-body">
+                {% if article.published_date %}
+                    <br />
+                      <div>{{ article.published_date }}</div>
+                {% else %}
+                      <a href="{% url 'articles:article_publish' slug=article.slug %}">Publish</a>
+                {% endif %}<br /><br />
+				<div class="banner" style="background: url({{ article.image.url }}) no-repeat center; background-size:cover;">
+					<div class="title-cont">
+						<h1>{{ article.title }}</h1>
+					</div>
+				</div>
+				<div class="text-cont">
+					<!-- icono verde del blog que aparece al lado del texto -->
+					<div class="side-icon">
+						<img src="img/icons/blog-icon.svg" alt="">
+					</div>
+					<div class="main-text">
+						<!-- <h4>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent maximus nisi lorem, eu sodales risus cursus non. Quisque urna nulla, fermentum eget sagittis eu, egestas id eros. Praesent ante justo, ullamcorper vitae nisl blandit, tincidunt rhoncus justo. Vivamus hendrerit semper vestibulum.</h4> -->
+						<p align="justify">{{ article.text|safe|linebreaksbr }}</p>
+
+                        <!--<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent maximus nisi lorem, eu sodales risus cursus non. Quisque urna nulla, fermentum eget sagittis eu, egestas id eros. Praesent ante justo, ullamcorper vitae nisl blandit, tincidunt rhoncus justo. Vivamus <a href="#">hendrerit semper vestibulum</a>. Maecenas fermentum felis consequat, suscipit magna ac, pulvinar quam. Aliquam vestibulum, nulla sed viverra tempus, ligula tortor auctor felis, sed feugiat nibh ipsum a velit. Praesent maximus nisi lorem, eu sodales risus cursus non. Quisque urna nulla, fermentum eget sagittis eu, egestas id eros. Praesent ante justo,</p> -->
+						<!-- contenedor para imagenes que tiene la imagen y un pie de foto opcional
+						<div class="img-cont">
+							<img src="{% static 'img/medellin.jpg' %}" alt="">
+							<span>Pie de foto</span>
+						</div>
+						<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent maximus nisi lorem, eu sodales risus cursus non. Quisque urna nulla, fermentum eget sagittis eu, egestas id eros. Praesent ante justo, ullamcorper vitae nisl blandit, tincidunt rhoncus justo. Vivamus <a href="#">hendrerit semper vestibulum</a>. Maecenas fermentum felis consequat, suscipit magna ac, pulvinar quam. Aliquam vestibulum, nulla sed viverra tempus, ligula tortor auctor felis, sed feugiat nibh ipsum a velit.</p>
+						<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent maximus nisi lorem, eu sodales risus cursus non. Quisque urna nulla, fermentum eget sagittis eu, egestas id eros. Praesent ante justo, ullamcorper vitae nisl blandit, tincidunt rhoncus justo. Vivamus <a href="#">hendrerit semper vestibulum</a>. Maecenas fermentum felis consequat, suscipit magna ac, pulvinar quam. Aliquam vestibulum, nulla sed viverra tempus, ligula tortor auctor felis, sed feugiat nibh ipsum a velit.</p>-->
+					</div>
+				</div>
+			</div>
+		</main>
+		<!-- //Contenido principal (posts) -->
+
+{% comment %}
+<div class="offert-form">
+<div class="head">
+  <div class="ofert-icon">
+    <div class="title">
+      <h2>{{ article.title }}</h2>
+      <span></span>
+    </div>
+  </div>
+</div>
+{% endcomment %}
+
+
+
+{% comment %}
+{% if user.is_authenticated %}
+    <a href="{% url 'article_edit' pk=article.pk %}">
+        <span>Edit</span>
+    </a>
+    <a href="{% url 'article_remove' pk=article.pk %}">
+        <span>Remove</span>
+    </a>
+{% endif %}
+{% endcomment %}
+
+
+<hr>
+
+{% with comments.count as total_comments %}
+  <h2>
+    {{ total_comments }} comment{{ total_comments|pluralize }}
+  </h2>
+{% endwith %}
+
+{% comment %}List of comments{% endcomment %}
+{% for comment in comments %}
+  <div class="comment">
+    <p class="info">
+      Comment {{ forloop.counter }} by {{ comment.name }}
+      <br /><br />
+      {{ comment.created }}
+    </p>
+    {{ comment.body|linebreaks }}
+
+  </div>
+  <br /><br />
+
+{% empty %}
+  <p>There are no comments yet.</p>
+{% endfor %}
+{% if new_comment %}
+  <h2>Your comment has been added.</h2>
+{% comment %} {% elif %} {% endcomment %}
+{% elif user.is_authenticated %}
+  <h2>Add a new comment</h2>
+  <form action="." method="post"> <br />
+    {% csrf_token %}
+
+    <div class="formgroup">
+        <span>Name</span>
+        {{ comment_form.name }}
+    </div>
+    <div class="formgroup">
+        <span>Email</span>
+        {{ comment_form.email }}
+    </div>
+    <div class="formgroup">
+        <span>Message</span>
+        {{ comment_form.body }}
+    </div>
+    <div class="submit-button-cont">
+        <div>
+          <input type="image" src="{% static 'img/icons/ok.png' %}" alt="Submit" width="48" height="48">
+          <input type="submit" value="Guardar" class="submit-button">
+        </div>
+    </div>
+    <button type="submit" class="btn btn-success">Guardar</button>
+  </form>
+  <br /><br />
+
+{% else %}
+
+To add a comment in this article you should <a href="{% url 'login' %}">sign in </a>
+
+{% endif %}
+
+{% comment %}
+<a class="btn btn-primary btn-comment" href="{% url 'add_comment_to_article' pk=article.pk %}">Add comment</a>
+<div class="container">
+
+
+{% for comment in article.comments.all %}
+<br>
+  {% if user.is_authenticated or comment.approved_comment %}
+    {{ comment.created_date }}
+        {% if not comment.approved_comment %}
+            <a class="btn btn-default" href="{% url 'comment_remove' pk=comment.pk %}"><span class="glyphicon glyphicon-remove">Remove Comment</span></a>
+            <a class="btn btn-default" href="{% url 'comment_approve' pk=comment.pk %}"><span class="glyphicon glyphicon-ok">Approve Comment</span></a>
+          {% endif %}
+
+      <p>{{ comment.text|safe|linebreaks }}</p>
+      <p>Written by: <strong>{{ comment.author }}</strong></p>
+
+  {% endif %}
+{% empty %}
+  <p>No comments posted.</p>
+{% endfor %}
+
+</div>
+{% endcomment %}
+</div>
+
+{% endblock %}

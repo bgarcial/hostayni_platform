@@ -62,6 +62,10 @@
                     Configuración de la cuenta</a></li>
                                         <li><a href="{% url 'accounts:profile' userprofile.user.slug %}">Mis roles de usuario</a></li>
                                         <li class="line"></li>
+                                        <p>Contenidos</p>
+                                        <li><a href="{% url 'articles:article_new' %}">Crear Artículo</a></li>
+                                        <li><a href="{% url 'articles:list' userprofile.user.slug %}">Mis artículos</a></li>
+                                        <li class="line"></li>
                                         <li><a href="{% url 'accounts:logout' %}">Salir</a></li>
                                     </ul>
                                 </div>

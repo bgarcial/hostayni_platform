@@ -20,19 +20,23 @@ from .views import HomePageView
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
-    url(r'^$', HomePageView.as_view(), name='home'),
+    # url(r'^$', HomePageView.as_view(), name='home'),
 
     # url(r'^$', home, name='home'),
-
-    url(r'^accounts/', include('django.contrib.auth.urls'), name='login'),
-    # I don't assign namespace because this is django URL
 
     # Call the accounts.urls.py
     url(r'^accounts/profiles/', include('accounts.urls', namespace='accounts')),
 
+    url(r'^accounts/', include('django.contrib.auth.urls'), name='login'),
+    # I don't assign namespace because this is django URL
+
+
+
     # conecta a vistas como logout signup
     # url(r'^accounts/', include('django.contrib.auth.urls')),
     # para autorizacion
+
+    url(r'^', include('blog.urls', namespace='articles')),
 
 
 
