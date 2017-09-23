@@ -1,0 +1,55 @@
+{% extends 'layout.html' %}
+{% load bootstrap3 %}
+{% load staticfiles %}
+
+{% block title_tag %}Mi cuenta en {{ block.super }}{% endblock %}
+
+{% block body_content %}
+<div class="offert-form">
+    <form enctype="multipart/form-data" method="POST">
+        {% csrf_token %}
+        <div class="head">
+            <div class="ofert-icon">
+                <img src="{% static 'img/icons/host-lines.svg' %}" alt="">
+                <div class="title">
+                    <h2>Configuración de mi cuenta</h2>
+                    <span>Detalles de Usuario</span>
+                </div>
+            </div>
+            <div class="submit-button-cont">
+                <div>
+                  <input type="image" src="{% static 'img/icons/ok.png' %}" alt="Submit" width="48" height="48">
+                  <input type="submit" value="Guardar" class="submit-button">
+                </div>
+            </div>
+        </div>
+        {% if user.user_type == 'E' %}
+            {% bootstrap_form form exclude="first_name,last_name,gender,speak_languages,entertainment_activities,is_student,is_professor,is_executive" %}
+            {% comment %}
+            {% bootstrap_field form.enterprise_name %}
+            {% bootstrap_field form.country_of_origin %}
+            {% bootstrap_field form.city_of_origin %}
+            {% bootstrap_field form.country_current_residence %}
+            {% bootstrap_field form.city_current_residence %}
+            {% bootstrap_field form.phone_number %}
+            {% bootstrap_field form.address %}
+            {% bootstrap_field form.bio %}
+            {% bootstrap_field form.avatar %}
+            {% bootstrap_field form.date_of_birth %}
+            {% bootstrap_field form.is_study_host %}
+            {% bootstrap_field form.is_hosting_host %}
+            {% endcomment %}
+
+        {% else %}
+            {% bootstrap_form form exclude="enterprise_name,is_study_host" %}
+        {% endif %}
+        <div class="submit-button-cont">
+            <div>
+              <input type="image" src="{% static 'img/icons/ok.png' %}" alt="Submit" width="48" height="48">
+              <input type="submit" value="Guardar" class="submit-button">
+            </div>
+        </div>
+        <button type="submit" class="btn btn-success">Guardar</button>
+    </form>
+
+{% endblock %}

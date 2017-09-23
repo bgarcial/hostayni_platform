@@ -619,11 +619,11 @@ class ProfessorProfile(models.Model):
         _("Grupos de Investigación a los que pertenece"), max_length=255
     )
 
-    '''
+
     autorship_publications = models.CharField(
         _("Publications of its authorship"), max_length=255
     )
-    '''
+
 
     class Meta:
         verbose_name_plural = 'Usuarios con perfil de profesores'

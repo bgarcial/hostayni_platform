@@ -12,4 +12,8 @@ urlpatterns = [
 
     url(r"logout/$", views.LogoutView.as_view(), name="logout"),
     url(r"signup/$", views.SignUpView.as_view(), name="signup"),
+
+    url(r"^preferences/u/(?P<slug>[\w.\-]+)/$", views.AccountSettingsUpdateView.as_view(), name='preferences'),
+
+    url(r"^data/u/(?P<slug>[\w\-]+)/$", views.user_profile_update_view, name='profile'),
 ]

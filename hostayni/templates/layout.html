@@ -15,13 +15,9 @@
       <!-- Bootstrap CSS -->
     <link href="{% static 'css/bootstrap.min.css' %}">
     <script src="https://code.jquery.com/jquery-3.2.1.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
-
-    </script>
     <script type="text/javascript" src="{% static 'js/main.js' %}"></script>
 
-    </script>
 
-</script>
 
     <style>
     .red-color {
@@ -38,35 +34,40 @@
 <!--   class="grey-background" Orignal Jerome Design -->
 <body>
     <div class="wrapper">
+        <!-- Botones de registro e inicio de sesión -->
         <header>
-            <!-- Botones de registro e inicio de sesión -->
             {% if request.user.is_authenticated %}
                 {% if userprofile %}
-                {{ userprofile }}
-                <div class="profile-options">
-                    <div class="img">
-                        <!-- Imagen de perfil -->
-                        <img src="img/profile.png" alt="">
-                    </div>
+                    <div class="profile-options">
+                        <div class="img">
+                            <!-- Imagen de perfil -->
+                            <img src="{{ object.image_url|default_if_none:'#' }}" alt="">
+                        </div>
 
-                    {% comment %} Begin settings drowdown {% endcomment %}
+                        {% comment %} Begin settings drowdown {% endcomment %}
 
-                    <div class="name-options-cont">
-                        <div class="name">
-                        <p>Nombre del usuario</p>
+                        <div class="name-options-cont">
+                            <div class="name">
+                            {% if userprofile.user.user_type == "P" %}
+                                <p>{{ userprofile.user.email }} - {{ userprofile.user.first_name }}</p>
+                            {% else %}
+                                <p>{{ userprofile.user.email }} - {{ userprofile.user.enterprise_name }}</p>
+                            {% endif %}
+                            </div>
+                            <div class="options">
+                                <img src="{% static 'img/icons/gear.svg' %}" alt="">
+                                <div class="drop-down"> <p>Mi Ayni</p>
+                                    <ul>
+                                        <li><a href="{% url 'accounts:preferences' userprofile.user.slug %}" >
+                    Configuración de la cuenta</a></li>
+                                        <li><a href="{% url 'accounts:profile' userprofile.user.slug %}">Mis roles de usuario</a></li>
+                                        <li class="line"></li>
+                                        <li><a href="#">Cerrar sesión</a></li>
+                                    </ul>
+                                </div>
+                            </div>
                         </div>
                     </div>
-                    <div class="options">
-                        <img src="{% static 'img/icons/gear.svg' %}" alt="">
-                        <div class="drop-down">
-                            <ul>
-                                <li><a href="#">Configuración</a></li>
-                                <li class="line"></li>
-                                <li><a href="#">Cerrar sesión</a></li>
-                            </ul>
-                        </div>
-                    </div>
-				</div>
 
 
                 {% endif %}

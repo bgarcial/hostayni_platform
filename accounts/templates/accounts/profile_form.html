@@ -1,0 +1,39 @@
+{% extends 'layout.html' %}
+{% load bootstrap3 %}
+{% load staticfiles %}
+
+{% block title_tag %}Mis roles en {{ block.super }}{% endblock %}
+{% block body_content %}
+<div class="offert-form">
+    <form enctype="multipart/form-data" method="POST">
+        {% csrf_token %}
+        <div class="head">
+            <div class="ofert-icon">
+                <img src="{% static 'img/icons/host-lines.svg' %}" alt="">
+                <div class="title">
+                    <h2>Mis roles</h2>
+                    <span>Detalles de Usuario</span>
+                </div>
+            </div>
+            <div class="submit-button-cont">
+                <div>
+                  <input type="image" src="{% static 'img/icons/ok.png' %}" alt="Submit" width="48" height="48">
+                  <input type="submit" value="Guardar" class="submit-button">
+                </div>
+            </div>
+        </div>
+        {% for form in forms %}
+            <h2>{{ form.title }}</h2>
+                {% bootstrap_form form %}
+
+        {% endfor %}
+        <div class="submit-button-cont">
+            <div>
+              <input type="image" src="{% static 'img/icons/ok.png' %}" alt="Submit" width="48" height="48">
+              <input type="submit" value="Guardar" class="submit-button">
+            </div>
+        </div>
+        <button type="submit" class="btn btn-success">Guardar</button>
+    </form>
+</div>
+{% endblock %}

@@ -18,7 +18,8 @@
         <form method="POST">
           {% csrf_token %}
           <h3>Unete a HOSTAYNI, es gratis.</h3>
-            {% comment %} {% bootstrap_form form %} {% endcomment %}
+             {% bootstrap_form form %}
+            {% comment %}
             {% bootstrap_field form.email %}
             {% bootstrap_field form.password1 %}
             {% bootstrap_field form.password2 %}
@@ -28,7 +29,7 @@
             <ul id="r1">
                 <li>{% bootstrap_field form.user_type %}</li>
             </ul>
-          </div>
+          </div>{% endcomment %}
 
           <!-- Agregué estos dos divs para poder alinear el boton a la derecha -->
           <div class="submit-button-cont">
