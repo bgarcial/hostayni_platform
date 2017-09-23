@@ -79,7 +79,7 @@ class AccountSettingsUpdateView(LoginRequiredMixin, UserProfileDataMixin, Update
 
 class LogoutView(generic.RedirectView):
     # Redirect back to article list
-    url = reverse_lazy('articles:article_list')
+    url = reverse_lazy('home')
 
     # se dispara cuando entra el request entrante
     def get(self, request, *args, **kwargs):

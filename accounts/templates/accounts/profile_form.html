@@ -9,7 +9,7 @@
         {% csrf_token %}
         <div class="head">
             <div class="ofert-icon">
-                <img src="{% static 'img/icons/host-lines.svg' %}" alt="">
+                <img src="{% static 'img/icons/gear.svg' %}" alt="">
                 <div class="title">
                     <h2>Mis roles</h2>
                     <span>Detalles de Usuario</span>
@@ -23,6 +23,7 @@
             </div>
         </div>
         {% for form in forms %}
+            <hr/> <br/>
             <h2>{{ form.title }}</h2>
                 {% bootstrap_form form %}
 

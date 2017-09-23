@@ -62,7 +62,7 @@
                     Configuración de la cuenta</a></li>
                                         <li><a href="{% url 'accounts:profile' userprofile.user.slug %}">Mis roles de usuario</a></li>
                                         <li class="line"></li>
-                                        <li><a href="#">Cerrar sesión</a></li>
+                                        <li><a href="{% url 'accounts:logout' %}">Salir</a></li>
                                     </ul>
                                 </div>
                             </div>

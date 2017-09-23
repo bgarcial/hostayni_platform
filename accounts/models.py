@@ -104,7 +104,7 @@ class User(AbstractBaseUser, PermissionsMixin):
     )
 
 
-    email = models.EmailField(unique=True, null=True,
+    email = models.EmailField(unique=True, null=True, verbose_name='Correo electrónico',
             # help_text=_('Required. Letters, digits and ''@/./+/-/_ only.'),
         validators=[RegexValidator(r'^[\w.@+-]+$', _('Enter a valid email address.'), 'invalid')
         ])
@@ -130,26 +130,30 @@ class User(AbstractBaseUser, PermissionsMixin):
     gender = models.CharField(
         max_length=10,
         choices=GENDER_CHOICES,
-        verbose_name='Gender',
+        verbose_name='Género',
         # default=False,
         blank=True,
     )
 
-    country_of_origin = CountryField(blank_label='(select country)')
+    country_of_origin = CountryField(blank_label='(select country)', verbose_name='Pais de origen')
 
     city_of_origin = models.CharField(
         max_length=255,
         blank = False,
+        verbose_name='Ciudad de origen'
     )
     # Can I use later this package https://github.com/coderholic/django-cities
 
     country_current_residence = CountryField(
-        blank_label='(select country)'
+        blank_label='(select country)',
+        verbose_name = 'País actual de residencia'
+
     )
 
     city_current_residence = models.CharField(
         max_length=255,
         blank = False,
+        verbose_name='Ciudad actual de residencia'
     )
      # Can I use later this package https://github.com/coderholic/django-cities
 
@@ -157,8 +161,8 @@ class User(AbstractBaseUser, PermissionsMixin):
 
     speak_languages = models.ManyToManyField(
         SpeakLanguages,
-        help_text='What languages do you speak?',
-        verbose_name='Languages',
+        help_text='Mantenga presionado "Control" o "Command" en un Mac, para seleccionar más de una opción.',
+        verbose_name='Idiomas',
         related_name="users",
         blank=True,
         # here m2m lookup sample
@@ -168,18 +172,19 @@ class User(AbstractBaseUser, PermissionsMixin):
 
     phone_number = PhoneNumberField(
         blank=True,
-        help_text="Please use the following format: <em>+Country Code-Number</em>.",
+        help_text="Por favor use el siguiente formato: <em>+Country Code-Number</em>.",
+        verbose_name='Número de contacto'
     )
 
-    address = models.CharField(_("address"), max_length=128)
+    address = models.CharField(_("Dirección"), max_length=128)
 
-    bio = models.CharField(max_length=140, blank=True, default="")
+    bio = models.CharField(_('Biografía'), max_length=140, blank=True, default="",)
 
     avatar = models.ImageField(
         upload_to='avatars',
         blank=True,
         null=True,
-        verbose_name='Photo'
+        verbose_name='Fotografía de perfil'
     )
 
     date_joined = models.DateTimeField(default=timezone.now)
@@ -188,7 +193,7 @@ class User(AbstractBaseUser, PermissionsMixin):
         blank=True,
         null=True,
         verbose_name='Fecha de nacimiento',
-        # help_text="Please use the following format: <em>YYYY-MM-DD</em>.",
+        help_text="Por favor use el formato: <em>MM-DD-YYYY</em>.",
     )
 
     user_type = models.CharField(
@@ -202,49 +207,49 @@ class User(AbstractBaseUser, PermissionsMixin):
     is_student = models.BooleanField(
         default=False,
         verbose_name='Estudiante',
-        help_text='Student profile'
+        help_text='Perfil de estudiante'
     )
 
     is_professor = models.BooleanField(
         default=False,
         verbose_name='Profesor',
-        help_text='Professor profile'
+        help_text='Perfil de profesor'
     )
 
     is_executive = models.BooleanField(
         default=False,
         verbose_name='Ejecutivo/Emprendedor',
-        help_text='Executive profile',
+        help_text='Perfil de ejecutivo o emprendedor',
     )
 
     is_study_host = models.BooleanField(
         default=False,
         verbose_name='Anfitrion de estudio',
-        help_text='Study host profile',
+        help_text='Perfil de anfitrón académico',
     )
 
     is_innovation_host = models.BooleanField(
         default=False,
         verbose_name='Anfitrión de innovación',
-        help_text='Innovation host profile',
+        help_text='Perfil de anfitrión de innovación',
     )
 
     is_hosting_host = models.BooleanField(
         default=False,
         verbose_name='Anfitrión de alojamiento',
-        help_text='Hosting host profile',
+        help_text='Perfil de anfitrión de hospedaje',
     )
 
     is_entertainment_host = models.BooleanField(
         default=False,
         verbose_name='Anfitrión de entretenimiento',
-        help_text='Entertainment host profile',
+        help_text='Perfil de anfitrión de entretenimiento',
     )
 
     is_other_services_host = models.BooleanField(
         default=False,
         verbose_name='Anfitrión de otros servicios',
-        help_text='Other services host profile',
+        help_text='Perfil de anfitrión de otros servicios',
     )
 
     # Adicionarla ahora despues de la migración
@@ -252,6 +257,8 @@ class User(AbstractBaseUser, PermissionsMixin):
     entertainment_activities = models.ManyToManyField(
         EntertainmentActivities,
         blank=True,
+        verbose_name='Actividades de entretenimiento',
+        help_text='Mantenga presionado "Control" o "Command" en un Mac, para seleccionar más de una opción.',
     )
 
 
@@ -771,10 +778,11 @@ class StudyHostProfile(models.Model):
         help_text=_("Una lista separada de temas.")
     )
 
+    '''
     strengths = models.CharField(
         _("Fortalezas"), max_length=255
     )
-
+    '''
     # TO-DO Consultar las grupos del usuario studyhost solamente
 
     '''
