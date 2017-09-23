@@ -31,7 +31,7 @@ class EntertainmentActivities(models.Model):
     def __str__(self):
         return self.name
 
-
+'''
 class LodgingOfferType(models.Model):
 
     name = models.CharField(max_length=100, null=False, blank=False)
@@ -42,7 +42,7 @@ class LodgingOfferType(models.Model):
 
     def __str__(self):
         return self.name
-
+'''
 
 class OfferedServices(models.Model):
 

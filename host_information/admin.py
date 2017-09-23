@@ -2,7 +2,7 @@ from __future__ import unicode_literals
 from django.contrib import admin
 from .models import (
     SpeakLanguages, OfferedServices,
-    EntertainmentActivities, LodgingOfferType,
+    EntertainmentActivities,
     RoomInformation, FeaturesAmenities
 )
 
@@ -35,7 +35,3 @@ class RoomInformationAdmin(admin.ModelAdmin):
     list_display = ('id', 'name', 'description')
 
 
-@admin.register(LodgingOfferType)
-class LodgingOfferTypeAdmin(admin.ModelAdmin):
-
-    list_display = ('id', 'name',)
