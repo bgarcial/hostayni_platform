@@ -66,6 +66,7 @@ INSTALLED_APPS = [
     # Project apps
     'accounts.apps.AccountsConfig',
     'host_information.apps.HostInformationConfig',
+    'blog.apps.BlogConfig',
 ]
 
 MIDDLEWARE = [
@@ -138,7 +139,7 @@ AUTH_PASSWORD_VALIDATORS = [
 # Internationalization
 # https://docs.djangoproject.com/en/1.11/topics/i18n/
 
-LANGUAGE_CODE = 'en-us'
+LANGUAGE_CODE = 'es-co'
 
 TIME_ZONE = 'UTC'
 
@@ -178,6 +179,14 @@ STATICFILES_DIRS = (
 FIXTURE_DIRS = (
    os.path.join(BASE_DIR, 'fixtures'),
 )
+
+LOGIN_URL='/accounts/login/'
+
+# Por el momento es asi
+LOGIN_REDIRECT_URL = '/'
+# La debo enviar al url por ejemplo posts:all
+
+LOGOUT_REDIRECT_URL = LOGIN_REDIRECT_URL
 
 AUTH_USER_MODEL = "accounts.User"
 

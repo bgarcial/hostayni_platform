@@ -1,10 +1,50 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
+{% extends 'layout.html' %}
+{% load bootstrap3 %}
+{% load staticfiles %}
 
-</body>
-</html>
+{% block title_tag %}Registrate en {{ block.super }}{% endblock %}
+
+{% block script %}
+
+{% endblock script %}
+
+{% block body_content %}
+<div class="form-cont">
+    <div class="main">
+        <a href="/" class="logo-cont">
+        <img src="{% static 'img/Logo-slogan-lg.png' %}">
+      </a>
+
+        <form method="POST">
+          {% csrf_token %}
+          <h3>Unete a HOSTAYNI, es gratis.</h3>
+            {% comment %} {% bootstrap_form form %} {% endcomment %}
+            {% bootstrap_field form.email %}
+            {% bootstrap_field form.password1 %}
+            {% bootstrap_field form.password2 %}
+
+
+          <div class="rad-cont">
+            <ul id="r1">
+                <li>{% bootstrap_field form.user_type %}</li>
+            </ul>
+          </div>
+
+          <!-- Agregué estos dos divs para poder alinear el boton a la derecha -->
+          <div class="submit-button-cont">
+            <div>
+              <input type="image" src="{% static 'img/icons/ok.png' %}" alt="Submit" width="48" height="48">
+              <input type="submit" value="Registrarse" class="submit-button">
+            </div>
+          </div>
+
+        </form>
+        <p class="legal">Al registrarse acepta nuestros <a href="#">Términos de uso</a> y <a href="#">Política de privacidad</a></p>
+    </div>
+    <div class="portrait">
+        <div class="img-cont" style="background: url('{% static "img/canada-toronto.jpg"%}') no-repeat center; background-size:cover;"></div>
+        <span>Toronto, Canadá</span>
+    </div>
+
+</div>
+{% endblock %}

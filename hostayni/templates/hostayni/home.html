@@ -1,16 +1,16 @@
 {% extends "layout.html" %}
 {% load bootstrap3 %}
+
 {% load staticfiles %}
 
-{% block title_tag %}Bienvenidos a la {{ block.super }}{% endblock %}
+{% block title_tag %}Bienvenidos a {{ block.super }}{% endblock %}
 
 {% block body_content %}
 <!-- Columna del logo, mapa, filtro -->
-<div class="search-column"> dasdsds
+<div class="search-column">
    <img class="logo" src="{% static 'img/Logo-slogan-lg.png' %}" alt="Logo Hostayni - Haz del mundo tu hogar" />
     <div class="map-search-text">
         <input type="text" name="search-term" placeholder="Quiero ir a..." maxlength="50" />
-        <i><img src="{% static 'img/icons/search.svg' %}" alt="Buscar"></i>
         <i><img src="{% static 'img/icons/search.svg' %}" alt="buscar"></i>
 
     </div>
@@ -1509,7 +1509,7 @@
     </div>
     <a href="#" class="plan-travel-button">
         <img src="{% static 'img/icons/plus.png' %}" alt="+">
-        <span>Planea tu viaje en Hostayni</span>
+        <!-- <span>Planea tu viaje en Hostayni</span> -->
     </a>
 </div>
 <!-- End Columna del logo, mapa, filtro -->

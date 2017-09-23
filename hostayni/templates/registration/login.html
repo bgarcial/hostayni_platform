@@ -1,0 +1,47 @@
+{% extends "layout.html" %}
+{% load bootstrap3 %}
+{% load staticfiles %}
+{% block title_tag %} Iniciar Sesion en {{ block.super }}{% endblock %}
+
+{% block script %}
+    <script>
+    /*
+    $(document).ready(function () {
+       //$("form input").addClass("form-control")
+       $("form #id_username").attr("placeholder", "Correitsdsdsdsdsdsdsdsdsdsddso")
+    });*/
+    </script>
+{% endblock script %}
+
+{% block body_content %}
+<div class="form-cont">
+    <div class="main">
+        <a href="/" class="logo-cont">
+        <img src="{% static 'img/Logo-slogan.png' %}">
+      </a>
+        <form action="{% url 'login' %}" method="POST">
+            {% csrf_token %}
+            <h3>Iniciar Sesión</h3>
+
+            {% bootstrap_field form.username %}
+            {% bootstrap_field form.password %}
+            <a href="../password_reset/">¿Olvidaste tu contraseña?</a>
+
+
+            <div class="submit-button-cont">
+                <div>
+                  <input type="image" src="{% static 'img/icons/ok.png' %}" alt="Submit" width="48" height="48">
+                  <input type="submit" value="Iniciar Sesión" class="submit-button">
+                </div>
+            </div>
+        </form>
+    </div>
+    <div class="portrait">
+      <div class="img-cont" style="background: url('{% static "img/canada-toronto.jpg"%}') no-repeat center; background-size:cover;">
+      </div>
+          <span>Toronto, Canadá</span>
+    </div>
+
+</div>
+
+{% endblock %}
