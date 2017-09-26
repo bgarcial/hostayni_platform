@@ -62,8 +62,8 @@ def user_profile_update_view(request, slug):
         if all([form.is_valid() for form in forms]):
             for form in forms:
                 form.save()
-            # return redirect('articles:article_list')
-            return redirect('home')
+            return redirect('articles:article_list')
+            #return redirect('home')
     else:
         forms = [x['form'](instance=x['instance']) for x in form_profiles]
 

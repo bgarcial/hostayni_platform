@@ -10,6 +10,7 @@ urlpatterns = [
     # ---*** URLs with fbv ***---
 
     url(r'^$', views.ArticleListView.as_view(),name='article_list'),
+    # url(r'^$', views.article_list,name='article_list'),
 
     url(r'^article/new/$', views.CreateArticleView.as_view(),
         name='article_new'),
