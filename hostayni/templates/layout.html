@@ -68,11 +68,11 @@
                                         <li class="line"></li>
                                         <p>Anfitrión</p>
                                         {% if userprofile.user.is_hosting_host %}
-                                          <li><a href="{% url 'host:hosting-host' %}">Conviertete en anfitrión de hospedaje</a></li>
+                                          <li><a href="{% url 'host:hosting-host' %}">Crear oferta de hospedaje</a></li>
                                           <li><a href="{% url 'host:list' userprofile.user.slug %}">Mis ofertas de hospedaje</a></li>
                                         {% endif %}
                                         {% if userprofile.user.is_study_host %}
-                                          <li><a href="{% url 'host:study-host' %}">Conviertete en anfitrión de estudios</a></li>
+                                          <li><a href="{% url 'host:study-host' %}">Crear oferta de estudios</a></li>
                                              <li><a href="{% url 'host:studiesofferlist' userprofile.user.slug %}">Mis ofertas de estudio</a></li>
                                         {% endif %}
                                         <li class="line"></li>
