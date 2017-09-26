@@ -2,13 +2,23 @@
 {% load bootstrap3 %}
 {% bootstrap_css %}
 {% bootstrap_javascript %}
-
-
 <html lang="es">
 <head>
     <title>{% block title_tag %}HOSTAYNI{% endblock %}</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    {% comment %}
+    <link rel="shortcut icon" type="image/png" href="{% static img/favicons/favicon.ico %}"/>
+    <link rel="apple-touch-icon" sizes="180x180" href="{% static img/favicons/apple-touch-icon.png %}">
+    <link rel="icon" type="image/png" sizes="32x32" href="{% static img/favicons/favicon-32x32.png %}">
+    <link rel="icon" type="image/png" sizes="16x16" href="{% static img/favicons/favicon-16x16.png %}">
+    <link rel="manifest" href="{% static img/favicons/manifest.json %}">
+    <link rel="mask-icon" href="{% static img/favicons/safari-pinned-tab.svg %}" color="#dedc00">
+    <meta name="theme-color" content="#ffffff">
+    {% endcomment %}
+
+
     {% comment %} Jeronimo's static files  {% endcomment %}
     <link rel="stylesheet" href="{% static 'css/main.css' %}">
 

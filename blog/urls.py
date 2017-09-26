@@ -3,6 +3,12 @@ from . import views
 
 urlpatterns = [
 
+
+    # ---*** URLs with fbv ***---
+    url(r'^article/create/$', views.article_create, name='article_create'),
+
+    # ---*** URLs with fbv ***---
+
     url(r'^$', views.ArticleListView.as_view(),name='article_list'),
 
     url(r'^article/new/$', views.CreateArticleView.as_view(),

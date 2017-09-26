@@ -4,8 +4,15 @@ from .models import Article, Comment
 
 @admin.register(Article)
 class ArticleAdmin(admin.ModelAdmin):
-     list_display = ('id', 'author', 'title', 'created_date',
+     list_display = ('id', 'author', 'title', 'updated', 'timestamp', 'created_date',
         'published_date')
+     list_display_links = ['updated']
+     list_editable = ['title']
+     list_filter =  ['updated', 'timestamp']
+     search_fields = ["title", 'content']
+
+
+
 
 @admin.register(Comment)
 class CommentAdmin(admin.ModelAdmin):

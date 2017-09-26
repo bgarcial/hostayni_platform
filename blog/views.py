@@ -18,6 +18,29 @@ from django.http import HttpResponseRedirect, HttpResponse
 # Create your views here.
 
 
+# ****--- fbv CRUD blog poss ---*****
+
+def article_create(request):
+    return HttpResponse("<h1>Create</h1>")
+
+
+def artic_detail(request):
+    return HttpResponse("<h1>Detail</h1>")
+
+
+def article_list(request):
+    return HttpResponse("<h1>List</h1>")
+
+
+def article_update(request):
+    return HttpResponse("<h1>Update</h1>")
+
+
+def article_delete(request):
+    return HttpResponse("<h1>Delete</h1>")
+
+# ****--- fbv CRUD blog poss ---*****
+
 def article_share(request, slug):
     # Retrieve article by id
     article = get_object_or_404(Article, slug=slug,

@@ -13,9 +13,15 @@ class Article(models.Model):
         on_delete=models.CASCADE
     )
 
-    title = models.CharField(max_length=250)
+    title = models.CharField(max_length=120)
     slug = models.SlugField(max_length=100, blank=True)
-    text = models.TextField()
+    content = models.TextField()
+
+    # Cada vez que se grabe en la base de datos se actualice el campo updated
+    updated = models.DateTimeField(auto_now=True, auto_now_add=False)
+
+    # Este campo sera grabado solo una vez cuando se cree el articulo
+    timestamp = models.DateTimeField(auto_now=False, auto_now_add=True)
 
     image = models.ImageField(
         upload_to='article_images',
