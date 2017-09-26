@@ -5,6 +5,16 @@ import dj_database_url
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
 
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        'NAME': get_env_variable('DATABASE_NAME'),
+        'USER': get_env_variable('DATABASE_USER'),
+        'PASSWORD': get_env_variable('DATABASE_PASSWORD'),
+        'HOST': 'ec2-23-21-204-166.compute-1.amazonaws.com',
+        'PORT': '5432',
+    }
+}
 
 # ------ *** -------------
 # For deploy to heroku
