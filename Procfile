@@ -1,1 +1,1 @@
-web: gunicorn cnvss.wsgi --log-file -
+web: gunicorn hostayni.wsgi --log-file -
