@@ -117,7 +117,6 @@ class ArticleListView(UserProfileDataMixin, ListView):
         context = super(ArticleListView, self).get_context_data(*args, **kwargs)
         today = timezone.now().date()
         context['today'] = today
-        print(today)
         return context
 
 def article_list(request):

@@ -12,7 +12,7 @@
 
     <form method="GET" action="">
         <input type="text" name="q" placeholder="Buscar articulos" value="{{request.GET.q}}"/>
-        <input type="submit" value="Buscar" />
+        <input type="submit" class="btn" value="Buscar" />
     </form><br/>
     <div class="map-search-text">
 
@@ -1526,10 +1526,6 @@
 <!-- Contenido principal articulos -->
 
 <main>
-    <form method="GET", action="">
-       <input type="text", placeholder="Buscar articulos"/>
-        <input type="submit" value="Buscar" />
-    </form>
 {% for article in article_list %}
 
 
@@ -1540,7 +1536,7 @@
         {% comment %} Si el articulo tiene draft entonces es borrador {%endcomment%}
         {% comment %} Si el articulo tiene una fecha de ublicacion mayor a la actual today  es futuro articulo {%endcomment%}
 
-        {% if article.draft %}<h3> Staff Only Draft</h3>{% endif %} {% if article.publish > today %}<h3>Staff Only: Futuro articulo</h3>{% endif %}
+        {% if article.draft %}<h3> Hostayni Staff Only Draft</h3>{% endif %} {% if article.publish > today %}<h3>Hostayni Staff Only: Futuro articulo</h3>{% endif %}
         <a href="{% url 'articles:detail' slug=article.slug %}">
         <div class="img-title-cont">
             <!-- la imagen de las publicaciones debe ser una imagen de background para poder modificar el
@@ -1675,7 +1671,7 @@
     <!-- Pagination con CBV ListView    -->
     {% include "pagination.html" with page=page_obj %}
 
-    <!-- Pagination with Function based view -->
+    <!-- Pagination with Function based view
     <div class="pagination">
         <span class="step-links">
             {% if article_list.has_previous %}
@@ -1691,7 +1687,7 @@
             {% endif %}
         </span>
     </div>
-
+    -->
 
 </main>
 <!-- //Contenido principal (posts) -->

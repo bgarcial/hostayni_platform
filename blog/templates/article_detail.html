@@ -135,7 +135,12 @@ h1 {
 
         <div class="title-cont">
             <h1>{{ title }} <small>{% if instance.draft %}<span style='color: red'> Borrador</span> {% endif %}{{ instance.publish }}</small> </h1>
-           {% comment %} <h1>{{ title }} <small>{{ instance.timestamp|timesince }}</small> </h1>{% endcomment %}
+            {% comment %}
+            {% if instance.author.has_perm %}
+                {{ instance.author.has_perm }}
+            {% endif %}
+            {% endcomment %}
+            {% comment %} <h1>{{ title }} <small>{{ instance.timestamp|timesince }}</small> </h1>{% endcomment %}
         </div>
 
         <!-- Social Share Links guides https://github.com/codingforentrepreneurs/Guides/blob/master/all/social_share_links.md -->
