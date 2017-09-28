@@ -16,12 +16,12 @@
   {% for article in articles %}
     <tr>
      <td>
-      <h5><a href="{% url 'articles:article_detail' article.slug %}">{{ article.title }}</a>
+      <h5><a href="{% url 'articles:detail' article.slug %}">{{ article.title }}</a>
      </td>
      <td>
-     <p><a class='btn btn-warning' href = "{% url 'articles:article_edit' article.slug %}">Update</a>
+     <p><a class='btn btn-warning' href = "{% url 'articles:update' article.slug %}">Update</a>
    <a class='btn btn-danger' href = "{% url 'articles:article_remove' article.slug %}">Delete</a>
-   <a class='btn btn-success' href = "{% url 'articles:article_new' %}">Crear Artículo</a></p>
+   <a class='btn btn-success' href = "{% url 'articles:create' %}">Crear Artículo</a></p>
      </td>
     {% endfor %}
    </table>

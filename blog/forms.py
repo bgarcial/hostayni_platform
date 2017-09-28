@@ -11,11 +11,17 @@ class EmailPostForm(forms.Form):
 
 
 class ArticleForm(forms.ModelForm):
-    text = forms.CharField(widget=forms.Textarea)
+    content = forms.CharField(widget=forms.Textarea)
     ad = "Nuevo artículo"
     class Meta:
         model = Article
-        fields = ('title', 'text', 'image')
+        fields = [
+            'title',
+            'content',
+            'image',
+            'draft',
+            'publish',
+        ]
 
         '''
         widgets = {

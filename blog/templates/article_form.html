@@ -1,8 +1,8 @@
 {% extends "layout.html" %}
 {% load bootstrap3 %}
+{% load staticfiles %}
 {% bootstrap_css %}
 {% bootstrap_javascript %}
-{% load staticfiles %}
 {% block title_tag %}Crear un artículo en {{ block.super }}{% endblock %}
 
 
@@ -14,9 +14,10 @@
       {% else %}
       Actualizar artículo
       {% endif %}
+        {% if instance.draft %}<span style='color: red'> Borrador</span> {% endif %}
     </h1>
 
-    <form class="stayhost" method="POST" enctype="multipart/form-data" action="">
+    <form class="stayhost" method="POST" enctype="multipart/form-data">
     <div class="head">
         <div class="ofert-icon">
           <img src="{% static 'img/icons/lang.svg' %}" alt="">
@@ -31,9 +32,13 @@
               <input type="submit" value="Guardar" class="submit-button">
             </div>
         </div>
-        <button type="submit" class="btn btn-success">Guardar</button>
     </div>
     {% csrf_token %}
+        <div class="formgroup">
+        {% bootstrap_form form %}
+        </div>
+
+        {% comment %}
         <div class="formgroup">
         {% bootstrap_field form.title %}
         </div>
@@ -43,7 +48,12 @@
         <div class="formgroup">
         {% bootstrap_field form.image %}
         </div>
-        {% comment %}
+        <div class="formgroup">
+        {% bootstrap_field form.draft %}
+        </div>
+        <div class="formgroup">
+        {% bootstrap_field form.publish %}
+        </div>
         <div class="formgroup">
             <span>Title</span>
             {{ form.title }}

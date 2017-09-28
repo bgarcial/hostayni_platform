@@ -27,22 +27,34 @@
     <script src="https://code.jquery.com/jquery-3.2.1.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
     <script type="text/javascript" src="{% static 'js/main.js' %}"></script>
 
-
-
     <style>
-    .red-color {
-      color: red;
-    }
-    .grey-color {
-      color: #ccc;
-    }
-    .media-focus{
-        background-color: rgba(255, 255, 0, 0.22);
-    }
+        {% block style %}
+
+            .red-color {
+              color: red;
+            }
+            .grey-color {
+              color: #ccc;
+            }
+            .media-focus{
+                background-color: rgba(255, 255, 0, 0.22);
+            }
+        {% endblock style %}
     </style>
 </head>
 <!--   class="grey-background" Orignal Jerome Design -->
 <body>
+
+<div id="fb-root"></div>
+<script>(function(d, s, id) {
+  var js, fjs = d.getElementsByTagName(s)[0];
+  if (d.getElementById(id)) return;
+  js = d.createElement(s); js.id = id;
+  js.src = "//connect.facebook.net/en_GB/sdk.js#xfbml=1&version=v2.10";
+  fjs.parentNode.insertBefore(js, fjs);
+}(document, 'script', 'facebook-jssdk'));</script>
+
+{% include "messages_display.html" %}
     <div class="wrapper">
         <!-- Botones de registro e inicio de sesión -->
         <header>
@@ -73,7 +85,7 @@
                                         <li><a href="{% url 'accounts:profile' userprofile.user.slug %}">Mis roles de usuario</a></li>
                                         <li class="line"></li>
                                         <p>Contenidos</p>
-                                        <li><a href="{% url 'articles:article_new' %}">Crear Artículo</a></li>
+                                        <li><a href="{% url 'articles:create' %}">Crear Artículo</a></li>
                                         <li><a href="{% url 'articles:list' userprofile.user.slug %}">Mis artículos</a></li>
                                         <li class="line"></li>
                                         <p>Anfitrión</p>
@@ -106,6 +118,7 @@
             {% endif %}
         </header>
         {% block body_content %}
+
         {% endblock body_content %}
 
 

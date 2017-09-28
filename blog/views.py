@@ -6,6 +6,7 @@ from blog.models import Article, Comment
 from blog.forms import ArticleForm, CommentForm, EmailPostForm
 from django.urls import reverse_lazy
 
+from django.contrib import messages
 from django.contrib.auth.mixins import LoginRequiredMixin
 from hostayni.mixins import UserProfileDataMixin
 from django.contrib.auth.decorators import login_required
@@ -14,30 +15,193 @@ from django.contrib.auth.decorators import login_required
 from django.views.generic import (ListView, DetailView,
                                     CreateView, UpdateView,
                                     DeleteView)
-from django.http import HttpResponseRedirect, HttpResponse
+from django.http import HttpResponseRedirect, HttpResponse, Http404
+
+from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
+
+from django.db.models import Q
+
+
 # Create your views here.
 
 
 # ****--- fbv CRUD blog poss ---*****
-
+@login_required
 def article_create(request):
-    return HttpResponse("<h1>Create</h1>")
+    user = request.user
+    #if not user.is_staff or not user.is_superuser:
+    #    raise Http404
+    #if not user.is_authenticated:
+    #    raise Http404
+    # Tomamos el request dentro del formulario
+    # Para poder crear un articulo, adjuntar su imagen es necesario request.FILES or NOne
+    form = ArticleForm(request.POST or None, request.FILES or None)
+    if form.is_valid():
+        instance = form.save(commit=False)
+        instance.author = request.user
+        print(form.cleaned_data.get('title'))
+        print(form.cleaned_data.get('content'))
+        instance.save()
+        # Falta que se limpien los campos delmformulario
+        title = form.cleaned_data.get('title')
+        form.cleaned_data.get('title')
+        form.cleaned_data.get('title')
+        # message success
+        # messages.success(request, "Successfully created")
+        return HttpResponseRedirect(instance.get_absolute_url())
+    context = {
+        'form': form,
+    }
+    if user.is_authenticated():
+        context['userprofile'] = user.profile
+    return render(request, 'article_form.html', context)
 
 
-def artic_detail(request):
-    return HttpResponse("<h1>Detail</h1>")
+def artic_detail(request, slug=None): # retrieve
+    user = request.user
+    # instance = Article.objects.get(id=3)
+    # instance = get_object_or_404(Article, title='Hola, esto es una pruea')
 
+    # Como no lo hemos cambiado a .all() sino que seguims con el get_object_404
+    # cambiamos en el manager de all a active para que funcione el detail
+    instance = get_object_or_404(Article, slug=slug)
+
+    # Si un usuario anonimo entra al detalle de un articulo que esta en draft
+    # no lo encontrara
+    # if instance.draft or instance.publish > timezone.now().date():
+    if instance.publish > timezone.now().date() or instance.draft:
+        if not user.is_active:
+            raise Http404
+    context = {
+        'title': instance.title,
+        'instance': instance,
+    }
+    if user.is_authenticated():
+        context['userprofile'] = user.profile
+
+    return render(request, 'article_detail.html', context)
+
+
+
+class ArticleListView(UserProfileDataMixin, ListView):
+    template_name = 'hostayni/home.html'
+    model = Article
+    paginate_by = 4
+    # context_object_name = article_list
+
+
+    # Permite usar el django ORM en las CBV genericas solamente
+    # para personalizar el query acorde a lo que queremos es como un
+    # sql query sobre mi modelo
+    # Ver documentacion de field lookups
+    # https://docs.djangoproject.com/en/1.11/topics/db/queries/#field-lookups
+    def get_queryset(self):
+        queryset_list = Article.objects.active()
+
+        if self.request.user.is_staff or self.request.user.is_superuser:
+            queryset_list = Article.objects.all()
+
+        query = self.request.GET.get("q")
+        if query is not None:
+            queryset_list = queryset_list.filter(
+                Q(title__icontains=query) |
+                Q(content__icontains=query) |
+                Q(author__first_name__icontains=query) |
+                Q(author__last_name__icontains=query) |
+                Q(author__enterprise_name__icontains=query)
+            ).distinct()
+        return queryset_list
+        #return Article.objects.filter(published_date__lte=timezone.now()).order_by('-published_date')
+
+    def get_context_data(self, *args, **kwargs):
+        context = super(ArticleListView, self).get_context_data(*args, **kwargs)
+        today = timezone.now().date()
+        context['today'] = today
+        print(today)
+        return context
 
 def article_list(request):
-    return HttpResponse("<h1>List</h1>")
+    user = request.user
+
+    # Capturamos la fecha actual
+    today = timezone.now().date()
+
+    # queryset_list = Article.objects.filter(draft=False).filter(publish__lte=timezone.now()) #all() #.order_by('-timestamp')
+    queryset_list = Article.objects.active() #.order_by('-timestamp')
+
+    # Que me liste tambien los articulos draft o con fecha de publicacion mayor a la actual si es un super usuario
+    # o user.is_staff
+    if user.is_staff or user.is_superuser:
+        queryset_list = Article.objects.all()
+
+    query = request.GET.get("q")
+    if query:
+        queryset_list = queryset_list.filter(
+                Q(title__icontains=query)|
+                Q(content__icontains=query)|
+                Q(author__first_name__icontains=query)|
+                Q(author__last_name__icontains=query)|
+                Q(author__enterprise_name__icontains=query)
+                ).distinct()
+
+    paginator = Paginator(queryset_list, 4)  # Show 5 articles per page
+
+    page_request_var = "page"
+
+    page = request.GET.get(page_request_var) # parametro en el url ?page=x
+    try:
+        queryset = paginator.page(page)
+    except PageNotAnInteger:
+        # If page is not an integer, deliver first page.
+        queryset = paginator.page(1)
+    except EmptyPage:
+        # If page is out of range (e.g. 9999), deliver last page of results.
+        queryset = paginator.page(paginator.num_pages)
+    context = {
+        'article_list':queryset,
+        'title': "List is working",
+        'page_request_var': page_request_var,
+        'today': today,
+    }
+    if user.is_authenticated():
+        context['userprofile'] = user.profile
+    return render(request, 'hostayni/home.html', context)
+
+@login_required
+def article_update(request, slug=None):
+    user = request.user
+    #if not user.is_staff or not user.is_superuser:
+    #    raise Http404
+    instance = get_object_or_404(Article, slug=slug)
+    # Para poder actualizar un articulo, su imagen es necesario request.FILES or NOne
+    form = ArticleForm(request.POST or None, request.FILES or None, instance=instance)
+    if form.is_valid():
+        instance = form.save(commit=False)
+        # form.instance.author = request.user
+        instance.save()
+        # message success
+        # messages.success(request, "<a href='#'>Item</a>Saved", extra_tags='html_safe')
+        return HttpResponseRedirect(instance.get_absolute_url())
+    context = {
+        'title': instance.title,
+        'instance': instance,
+        'form': form,
+    }
+    if user.is_authenticated():
+        context['userprofile'] = user.profile
+    return render(request, 'article_form.html', context)
 
 
-def article_update(request):
-    return HttpResponse("<h1>Update</h1>")
+def article_delete(request, slug=None):
+    user = request.user
+    #if not user.is_staff or not user.is_superuser:
+    #    raise Http404
+    instance = get_object_or_404(Article, slug=slug)
+    instance.delete()
+    # messages.success(request, "Successfully deleted")
+    return redirect("articles:article_list")
 
 
-def article_delete(request):
-    return HttpResponse("<h1>Delete</h1>")
 
 # ****--- fbv CRUD blog poss ---*****
 
@@ -81,18 +245,7 @@ def articles_by_user(request, email):
         'userprofile': profile})
 
 
-class ArticleListView(UserProfileDataMixin, ListView):
-    template_name = 'hostayni/home.html'
-    model = Article
-    paginate_by = 2
 
-    # Permite usar el django ORM en las CBV genericas solamente
-    # para personalizar el query acorde a lo que queremos es como un
-    # sql query sobre mi modelo
-    # Ver documentacion de field lookups
-    # https://docs.djangoproject.com/en/1.11/topics/db/queries/#field-lookups
-    def get_queryset(self):
-        return Article.objects.filter(published_date__lte=timezone.now()).order_by('-published_date')
 
 
 class ArticleDetailView(UserProfileDataMixin, DetailView):
@@ -139,7 +292,9 @@ class CreateArticleView(LoginRequiredMixin, UserProfileDataMixin, CreateView):
         form.save(commit=False)
         form.instance.author = self.request.user
         form.save()
+        messages.success(self.request, "Successfully created")
         return super(CreateArticleView, self).form_valid(form)
+
 
 class ArticleUpdateView(LoginRequiredMixin, UserProfileDataMixin, UpdateView):
     login_url = 'accounts/login/'
@@ -147,6 +302,7 @@ class ArticleUpdateView(LoginRequiredMixin, UserProfileDataMixin, UpdateView):
     form_class = ArticleForm
 
     model=Article
+    # messages.success(self.request, "Successfully created")
 
 
 class ArticleDeleteView(LoginRequiredMixin, UserProfileDataMixin, DeleteView):
@@ -173,7 +329,7 @@ def article_publish(request, slug):
     article = get_object_or_404(Article, slug=slug)
     # View publish method in Article model
     article.publish()
-    return redirect('articles:article_detail', slug=slug)
+    return redirect('articles:detail', slug=slug)
 
 @login_required
 def add_comment_to_article(request, pk):

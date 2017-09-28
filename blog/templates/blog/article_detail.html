@@ -1,6 +1,8 @@
 {% extends "layout.html" %}
+{% load bootstrap3 %}
 {% load staticfiles %}
 
+{% block title_tag %} {{ instance.title }} | {{ block.super }}{% endblock %}
 
 {% block body_content %}
 
@@ -18,18 +20,16 @@
                 <div class="profile">
                     <div class="img-cont">
                         <a href="#">
-                        <img src="{{ article.image_url|default_if_none:'#' }}" alt="">
+                        <img src="{{ article.author.avatar.url }}" alt="">
                         </a>
                     </div>
 
                     <div class="name-review-cont">
+                        {% comment %} A quien corresponda {% endcomment %}
                         <a href="#">
-                        {% if userprofile.user.user_type == "P" %}
-                            <p>{{ article.author.email }}</p>
-                        {% else %}
-                            <span>{{object.author.enterprise_name }}</span>
+                            <span>{{ article.author.get_long_name }}</span>
+                            <span>{{ article.author.get_enterprise_name }} (@{{ article.author.email }})</span>
                         </a>
-                        {% endif %}
                         <img src="{% static 'img/stars.svg' %}" alt="">
                         <div class="average">
                             <span>546</span>
@@ -111,11 +111,19 @@
                 {% else %}
                       <a href="{% url 'articles:article_publish' slug=article.slug %}">Publish</a>
                 {% endif %}<br /><br />
-				<div class="banner" style="background: url({{ article.image.url }}) no-repeat center; background-size:cover;">
+                {% if article.image %}
+                <img src="{{ article.image.url }}" class="img-responsive">
+                {% endif %}
+				<div class="title-cont">
+						<h1>{{ article.title }}</h1>
+                </div>
+                {% comment %}
+                <div class="banner" style="background: url({{ article.image.url }}) no-repeat center; background-size:cover;">
 					<div class="title-cont">
 						<h1>{{ article.title }}</h1>
 					</div>
 				</div>
+				{% endcomment %}
 				<div class="text-cont">
 					<!-- icono verde del blog que aparece al lado del texto -->
 					<div class="side-icon">
@@ -123,7 +131,7 @@
 					</div>
 					<div class="main-text">
 						<!-- <h4>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent maximus nisi lorem, eu sodales risus cursus non. Quisque urna nulla, fermentum eget sagittis eu, egestas id eros. Praesent ante justo, ullamcorper vitae nisl blandit, tincidunt rhoncus justo. Vivamus hendrerit semper vestibulum.</h4> -->
-						<p align="justify">{{ article.text|safe|linebreaksbr }}</p>
+						<p align="justify">{{ article.content|safe|linebreaksbr }}</p>
 
                         <!--<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent maximus nisi lorem, eu sodales risus cursus non. Quisque urna nulla, fermentum eget sagittis eu, egestas id eros. Praesent ante justo, ullamcorper vitae nisl blandit, tincidunt rhoncus justo. Vivamus <a href="#">hendrerit semper vestibulum</a>. Maecenas fermentum felis consequat, suscipit magna ac, pulvinar quam. Aliquam vestibulum, nulla sed viverra tempus, ligula tortor auctor felis, sed feugiat nibh ipsum a velit. Praesent maximus nisi lorem, eu sodales risus cursus non. Quisque urna nulla, fermentum eget sagittis eu, egestas id eros. Praesent ante justo,</p> -->
 						<!-- contenedor para imagenes que tiene la imagen y un pie de foto opcional

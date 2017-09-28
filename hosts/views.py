@@ -328,7 +328,7 @@ class HostingOfferDetailView(UserProfileDataMixin, LoginRequiredMixin, DetailVie
 
 class HostingOfferDeleteView(LoginRequiredMixin, DeleteView):
     model = LodgingOffer
-    success_url = reverse_lazy("dashboard")
+    success_url = reverse_lazy("articles:article_list")
     # success_url = reverse_lazy("host:list")
     context_object_name = 'lodgingofferdelete'
 
@@ -417,7 +417,7 @@ class StudyOffertDetailView(LoginRequiredMixin, DetailView):
 class StudyOfferUpdateView(LoginRequiredMixin, UpdateView):
     model = StudiesOffert
     form_class = StudiesOffertForm
-    success_url = reverse_lazy("article:articles_list")
+    # success_url = reverse_lazy("articles:articles_list")
     # success_url = reverse_lazy("hosts:detail-lodging-offer")
 
     def get_context_data(self, **kwargs):
@@ -447,7 +447,7 @@ class StudyOfferUpdateView(LoginRequiredMixin, UpdateView):
 
 class StudyOfferDeleteView(LoginRequiredMixin, DeleteView):
     model = StudiesOffert
-    success_url = reverse_lazy("article:article_list")
+    success_url = reverse_lazy("articles:article_list")
     # success_url = reverse_lazy("host:list")
     context_object_name = 'studyofferdelete'
 

@@ -5,6 +5,31 @@ from django.db.models.signals import pre_save
 
 from django.utils.text import slugify
 from django.conf import settings
+from django.utils import timezone
+
+
+# Model manager es una forma de controlar como
+# los modelos trabajan
+# Article.objects.all()
+# Article.objects.create(user=user, title='Some title')
+class ArticleManager(models.Manager):
+    # Override the default .all() method
+    # # Article.objects.all() = super(ArticleManager, self).all()
+    def active(self, *args, **kwargs):
+        return super(ArticleManager, self).filter(draft=False).filter(publish__lte=timezone.now())
+
+# Controlando como son subidas las im[agenes con
+# el id del post se crea una carpeta y se guarda con su nombre de earhcivo
+# puede ser instance.user o cualquier atributo que sea, usarlo apra los nombre sde archivos y fotografias
+def upload_location(instance, filename):
+    filebase, extension = filename.split(".")
+    # return "%s/%s/%s.%s" % ('article_images', instance.id, instance.id, extension)
+    # article_images/id_article/id_article.extension
+
+    #return "%s/%s/%s/" %('article_images', instance.id, filename)
+    # article_images/id_article.extension
+
+    return "%s/%s" % (instance.id, filename)
 
 
 class Article(models.Model):
@@ -16,6 +41,15 @@ class Article(models.Model):
     title = models.CharField(max_length=120)
     slug = models.SlugField(max_length=100, blank=True)
     content = models.TextField()
+    draft = models.BooleanField(default=False)
+    publish = models.DateField(auto_now=False, auto_now_add=False)
+
+    # Digital Marketplace cubre como manipular y oredenar imagenes en thumbnails
+    image = models.ImageField(upload_to= upload_location, null=False, blank=False,
+                              width_field="width_field",
+                              height_field="height_field")
+    height_field = models.IntegerField(default=0)
+    width_field = models.IntegerField(default=0)
 
     # Cada vez que se grabe en la base de datos se actualice el campo updated
     updated = models.DateTimeField(auto_now=True, auto_now_add=False)
@@ -23,10 +57,13 @@ class Article(models.Model):
     # Este campo sera grabado solo una vez cuando se cree el articulo
     timestamp = models.DateTimeField(auto_now=False, auto_now_add=True)
 
+    objects = ArticleManager()
+
+    '''
     image = models.ImageField(
         upload_to='article_images',
-        blank=False,
-        null=False,
+        blank=True,
+        null=True,
         verbose_name='Image'
         # width_field="width_field",
         # height_field="height_field"
@@ -34,27 +71,33 @@ class Article(models.Model):
     )
     # width_field=models.IntegerField(default=0)
     # height_field=models.IntegerField(default=0)
-
+    '''
     # updated = models.DateTimeField(auto_now=True, auto_now_add=False)
-    created_date = models.DateTimeField(default=timezone.now)
-    published_date = models.DateTimeField(blank=True,null=True)
+    # created_date = models.DateTimeField(default=timezone.now)
+    # published_date = models.DateTimeField(blank=True,null=True)
 
     # Asi puedo grabar una imagen por defecto
-    def publish(self):
-        self.published_date = timezone.now()
-        self.save()
+    #def publish(self):
+    #    self.published_date = timezone.now()
+    #    self.save()
 
-    def approve_comments(self):
-        return self.comments.filter(approved_comment=True)
+
+    # def approve_comments(self):
+    #    return self.comments.filter(approved_comment=True)
 
     def get_absolute_url(self):
-        return reverse("articles:article_detail", kwargs={'slug': self.slug})
+        # return "/articles/%s/" %(self.slug)
+        return reverse("articles:detail", kwargs={'slug': self.slug})
 
     def __str__(self):
         return self.title
 
-    #class Meta:
-        #ordering = ["-created_date", "-updated"]
+    class Meta:
+        ordering = ["-timestamp", "-updated"]
+        # Otra forma de garantizar un orden ascendente o al mas reciente
+        # si no tengo timestamp es hacerlo por pk reverse o reverse id
+        # ordering = ['-id', "-timestamp", "-updated"]
+        # Lo otro es que si tengo una fecha de publicacion genial
 
 
 def create_slug(instance, new_slug=None):

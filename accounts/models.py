@@ -306,8 +306,11 @@ class User(AbstractBaseUser, PermissionsMixin):
         # return self.display_name
 
     def get_long_name(self):
-        return "{} (@{})".format(self.first_name, self.last_name)
+        return "{} {}".format(self.first_name, self.last_name)
         # return "{} (@{})".format(self.display_name, self.username)
+
+    def get_enterprise_name(self):
+        return "{}".format(self.enterprise_name)
 
     # We get the profiles user according with their type
 

@@ -23,12 +23,11 @@
                         </a>
                     </div>
                     <div class="name-review-cont">
-                        {% if userprofile.user.user_type == "P" %}
-                            <span>{{ studyofferdetail.created_by.first_name }}</span>
-                        {% else %}
-                            <span>{{studyofferdetail.created_by.enterprise_name }}</span>
+                        {% comment %} A quien corresponda {% endcomment %}
+                        <a href="#">
+                            <span>{{ studyofferdetail.created_by.get_long_name }}</span>
+                            <span>{{ studyofferdetail.created_by.get_enterprise_name }} (@{{ studyofferdetail.created_by.email }})</span>
                         </a>
-                        {% endif %}
                         <img src="{% static 'img/stars.svg' %}" alt="">
                         <div class="average">
                             <span>546</span>
