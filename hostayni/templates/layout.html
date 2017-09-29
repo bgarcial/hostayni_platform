@@ -3,6 +3,7 @@
 {% bootstrap_css %}
 {% bootstrap_javascript %}
 <html lang="es">
+{% block head %}
 <head>
     <title>{% block title_tag %}HOSTAYNI{% endblock %}</title>
     <meta charset="utf-8">
@@ -42,6 +43,7 @@
         {% endblock style %}
     </style>
 </head>
+{% endblock %}
 <!--   class="grey-background" Orignal Jerome Design -->
 <body>
 
@@ -62,8 +64,11 @@
                 {% if userprofile %}
                     <div class="profile-options">
                         <div class="img">
+                            {% if instance.image %}
+                                <img src="{{ userprofile.user.avatar.url }}" class="img-responsive">
+                            {% endif %}
                             <!-- Imagen de perfil -->
-                            <img src="{{ object.image_url|default_if_none:'#' }}" alt="">
+                           {% comment %} <img src="{{ object.image_url|default_if_none:'#' }}" alt="">{% endcomment %}
                         </div>
 
                         {% comment %} Begin settings drowdown {% endcomment %}

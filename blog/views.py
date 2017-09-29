@@ -33,22 +33,39 @@ def article_create(request):
     #    raise Http404
     #if not user.is_authenticated:
     #    raise Http404
+
     # Tomamos el request dentro del formulario
     # Para poder crear un articulo, adjuntar su imagen es necesario request.FILES or NOne
     form = ArticleForm(request.POST or None, request.FILES or None)
     if form.is_valid():
         instance = form.save(commit=False)
         instance.author = request.user
+        instance.publish = timezone.now()
         print(form.cleaned_data.get('title'))
         print(form.cleaned_data.get('content'))
         instance.save()
-        # Falta que se limpien los campos delmformulario
-        title = form.cleaned_data.get('title')
-        form.cleaned_data.get('title')
-        form.cleaned_data.get('title')
         # message success
         # messages.success(request, "Successfully created")
         return HttpResponseRedirect(instance.get_absolute_url())
+
+    # Rendering form errors in a view
+    if form.has_error:
+        # print(form.errors.as_json())
+        # print(form.errors.as_text())
+        # data = form.errors.iteritems()
+        # for key, value in data:
+        #    print(dir(value))
+        #    error_str = "{field}: {error}".format(
+        #        field=key,
+        #        error=value.as_text()
+        #    )
+        #    print(error_str)
+        print(form.non_field_errors)
+        # Falta que se limpien los campos delmformulario
+        #title = form.cleaned_data.get('title')
+        #form.cleaned_data.get('title')
+        #form.cleaned_data.get('title')
+
     context = {
         'form': form,
     }
