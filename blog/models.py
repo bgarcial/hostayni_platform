@@ -54,7 +54,7 @@ class Article(models.Model):
     draft = models.BooleanField(default=False, verbose_name='Borrador')
     publish = models.DateField(auto_now=False, auto_now_add=False)
 
-    # category = models.ForeignKey("Category", verbose_name='Categoría')
+    category = models.ForeignKey("Category", verbose_name='Categoría')
 
     # Digital Marketplace cubre como manipular y oredenar imagenes en thumbnails
     image = models.ImageField(upload_to= upload_location, null=False, blank=False,
