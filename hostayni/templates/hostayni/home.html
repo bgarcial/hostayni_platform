@@ -1546,9 +1546,9 @@
 
 <!-- Contenido principal articulos -->
 
-<main>
-{% for article in article_list %}
 
+{% for article in article_list %}
+<main>
 
     <!-- fecha de hoy {{ today }}-->
     <!-- la clase full-width es para las ofertas que ocupan las dos columnas -->
@@ -1862,6 +1862,7 @@
         </div>
     </article>
     {% endif  %}
+    </main>
 {% endfor %}
 
     <!-- Pagination con CBV ListView    -->
@@ -1885,7 +1886,7 @@
     </div>
     -->
 
-</main>
+
 <!-- //Contenido principal (posts) -->
 
 {% endblock %}
