@@ -180,7 +180,7 @@ class LodgingOffer(models.Model):
 
     offered_services = models.ManyToManyField(
         OfferedServices,
-        help_text='Mantenga presionado "Control" o "Command" en un Mac, para seleccionar más de una opción.',
+        help_text='Mantenga presionado "Control" (o "Command" en un Mac), y haga click en las opciones que desea selecionar.',
         verbose_name='Servicios ofrecidos',
         related_name="lodgingoffers"
         # here m2m lookup sample
@@ -189,7 +189,7 @@ class LodgingOffer(models.Model):
 
     featured_amenities = models.ManyToManyField(
         FeaturesAmenities,
-        help_text='Mantenga presionado "Control" o "Command" en un Mac, para seleccionar más de una opción.',
+        help_text='Mantenga presionado "Control" (o "Command" en un Mac), y haga click en las opciones que desea selecionar.',
         verbose_name='Comodidades destacadas'
     )
 
@@ -219,7 +219,7 @@ class LodgingOffer(models.Model):
 
     room_information = models.ManyToManyField(
         RoomInformation,
-        help_text='Mantenga presionado "Control" o "Command" en un Mac, para seleccionar más de una opción.',
+        help_text='Mantenga presionado "Control" (o "Command" en un Mac), y haga click en las opciones que desea selecionar.',
         verbose_name='Características de la habitación',
         related_name="lodgingoffers"
     )

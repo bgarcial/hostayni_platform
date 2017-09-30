@@ -29,7 +29,7 @@
                 </div>
             </div>
         </div>
-        {% if user.user_type == 'E' %}
+        {% if user.user_type == 'O' %}
             {% bootstrap_form form exclude="first_name,last_name,gender,speak_languages,entertainment_activities,is_student,is_professor,is_executive" %}
             {% comment %}
             {% bootstrap_field form.enterprise_name %}
@@ -55,7 +55,6 @@
               <input type="submit" value="Guardar" class="submit-button">
             </div>
         </div>
-        <button type="submit" class="btn btn-success">Guardar</button>
     </form>
 
 {% endblock %}

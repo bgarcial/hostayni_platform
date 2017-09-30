@@ -96,11 +96,11 @@ class User(AbstractBaseUser, PermissionsMixin):
     )
 
     PERSON = 'P'
-    ENTERPRISE = 'E'
+    ENTERPRISE = 'O'
 
     USER_TYPE_CHOICES = (
         (PERSON, "Persona"),
-        (ENTERPRISE, "Empresa"),
+        (ENTERPRISE, "Organización"),
     )
 
 
@@ -161,7 +161,7 @@ class User(AbstractBaseUser, PermissionsMixin):
 
     speak_languages = models.ManyToManyField(
         SpeakLanguages,
-        help_text='Mantenga presionado "Control" o "Command" en un Mac, para seleccionar más de una opción.',
+        help_text='Mantenga presionado "Control" (o "Command" en un Mac), y haga click en las opciones que desea selecionar.',
         verbose_name='Idiomas',
         related_name="users",
         blank=True,
@@ -258,7 +258,7 @@ class User(AbstractBaseUser, PermissionsMixin):
         EntertainmentActivities,
         blank=True,
         verbose_name='Actividades de entretenimiento',
-        help_text='Mantenga presionado "Control" o "Command" en un Mac, para seleccionar más de una opción.',
+        help_text='Mantenga presionado "Control" (o "Command" en un Mac), y haga click en las opciones que desea selecionar.',
     )
 
 
