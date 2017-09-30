@@ -52,14 +52,14 @@ def article_create(request):
     if form.has_error:
         # print(form.errors.as_json())
         # print(form.errors.as_text())
-        # data = form.errors.iteritems()
-        # for key, value in data:
+        data = form.errors.items()
+        for key, value in data:
         #    print(dir(value))
-        #    error_str = "{field}: {error}".format(
-        #        field=key,
-        #        error=value.as_text()
-        #    )
-        #    print(error_str)
+            error_str = "{field}: {error}".format(
+                field=key,
+                error=value.as_text()
+            )
+            print(error_str)
         print(form.non_field_errors)
         # Falta que se limpien los campos delmformulario
         #title = form.cleaned_data.get('title')

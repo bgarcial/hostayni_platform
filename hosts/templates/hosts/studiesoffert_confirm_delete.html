@@ -1,10 +1,20 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
+{% extends 'layout.html' %}
+{% load bootstrap3 %}
+{% block title_tag %}{{ studyofferdetail.ad_title }} | {{ block.super }}{% endblock %}
+{% block top_logo %}
+{% include "top-logo.html" %}
+{% endblock %}
+{% block body_content %}
 
-</body>
-</html>
+<div class="container">
+    <h1>Borrar {{ studyofferdetail.ad_title }} ?</h1>
+    <form method="post">
+        {% csrf_token %}
+        <input type="submit" class="btn btn-danger" value="Borrar">
+        <a href="#">Cancelar</a>
+    </form>
+
+    
+</div>
+
+{% endblock %}

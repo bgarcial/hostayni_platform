@@ -87,7 +87,14 @@ class ArticleForm(forms.ModelForm):
                 'required': "Tu sabes que {fieldname} is required".format(fieldname=field.label),
             }
 
-
+    def clean(self):
+        cleaned_data = super(ArticleForm, self).clean()
+        title = cleaned_data.get('title')
+        content = cleaned_data.get('content')
+        image = cleaned_data.get('image')
+        draft = cleaned_data.get('draft')
+        if not title and not content and not image and not draft:
+            raise forms.ValidationError('You have to write something!')
 
     '''
     def clean_title(self, *args, **kwargs):

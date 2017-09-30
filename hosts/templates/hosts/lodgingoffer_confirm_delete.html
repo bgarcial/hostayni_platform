@@ -1,6 +1,9 @@
 {% extends 'layout.html' %}
 {% load bootstrap3 %}
 {% block title_tag %}{{ lodgingofferdelete.ad_title }} | {{ block.super }}{% endblock %}
+{% block top_logo %}
+{% include "top-logo.html" %}
+{% endblock %}
 {% block body_content %}
 
 <div class="container">

@@ -1,0 +1,39 @@
+{% load staticfiles %}
+<form class="stayhost" method="POST" enctype="multipart/form-data">
+    <div class="head">
+        <div class="ofert-icon">
+          <img src="{% static 'img/icons/lang.svg' %}" alt="">
+          <div class="title">
+            <h2>Contenidos</h2>
+            <span>Crear un Artículo</span>
+          </div>
+        </div>
+
+    </div>
+    {% csrf_token %}
+
+<div class="formgroup">
+    {% if form.errors %}
+        {% for key, value in form.errors.itervalues %}
+           <p> {{ key }}: {{ value.as_text }}</p>
+        {% endfor %}
+    {% endif %}
+
+    {{ form.non_field_errors }}
+    <p {% if form.title.errors %} class="some-field-err" {% endif %}><label for="{{ form.title.id_for_label }}">{{ form.title.label }}:</label>{{ form.title }}
+        {% if form.title.errors %}
+    <div style="color: red"> Errors with title are: {{ form.title.errors.as_text }}</div>
+    {% endif %}
+    </p>
+    <p>{{ form.content.label }}{{ form.content }}</p>
+    <p>{{ form.image }}</p>
+    <p>{{ form.draft }}</p>
+</div>
+    <div class="submit-button-cont">
+            <div>
+              <input type="image" src="{% static 'img/icons/ok.png' %}" alt="Submit" width="48" height="48">
+              <input type="submit" value="Publicar" class="submit-button">
+            </div>
+        </div>
+
+    </form>

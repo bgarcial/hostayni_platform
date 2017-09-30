@@ -60,6 +60,9 @@
     <div class="wrapper">
         <!-- Botones de registro e inicio de sesión -->
         <header>
+            {% block top_logo %}
+            {% endblock %}
+
             {% if request.user.is_authenticated %}
                 {% if userprofile %}
                     <div class="profile-options">

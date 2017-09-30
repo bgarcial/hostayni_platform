@@ -4,6 +4,12 @@
 
 {% block title_tag %}Mi cuenta en {{ block.super }}{% endblock %}
 
+{% block top_logo %}
+{% include "top-logo.html" %}
+{% endblock %}
+
+
+
 {% block body_content %}
 <div class="offert-form">
     <form enctype="multipart/form-data" method="POST">
