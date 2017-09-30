@@ -55,7 +55,7 @@
                 {% if userprofile %}
                     <div class="profile-options">
                         <div class="img">
-                            {% if instance.image %}
+                            {% if userprofile.user.avatar %}
                                 <img src="{{ userprofile.user.avatar.url }}" class="img-responsive">
                             {% endif %}
                             <!-- Imagen de perfil -->
