@@ -10,6 +10,7 @@ from .views import (
     article_detail,
     article_share,
     article_publish,
+    categories,
 )
 
 urlpatterns = [
@@ -19,6 +20,8 @@ urlpatterns = [
     url(r'^article/create/$', article_create, name='create'),
     # url(r'^article/new/$', views.CreateArticleView.as_view(), name='article_new'),
     # MOre below
+
+    url(r'^articles/categoria/(\d+)$', categories, name='categories'),
 
     url(r'^article/(?P<slug>[\w.\-]+)/edit/$', article_update, name='update'),
     url(r'^article/(?P<slug>[\w.\-]+)/delete/$', article_delete, name='delete'),

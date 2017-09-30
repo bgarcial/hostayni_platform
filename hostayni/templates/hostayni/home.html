@@ -11,8 +11,9 @@
    <img class="logo" src="{% static 'img/Logo-slogan-lg.png' %}" alt="Logo Hostayni - Haz del mundo tu hogar" />
 
     <form method="GET" action="">
-        <input type="text" name="q" placeholder="Buscar articulos" value="{{request.GET.q}}"/>
-        <input type="submit" class="btn" value="Buscar" />
+        <input type="text" name="q" placeholder="Título o autor o contenido o categoría" value="{{request.GET.q}}"/>
+        <p>Presiona Enter para buscar</p>
+
     </form><br/>
     <div class="map-search-text">
 
@@ -1508,14 +1509,34 @@
     <div class="search-filter">
         <p>Estoy buscando:</p>
         <div class="icons">
-            <img src="{% static 'img/icons/hosting.svg' %}" alt="">
-            <img src="{% static 'img/icons/learn.svg' %}" alt="">
+            <a href="{% url 'host:hostingoffer-search' %}"><img src="{% static 'img/icons/hosting.svg' %}" title="Ofertas de alojamiento" alt=""></a>
+            <a href="{% url 'host:studyoffer-search' %}"><img src="{% static 'img/icons/learn.svg' %}" title="Ofertas de estudio" alt=""></a>
             <img src="{% static 'img/icons//innovate.svg' %}" alt="">
             <img src="{% static 'img/icons/life.svg' %}" alt="">
             <img src="{% static 'img/icons/enjoy.svg' %}" alt="">
             <img src="{% static 'img/icons/social.svg' %}" alt="">
         </div>
     </div>
+
+    {% comment %}
+    <div class="search-filter">
+        <p>Estoy buscando:</p>
+        {% for cat in categories %}
+
+        <div class="icons">
+            <a href="{% url 'articles:categories' cat.pk %}">{{cat}}</a>
+            <br/>
+            {% comment %}
+            <img src="{% static 'img/icons/learn.svg' %}" alt="">
+            <img src="{% static 'img/icons//innovate.svg' %}" alt="">
+            <img src="{% static 'img/icons/life.svg' %}" alt="">
+            <img src="{% static 'img/icons/enjoy.svg' %}" alt="">
+            <img src="{% static 'img/icons/social.svg' %}" alt="">
+
+        </div>
+        {% endfor %}
+    </div>
+    {% endcomment %}
     <a href="#" class="plan-travel-button">
         <img src="{% static 'img/icons/plus.png' %}" alt="+">
         <!-- <span>Planea tu viaje en Hostayni</span> -->
@@ -1531,6 +1552,7 @@
 
     <!-- fecha de hoy {{ today }}-->
     <!-- la clase full-width es para las ofertas que ocupan las dos columnas -->
+    {% if article.category.title == 'INNOVACIÓN' %}
     <article class="innovate full-width">
         {% comment %} {{ article.get_absolute_url}} {%endcomment%}
         {% comment %} Si el articulo tiene draft entonces es borrador {%endcomment%}
@@ -1553,7 +1575,7 @@
         <div class="post-info">
             <!-- Este es el ícono que muestra el tipo de oferta, el color de la etiqueda depende de
             la clase que tenga el artículo, en este caso es innovate-->
-            <div class="post-type"><i>innovatehost</i></div>
+            <div class="post-type"><i>{{ article.category.title }}</i></div>
             {% if article.author.first_name %}
             <p>Autor: {{ article.author.first_name }}</p>
             {% endif %}
@@ -1578,29 +1600,41 @@
             <!-- //Calificaciones -->
         </div>
     </article>
+    {% endif  %}
 
-
-
-    {% comment %}
-
+    {% if article.category.title == 'SOCIAL' %}
     <article class="social">
+        {% if article.draft %}<h3> Hostayni Staff Only Draft</h3>{% endif %} {% if article.publish > today %}<h3>Hostayni Staff Only: Futuro articulo</h3>{% endif %}
+        <a href="{% url 'articles:detail' slug=article.slug %}">
         <div class="img-title-cont">
             <!-- la imagen de las publicaciones debe ser una imagen de background para poder modificar el contenedor independientemente del tamaño de la imagen -->
-            <div class="img" style="background: url(img/canada-toronto.jpg) no-repeat center; background-size:cover;"></div>
+             {% if article.image %}
+            <div class="img" style="background: url('{{ article.image.url }}') no-repeat center; background-size:cover;"></div>
+             {% endif %}
             <div class="title-cont">
-                <h3>Lorem ipsum dolor sit amet, consectetur adipiscing elit Donec erat sem, rutrum nec pulvinar cursus, imperdiet nec lectus. Integer sagittis ipsum sed urna malesuada, </h3>
+                <h3{{ article.title }}</h3>
             </div>
         </div>
+        </a>
+         <small>{{ article.publish }}</small>
         <div class="post-info">
             <!-- Este es el ícono que muestra el tipo de oferta, el color de la etiqueda depende de la clase que tenga el artículo, en este caso es innovate-->
-            <div class="post-type"><i>socialhost</i></div>
-            <div class="description">Lorem ipsum dolor sit amet, consectetur adipiscing elit Donec erat sem, rutrum nec pulvinar cursus, imperdiet nec lectus. Integer sagittis ipsum.</div>
+            <div class="post-type"><i>{{ article.category.title }}</i></div>
+            {% if article.author.first_name %}
+            <p>Autor: {{ article.author.first_name }}</p>
+           {% endif %}
+           {% if article.author.get_enterprise_name %}
+           <p>Autor: {{ article.author.get_enterprise_name }}</p>
+           {% endif %}
+           <br />
+
+            <div class="description">{{ article.content|linebreaks|truncatechars:420 }}</div>
             <!-- Calificaciones -->
             <div class="review">
                 <p class="cost"><span>$ </span>147.000</p>
                 <div class="stars">
                     <!-- Dentro de esta etiqueta se pondrán las estrellas, estas son de muestra-->
-                    <img src="img/stars.svg" alt="4.5 estrellas">
+                    <img src="{% static 'img/stars.svg' %}" alt="4.5 estrellas">
                     <div class="average">
                         <span>546</span>
                         <span>Valoraciones</span>
@@ -1610,24 +1644,40 @@
             <!-- //Calificaciones -->
         </div>
     </article>
+    {% endif  %}
+
+    {% if article.category.title == 'ESTADÍA'  %}
     <article class="host">
+         {% if article.draft %}<h3> Hostayni Staff Only Draft</h3>{% endif %} {% if article.publish > today %}<h3>Hostayni Staff Only: Futuro articulo</h3>{% endif %}
+        <a href="{% url 'articles:detail' slug=article.slug %}">
         <div class="img-title-cont">
             <!-- la imagen de las publicaciones debe ser una imagen de background para poder modificar el contenedor independientemente del tamaño de la imagen -->
-            <div class="img" style="background: url(img/canada-toronto.jpg) no-repeat center; background-size:cover;"></div>
+             {% if article.image %}
+               <div class="img" style="background: url('{{ article.image.url }}') no-repeat center; background-size:cover;"></div>
+             {% endif %}
             <div class="title-cont">
-                <h3>Lorem ipsum dolor sit amet, consectetur adipiscing elit Donec erat sem, rutrum nec pulvinar cursus, imperdiet nec lectus. Integer sagittis ipsum sed urna malesuada, </h3>
+                <h3>{{ article.title }}</h3>
             </div>
         </div>
+        </a>
+        <small>{{ article.publish }}</small>
         <div class="post-info">
             <!-- Este es el ícono que muestra el tipo de oferta, el color de la etiqueda depende de la clase que tenga el artículo, en este caso es innovate-->
-            <div class="post-type"><i>hostinghost</i></div>
-            <div class="description">Lorem ipsum dolor sit amet, consectetur adipiscing elit Donec erat sem, rutrum nec pulvinar cursus, imperdiet nec lectus. Integer sagittis ipsum.</div>
+            <div class="post-type"><i>{{ article.category.title }}</i></div>
+            {% if article.author.first_name %}
+           <p>Autor: {{ article.author.first_name }}</p>
+           {% endif %}
+           {% if article.author.get_enterprise_name %}
+           <p>Autor: {{ article.author.get_enterprise_name }}</p>
+           {% endif %}
+           <br />
+            <div class="description">{{ article.content|linebreaks|truncatechars:420 }}</div>
             <!-- Calificaciones -->
             <div class="review">
                 <p class="cost"><span>$ </span>147.000</p>
                 <div class="stars">
                     <!-- Dentro de esta etiqueta se pondrán las estrellas, estas son de muestra-->
-                    <img src="img/stars.svg" alt="4.5 estrellas">
+                    <img src="{% static 'img/stars.svg' %}" alt="4.5 estrellas">
                     <div class="average">
                         <span>546</span>
                         <span>Valoraciones</span>
@@ -1637,25 +1687,41 @@
             <!-- //Calificaciones -->
         </div>
     </article>
+    {% endif  %}
+
+    {% if article.category.title == 'APRENDIZAJE'  %}
     <article class="learn full-width">
+        {% if article.draft %}<h3> Hostayni Staff Only Draft</h3>{% endif %} {% if article.publish > today %}<h3>Hostayni Staff Only: Futuro articulo</h3>{% endif %}
+        <a href="{% url 'articles:detail' slug=article.slug %}">
         <div class="img-title-cont">
             <!-- la imagen de las publicaciones debe ser una imagen de background para poder modificar el contenedor independientemente del tamaño de la imagen -->
-            <div class="img" style="background: url(img/canada-toronto.jpg) no-repeat center; background-size:cover;"></div>
+            {% if article.image %}
+            <div class="img" style="background: url('{{ article.image.url }}') no-repeat center; background-size:cover;"></div>
+            {% endif %}
             <div class="title-cont">
-                <h3>Lorem ipsum dolor sit amet, consectetur adipiscing elit Donec erat sem, rutrum nec pulvinar cursus, imperdiet nec lectus. Integer sagittis ipsum sed urna malesuada, </h3>
+                <h3>{{ article.title }}</h3>
             </div>
         </div>
+        </a>
+        <small>{{ article.publish }}</small>
         <div class="post-info">
             <!-- Este es el ícono que muestra el tipo de oferta, el color de la etiqueda depende de la clase que tenga el artículo, en este caso es innovate-->
-            <div class="post-type"><i>learnhost</i></div>
-            <div class="description">Lorem ipsum dolor sit amet, consectetur adipiscing elit Donec erat sem, rutrum nec pulvinar cursus, imperdiet nec lectus. Integer sagittis ipsum.</div>
+            <div class="post-type"><i>{{ article.category.title }}</i></div>
+            {% if article.author.first_name %}
+           <p>Autor: {{ article.author.first_name }}</p>
+           {% endif %}
+           {% if article.author.get_enterprise_name %}
+           <p>Autor: {{ article.author.get_enterprise_name }}</p>
+           {% endif %}
+           <br />
+            <div class="description">{{ article.content|linebreaks|truncatechars:420 }}</div>
             <!-- Calificaciones -->
             <div class="review">
                 <!-- El precio puede o no aparecer de acuerdo al post -->
                 <p class="cost"><span>$ </span>147.000</p>
                 <div class="stars">
                     <!-- Dentro de esta etiqueta se pondrán las estrellas, estas son de muestra-->
-                    <img src="img/stars.svg" alt="4.5 estrellas">
+                    <img src="{% static 'img/stars.svg' %}" alt="4.5 estrellas">
                     <div class="average">
                         <span>546</span>
                         <span>Valoraciones</span>
@@ -1665,8 +1731,138 @@
             <!-- //Calificaciones -->
         </div>
     </article>
-    {% endcomment %}
-    {% endfor %}
+    {% endif  %}
+
+    {% if article.category.title == 'ENTRETENIMIENTO' %}
+    <article class="enjoy">
+        {% if article.draft %}<h3> Hostayni Staff Only Draft</h3>{% endif %} {% if article.publish > today %}<h3>Hostayni Staff Only: Futuro articulo</h3>{% endif %}
+        <a href="{% url 'articles:detail' slug=article.slug %}">
+        <div class="img-title-cont">
+            <!-- la imagen de las publicaciones debe ser una imagen de background para poder modificar el contenedor independientemente del tamaño de la imagen -->
+             {% if article.image %}
+            <div class="img" style="background: url('{{ article.image.url }}') no-repeat center; background-size:cover;"></div>
+             {% endif %}
+            <div class="title-cont">
+                <h3{{ article.title }}</h3>
+            </div>
+        </div>
+        </a>
+         <small>{{ article.publish }}</small>
+        <div class="post-info">
+            <!-- Este es el ícono que muestra el tipo de oferta, el color de la etiqueda depende de la clase que tenga el artículo, en este caso es innovate-->
+            <div class="post-type"><i>{{ article.category.title }}</i></div>
+            {% if article.author.first_name %}
+            <p>Autor: {{ article.author.first_name }}</p>
+           {% endif %}
+           {% if article.author.get_enterprise_name %}
+           <p>Autor: {{ article.author.get_enterprise_name }}</p>
+           {% endif %}
+           <br />
+
+            <div class="description">{{ article.content|linebreaks|truncatechars:420 }}</div>
+            <!-- Calificaciones -->
+            <div class="review">
+                <p class="cost"><span>$ </span>147.000</p>
+                <div class="stars">
+                    <!-- Dentro de esta etiqueta se pondrán las estrellas, estas son de muestra-->
+                    <img src="{% static 'img/stars.svg' %}" alt="4.5 estrellas">
+                    <div class="average">
+                        <span>546</span>
+                        <span>Valoraciones</span>
+                    </div>
+                </div>
+            </div>
+            <!-- //Calificaciones -->
+        </div>
+    </article>
+    {% endif  %}
+
+    {% if article.category.title == 'AMIGOS'  %}
+    <article class="friends">
+         {% if article.draft %}<h3> Hostayni Staff Only Draft</h3>{% endif %} {% if article.publish > today %}<h3>Hostayni Staff Only: Futuro articulo</h3>{% endif %}
+        <a href="{% url 'articles:detail' slug=article.slug %}">
+        <div class="img-title-cont">
+            <!-- la imagen de las publicaciones debe ser una imagen de background para poder modificar el contenedor independientemente del tamaño de la imagen -->
+             {% if article.image %}
+               <div class="img" style="background: url('{{ article.image.url }}') no-repeat center; background-size:cover;"></div>
+             {% endif %}
+            <div class="title-cont">
+                <h3>{{ article.title }}</h3>
+            </div>
+        </div>
+        </a>
+        <small>{{ article.publish }}</small>
+        <div class="post-info">
+            <!-- Este es el ícono que muestra el tipo de oferta, el color de la etiqueda depende de la clase que tenga el artículo, en este caso es innovate-->
+            <div class="post-type"><i>{{ article.category.title }}</i></div>
+            {% if article.author.first_name %}
+           <p>Autor: {{ article.author.first_name }}</p>
+           {% endif %}
+           {% if article.author.get_enterprise_name %}
+           <p>Autor: {{ article.author.get_enterprise_name }}</p>
+           {% endif %}
+           <br />
+            <div class="description">{{ article.content|linebreaks|truncatechars:420 }}</div>
+            <!-- Calificaciones -->
+            <div class="review">
+                <p class="cost"><span>$ </span>147.000</p>
+                <div class="stars">
+                    <!-- Dentro de esta etiqueta se pondrán las estrellas, estas son de muestra-->
+                    <img src="{% static 'img/stars.svg' %}" alt="4.5 estrellas">
+                    <div class="average">
+                        <span>546</span>
+                        <span>Valoraciones</span>
+                    </div>
+                </div>
+            </div>
+            <!-- //Calificaciones -->
+        </div>
+    </article>
+    {% endif  %}
+    {% if article.category.title == 'VIDA'  %}
+    <article class="life full-width">
+        {% if article.draft %}<h3> Hostayni Staff Only Draft</h3>{% endif %} {% if article.publish > today %}<h3>Hostayni Staff Only: Futuro articulo</h3>{% endif %}
+        <a href="{% url 'articles:detail' slug=article.slug %}">
+        <div class="img-title-cont">
+            <!-- la imagen de las publicaciones debe ser una imagen de background para poder modificar el contenedor independientemente del tamaño de la imagen -->
+            {% if article.image %}
+            <div class="img" style="background: url('{{ article.image.url }}') no-repeat center; background-size:cover;"></div>
+            {% endif %}
+            <div class="title-cont">
+                <h3>{{ article.title }}</h3>
+            </div>
+        </div>
+        </a>
+        <small>{{ article.publish }}</small>
+        <div class="post-info">
+            <!-- Este es el ícono que muestra el tipo de oferta, el color de la etiqueda depende de la clase que tenga el artículo, en este caso es innovate-->
+            <div class="post-type"><i>{{ article.category.title }}</i></div>
+            {% if article.author.first_name %}
+           <p>Autor: {{ article.author.first_name }}</p>
+           {% endif %}
+           {% if article.author.get_enterprise_name %}
+           <p>Autor: {{ article.author.get_enterprise_name }}</p>
+           {% endif %}
+           <br />
+            <div class="description">{{ article.content|linebreaks|truncatechars:420 }}</div>
+            <!-- Calificaciones -->
+            <div class="review">
+                <!-- El precio puede o no aparecer de acuerdo al post -->
+                <p class="cost"><span>$ </span>147.000</p>
+                <div class="stars">
+                    <!-- Dentro de esta etiqueta se pondrán las estrellas, estas son de muestra-->
+                    <img src="{% static 'img/stars.svg' %}" alt="4.5 estrellas">
+                    <div class="average">
+                        <span>546</span>
+                        <span>Valoraciones</span>
+                    </div>
+                </div>
+            </div>
+            <!-- //Calificaciones -->
+        </div>
+    </article>
+    {% endif  %}
+{% endfor %}
 
     <!-- Pagination con CBV ListView    -->
     {% include "pagination.html" with page=page_obj %}

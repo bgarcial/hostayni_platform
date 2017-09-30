@@ -1,8 +1,8 @@
-from django.shortcuts import render, get_object_or_404, redirect
+from django.shortcuts import render, get_object_or_404, redirect, render_to_response
 from django.utils import timezone
 from django.core.mail import send_mail
 
-from blog.models import Article, Comment
+from blog.models import Article, Comment, Category
 from blog.forms import ArticleForm, CommentForm, EmailPostForm
 from django.urls import reverse_lazy
 
@@ -26,6 +26,17 @@ from django.db.models import Q
 
 
 # ****--- fbv CRUD blog poss ---*****
+
+def categories(request, id):
+    categories = Category.objects.all()
+    cat = Category.objects.get(pk=id)
+    articles = Article.objects.filter(category=cat)
+    context = {
+        'categories': categories,
+        # 'cat': cat,
+        # 'articles': articles,
+    }
+    return render(request, 'hostayni/home.html', context)
 @login_required
 def article_create(request):
     user = request.user
@@ -123,6 +134,7 @@ class ArticleListView(UserProfileDataMixin, ListView):
             queryset_list = queryset_list.filter(
                 Q(title__icontains=query) |
                 Q(content__icontains=query) |
+                Q(category__title__icontains=query) |
                 Q(author__first_name__icontains=query) |
                 Q(author__last_name__icontains=query) |
                 Q(author__enterprise_name__icontains=query)
@@ -132,6 +144,9 @@ class ArticleListView(UserProfileDataMixin, ListView):
 
     def get_context_data(self, *args, **kwargs):
         context = super(ArticleListView, self).get_context_data(*args, **kwargs)
+        #categories = Category.objects.all()
+        #cat = Category.objects.get(pk=)
+        #context['categories'] = categories
         today = timezone.now().date()
         context['today'] = today
         return context

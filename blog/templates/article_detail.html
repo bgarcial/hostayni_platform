@@ -2,6 +2,9 @@
 {% load bootstrap3 %}
 {% load staticfiles %}
 {% block title_tag %} {{ instance.title }} | {{ block.super }}{% endblock %}
+{% block top_logo %}
+{% include "top-logo.html" %}
+{% endblock %}
 
 <!--
 <style>

@@ -607,6 +607,9 @@ article {
 .host .post-type i {
   background-color: #006533; }
 
+.friends .post-type i {
+  background-color: #DBA901; }
+
 .full-width {
   display: block;
   width: auto;

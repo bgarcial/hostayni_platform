@@ -35,16 +35,17 @@ class ArticleForm(forms.ModelForm):
         fields = [
             'title',
             'content',
+            'category',
             'image',
             'draft',
             # 'publish',
         ]
         labels = {
             "title": "Título",
-            "content": "Este es el contenido",
+            "content": "Contenido",
         }
         help_texts = {
-            "title": "Título",
+            "content": "Título",
             "content": "Este es el contenido",
         }
         error_messages = {
@@ -54,7 +55,7 @@ class ArticleForm(forms.ModelForm):
             #},
             "content": {
                 "max_lenght": "Este contenido es muy largo",
-                "required": "El campo content es requerido.",
+                "required": "El campo contenido es requerido.",
                 # "unique": "El campo content debe ser unico.",
             },
         }
@@ -79,7 +80,7 @@ class ArticleForm(forms.ModelForm):
         }
         self.fields['content'].error_messages = {
             "max_lenght": "Este contenido es muy largo",
-            "required": "El campo content es requerido.",
+            "required": "El campo contenido es requerido.",
         }
 
         for field in self.fields.values():

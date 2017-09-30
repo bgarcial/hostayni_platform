@@ -1,3 +1,5 @@
+from __future__ import unicode_literals
+from django.utils.translation import ugettext_lazy as _
 from django.db import models
 from django.utils import timezone
 from django.core.urlresolvers import reverse
@@ -32,6 +34,14 @@ def upload_location(instance, filename):
     return "%s/%s" % (instance.id, filename)
 
 
+class Category(models.Model):
+    title = models.CharField(_('Titulo'), max_length=50,)
+    description = models.TextField(_('Descripción'),)
+
+    def __str__(self):
+        return self.title
+
+
 class Article(models.Model):
     author = models.ForeignKey(
         settings.AUTH_USER_MODEL,
@@ -40,9 +50,11 @@ class Article(models.Model):
 
     title = models.CharField(max_length=120)
     slug = models.SlugField(max_length=100, blank=True)
-    content = models.TextField()
-    draft = models.BooleanField(default=False)
+    content = models.TextField(verbose_name='Contenido')
+    draft = models.BooleanField(default=False, verbose_name='Borrador')
     publish = models.DateField(auto_now=False, auto_now_add=False)
+
+    category = models.ForeignKey("Category", verbose_name='Categoría')
 
     # Digital Marketplace cubre como manipular y oredenar imagenes en thumbnails
     image = models.ImageField(upload_to= upload_location, null=False, blank=False,
