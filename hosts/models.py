@@ -21,9 +21,9 @@ from django_countries.fields import CountryField
 
 class LodgingOffer(models.Model):
 
-    ALL_PROPERTY = 'All property'
-    PRIVATE_ROOM = 'Private Room'
-    SHARED_ROOM = 'Shared Room'
+    ALL_PROPERTY = 'Toda la propiedad'
+    PRIVATE_ROOM = 'Habitación privada'
+    SHARED_ROOM = 'Habitación compartida'
 
     ROOM_TYPE_OFFERED_CHOICES = (
         (ALL_PROPERTY, "Toda la propiedad"),
@@ -31,16 +31,16 @@ class LodgingOffer(models.Model):
         (SHARED_ROOM, "Habitación compartida"),
     )
 
-    ONE_GUEST = 'For 1 guest'
-    TWO_GUESTS = 'For 2 guests'
-    THREE_GUESTS = '3 guests'
-    FOUR_GUESTS = '4 guests'
-    FIVE_GUESTS = '5 guests'
-    SIX_GUESTS = '6 guests'
-    SEVEN_GUESTS = '7 guests'
-    EIGHT_GUESTS = '8 guests'
-    NINE_GUESTS = '9 guests'
-    TEN_GUESTS = '10 guests'
+    ONE_GUEST = 'Para 1 huésped'
+    TWO_GUESTS = 'Para 2 huéspedes'
+    THREE_GUESTS = 'Para 3 huéspede'
+    FOUR_GUESTS = 'Para 4 huéspedes'
+    FIVE_GUESTS = 'Para 5 huéspedes'
+    SIX_GUESTS = 'Para 6 huéspedes'
+    SEVEN_GUESTS = 'Para 7 huéspedes'
+    EIGHT_GUESTS = 'Para 8 huéspedes'
+    NINE_GUESTS = 'Para 9 huéspedes'
+    TEN_GUESTS = 'Para 10 huéspedes'
 
 
     NUMBER_GUESS_ROOM_TYPE_CHOICES = (
@@ -57,11 +57,11 @@ class LodgingOffer(models.Model):
     )
 
     HOTEL = 'Hotel'
-    HOSTEL = 'Hostel'
-    STUDENT_RESIDENCE = 'Student Residence'
-    ACCOMODATION_WITH_LOCAL_FAMILY = 'Accommodation with local family'
-    HOUSE_APT_SHARE_VISITORS = 'House or apartment to share with other visitors'
-    HOUSE_OR_PRIV_APT = 'House or private apartment'
+    HOSTEL = 'Hostal'
+    STUDENT_RESIDENCE = 'Residencia estudiantil'
+    ACCOMODATION_WITH_LOCAL_FAMILY = 'Acomodación con familia local'
+    HOUSE_APT_SHARE_VISITORS = 'Casa o apartamento para compartir con otros huéspede'
+    HOUSE_OR_PRIV_APT = 'Casa o apartamento privado'
 
 
     LODGING_OFFER_TYPE_CHOICES = (
@@ -73,11 +73,11 @@ class LodgingOffer(models.Model):
         (HOUSE_OR_PRIV_APT, "Casa o apartamento privado"),
     )
 
-    ONE_STAR = '1 star'
-    TWO_STARS = '2 stars'
-    THREE_STARS = '3 stars'
-    FOUR_STARS = '4 stars'
-    FIVE_STARS = '5 stars'
+    ONE_STAR = '1 estrella'
+    TWO_STARS = '2 estrellas'
+    THREE_STARS = '3 estrellas'
+    FOUR_STARS = '4 estrellas'
+    FIVE_STARS = '5 estrellas'
 
 
     STARS_NUMBER_CHOICES = (
@@ -88,16 +88,16 @@ class LodgingOffer(models.Model):
         (FIVE_STARS, "5 estrellas"),
     )
 
-    SINGLE_BED = 'Single bed'
-    DOUBLE_BED = 'Double bed'
+    SINGLE_BED = 'Cama individual'
+    DOUBLE_BED = 'Cama doble'
 
     BED_TYPE_OFFERED_CHOICES = (
         (SINGLE_BED, "Cama individual"),
         (DOUBLE_BED, "Cama doble"),
     )
 
-    PRIVATE_BATHROOM = 'Private bathroom'
-    SHARED_BATHROOM = 'Shared bathroom'
+    PRIVATE_BATHROOM = 'Baño privado'
+    SHARED_BATHROOM = 'Baño compartid'
 
     BATHROOM_CHOICES = (
         (PRIVATE_BATHROOM, "Baño privado"),
@@ -121,7 +121,7 @@ class LodgingOffer(models.Model):
         verbose_name='Título de la oferta'
     )
 
-    country = CountryField(blank_label='(select country)', verbose_name='Pais')
+    country = CountryField(blank_label='(Seleccionar país)', verbose_name='Pais')
 
     city = models.CharField(
         max_length=255,
@@ -144,7 +144,7 @@ class LodgingOffer(models.Model):
     stars = models.CharField(
         max_length=255,
         choices=STARS_NUMBER_CHOICES,
-        verbose_name='Stars numbers',
+        verbose_name='Número de estrellas',
     )
     '''
     available_dates = models.DateField(
@@ -168,14 +168,14 @@ class LodgingOffer(models.Model):
         blank=True,
         null=True,
         verbose_name='Check In',
-        help_text="Por favor use el formato: <em>MM-DD-YYYY</em>.",
+        help_text="Por favor use el formato: <em>YYYY-MM-DD</em>.",
     )
 
     check_out = models.DateField(
         blank=True,
         null=True,
         verbose_name='Check Out',
-        help_text="Por favor use el formato: <em>MM-DD-YYYY</em>.",
+        help_text="Por favor use el formato: <em>YYYY-MM-DD</em>.",
     )
 
     offered_services = models.ManyToManyField(
@@ -206,7 +206,7 @@ class LodgingOffer(models.Model):
     )
 
     bed_type = models.CharField(
-        max_length=10,
+        max_length=20,
         choices=BED_TYPE_OFFERED_CHOICES,
         verbose_name='Tipo de cama',
     )
@@ -228,7 +228,7 @@ class LodgingOffer(models.Model):
         upload_to='hosting-host-photos',
         blank=False,
         null=False,
-        verbose_name='Photographies'
+        verbose_name='Fotografía'
     )
 
     room_value = models.CharField(_("Precio"), max_length=128)
@@ -257,10 +257,10 @@ class LodgingOffer(models.Model):
 
 class StudiesOffert(models.Model):
 
-    ACADEMIC_SEMESTER = 'Academic Semester'
-    RESEARCH = 'Research'
-    ROTATIONS_OR_PRACTICES = 'Rotations or Practices'
-    SUMMER_SCHOOL = 'Summer School'
+    ACADEMIC_SEMESTER = 'Semestre académico'
+    RESEARCH = 'Investigación'
+    ROTATIONS_OR_PRACTICES = 'Rotaciones o prácticas'
+    SUMMER_SCHOOL = 'Escuela de verano'
 
     ACADEMIC_MOBILITY_PROGRAMS_CHOICES = (
         (ACADEMIC_SEMESTER, 'Semestre académico'),
@@ -270,9 +270,9 @@ class StudiesOffert(models.Model):
     )
 
 
-    PRIVATE = 'Private'
-    PUBLIC = 'Public'
-    MIXED = 'Private - Public'
+    PRIVATE = 'Privada'
+    PUBLIC = 'Pública'
+    MIXED = 'Privada - Pública'
 
     CHARACTER_INSTITUTE_CHOICES = (
         (PRIVATE, "Privada"),
@@ -307,14 +307,14 @@ class StudiesOffert(models.Model):
     )
     '''
 
-    CONTINUING_EDUCATION_STUDIES = 'Continuing Education studies'
-    TECHNIQUE = 'Technique'
-    TECHNOLOGY = 'Technology'
-    PROFESSIONAL = 'Professional'
-    SPECIALIZATION = 'Specialization'
-    MASTER = 'Master'
-    DOCTORATE = 'Doctorate'
-    ACADEMIC_MOBILITY = 'Academic_Mobility'
+    CONTINUING_EDUCATION_STUDIES = 'Estudios de educación contínua'
+    TECHNIQUE = 'Técnica'
+    TECHNOLOGY = 'Tecnología'
+    PROFESSIONAL = 'Profesional'
+    SPECIALIZATION = 'Especialización'
+    MASTER = 'Maestría'
+    DOCTORATE = 'Doctorado'
+    ACADEMIC_MOBILITY = 'Movilidad académica'
 
     STUDIES_TYPE_CHOICES = (
         (CONTINUING_EDUCATION_STUDIES, u'Estudios de educación contínua'),
@@ -328,7 +328,7 @@ class StudiesOffert(models.Model):
     )
 
     VIRTUAL = 'Virtual'
-    ON_SITE = 'On_site'
+    ON_SITE = 'Presencial'
 
 
     MODALITY_CHOICES = (
@@ -349,7 +349,7 @@ class StudiesOffert(models.Model):
         verbose_name='Título de la oferta'
     )
 
-    country = CountryField(blank_label='(select country)', verbose_name='País')
+    country = CountryField(blank_label='(Seleccionar país)', verbose_name='País')
 
     city = models.CharField(
         max_length=255,
@@ -409,8 +409,8 @@ class StudiesOffert(models.Model):
     academic_mobility_programs = models.CharField(
         max_length=255,
         choices=ACADEMIC_MOBILITY_PROGRAMS_CHOICES,
-        verbose_name='Academic mobility programs',
-        help_text='Available student academic mobility programs',
+        verbose_name='Programas de movilidad académica',
+        # help_text='Available student academic mobility programs',
     )
 
     duration = models.CharField(
@@ -424,11 +424,13 @@ class StudiesOffert(models.Model):
         verbose_name='Modalidad',
     )
 
-    studies_value = models.CharField(_("Price"), max_length=128)
+    studies_value = models.CharField(_("Precio"), max_length=128)
 
     additional_description = models.TextField(
         null=False,
-        blank=False
+        blank=False,
+        verbose_name='Descripción adicional',
+
     )
 
     # TO-DO Consultar las becas del usuario studyhost solamente
@@ -436,7 +438,7 @@ class StudiesOffert(models.Model):
     photo = models.ImageField(
         upload_to='study-host-offert-photos',
         blank=False,
-        verbose_name='Photography',
+        verbose_name='Fotografía',
         null=False
     )
 

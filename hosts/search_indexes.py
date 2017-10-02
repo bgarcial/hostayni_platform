@@ -38,6 +38,8 @@ class StudiesOffertIndex(indexes.SearchIndex, indexes.Indexable):
 
     duration = indexes.CharField(model_attr='duration', null=True)
 
+    modality = indexes.CharField(model_attr='modality', null=True)
+
     pub_date = indexes.DateTimeField(model_attr='pub_date')
 
 

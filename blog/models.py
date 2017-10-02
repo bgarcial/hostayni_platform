@@ -51,7 +51,8 @@ class Article(models.Model):
     title = models.CharField(max_length=120)
     slug = models.SlugField(max_length=100, blank=True)
     content = models.TextField(verbose_name=_("Contenido"),)
-    draft = models.BooleanField(default=False, verbose_name='Borrador')
+    draft = models.BooleanField(default=False, verbose_name='Borrador',
+                                help_text='Si seleccionas esta  opción tu artículo no será publicado por el momento')
     publish = models.DateField(auto_now=False, auto_now_add=False)
 
     category = models.ForeignKey("Category", verbose_name='Categoría')

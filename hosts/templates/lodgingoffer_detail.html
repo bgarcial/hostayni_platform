@@ -21,9 +21,11 @@
                 <p class="title">Autor</p>
                 <div class="profile">
                     <div class="img-cont">
+                        {% if lodgingofferdetail.created_by.avatar %}
                         <a href="#">
-                        <img src="{{ lodgingofferdetail.created_by.avatar.url }}" alt="">
+                        <img src="{{ lodgingofferdetail.created_by.avatar.url }}" alt="" class="img-responsive">
                         </a>
+                        {% endif %}
                     </div>
                     <div class="name-review-cont">
                         {% comment %} A quien corresponda {% endcomment %}

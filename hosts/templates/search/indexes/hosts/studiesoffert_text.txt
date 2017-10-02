@@ -9,4 +9,5 @@
 
 {{ object.academic_mobility_programs }}
 {{ object.duration }}
+{{ object.modality }}
 {{ object.pub_date }}
