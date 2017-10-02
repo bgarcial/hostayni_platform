@@ -50,7 +50,7 @@ class Article(models.Model):
 
     title = models.CharField(max_length=120)
     slug = models.SlugField(max_length=100, blank=True)
-    content = models.TextField(verbose_name='Contenido')
+    content = models.TextField(verbose_name=_("Contenido"),)
     draft = models.BooleanField(default=False, verbose_name='Borrador')
     publish = models.DateField(auto_now=False, auto_now_add=False)
 
@@ -59,7 +59,9 @@ class Article(models.Model):
     # Digital Marketplace cubre como manipular y oredenar imagenes en thumbnails
     image = models.ImageField(upload_to= upload_location, null=False, blank=False,
                               width_field="width_field",
-                              height_field="height_field")
+                              height_field="height_field",
+                              verbose_name='Imagen',
+                              help_text='La fotografía a publicarse, preferiblemente de ancho:1920 y de alto:1980')
     height_field = models.IntegerField(default=0)
     width_field = models.IntegerField(default=0)
 

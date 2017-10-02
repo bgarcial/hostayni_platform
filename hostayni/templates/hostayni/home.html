@@ -1554,7 +1554,7 @@
     <!-- la clase full-width es para las ofertas que ocupan las dos columnas -->
     {% if article.category.title == 'INNOVACIÓN' %}
     <article class="innovate full-width">
-        {% comment %} {{ article.get_absolute_url}} {%endcomment%}
+        {% comment %} {{ article.get_absolute_url }} {%endcomment%}
         {% comment %} Si el articulo tiene draft entonces es borrador {%endcomment%}
         {% comment %} Si el articulo tiene una fecha de ublicacion mayor a la actual today  es futuro articulo {%endcomment%}
 
@@ -1586,6 +1586,7 @@
             <!-- Contenido del articulo -->
             <div class="description">{{ article.content|linebreaks|truncatechars:420 }}</div>
             <!-- Calificaciones -->
+            {% comment %}
             <div class="review">
                 <p class="cost"><span>$ </span>147.000</p>
                 <div class="stars">
@@ -1597,6 +1598,7 @@
                     </div>
                 </div>
             </div>
+            {% endcomment %}
             <!-- //Calificaciones -->
         </div>
     </article>
@@ -1630,6 +1632,7 @@
 
             <div class="description">{{ article.content|linebreaks|truncatechars:420 }}</div>
             <!-- Calificaciones -->
+            {% comment %}
             <div class="review">
                 <p class="cost"><span>$ </span>147.000</p>
                 <div class="stars">
@@ -1642,7 +1645,9 @@
                 </div>
             </div>
             <!-- //Calificaciones -->
+            {% endcomment %}
         </div>
+
     </article>
     {% endif  %}
 
@@ -1673,6 +1678,7 @@
            <br />
             <div class="description">{{ article.content|linebreaks|truncatechars:420 }}</div>
             <!-- Calificaciones -->
+            {% comment %}
             <div class="review">
                 <p class="cost"><span>$ </span>147.000</p>
                 <div class="stars">
@@ -1685,6 +1691,7 @@
                 </div>
             </div>
             <!-- //Calificaciones -->
+            {% endcomment %}
         </div>
     </article>
     {% endif  %}
@@ -1716,6 +1723,7 @@
            <br />
             <div class="description">{{ article.content|linebreaks|truncatechars:420 }}</div>
             <!-- Calificaciones -->
+            {% comment %}
             <div class="review">
                 <!-- El precio puede o no aparecer de acuerdo al post -->
                 <p class="cost"><span>$ </span>147.000</p>
@@ -1728,6 +1736,7 @@
                     </div>
                 </div>
             </div>
+            {% endcomment %}
             <!-- //Calificaciones -->
         </div>
     </article>
@@ -1761,6 +1770,7 @@
 
             <div class="description">{{ article.content|linebreaks|truncatechars:420 }}</div>
             <!-- Calificaciones -->
+            {% comment %}
             <div class="review">
                 <p class="cost"><span>$ </span>147.000</p>
                 <div class="stars">
@@ -1772,6 +1782,7 @@
                     </div>
                 </div>
             </div>
+            {% endcomment %}
             <!-- //Calificaciones -->
         </div>
     </article>
@@ -1804,6 +1815,7 @@
            <br />
             <div class="description">{{ article.content|linebreaks|truncatechars:420 }}</div>
             <!-- Calificaciones -->
+            {% comment %}
             <div class="review">
                 <p class="cost"><span>$ </span>147.000</p>
                 <div class="stars">
@@ -1815,6 +1827,7 @@
                     </div>
                 </div>
             </div>
+            {% endcomment %}
             <!-- //Calificaciones -->
         </div>
     </article>
@@ -1846,6 +1859,7 @@
            <br />
             <div class="description">{{ article.content|linebreaks|truncatechars:420 }}</div>
             <!-- Calificaciones -->
+            {% comment %}
             <div class="review">
                 <!-- El precio puede o no aparecer de acuerdo al post -->
                 <p class="cost"><span>$ </span>147.000</p>
@@ -1859,6 +1873,7 @@
                 </div>
             </div>
             <!-- //Calificaciones -->
+            {% endcomment %}
         </div>
     </article>
     {% endif  %}

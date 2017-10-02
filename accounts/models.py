@@ -1,5 +1,7 @@
 from __future__ import unicode_literals
 
+import os
+
 from django.utils.translation import ugettext_lazy as _
 from django.core.validators import RegexValidator
 from django.db import models
@@ -71,6 +73,9 @@ class UserManager(BaseUserManager):
         return self.create_user(email, password, **extra_fields)
 
 
+def get_image_path(instance, filename):
+    return os.path.join('userprofile-pics', str(instance.id), filename)
+
 class User(AbstractBaseUser, PermissionsMixin):
 
     MALE = 'M'
@@ -103,12 +108,10 @@ class User(AbstractBaseUser, PermissionsMixin):
         (ENTERPRISE, "Organización"),
     )
 
-
     email = models.EmailField(unique=True, null=True, verbose_name='Correo electrónico',
             # help_text=_('Required. Letters, digits and ''@/./+/-/_ only.'),
         validators=[RegexValidator(r'^[\w.@+-]+$', _('Enter a valid email address.'), 'invalid')
         ])
-
 
     username = models.CharField(_('username'), max_length=30, null=True,
             help_text=_('Required. 30 characters or fewer. Letters, digits and ''@/./+/-/_ only.'),
@@ -135,24 +138,27 @@ class User(AbstractBaseUser, PermissionsMixin):
         blank=True,
     )
 
-    country_of_origin = CountryField(blank_label='(select country)', verbose_name='Pais de origen')
+    country_of_origin = CountryField(blank_label='(Seleccione el país)',
+                                     verbose_name='Pais de origen',
+                                     blank=True,)
 
     city_of_origin = models.CharField(
         max_length=255,
-        blank = False,
-        verbose_name='Ciudad de origen'
+        blank=True,
+        verbose_name='Ciudad de origen',
+
     )
     # Can I use later this package https://github.com/coderholic/django-cities
 
     country_current_residence = CountryField(
-        blank_label='(select country)',
-        verbose_name = 'País actual de residencia'
-
+        blank_label='(Seleccione el país)',
+        verbose_name = 'País actual de residencia',
+        blank=True,
     )
 
     city_current_residence = models.CharField(
         max_length=255,
-        blank = False,
+        blank = True,
         verbose_name='Ciudad actual de residencia'
     )
      # Can I use later this package https://github.com/coderholic/django-cities
@@ -169,22 +175,28 @@ class User(AbstractBaseUser, PermissionsMixin):
         # https://stackoverflow.com/a/16360605/2773461
     )
 
-
     phone_number = PhoneNumberField(
         blank=True,
         help_text="Por favor use el siguiente formato: <em>+Country Code-Number</em>.",
         verbose_name='Número de contacto'
     )
 
-    address = models.CharField(_("Dirección"), max_length=128)
+    address = models.CharField(_("Dirección"), max_length=128, blank=True,)
 
-    bio = models.CharField(_('Biografía'), max_length=140, blank=True, default="",)
-
-    avatar = models.ImageField(
-        upload_to='avatars',
+    biography = models.CharField(
+        max_length=140,
         blank=True,
         null=True,
-        verbose_name='Fotografía de perfil'
+        verbose_name='Biografía',
+    )
+
+    avatar = models.ImageField(
+        upload_to=get_image_path,
+        #upload_to='avatars',
+        blank=True,
+        null=True,
+        verbose_name='Fotografía de perfil',
+        default= "userprofile-pics/default_profile_pic.png"
     )
 
     date_joined = models.DateTimeField(default=timezone.now)
@@ -193,7 +205,7 @@ class User(AbstractBaseUser, PermissionsMixin):
         blank=True,
         null=True,
         verbose_name='Fecha de nacimiento',
-        help_text="Por favor use el formato: <em>MM-DD-YYYY</em>.",
+        help_text="Por favor use el formato: <em>YYYY-MM-DD</em>.",
     )
 
     user_type = models.CharField(
@@ -203,6 +215,16 @@ class User(AbstractBaseUser, PermissionsMixin):
         default=False,
         blank=False,
     )
+
+    '''
+    terms_and_conditions = models.BooleanField(
+        default=False,
+        verbose_name='Aceptar términos y condiciones de uso de HOSTAYNI',
+        help_text='Al hacer click en registrarse usted acepta los siguientes',
+        blank=False,
+        null=False
+    )
+    '''
 
     is_student = models.BooleanField(
         default=False,
@@ -296,6 +318,11 @@ class User(AbstractBaseUser, PermissionsMixin):
     def __str__(self):
         return "@{}".format(self.email)
 
+    def set_avatar(self):
+        _avatar = self.avatar
+        if not _avatar:
+            self.avatar = "img/default_profile_pic.png"
+
     def has_perm(self, perm, obj=None):
         "Does the user have a specific permission?"
         # Simplest possible answer: Yes, always
@@ -374,6 +401,8 @@ class User(AbstractBaseUser, PermissionsMixin):
 
     def save(self, *args, **kwargs):
         super(User, self).save(*args, **kwargs)
+
+        #self.avatar =
 
         if self.is_student and getattr(self, 'studentprofile', None) is None:
             StudentProfile.objects.create(

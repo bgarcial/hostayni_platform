@@ -37,6 +37,7 @@ class UserCreateForm(UserCreationForm):
         self.fields["password1"].label = ""
         self.fields["password2"].label = ""
         self.fields["user_type"].label = ""
+        # self.fields["terms_and_conditions"].label = ""
         #email = forms.CharField(widget=forms.Textarea, label='')
 
     '''
