@@ -60,7 +60,7 @@ class LodgingOffer(models.Model):
     HOSTEL = 'Hostal'
     STUDENT_RESIDENCE = 'Residencia estudiantil'
     ACCOMODATION_WITH_LOCAL_FAMILY = 'Acomodación con familia local'
-    HOUSE_APT_SHARE_VISITORS = 'Casa o apartamento para compartir con otros huéspede'
+    HOUSE_APT_SHARE_VISITORS = 'Casa o apartamento para compartir con otros huéspedes'
     HOUSE_OR_PRIV_APT = 'Casa o apartamento privado'
 
 
