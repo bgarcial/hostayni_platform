@@ -25,6 +25,8 @@
                         <a href="#">
                         <img src="{{ lodgingofferdetail.created_by.avatar.url }}" alt="" class="img-responsive">
                         </a>
+                        {% else %}
+                               <img src="{% static 'img/default_profile_pic.png' %}" class="img-responsive">
                         {% endif %}
                     </div>
                     <div class="name-review-cont">
@@ -177,29 +179,30 @@
 			</div>
 			<div class="comment-form-cont grey-background">
 				<h3>Agregar comentario</h3>
-				<form action="." method="post"> <br>
-        <input type="hidden" name="csrfmiddlewaretoken" value="ttphP2uPW8jCaysY2c6ZRHjq3oCuRSCZC2szbF4dm7JzKmdUaUYFVAazTsk47k7r">
+                    <form action="." method="post"> <br>
+                        <input type="hidden" name="csrfmiddlewaretoken" value="ttphP2uPW8jCaysY2c6ZRHjq3oCuRSCZC2szbF4dm7JzKmdUaUYFVAazTsk47k7r">
 
-        <div class="formgroup">
-            <span>Name</span>
-            <input class="textinputclass" id="id_name" maxlength="80" name="name" type="text" required="">
-        </div>
-        <div class="formgroup">
-            <span>Email</span>
-            <input id="id_email" maxlength="254" name="email" type="email" required="" placeholder="Email">
-        </div>
-        <div class="formgroup">
-            <span>Message</span>
-            <textarea class="editable medium-editor-textarea " cols="40" id="id_body" name="body" rows="10" required=""></textarea>
-        </div>
-        <div class="submit-button-cont">
-					<div>
-	          <input type="image" src="https://s3-sa-east-1.amazonaws.com/ihost-project/assets/img/icons/ok.png" alt="Submit" width="48" height="48">
-						<input type="submit" value="Add comment" class="submit-button">
-	        </div>
-        </div>
-      </form>
+                        <div class="formgroup">
+                            <span>Name</span>
+                            <input class="textinputclass" id="id_name" maxlength="80" name="name" type="text" required="">
+                        </div>
+                        <div class="formgroup">
+                            <span>Email</span>
+                            <input id="id_email" maxlength="254" name="email" type="email" required="" placeholder="Email">
+                        </div>
+                        <div class="formgroup">
+                            <span>Message</span>
+                            <textarea class="editable medium-editor-textarea " cols="40" id="id_body" name="body" rows="10" required=""></textarea>
+                        </div>
+                        <div class="submit-button-cont">
+                                    <div>
+                              <input type="image" src="https://s3-sa-east-1.amazonaws.com/ihost-project/assets/img/icons/ok.png" alt="Submit" width="48" height="48">
+                                        <input type="submit" value="Add comment" class="submit-button">
+                            </div>
+                        </div>
+                  </form>
 			</div>
+            <div id="disqus_thread"></div>
 
 		</main>
 		<!-- //Contenido principal (posts) -->

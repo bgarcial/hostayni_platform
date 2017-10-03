@@ -21,9 +21,13 @@
                 <p class="title">Autor</p>
                 <div class="profile">
                     <div class="img-cont">
+                        {% if studyofferdetail.created_by.avatar %}
                         <a href="#">
-                        <img src="{{ studyofferdetail.created_by.avatar.url }}" alt="">
+                        <img src="{{ studyofferdetail.created_by.avatar.url }}" alt="" class="img-responsive">
                         </a>
+                        {% else %}
+                               <img src="{% static 'img/default_profile_pic.png' %}" class="img-responsive">
+                        {% endif %}
                     </div>
                     <div class="name-review-cont">
                         {% comment %} A quien corresponda {% endcomment %}
@@ -106,13 +110,15 @@
 <!-- Contenido principal (ofertas) -->
 		<main>
 			<div class="post-body">
+                {% if studyofferdetail.photo %}
 				<div class="banner" style="background: url('{{ studyofferdetail.photo.url }}') no-repeat center; background-size:cover;">
 					<div class="title-cont">
 						<h1>{{ studyofferdetail.ad_title }}</h1>
 					</div>
 				</div>
+                {% endif %}
 				<div class="post-type innovate">
-					<i class="host">hostinghost</i>
+					<i class="learn">Aprendizaje</i>
 				</div>
 				<div class="main-content hosting">
 					<div class="cont type">
@@ -176,33 +182,35 @@
 			</div>
 			<div class="comment-form-cont grey-background">
 				<h3>Agregar comentario</h3>
-				<form action="." method="post"> <br>
-        <input type="hidden" name="csrfmiddlewaretoken" value="ttphP2uPW8jCaysY2c6ZRHjq3oCuRSCZC2szbF4dm7JzKmdUaUYFVAazTsk47k7r">
+                    <form action="." method="post"> <br>
+                        <input type="hidden" name="csrfmiddlewaretoken" value="ttphP2uPW8jCaysY2c6ZRHjq3oCuRSCZC2szbF4dm7JzKmdUaUYFVAazTsk47k7r">
 
-        <div class="formgroup">
-            <span>Name</span>
-            <input class="textinputclass" id="id_name" maxlength="80" name="name" type="text" required="">
-        </div>
-        <div class="formgroup">
-            <span>Email</span>
-            <input id="id_email" maxlength="254" name="email" type="email" required="" placeholder="Email">
-        </div>
-        <div class="formgroup">
-            <span>Message</span>
-            <textarea class="editable medium-editor-textarea " cols="40" id="id_body" name="body" rows="10" required=""></textarea>
-        </div>
-        <div class="submit-button-cont">
-					<div>
-	          <input type="image" src="https://s3-sa-east-1.amazonaws.com/ihost-project/assets/img/icons/ok.png" alt="Submit" width="48" height="48">
-						<input type="submit" value="Add comment" class="submit-button">
-	        </div>
-        </div>
-      </form>
+                        <div class="formgroup">
+                            <span>Name</span>
+                            <input class="textinputclass" id="id_name" maxlength="80" name="name" type="text" required="">
+                        </div>
+                        <div class="formgroup">
+                            <span>Email</span>
+                            <input id="id_email" maxlength="254" name="email" type="email" required="" placeholder="Email">
+                        </div>
+                        <div class="formgroup">
+                            <span>Message</span>
+                            <textarea class="editable medium-editor-textarea " cols="40" id="id_body" name="body" rows="10" required=""></textarea>
+                        </div>
+                        <div class="submit-button-cont">
+                                    <div>
+                              <input type="image" src="https://s3-sa-east-1.amazonaws.com/ihost-project/assets/img/icons/ok.png" alt="Submit" width="48" height="48">
+                                        <input type="submit" value="Add comment" class="submit-button">
+                            </div>
+                        </div>
+                  </form>
 			</div>
+        <div id="disqus_thread"></div>
 
 		</main>
 		<!-- //Contenido principal (posts) -->
 
 
 {% endblock  %}
+<script id="dsq-count-scr" src="//hostayni.disqus.com/count.js" async></script>
 
