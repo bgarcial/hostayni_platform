@@ -31,9 +31,10 @@
             </ul>
           </div>{% endcomment %}
 
-            <p class="legal">Al hacer click en registrarse usted esta de acuerdo con nuestros
-            <a href="#" data-toggle="modal" data-target="#largeModal">
-                términos y condiciones y política de tratamiento de datos</a></p>
+            <p class="legal" align="justify">Al dar clic en registrarse, autoriza
+                 <a href="#" data-toggle="modal" data-target="#largeModal2">
+                el tratamiento de sus datos</a> y
+            <a href="#" data-toggle="modal" data-target="#largeModal">términos y condiciones</a></p>
           <!-- Agregué estos dos divs para poder alinear el boton a la derecha -->
           <div class="submit-button-cont">
             <div>
@@ -43,6 +44,56 @@
           </div>
 
         </form>
+
+        <!-- Terms and conditions modal -->
+        <div class="modal fade" id="largeModal2" tabindex="-1" role="dialog" aria-labelledby="largeModal" aria-hidden="true">
+          <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+              <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h2 class="modal-title" id="myModalLabel2">AUTORIZACIÓN PARA EL TRATAMIENTO DE DATOS PERSONALES POR PARTE DE HOSTAYNI</h2>
+              </div>
+              <div class="modal-body">
+                  <p align="justify">
+                      <strong>HOSTAYNI</strong> le informa que sus datos personales serán almacenados, en nuestras bases
+                      de datos, y tratados para mantener una comunicación permanente y eficaz con usted con el fin de dar
+                      publicidad y envío de información comercial sobre servicios que preste Hostayni o sus aliados a
+                      través de la plataforma, y para realizar encuestas sobre las preferencias y gustos propios.
+                      <br/><br/>
+                      Estos servicios se refieren principalmente a alojamiento, información turística, información de
+                      negocios, eventos, actividades culturales, programas educativos, voluntariados y asesorías empresariales.
+
+                      <br /><br/>
+                      Autoriza a HOSTAYNI a transmitir mis datos personales a sus terceros aliados que presten cualquiera
+                      de los servicios anteriormente descritos. Puede verificar finalidades específicas en el capítulo V de
+                      la Política de Tratamiento de datos personales de HOSTAYNI.
+                      <br/><br/>
+
+                      Puede consultar nuestra política visitando la página web de <a href="www.hostayni.com/">www.hostayni.com</a> <br/>
+
+                      <br/>Si usted desea conocer, corregir, actualizar, rectificar o suprimir los datos que nos ha suministrado,
+                      o revocar la presente autorización, puede revisar el capítulo VII de la Política y conocer el procedimiento
+                      detallado, o si lo prefiere escríbanos un correo electrónico a xxxxxxxxxx@hostayni.com  indicándonos su solicitud,
+                      o comuníquese al teléfono (57 4) XXXXXXX.
+
+                      <br /><br/>Conociendo lo anterior, manifiesto mi autorización expresa, previa y voluntaria para el tratamiento de mis datos
+                      por parte de HOSTAYNI.
+                  </p>
+              </div>
+              <div class="modal-footer">
+                  <div class="submit-button-cont">
+                    <div>
+                      <input type="image" src="{% static 'img/icons/ok.png' %}" alt="Submit" width="48" height="48">
+                      <input type="submit" data-dismiss="modal" value="He leído la política de tratamiento de datos " class="submit-button">
+                    </div>
+                  </div>
+                <!--<button type="button" class="btn btn-primary" data-dismiss="modal">He leído los términos y condiciones</button>
+                 <button type="button" class="btn btn-primary">Save changes</button> -->
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- End Terms and conditions modal -->
 
         <!-- Terms and conditions modal -->
         <div class="modal fade" id="largeModal" tabindex="-1" role="dialog" aria-labelledby="largeModal" aria-hidden="true">
