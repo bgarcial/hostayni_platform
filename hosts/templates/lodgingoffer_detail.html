@@ -26,7 +26,9 @@
                         <img src="{{ lodgingofferdetail.created_by.avatar.url }}" alt="" class="img-responsive">
                         </a>
                         {% else %}
-                               <img src="{% static 'img/default_profile_pic.png' %}" class="img-responsive">
+                        <a href="#">
+                            <img src="{% static 'img/default_profile_pic.png' %}" class="img-responsive">
+                        </a>
                         {% endif %}
                     </div>
                     <div class="name-review-cont">
@@ -35,19 +37,24 @@
                             <span>{{ lodgingofferdetail.created_by.get_long_name }}</span>
                             <span>{{ lodgingofferdetail.created_by.get_enterprise_name }} (@{{ lodgingofferdetail.created_by.email }})</span>
                         </a>
+                        {% comment %}
                         <img src="{% static 'img/stars.svg' %}" alt="">
                         <div class="average">
                             <span>546</span>
                             <span>valoraciones</span>
                         </div>
+                        {% endcomment %}
                     </div>
                 </div>
             </div>
+            <!-- Todo good -->
+
             <div class="date">
                 <p class="title">Fecha de creación</p>
                 <span>{{ lodgingofferdetail.pub_date }}</span>
-
             </div>
+
+            {% comment %}
             <div class="review">
                 <p class="title">Calificación de la oferta</p>
                 <img src="{% static 'img/stars.svg' %}" alt="">
@@ -56,7 +63,11 @@
                     <span>valoraciones</span>
                 </div>
             </div>
+            {% endcomment %}
+
         </div>
+        <!-- todo good -->
+
         <div class="photos">
             <div class="icon">
                 <img src="{% static 'img/icons/photo.svg' %}" alt="">
@@ -71,14 +82,18 @@
                 <div id="photo6" style="background: url('{% static "img/canada-toronto.jpg"%}') no-repeat center; background-size:cover;"></div>
             </div>
         </div>
+
+
+        {% comment %}
+
         <div class="recomendation">
             <div class="icon">
-                <img src="{% static 'img/icons/recomend.svg' %}" alt="">
+                <img src="img/icons/recomend.svg" alt="">
                 <span>Te puede interesar</span>
             </div>
             <div class="cont innovate">
                 <a href="#">
-                    <div class="img" style="background: url('{% static "img/canada-toronto.jpg"%}') no-repeat center; background-size:cover;">
+                    <div class="img" style="background: url(img/canada-toronto.jpg) no-repeat center; background-size:cover;">
                         <div class="title">
                             <span>Otra oferta de innovación</span>
                         </div>
@@ -86,12 +101,12 @@
                 </a>
                 <div class="info">
                     <div class="post-type"><i>innovatehost</i></div>
-                    <img src="{% static 'img/stars.svg' %}" alt="">
+                    <img src="img/stars.svg" alt="">
                 </div>
             </div>
             <div class="cont innovate">
                 <a href="#">
-                    <div class="img" style="background: url('{% static "img/canada-toronto.jpg"%}') no-repeat center; background-size:cover;">
+                    <div class="img" style="background: url(img/canada-toronto.jpg) no-repeat center; background-size:cover;">
                         <div class="title">
                             <span>Otra oferta de innovación</span>
                         </div>
@@ -99,10 +114,11 @@
                 </a>
                 <div class="info">
                     <div class="post-type"><i>innovatehost</i></div>
-                    <img src="{% static 'img/stars.svg' %}" alt="">
+                    <img src="img/stars.svg" alt="">
                 </div>
             </div>
         </div>
+        {% endcomment %}
     </div>
 </div>
 <!-- //Columna a la derecha -->
@@ -116,7 +132,7 @@
 					</div>
 				</div>
 				<div class="post-type innovate">
-					<i class="host">hostinghost</i>
+					<i class="host">ESTADÍA</i>
 				</div>
 				<div class="main-content hosting">
 					<div class="cont type">
@@ -131,6 +147,7 @@
 							<span>{{ services }}</span>
 						</div>
                         {% endfor %}
+
                         <h2>Comodidades destacadas</h2>
                         {% for fa in featuredamenities %}
                         <div>
@@ -138,6 +155,7 @@
                             <span>{{ fa }}</span>
                         </div>
                         {% endfor %}
+
                         <h2>Room information</h2>
                         {% for offer in lodgingoffer %}
                         <div>
@@ -177,11 +195,11 @@
 					</div>
 				</div>
 			</div>
+            <div id="disqus_thread"></div>
             {% comment %}
 			<div class="comment-form-cont grey-background">
 				<h3>Agregar comentario</h3>
                     <form action="." method="post"> <br>
-                        <input type="hidden" name="csrfmiddlewaretoken" value="ttphP2uPW8jCaysY2c6ZRHjq3oCuRSCZC2szbF4dm7JzKmdUaUYFVAazTsk47k7r">
 
                         <div class="formgroup">
                             <span>Name</span>
@@ -204,9 +222,11 @@
                   </form>
 			</div>
             {% endcomment %}
-            <div id="disqus_thread"></div>
+        </main>
 
-		</main>
+
+
+
 		<!-- //Contenido principal (posts) -->
 
 

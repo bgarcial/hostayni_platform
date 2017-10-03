@@ -81,7 +81,7 @@ urlpatterns = [
     ),
 
     # Edit Studies offer
-    url(r"^study-offer/(?P<pk>\d+)/edit/",
+    url(r"^study-offer/(?P<pk>\d+)/edit/$",
         StudyOfferUpdateView.as_view(),
         name='edit-study-offer'
     ),
