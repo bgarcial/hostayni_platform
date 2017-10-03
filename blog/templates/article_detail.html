@@ -54,12 +54,13 @@ h1 {
                                 data-action="like" data-size="small" data-show-faces="true" data-share="true"></div>
                         </p>
                         <hr/>
-
+                        {% comment %}
                         <img src="{% static 'img/stars.svg' %}" alt="">
                         <div class="average">
                             <span>546</span>
                             <span>valoraciones</span>
                         </div>
+                        {% endcomment %}
                     </div>
                 </div>
             </div>
@@ -67,6 +68,7 @@ h1 {
                 <p class="title">Fecha de creación</p>
                 <span>{{ instance.timestamp }}</span>
             </div>
+            {% comment %}
             <div class="review">
                 <p class="title">Calificación de la oferta</p>
                 <img src="{% static 'img/stars.svg' %}" alt="">
@@ -75,8 +77,9 @@ h1 {
                     <span>valoraciones</span>
                 </div>
             </div>
+            {% endcomment %}
         </div>
-
+        {% comment %}
         <div class="blog">
             <div class="button">
                 <img src="{% static 'img/icons/blog.svg' %}">
@@ -122,6 +125,7 @@ h1 {
 
             </div>
         </div>
+        {% endcomment %}
     </div>
 </div>
 
