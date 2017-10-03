@@ -63,7 +63,7 @@ class DateInput(forms.DateInput):
 
 
 class UserUpdateForm(forms.ModelForm):
-    bio = forms.CharField(widget=forms.Textarea)
+    # biography = forms.CharField(widget=forms.Textarea)
 
     class Meta:
         widgets = {
@@ -73,13 +73,14 @@ class UserUpdateForm(forms.ModelForm):
             # I can customize these https://github.com/SmileyChris/
             # django-countries#countryselectwidget
              'date_of_birth': DateInput(), #datepicker
+             'creation_date': DateInput(), #datepicker
             #'date_of_birth': forms.DateInput(attrs={'class':'datepicker'})
         }
 
         fields = ("first_name", "last_name", "gender", "enterprise_name",
         "country_of_origin", "city_of_origin", "country_current_residence",
         "city_current_residence", 'speak_languages', "phone_number",
-        "address", "bio", "avatar", "date_of_birth",
+        "address", "biography", 'description', "avatar", "date_of_birth", "creation_date",
         'entertainment_activities', "is_student", "is_professor",
         "is_executive", "is_study_host", "is_hosting_host",)
 

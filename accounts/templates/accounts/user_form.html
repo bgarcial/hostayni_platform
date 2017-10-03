@@ -30,7 +30,7 @@
             </div>
         </div>
         {% if user.user_type == 'O' %}
-            {% bootstrap_form form exclude="first_name,last_name,gender,speak_languages,entertainment_activities,is_student,is_professor,is_executive" %}
+            {% bootstrap_form form exclude="first_name,last_name,gender,biography,date_of_birth,speak_languages,country_of_origin,city_of_origin,country_current_residence,entertainment_activities,is_student,is_professor,is_executive" %}
             {% comment %}
             {% bootstrap_field form.enterprise_name %}
             {% bootstrap_field form.country_of_origin %}
@@ -47,7 +47,7 @@
             {% endcomment %}
 
         {% else %}
-            {% bootstrap_form form exclude="enterprise_name,is_study_host" %}
+            {% bootstrap_form form exclude="enterprise_name,is_study_host,description,creation_date" %}
         {% endif %}
         <div class="submit-button-cont">
             <div>

@@ -128,7 +128,7 @@ class User(AbstractBaseUser, PermissionsMixin):
 
     last_name = models.CharField(_('last name'), max_length=30, blank=True)
 
-    enterprise_name = models.CharField(_('enterprise name'), max_length=100, blank=True)
+    enterprise_name = models.CharField(_('Nombre de la organización'), max_length=100, blank=True)
 
     gender = models.CharField(
         max_length=10,
@@ -159,7 +159,7 @@ class User(AbstractBaseUser, PermissionsMixin):
     city_current_residence = models.CharField(
         max_length=255,
         blank = True,
-        verbose_name='Ciudad actual de residencia'
+        verbose_name='Ciudad de residencia'
     )
      # Can I use later this package https://github.com/coderholic/django-cities
 
@@ -183,11 +183,16 @@ class User(AbstractBaseUser, PermissionsMixin):
 
     address = models.CharField(_("Dirección"), max_length=128, blank=True,)
 
-    biography = models.CharField(
-        max_length=140,
+    biography = models.TextField(
         blank=True,
         null=True,
         verbose_name='Biografía',
+    )
+
+    description = models.TextField(
+        verbose_name='Descripción',
+        blank=True,
+        null=True,
     )
 
     avatar = models.ImageField(
@@ -196,7 +201,7 @@ class User(AbstractBaseUser, PermissionsMixin):
         blank=True,
         null=True,
         verbose_name='Fotografía de perfil',
-        default= "userprofile-pics/default_profile_pic.png"
+        #default= "userprofile-pics/default_profile_pic.png"
     )
 
     date_joined = models.DateTimeField(default=timezone.now)
@@ -205,6 +210,13 @@ class User(AbstractBaseUser, PermissionsMixin):
         blank=True,
         null=True,
         verbose_name='Fecha de nacimiento',
+        help_text="Por favor use el formato: <em>YYYY-MM-DD</em>.",
+    )
+
+    creation_date = models.DateField(
+        blank=True,
+        null=True,
+        verbose_name='Fecha de creación',
         help_text="Por favor use el formato: <em>YYYY-MM-DD</em>.",
     )
 
