@@ -33,6 +33,8 @@ h1 {
                         <a href="#">
                             {% if instance.author.avatar%}
                         <img src="{{ instance.author.avatar.url }}" alt="">
+                            {% else %}
+                               <img src="{% static 'img/default_profile_pic.png' %}" class="img-responsive">
                             {% endif %}
 
                         </a>

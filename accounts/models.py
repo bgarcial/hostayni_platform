@@ -152,7 +152,7 @@ class User(AbstractBaseUser, PermissionsMixin):
 
     country_current_residence = CountryField(
         blank_label='(Seleccione el país)',
-        verbose_name = 'País actual de residencia',
+        verbose_name = 'País de residencia',
         blank=True,
     )
 
@@ -746,11 +746,11 @@ class ExecutiveProfile(models.Model):
 
 
 class StudyHostProfile(models.Model):
-    UNIVERSITY = 'UNIVERSITY'
-    TECHNOLOGICAL_SCHOOL = 'TECH_SCHOOL'
-    UNIVERSITY_INSTITUTION = 'UNIV_INST'
-    PROFESSIONAL_TECH_INSTITUTION = 'PROF_TECH_INST'
-    CEC = 'CONTINUAL_EDUCATION_CENTER'
+    UNIVERSITY = 'Universidad'
+    TECHNOLOGICAL_SCHOOL = 'Escuela Tecnológica'
+    UNIVERSITY_INSTITUTION = 'Institución Universitaria'
+    PROFESSIONAL_TECH_INSTITUTION = 'Institución Tecnológica Profesiona'
+    CEC = 'Centro de Educación Contínua'
 
     INSTITUTION_TYPE_CHOICES = (
         (UNIVERSITY, 'Universidad'),
@@ -758,6 +758,7 @@ class StudyHostProfile(models.Model):
         (UNIVERSITY_INSTITUTION, 'Institución Universitaria'),
         (PROFESSIONAL_TECH_INSTITUTION, 'Institución Tecnológica Profesional'),
         (CEC, 'Centro de Educación Contínua'),
+        (CEC, 'Centro de Educación para la vida y el trabajo'),
     )
 
     PRIVATE = 'PRIVATE'
@@ -770,18 +771,18 @@ class StudyHostProfile(models.Model):
         (MIXED, "Privada - Pública"),
     )
 
-    NATIONAL_ACCREDITATIONS = 'NAT_ACC'
-    INTERNATIONAL_ACCREDITATIONS = 'INT_ACC'
+    NATIONAL_ACCREDITATIONS = 'Acreditación Nacional'
+    INTERNATIONAL_ACCREDITATIONS = 'Acreditación Internacional'
 
     ACCREDITATIONS_CHOICES = (
         (NATIONAL_ACCREDITATIONS, "Acreditación Nacional"),
         (INTERNATIONAL_ACCREDITATIONS, "Acreditación Internacional"),
     )
 
-    LESS_THAN_THOUSAND = 'Less than a thousand students'
-    ONE_THOUSAND_TEN_THOUSAND = 'Between one thousand and ten thousand students'
-    TEN_THOUSAND_TWENTY_THOUSAND = 'Between ten thousand and twenty thousand students'
-    GREATER_THAN_TWENTY_THOUSAND = 'More/Greater than twenty thousand students'
+    LESS_THAN_THOUSAND = 'Menos de 1.000 estudiantes'
+    ONE_THOUSAND_TEN_THOUSAND = 'Entre 1.000 y 10.000 estudiantes'
+    TEN_THOUSAND_TWENTY_THOUSAND = 'Entre 10.000 y 20.000 estudiantes'
+    GREATER_THAN_TWENTY_THOUSAND = 'Mayor a 20.000 estudiantes'
 
     STUDENT_NUMBERS_CHOICES = (
         (LESS_THAN_THOUSAND, 'Menos de 1.000 estudiantes'),
@@ -822,8 +823,8 @@ class StudyHostProfile(models.Model):
         verbose_name='Número de estudiantes'
     )
 
-    rankings_classification = models.CharField(
-        _("Clasificación en ranking"), max_length=255
+    rankings_classification = models.TextField(
+        _("Clasificación en ranking")
     )
 
     knowledge_topics = TaggableManager(

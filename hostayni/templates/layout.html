@@ -58,7 +58,7 @@
                             {% if userprofile.user.avatar %}
                                 <img src="{{ userprofile.user.avatar.url }}" class="img-responsive">
                             {% else %}
-                               <img src="https://s3-sa-east-1.amazonaws.com/ihost-project/assets/img/default_profile_pic.png" class="img-responsive">
+                                <img src="{% static 'img/default_profile_pic.png' %}" class="img-responsive">
                             {% endif %}
                             <!-- Imagen de perfil -->
                            {% comment %} <img src="{{ object.image_url|default_if_none:'#' }}" alt="">{% endcomment %}

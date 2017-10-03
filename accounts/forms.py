@@ -140,9 +140,9 @@ class StudyHostProfileForm(forms.ModelForm):
         choices=StudyHostProfile.ACCREDITATIONS_CHOICES,
     )
 
-    rankings_classification = forms.CharField(widget=forms.Textarea)
+    # rankings_classification = forms.CharField(widget=forms.Textarea)
     #knowledge_topics_choice = forms.CharField(widget=forms.Textarea)
-    strengths = forms.CharField(widget=forms.Textarea)
+    #strengths = forms.CharField(widget=forms.Textarea)
 
     class Meta:
         model = StudyHostProfile

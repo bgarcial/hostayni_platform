@@ -1605,7 +1605,7 @@
     {% endif  %}
 
     {% if article.category.title == 'SOCIAL' %}
-    <article class="social">
+    <article class="social full-width" >
         {% if article.draft %}<h3> Hostayni Staff Only Draft</h3>{% endif %} {% if article.publish > today %}<h3>Hostayni Staff Only: Futuro articulo</h3>{% endif %}
         <a href="{% url 'articles:detail' slug=article.slug %}">
         <div class="img-title-cont">
@@ -1652,7 +1652,7 @@
     {% endif  %}
 
     {% if article.category.title == 'ESTADÍA'  %}
-    <article class="host">
+    <article class="host full-width">
          {% if article.draft %}<h3> Hostayni Staff Only Draft</h3>{% endif %} {% if article.publish > today %}<h3>Hostayni Staff Only: Futuro articulo</h3>{% endif %}
         <a href="{% url 'articles:detail' slug=article.slug %}">
         <div class="img-title-cont">
@@ -1743,7 +1743,7 @@
     {% endif  %}
 
     {% if article.category.title == 'ENTRETENIMIENTO' %}
-    <article class="enjoy">
+    <article class="enjoy full-width">
         {% if article.draft %}<h3> Hostayni Staff Only Draft</h3>{% endif %} {% if article.publish > today %}<h3>Hostayni Staff Only: Futuro articulo</h3>{% endif %}
         <a href="{% url 'articles:detail' slug=article.slug %}">
         <div class="img-title-cont">
@@ -1789,7 +1789,7 @@
     {% endif  %}
 
     {% if article.category.title == 'AMIGOS'  %}
-    <article class="friends">
+    <article class="friends full-width">
          {% if article.draft %}<h3> Hostayni Staff Only Draft</h3>{% endif %} {% if article.publish > today %}<h3>Hostayni Staff Only: Futuro articulo</h3>{% endif %}
         <a href="{% url 'articles:detail' slug=article.slug %}">
         <div class="img-title-cont">
