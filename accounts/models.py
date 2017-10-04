@@ -576,12 +576,20 @@ class UserProfile(models.Model):
         return reverse_lazy('accounts:detail', kwargs={"email": self.user.email})
 
 
-# Signal para que cuando se cree un usuario, se cree su userprofile
+# Signal para que cuando se cree un usuario, se cree su userprofile y se envie un correo de
+# confirmación.
+# View post_save parametere https://docs.djangoproject.com/en/1.11/ref/signals/#post-save
+
 def post_save_user_receiver(sender, instance, created, *args, **kwargs):
+    print(sender)
+    print(instance)
+    print(created)
     if created:
-        new_profile = UserProfile.objects.get_or_create(user=instance)
+        new_profile, is_created = UserProfile.objects.get_or_create(user=instance)
+        print(new_profile, is_created) # print email and true because the user is created
         # celery + redis
         # deferred tasks
+        # send email to verify user email
 
 
 post_save.connect(post_save_user_receiver, sender=settings.AUTH_USER_MODEL)

@@ -310,3 +310,34 @@ HAYSTACK_CONNECTIONS = {
 }
 
 HAYSTACK_SIGNAL_PROCESSOR = 'haystack.signals.RealtimeSignalProcessor'
+
+#EMAIL_HOST = 'smtp.sendgrid.net'
+#EMAIL_HOST_USER = 'hostayni' # hello@hostayni.com
+
+EMAIL_HOST = get_env_variable('EMAIL_HOST')
+EMAIL_HOST_USER = get_env_variable('EMAIL_HOST_USER')
+
+# Sender
+EMAIL_MAIN = 'hello@hostayni.com'
+EMAIL_HOST_PASSWORD = get_env_variable('EMAIL_HOST_PASSWORD')
+EMAIL_PORT = 587
+EMAIL_USE_TLS = True
+
+"""
+from django.conf import settings
+from django.core.mail import send_mail
+
+send_mail('Notificación de hostayni correo', 'El correo noreply@hostayni.com es ficticio, debemos decidir
+   ...:  que correo estará como remitente de las notificaciones a correo electrónico y comprarlo ya para tener im
+   ...: plementada esta funcionalidad de notificar a correo electrónico. Estamos usando el servicio de sendgrid.c
+   ...: om', 'noreply@hostayni.com', ['botibagl@gmail.com', 'bmlugar@gmail.com','christiandiazleon@gmail.com','ju
+   ...: anjaimearroyaver@gmail.com'], fail_silently=False)
+
+    
+send_mail(
+    "subject", 
+    "here is the message", 
+    from_email, 
+    to_email_list, # must be a list
+    fail_silently=False)
+"""

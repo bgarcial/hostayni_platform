@@ -104,16 +104,11 @@ class LodgingOffer(models.Model):
         (SHARED_BATHROOM, "Baño compartido"),
     )
 
-
-
-
-
     created_by = models.ForeignKey(
         settings.AUTH_USER_MODEL,
         on_delete=models.CASCADE
     )
 
-    # Fijarle un max_length
     ad_title = models.CharField(
         null=False,
         blank=False,
@@ -133,6 +128,7 @@ class LodgingOffer(models.Model):
     address = models.CharField(_("Dirección"), max_length=255)
 
     latitude = models.CharField(_("latitude"), max_length=255, null=True, blank=True)
+
     longitude = models.CharField(_("longitude"), max_length=255, null=True, blank=True)
 
     lodging_offer_type = models.CharField(
@@ -231,6 +227,7 @@ class LodgingOffer(models.Model):
         verbose_name='Fotografía'
     )
 
+
     room_value = models.CharField(_("Precio"), max_length=128)
 
     additional_description = models.TextField(
@@ -253,6 +250,13 @@ class LodgingOffer(models.Model):
     '''
     def get_absolute_url(self):
         return reverse('host:detail', kwargs = {'pk' : self.pk })
+
+    def get_price(self):
+        return self.room_value
+
+
+# class LodgingOfferImage(models.Model):
+
 
 
 class StudiesOffert(models.Model):
