@@ -33,6 +33,8 @@ from host_information.models import SpeakLanguages, EntertainmentActivities
 
 from django.template.loader import render_to_string
 from django.core.mail import send_mail
+from django.core.urlresolvers import reverse
+
 
 # Model Manager
 
@@ -593,7 +595,8 @@ class EmailConfirmed(models.Model):
     def activate_user_email(self):
         # send email here & render a string
 
-        activation_url = "http://localhost:8000/accounts/activate/%s" %(self.activation_key)
+        # activation_url = "http://localhost:8000/accounts/activate/%s" %(self.activation_key)
+        activation_url = "%s%s" %(settings.SITE_URL, reverse("activation_view", args=[self.activation_key]))
         context = {
             'activation_key': self.activation_key,
             'activation_url': activation_url,

@@ -22,6 +22,9 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/1.11/howto/deployment/checklist/
 
+# SECURITY WARNING: don't run with debug turned on in production!
+DEBUG = True
+
 # SECURITY WARNING: keep the secret key used in production secret!
 # SECRET_KEY = ''
 def get_env_variable(var_name):
@@ -320,6 +323,15 @@ DEFAULT_FROM_EMAIL = ' HOSTAYNI <hello@hostayni.com>'
 EMAIL_HOST_PASSWORD = get_env_variable('EMAIL_HOST_PASSWORD')
 EMAIL_PORT = 587
 EMAIL_USE_TLS = True
+
+SITE_URL = 'http://www.hostayni.com'
+
+'''
+if DEBUG:
+    SITE_URL = 'http://127.0.0.1:8000'
+    #SITE_URL = 'http://www.hostayni.com'
+'''
+
 
 """
 from django.conf import settings
