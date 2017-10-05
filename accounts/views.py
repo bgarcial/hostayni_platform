@@ -79,6 +79,7 @@ def user_profile_update_view(request, slug):
         if all([form.is_valid() for form in forms]):
             for form in forms:
                 form.save()
+            messages.success(request, "Tus datos de roles de usuario han sido actualizados")
             return redirect('articles:article_list')
             #return redirect('home')
     else:
@@ -87,11 +88,12 @@ def user_profile_update_view(request, slug):
     return render(request, 'accounts/profile_form.html', {'forms': forms, 'userprofile':profile,})
 
 
-class AccountSettingsUpdateView(LoginRequiredMixin, UserProfileDataMixin, UpdateView):
+class AccountSettingsUpdateView(SuccessMessageMixin, LoginRequiredMixin, UserProfileDataMixin, UpdateView):
     model = get_user_model()
     form_class = UserUpdateForm
-    #success_url = reverse_lazy('articles:article_list')
+    success_message = "Perfil actualizado exitosamente"
     success_url = reverse_lazy('articles:article_list')
+    # success_url = reverse_lazy('accounts:preferences', kwargs={'slug': user.slug})
 
 
 def logout_view(request):

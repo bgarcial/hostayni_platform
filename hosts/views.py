@@ -21,6 +21,7 @@ from .forms import (LodgingOfferForm,
 
 from django.views.generic.edit import FormView
 from haystack.query import SearchQuerySet
+from django.contrib.messages.views import SuccessMessageMixin
 from django.views.decorators.csrf import csrf_exempt
 from django.utils.decorators import method_decorator
 
@@ -247,23 +248,26 @@ def lodging_offers_by_user(request, email):
 
 
 # Add LoginRequiredMixin,
-class HostingOfferCreateView(LoginRequiredMixin, UserProfileDataMixin, CreateView):
+class HostingOfferCreateView(SuccessMessageMixin, LoginRequiredMixin, UserProfileDataMixin, CreateView):
     model = LodgingOffer
     form_class = LodgingOfferForm
     #success_url = reverse_lazy('dashboard')
+    success_message = "Oferta de alojamiento creada con éxito"
 
     def form_valid(self, form):
         form.save(commit=False)
         form.instance.created_by = self.request.user
         form.save()
+        # success_message = "Oferta de estudio creada con éxito"
         return super(HostingOfferCreateView, self).form_valid(form)
 
 
-class HostingOfferUpdateView(UserProfileDataMixin, LoginRequiredMixin, UpdateView):
+class HostingOfferUpdateView(SuccessMessageMixin, UserProfileDataMixin, LoginRequiredMixin, UpdateView):
     model = LodgingOffer
     form_class = LodgingOfferForm
     #success_url = reverse_lazy("dashboard")
     # success_url = reverse_lazy("hosts:detail-lodging-offer")
+    success_message = "Oferta de alojamiento actualizada con éxito"
 
     def get_context_data(self, **kwargs):
         context = super(HostingOfferUpdateView, self).get_context_data(**kwargs)
@@ -326,11 +330,12 @@ class HostingOfferDetailView(UserProfileDataMixin, LoginRequiredMixin, DetailVie
         return context
 
 
-class HostingOfferDeleteView(LoginRequiredMixin, DeleteView):
+class HostingOfferDeleteView(SuccessMessageMixin, LoginRequiredMixin, DeleteView):
     model = LodgingOffer
     success_url = reverse_lazy("articles:article_list")
     # success_url = reverse_lazy("host:list")
     context_object_name = 'lodgingofferdelete'
+    success_message = "Oferta de alojamientio eliminada con éxito"
 
     def get_context_data(self, **kwargs):
         context = super(HostingOfferDeleteView, self).get_context_data(**kwargs)
@@ -358,11 +363,12 @@ class HostingOfferDeleteView(LoginRequiredMixin, DeleteView):
 
 
 # Add LoginRequiredMixin,
-class StudyOfferCreateView(LoginRequiredMixin, UserProfileDataMixin, CreateView):
+class StudyOfferCreateView(SuccessMessageMixin, LoginRequiredMixin, UserProfileDataMixin, CreateView):
     model = StudiesOffert
     form_class = StudiesOffertForm
     #success_url = reverse_lazy("host:detail")
     #success_url = reverse_lazy("dashboard")
+    success_message = "Oferta de estudio creada con éxito"
 
     def form_valid(self, form):
         form.save(commit=False)
@@ -414,11 +420,13 @@ class StudyOffertDetailView(LoginRequiredMixin, DetailView):
         return context
 
 
-class StudyOfferUpdateView(LoginRequiredMixin, UpdateView):
+class StudyOfferUpdateView(SuccessMessageMixin, LoginRequiredMixin, UpdateView):
     model = StudiesOffert
     form_class = StudiesOffertForm
     # success_url = reverse_lazy("articles:articles_list")
     # success_url = reverse_lazy("hosts:detail-lodging-offer")
+    success_message = "Oferta de estudio actualizada con éxito"
+
 
     def get_context_data(self, **kwargs):
         context = super(StudyOfferUpdateView, self).get_context_data(**kwargs)
@@ -445,11 +453,12 @@ class StudyOfferUpdateView(LoginRequiredMixin, UpdateView):
         return context
 
 
-class StudyOfferDeleteView(LoginRequiredMixin, DeleteView):
+class StudyOfferDeleteView(SuccessMessageMixin, LoginRequiredMixin, DeleteView):
     model = StudiesOffert
     success_url = reverse_lazy("articles:article_list")
     # success_url = reverse_lazy("host:list")
     context_object_name = 'studyofferdelete'
+    success_message = "Oferta de estudio eliminada con éxito"
 
     def get_context_data(self, **kwargs):
         context = super(StudyOfferDeleteView, self).get_context_data(**kwargs)

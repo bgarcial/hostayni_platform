@@ -56,7 +56,7 @@ def article_create(request):
         print(form.cleaned_data.get('content'))
         instance.save()
         # message success
-        # messages.success(request, "Successfully created")
+        messages.success(request, "Tus artículo ha sido creado con éxito")
         return HttpResponseRedirect(instance.get_absolute_url())
 
     # Rendering form errors in a view
@@ -212,6 +212,7 @@ def article_update(request, slug=None):
         instance.save()
         # message success
         # messages.success(request, "<a href='#'>Item</a>Saved", extra_tags='html_safe')
+        messages.success(request, "Tu artículo ha sido actualizado")
         return HttpResponseRedirect(instance.get_absolute_url())
     context = {
         'title': instance.title,
@@ -229,7 +230,7 @@ def article_delete(request, slug=None):
     #    raise Http404
     instance = get_object_or_404(Article, slug=slug)
     instance.delete()
-    # messages.success(request, "Successfully deleted")
+    messages.success(request, "Tus artículo ha sido borrado")
     return redirect("articles:article_list")
 
 
