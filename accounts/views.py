@@ -17,6 +17,7 @@ from hostayni.mixins import UserProfileDataMixin
 from django.contrib import messages
 
 from django.contrib.messages.views import SuccessMessageMixin
+from django.contrib.auth.signals import user_logged_in
 
 from .forms import (
         StudentProfileForm, ExecutiveProfileForm,
@@ -29,6 +30,14 @@ from .models import (
         )
 
 User = get_user_model()
+
+
+def show_login_message(sender, user, request, **kwargs):
+    # whatever...
+    messages.info(request, 'Bienvenido a HOSTAYNI.')
+
+user_logged_in.connect(show_login_message)
+
 
 
 @login_required
@@ -85,11 +94,19 @@ class AccountSettingsUpdateView(LoginRequiredMixin, UserProfileDataMixin, Update
     success_url = reverse_lazy('articles:article_list')
 
 
+def logout_view(request):
+    logout(request)
+    messages.success(request, "<strong>Has cerrado sesión</strong>, <a href='%s'>vuelve pronto!</a>" %(reverse('login')), extra_tags='safe, abc')
+    # messages.warning(request, "Existe un warning!")
+    # messages.error(request, "Existe un error!")
+    return HttpResponseRedirect('%s'%(reverse('articles:article_list')))
 
-class LogoutView(generic.RedirectView):
+class LogoutView(SuccessMessageMixin, generic.RedirectView):
     # Redirect back to article list
-    url = reverse_lazy('articles:article_list')
     success_message = "Has cerrado sesión, vuelve pronto!"
+    url = reverse_lazy('articles:article_list')
+    #template_name = "hostayni/home.html"
+
 
     # se dispara cuando entra el request entrante
     def get(self, request, *args, **kwargs):
@@ -129,7 +146,7 @@ def activation_view(request, activation_key):
             # Set activation_key to confirmed word, because don't need key in this moment
             instance.activation_key = 'Confirmed'
             instance.save()
-            messages.success(request,"Has confirmado tu correo de forma exitosa, Por favor inicia sesión")
+            messages.success(request,"Has confirmado tu correo de forma exitosa, <a href='%s'>Por favor inicia sesión</a>" %(reverse('login')), extra_tags='safe, abc')
 
         elif instance is not None and instance.confirmed:
             print('Ya confirmaste tu dirección de correo electrónico')

@@ -39,7 +39,7 @@ urlpatterns = [
     # Call the accounts.urls.py
     url(r'^accounts/profiles/', include('accounts.urls', namespace='accounts')),
 
-    url(r'^accounts/', include('django.contrib.auth.urls'), name='login'),
+    url(r'^accounts/', include('django.contrib.auth.urls'),  name='login'),
     # I don't assign namespace because this is django URL
 
     url(r'^accounts/activate/(?P<activation_key>\w+)/$', activation_view, name='activation_view'),
