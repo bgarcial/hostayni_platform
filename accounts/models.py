@@ -1,6 +1,8 @@
 from __future__ import unicode_literals
 
 import os
+import random
+import hashlib
 
 from django.utils.translation import ugettext_lazy as _
 from django.core.validators import RegexValidator
@@ -28,6 +30,9 @@ from taggit.managers import TaggableManager
 from django.urls import reverse_lazy
 
 from host_information.models import SpeakLanguages, EntertainmentActivities
+
+from django.template.loader import render_to_string
+from django.core.mail import send_mail
 
 # Model Manager
 
@@ -576,23 +581,84 @@ class UserProfile(models.Model):
         return reverse_lazy('accounts:detail', kwargs={"email": self.user.email})
 
 
+class EmailConfirmed(models.Model):
+    user = models.OneToOneField(settings.AUTH_USER_MODEL,)
+    # El hash de activar el usuario
+    activation_key = models.CharField(max_length=200)
+    confirmed = models.BooleanField(default=False)
+
+    def __str__(self):
+        return str(self.confirmed)
+
+    def activate_user_email(self):
+        # send email here & render a string
+
+        activation_url = "http://localhost:8000/accounts/activate/%s" %(self.activation_key)
+        context = {
+            'activation_key': self.activation_key,
+            'activation_url': activation_url,
+            #'user': self.user.first_name
+            'user': self.user.email
+        }
+        message = render_to_string("accounts/activation_message.txt", context)
+        subject = 'Activa tu correo electrónico'
+        # print(message)
+        self.email_user(subject, message, settings.DEFAULT_FROM_EMAIL)
+
+    def email_user(self, subject, message, from_email=None, **kwargs):
+        send_mail(subject, message, from_email, [self.user.email], kwargs)
+
+
+
+
+
+
 # Signal para que cuando se cree un usuario, se cree su userprofile y se envie un correo de
 # confirmación.
 # View post_save parametere https://docs.djangoproject.com/en/1.11/ref/signals/#post-save
 
-def post_save_user_receiver(sender, instance, created, *args, **kwargs):
-    print(sender)
-    print(instance)
-    print(created)
+
+def user_created(sender, instance, created, *args, **kwargs):
+    # user = instance
+    #
     if created:
-        new_profile, is_created = UserProfile.objects.get_or_create(user=instance)
-        print(new_profile, is_created) # print email and true because the user is created
+        new_profile = UserProfile.objects.get_or_create(user = instance)
+
+        # send email to verify user email
+        email_confirmed, email_is_created = EmailConfirmed.objects.get_or_create(user = instance)
+        if email_is_created:
+            # create hash
+            short_hash = hashlib.sha1(str(random.random()).encode('utf-8')).hexdigest()[:5]
+            # email = user.email
+            base, domain = str(instance.email).split("@")
+            activation_key = hashlib.sha1(str(short_hash + base).encode('utf-8')).hexdigest()
+            # Enviamos el codigo de activacion definido en EmailConfirmed model
+            email_confirmed.activation_key = activation_key
+            # Lo creamos o guardams
+            email_confirmed.save()
+            # send email
+            email_confirmed.activate_user_email()
+
+            # activation_key = hashlib.sha1(short_hash+email).hexdigest()
+
+
+            # user.emailedconfirmed.email_user()
+
+
+
+        # print(new_profile, is_created) # print email and true because the user is created
         # celery + redis
         # deferred tasks
-        # send email to verify user email
+
+    # print('this is the', sender)
+    # print('this is the', instance)
+    # print('user is', created)
+
+post_save.connect(user_created, sender=settings.AUTH_USER_MODEL)
 
 
-post_save.connect(post_save_user_receiver, sender=settings.AUTH_USER_MODEL)
+
+
 
 
 class StudentProfile(models.Model):

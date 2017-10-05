@@ -1,5 +1,7 @@
 from __future__ import unicode_literals
 
+import re
+
 from django.contrib.auth import get_user_model
 
 from django.views import generic
@@ -8,7 +10,7 @@ from django.views.generic.edit import UpdateView
 from django.core.urlresolvers import reverse_lazy, reverse
 from django.contrib.auth import login, logout, authenticate
 from django.contrib.auth.decorators import login_required
-from django.shortcuts import redirect, render
+from django.shortcuts import redirect, render, Http404
 from django.contrib.auth.mixins import LoginRequiredMixin
 
 from hostayni.mixins import UserProfileDataMixin
@@ -19,9 +21,10 @@ from .forms import (
         StudentProfileForm, ExecutiveProfileForm,
         ProfessorProfileForm, UserCreateForm, UserUpdateForm,
         StudyHostProfileForm, HostingHostProfileForm, )
+
 from .models import (
         StudentProfile, ProfessorProfile,
-        ExecutiveProfile, User, UserProfile
+        ExecutiveProfile, User, UserProfile, EmailConfirmed
         )
 
 User = get_user_model()
@@ -30,6 +33,10 @@ User = get_user_model()
 @login_required
 def user_profile_update_view(request, slug):
     user = request.user
+
+    # llamando al mensaje en donde estara el link de activación
+    #Necesito llamar esta funcion en el login
+    # user.emailconfirmed.activate_user_email()
 
     # Populate the forms and Instances (if applicable)
     form_profiles = []
@@ -69,6 +76,7 @@ def user_profile_update_view(request, slug):
 
     return render(request, 'accounts/profile_form.html', {'forms': forms, 'userprofile':profile,})
 
+
 class AccountSettingsUpdateView(LoginRequiredMixin, UserProfileDataMixin, UpdateView):
     model = get_user_model()
     form_class = UserUpdateForm
@@ -89,6 +97,36 @@ class LogoutView(generic.RedirectView):
 
 
 class SignUpView(generic.CreateView):
+    # llamando al mensaje en donde estara el link de activación
     form_class = UserCreateForm
     success_url = reverse_lazy("login")
     template_name = "accounts/signup.html"
+
+
+SHA1_RE = re.compile('^[a-f0-9]{40}$')
+
+def activation_view(request, activation_key):
+    # print(SHA1_RE.search(activation_key))
+    if SHA1_RE.search(activation_key):
+        print('activation key is real')
+        try:
+            instance = EmailConfirmed.objects.get(activation_key=activation_key)
+        except EmailConfirmed.DoesNotExist:
+            user_confirmed = None
+            raise Http404
+        if instance is not None and not instance.confirmed:
+            print('El correo electrónico ha sido confirmado')
+            page_message = 'El correo electrónico ha sido confirmado, Bienvenido'
+            instance.confirmed = True
+            # Set activation_key to confirmed word, because don't need key in this moment
+            instance.activation_key = 'Confirmed'
+            instance.save()
+        elif instance is not None and instance.confirmed:
+            print('Ya confirmaste tu dirección de correo electrónico')
+            page_message = 'Ya confirmaste tu dirección de correo electrónico'
+        else:
+            page_message = ''
+        context = {'page_message':page_message}
+        return render(request, "accounts/activation_complete.html", context)
+    else:
+        raise Http404

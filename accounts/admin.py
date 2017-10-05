@@ -8,7 +8,7 @@ from .models import (
     ProfessorProfile, ExecutiveProfile,
     StudyHostProfile, InnovationHostProfile,
     HostingHostProfile, EntertainmentHostProfile,
-    OtherServicesHostProfile,
+    OtherServicesHostProfile, EmailConfirmed
 )
 
 from .forms import CustomUserChangeForm, CustomUserCreationForm
@@ -84,6 +84,10 @@ class UserAdmin(CustomUserAdmin):
 @admin.register(UserProfile)
 class UserProfileAdmin(admin.ModelAdmin):
     list_display = ('id', 'user_id', )
+
+@admin.register(EmailConfirmed)
+class EmailConfirmedAdmin(admin.ModelAdmin):
+    list_display = ('id', 'user_id', 'activation_key', 'confirmed')
 
 @admin.register(StudentProfile)
 class StudentProfileAdmin(admin.ModelAdmin):

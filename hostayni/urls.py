@@ -19,6 +19,8 @@ from django.contrib import admin
 from django.conf import settings
 from .views import HomePageView
 
+from accounts.views import activation_view
+
 from hosts.views import LodgingOfferViewSet,StudiesOffertViewSet
 
 from rest_framework import routers
@@ -39,6 +41,8 @@ urlpatterns = [
 
     url(r'^accounts/', include('django.contrib.auth.urls'), name='login'),
     # I don't assign namespace because this is django URL
+
+    url(r'^accounts/activate/(?P<activation_key>\w+)/$', activation_view, name='activation_view'),
 
 
 
