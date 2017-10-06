@@ -632,7 +632,7 @@ def user_created(sender, instance, created, *args, **kwargs):
 
     if created:
         new_profile = UserProfile.objects.get_or_create(user = instance)
-
+        '''
         # send email to verify user email
         email_confirmed, email_is_created = EmailConfirmed.objects.get_or_create(user = instance)
         if email_is_created:
@@ -653,7 +653,7 @@ def user_created(sender, instance, created, *args, **kwargs):
 
             # user.emailedconfirmed.email_user()
 
-
+            '''
 
         # print(new_profile, is_created) # print email and true because the user is created
         # celery + redis

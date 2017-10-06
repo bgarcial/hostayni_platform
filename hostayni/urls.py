@@ -17,9 +17,9 @@ from django.conf.urls import url, include
 from django.conf.urls.static import static
 from django.contrib import admin
 from django.conf import settings
-from .views import HomePageView
+# from .views import HomePageView
 
-from accounts.views import activation_view
+from accounts.views import activation_view, activate
 
 from hosts.views import LodgingOfferViewSet,StudiesOffertViewSet
 
@@ -42,8 +42,8 @@ urlpatterns = [
     url(r'^accounts/', include('django.contrib.auth.urls'),  name='login'),
     # I don't assign namespace because this is django URL
 
-    url(r'^accounts/activate/(?P<activation_key>\w+)/$', activation_view, name='activation_view'),
-
+    # url(r'^accounts/activate/(?P<activation_key>\w+)/$', activation_view, name='activation_view'),
+    url(r'^accounts/activate/(?P<uidb64>[0-9A-Za-z_\-]+)/(?P<token>[0-9A-Za-z]{1,13}-[0-9A-Za-z]{1,20})/$', activate, name='activate'),
 
 
     # conecta a vistas como logout signup

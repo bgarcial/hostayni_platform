@@ -10,9 +10,10 @@ urlpatterns = [
     # auth_views.LogoutView es la vista de logout en Django 1.11 para cuando actualicemos
     # url(r"logout/$", auth_views.LogoutView.as_view(), name="logout"),
 
-    #url(r"logout/$", views.LogoutView.as_view(), name="logout"),
+    # url(r"logout/$", views.LogoutView.as_view(), name="logout"),
     url(r"logout/$", views.logout_view, name="logout"),
-    url(r"signup/$", views.SignUpView.as_view(), name="signup"),
+    # url(r"signup/$", views.SignUpView.as_view(), name="signup"),
+    url(r'^signup/$', views.signup, name='signup'),
 
     url(r"^preferences/u/(?P<slug>[\w.\-]+)/$", views.AccountSettingsUpdateView.as_view(), name='preferences'),
 
