@@ -103,6 +103,7 @@ def logout_view(request):
     # messages.error(request, "Existe un error!")
     return HttpResponseRedirect('%s'%(reverse('articles:article_list')))
 
+
 class LogoutView(SuccessMessageMixin, generic.RedirectView):
     # Redirect back to article list
     success_message = "Has cerrado sesión, vuelve pronto!"
@@ -128,11 +129,12 @@ class SignUpView(SuccessMessageMixin, generic.CreateView):
 
 SHA1_RE = re.compile('^[a-f0-9]{40}$')
 
+from django.contrib.auth import authenticate
+
 def activation_view(request, activation_key):
     # print(SHA1_RE.search(activation_key))
     if SHA1_RE.search(activation_key):
         print('activation key is real')
-
         try:
             instance = EmailConfirmed.objects.get(activation_key=activation_key)
         except EmailConfirmed.DoesNotExist:
@@ -142,12 +144,19 @@ def activation_view(request, activation_key):
             #return HttpResponseRedirect('%s'%(reverse('articles:article_list')))
 
         if instance is not None and not instance.confirmed:
+
+            # instance.is_active = True
+            #user = User.objects.get(pk=pk)
+            #print(user)
+            #user.is_active = True
+
             print('El correo electrónico ha sido confirmado')
             page_message = 'El correo electrónico ha sido confirmado, Bienvenido'
             instance.confirmed = True
             # Set activation_key to confirmed word, because don't need key in this moment
             instance.activation_key = 'Confirmed'
             instance.save()
+
             messages.success(request,"Has confirmado tu correo de forma exitosa, <a href='%s'>Por favor inicia sesión</a>" %(reverse('login')), extra_tags='safe, abc')
 
         elif instance is not None and instance.confirmed:

@@ -46,6 +46,7 @@ class UserManager(BaseUserManager):
     """
 
     def create_user(self, email, password=None, **extra_fields):
+        # extra_fields.setdefault('is_active', False)
         if not email:
             raise ValueError("Users must have an email address")
 
@@ -64,6 +65,7 @@ class UserManager(BaseUserManager):
 
         )
         user.set_password(password)
+
         # handle the encryption and validation checks and so.
         user.save()
         return user
@@ -468,6 +470,9 @@ def create_slug(instance, new_slug=None):
 
 
 def pre_save_user_receiver(sender, instance, *args, **kwargs):
+
+    # instance.is_active = False
+
     if not instance.slug:
         instance.slug = create_slug(instance)
     """
@@ -624,6 +629,7 @@ class EmailConfirmed(models.Model):
 def user_created(sender, instance, created, *args, **kwargs):
     # user = instance
     #
+
     if created:
         new_profile = UserProfile.objects.get_or_create(user = instance)
 
