@@ -8,7 +8,7 @@ Encuentra en el mismo sitio todo lo que necesitas para vivir como en casa
 Hola {{ user.email }},
 Para completar tu registro, por favor verifica tu correo electrónico
 
-http://{{ domain }}{% url 'activate' uidb64=uid token=token %}
+{{ domain }}{% url 'activate' uidb64=uid token=token %}
 
 Saludos,
 
