@@ -6,11 +6,12 @@ from django.contrib.auth import get_user_model
 
 from django.views import generic
 from django.views.generic.edit import UpdateView
+from django.views import View
 
 from django.core.urlresolvers import reverse_lazy, reverse
 from django.contrib.auth import login, logout, authenticate
 from django.contrib.auth.decorators import login_required
-from django.shortcuts import redirect, render, Http404, HttpResponseRedirect
+from django.shortcuts import redirect, render, Http404, HttpResponseRedirect, get_object_or_404
 from django.contrib.auth.mixins import LoginRequiredMixin
 
 from hostayni.mixins import UserProfileDataMixin
@@ -28,6 +29,8 @@ from .models import (
         StudentProfile, ProfessorProfile,
         ExecutiveProfile, User, UserProfile, EmailConfirmed
         )
+
+from hosts.models import LodgingOffer
 
 # --- Packages to signup and activate fbv's ---
 from django.contrib.sites.shortcuts import get_current_site
@@ -234,3 +237,21 @@ def activate(request, uidb64, token):
                          "Tu correo electrónico ya ha sido confirmado con HOSTAYNI")
         #return HttpResponse('Activation link is invalid!')
         return redirect('login')
+
+
+class ContactOwnOfferView(View):
+
+    # Debe recibir el request de quien contacta, el pk de la oferta por la cual contacta y el
+    # email de la persona a contactar
+    def get(self, request, email, pk, *args, **kwargs):
+        #Capturamos el email del usuario al que queremos contactar (dueño de la oferta)
+        user_to_contact = get_object_or_404(User, email__iexact=email)
+
+        # Debemos capturar la oferta por la cual contacta
+        offer_to_interest = get_object_or_404(LodgingOffer, pk=pk)
+
+        # Si el usuario quien presiona contactar al dueño de la ofera esta autenticado
+        if request.user.is_authenticated():
+            is_contacting = UserProfile.objects.toggle_contact_own_offer(request.user, user_to_contact, offer_to_interest)
+        return redirect('hosts:detail', pk=pk)
+
