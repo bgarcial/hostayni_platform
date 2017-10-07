@@ -319,7 +319,7 @@ EMAIL_HOST = get_env_variable('EMAIL_HOST')
 EMAIL_HOST_USER = get_env_variable('EMAIL_HOST_USER')
 
 # Sender
-DEFAULT_FROM_EMAIL = ' HOSTAYNI <hello@hostayni.com>'
+DEFAULT_FROM_EMAIL = ' HOSTAYNI <no-responder@hostayni.com>'
 EMAIL_HOST_PASSWORD = get_env_variable('EMAIL_HOST_PASSWORD')
 EMAIL_PORT = 587
 EMAIL_USE_TLS = True
