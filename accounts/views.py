@@ -29,6 +29,17 @@ from .models import (
         ExecutiveProfile, User, UserProfile, EmailConfirmed
         )
 
+# --- Packages to signup and activate fbv's ---
+from django.contrib.sites.shortcuts import get_current_site
+from django.template.loader import render_to_string
+from django.core.mail import EmailMessage
+from django.conf import settings
+from django.utils.encoding import force_bytes, force_text
+from django.utils.http import urlsafe_base64_encode, urlsafe_base64_decode
+from .tokens import account_activation_token
+from django.http import HttpResponse
+# --- End Packages to signup and activate fbv's ---
+
 User = get_user_model()
 
 
@@ -175,12 +186,6 @@ def activation_view(request, activation_key):
         raise Http404
 
 
-from django.contrib.sites.shortcuts import get_current_site
-from django.template.loader import render_to_string
-from django.core.mail import EmailMessage
-from django.conf import settings
-
-
 def signup(request):
     if request.method == 'POST':
         form = UserCreateForm(request.POST)
@@ -196,22 +201,17 @@ def signup(request):
                 'uid': urlsafe_base64_encode(force_bytes(user.pk)),
                 'token': account_activation_token.make_token(user),
             })
-            mail_subject = 'Activate your blog account.'
+            mail_subject = 'HOSTAYNI - Activa tu cuenta'
             to_email = form.cleaned_data.get('email')
             email = EmailMessage(mail_subject, message, to=[to_email])
             email.send()
-            return HttpResponse('Please confirm your email address to complete the registration')
-
+            messages.success(request, "Registro exitoso. Te hemos enviado un enlace para que confirmes tu correo electrónico. Por favor hazlo para poder iniciar sesión")
+            #return HttpResponse('Please confirm your email address to complete the registration')
+            return redirect('login')
     else:
         form = UserCreateForm()
 
     return render(request, 'signup.html', {'form': form})
-
-
-from django.utils.encoding import force_bytes, force_text
-from django.utils.http import urlsafe_base64_encode, urlsafe_base64_decode
-from .tokens import account_activation_token
-from django.http import HttpResponse
 
 
 def activate(request, uidb64, token):
@@ -225,6 +225,12 @@ def activate(request, uidb64, token):
         user.save()
         #login(request, user)
         # return redirect('home')
-        return HttpResponse('Thank you for your email confirmation. Now you can login your account.')
+        messages.success(request,
+                         "Has confirmado tu correo de forma exitosa. Ya puedes iniciar sesión")
+        #return HttpResponse('Thank you for your email confirmation. Now you can login your account.')
+        return redirect('login')
     else:
-        return HttpResponse('Activation link is invalid!')
+        messages.success(request,
+                         "Tu correo electrónico ya ha sido confirmado con HOSTAYNI")
+        #return HttpResponse('Activation link is invalid!')
+        return redirect('login')

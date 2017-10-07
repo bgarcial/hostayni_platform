@@ -19,6 +19,7 @@
           {% csrf_token %}
           <h3>Unete a HOSTAYNI, es gratis.</h3>
              {% bootstrap_form form %}
+
             {% comment %}
             {% bootstrap_field form.email %}
             {% bootstrap_field form.password1 %}
@@ -29,7 +30,8 @@
             <ul id="r1">
                 <li>{% bootstrap_field form.user_type %}</li>
             </ul>
-          </div>{% endcomment %}
+          </div>
+            {% endcomment %}
 
             <p class="legal" align="justify">Al dar clic en registrarse, autoriza
                  <a href="#" data-toggle="modal" data-target="#largeModal2">
