@@ -49,7 +49,7 @@
       {% for result in results %}
         {% with lodgingoffer=result.object %}
         <tr>
-          <td><a href="{% url 'host:detail' lodgingoffer.pk %}">{{ lodgingoffer.ad_title }}</a></td>
+          <td><a href="{% url 'host:detail' lodgingoffer.slug %}">{{ lodgingoffer.ad_title }}</a></td>
           <td>{{ lodgingoffer.room_type_offered }}</td>
           <td>{{ lodgingoffer.number_guest_room_type }}</td>
         </tr>

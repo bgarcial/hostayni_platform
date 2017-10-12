@@ -123,7 +123,7 @@ s.setAttribute('data-timestamp', +new Date());
                             <div class="options">
                                 Mi Ayni
                                 <img src="{% static 'img/icons/gear.svg' %}" alt="">
-                                <div class="drop-down"> <p>Mi Ayni</p>
+                                <div class="drop-down">
                                     <ul>
                                         <li><a href="{% url 'accounts:preferences' userprofile.user.slug %}" >
                     Configuración de la cuenta</a></li>
@@ -135,17 +135,17 @@ s.setAttribute('data-timestamp', +new Date());
                                         <li class="line"></li>
                                         <p>Anfitrión</p>
                                         {% if userprofile.user.is_hosting_host %}
-                                          <li><a href="{% url 'host:hosting-host' %}">Crear oferta de hospedaje</a></li>
-                                          <li><a href="{% url 'host:list' userprofile.user.slug %}">Mis ofertas de hospedaje</a></li>
+                                          <li><a href="{% url 'host:hosting-host' %}">Crear oferta de alojamiento</a></li>
+                                          <li><a href="{% url 'host:list' userprofile.user.slug %}">Mis ofertas de alojamiento</a></li>
                                         {% endif %}
                                         {% if userprofile.user.is_study_host %}
-                                          <li><a href="{% url 'host:study-host' %}">Crear oferta de estudios</a></li>
-                                             <li><a href="{% url 'host:studiesofferlist' userprofile.user.slug %}">Mis ofertas de estudio</a></li>
+                                          <li><a href="{% url 'host:study-host' %}">Crear oferta de educación</a></li>
+                                             <li><a href="{% url 'host:studiesofferlist' userprofile.user.slug %}">Mis ofertas de educación</a></li>
                                         {% endif %}
                                         <li class="line"></li>
                                         <p>Búsquedas</p>
-                                        <li><a href="{% url 'host:hostingoffer-search' %}">Ofertas de hospedaje</a></li>
-                                        <li><a href="{% url 'host:studyoffer-search' %}">Ofertas de estudio</a></li>
+                                        <li><a href="{% url 'host:hostingoffer-search' %}">Ofertas de alojamiento</a></li>
+                                        <li><a href="{% url 'host:studyoffer-search' %}">Ofertas de educación</a></li>
 
                                         <li><a href="{% url 'accounts:logout' %}">Salir</a></li>
                                     </ul>

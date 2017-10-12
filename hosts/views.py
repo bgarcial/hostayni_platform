@@ -1,15 +1,21 @@
 from __future__ import unicode_literals
+
+from django.conf import settings
+from django.contrib import messages
+from django.http import HttpResponseNotModified
 from django.views.generic.edit import (CreateView, UpdateView,)
 from django.views.generic import DeleteView, ListView
-from django.views.generic.base import TemplateView
+from django.views.generic.base import TemplateView, View
 from django.views.generic.detail import DetailView
 from django.utils import timezone
 
 from django.contrib.auth.mixins import LoginRequiredMixin
+
+from accounts.models import User
 from hostayni.mixins import UserProfileDataMixin
 from rest_framework import viewsets
 
-from django.shortcuts import render
+from django.shortcuts import render, get_object_or_404, redirect
 from django.core.urlresolvers import reverse_lazy, reverse
 from .models import LodgingOffer, StudiesOffert, RoomInformation
 
@@ -24,6 +30,11 @@ from haystack.query import SearchQuerySet
 from django.contrib.messages.views import SuccessMessageMixin
 from django.views.decorators.csrf import csrf_exempt
 from django.utils.decorators import method_decorator
+
+from django.contrib.sites.shortcuts import get_current_site
+from django.template.loader import render_to_string
+from django.core.mail import EmailMessage
+from django.core.mail import send_mail
 
 # Create your views here.
 
@@ -242,8 +253,8 @@ def lodging_offers_by_user(request, email):
     return render(
         request,
         'hosts/lodgingoffer_list.html',
-        {'lodging_offers':lodging_offers,
-        'userprofile':profile}
+        {'lodging_offers': lodging_offers,
+        'userprofile': profile}
     )
 
 
@@ -273,30 +284,11 @@ class HostingOfferUpdateView(SuccessMessageMixin, UserProfileDataMixin, LoginReq
         context = super(HostingOfferUpdateView, self).get_context_data(**kwargs)
 
         user = self.request.user
-        if user.is_student:
-            profile = user.get_student_profile()
-            context['userprofile'] = profile
-        elif user.is_professor:
-            profile = user.get_professor_profile()
-            context['userprofile'] = profile
-        elif user.is_executive:
-            profile = user.get_executive_profile()
-            context['userprofile'] = profile
-        elif user.is_study_host:
-            profile = user.get_study_host_profile()
-            context['userprofile'] = profile
-        elif user.is_hosting_host:
-            profile = user.get_hosting_host_profile()
-            context['userprofile'] = profile
-        elif user.is_active:
-            #profile = user.get_user_profile()
-            context['userprofile'] = self.request.user
         return context
 
 
-
 class HostingOfferDetailView(UserProfileDataMixin, LoginRequiredMixin, DetailView):
-    model=LodgingOffer
+    model = LodgingOffer
     template_name = 'lodgingoffer_detail.html'
     context_object_name = 'lodgingofferdetail'
 
@@ -304,7 +296,8 @@ class HostingOfferDetailView(UserProfileDataMixin, LoginRequiredMixin, DetailVie
         context = super(HostingOfferDetailView, self).get_context_data(**kwargs)
         user = self.request.user
 
-        roominformation = LodgingOffer.objects.get(pk=self.kwargs.get('pk'))
+        # roominformation = LodgingOffer.objects.get(pk=self.kwargs.get('pk'))
+        roominformation = LodgingOffer.objects.get(slug=self.kwargs.get('slug'))
         room_information_lodging_offer = roominformation.room_information.all()
         #inf = self.kwargs['room_information_set.all()']
 
@@ -312,22 +305,89 @@ class HostingOfferDetailView(UserProfileDataMixin, LoginRequiredMixin, DetailVie
 
         context['lodgingoffer'] = room_information_lodging_offer
 
-        #queryset2 = LodgingOffer.objects.filter(offered_services__lodgingserviceoffer=LodgingServiceOffer.objects.all())
-
-        #offeredservices = set(queryset2.values_list('offered_services__name', flat=True).distinct())
-
-        offeredservices = LodgingOffer.objects.get(pk=self.kwargs.get('pk'))
+        # offeredservices = LodgingOffer.objects.get(pk=self.kwargs.get('pk'))
+        offeredservices = LodgingOffer.objects.get(slug=self.kwargs.get('slug'))
 
         query = offeredservices.offered_services.all()
 
         context['offeredservices'] = query
 
-        featuredamenities = LodgingOffer.objects.get(pk=self.kwargs.get('pk'))
+        # featuredamenities = LodgingOffer.objects.get(pk=self.kwargs.get('pk'))
+        featuredamenities = LodgingOffer.objects.get(slug=self.kwargs.get('slug'))
 
         fe_amen_query = featuredamenities.featured_amenities.all()
         context['featuredamenities'] = fe_amen_query
 
+        # Capturamos quien creo la oferta, y su titulo de anuncio
+        #lodging_offer_owner = self.get_object()
+        lodging_offer_owner_full_name = self.get_object().created_by.get_long_name()
+        lodging_offer_owner_email = self.get_object().created_by.email
+        lodging_offer_title = self.get_object().ad_title
+
+        # Capturamos los datos de quien esta interesado en la oferta
+        user_interested_email = user.email
+        user_interested_full_name = user.get_long_name()
+
+
+        url_offer = self.request.get_full_path
+        # print(url_offer)
+
+        print("Hola", lodging_offer_owner_full_name, "el usuario", user_interested_email,
+              "esta interesado en tu oferta", lodging_offer_title,
+              )
+
+        context['lodging_offer_owner_email'] = lodging_offer_owner_email
+        context['lodging_offer_owner_full_name'] = lodging_offer_owner_full_name
+        context['lodging_offer_title'] = lodging_offer_title
+
+
+        context['user_interested_email'] = user_interested_email
+        context['user_interested_full_name'] = user_interested_full_name
+
+
+        context['offer_url'] = url_offer
+
+        #contact_owner_offer(self.request, lodging_offer_owner_email, user_interested_email, lodging_offer_title)
+
         return context
+
+
+def contact_owner_offer(request, lodging_offer_owner_full_name, lodging_offer_owner_email,
+                        user_interested_full_name, interested_email, lodging_offer_title, offer_url):
+    user = request.user
+    if user.is_authenticated:
+        print('Send email')
+        mail_subject = 'Interesados en tu oferta'
+
+
+        context = {
+            # usuario dueño de la oferta  TO
+            'lodging_offer_owner_full_name': lodging_offer_owner_full_name,
+            'lodging_offer_owner_email': lodging_offer_owner_email,
+
+            # oferta por la que se pregunta
+            'lodging_offer_title': lodging_offer_title,
+            'offer_url': offer_url,
+            'domain': settings.SITE_URL,
+            'request': request.get_full_path,
+
+            # usuario interesado en la oferta
+            'interested_email': interested_email,
+            'user_interested_full_name': user_interested_full_name,
+        }
+        print('Este es el request', request)
+
+        message = render_to_string('contact_user_own_offer.html', context)
+        #to_email = lodging_offer_owner.email,
+
+        send_mail(mail_subject, message, settings.DEFAULT_FROM_EMAIL,
+                  [lodging_offer_owner_email, interested_email], fail_silently=True)
+
+        #messages.success(request, "El anfitrión", lodging_offer_owner_email, "ha sido contactado " )
+
+    #return redirect('host:contact_owner_offer', lodging_offer_owner_email=lodging_offer_owner_email,
+                    #interested_email=interested_email, slug=slug)
+    return HttpResponseNotModified()
 
 
 class HostingOfferDeleteView(SuccessMessageMixin, LoginRequiredMixin, DeleteView):
@@ -483,3 +543,24 @@ class StudyOfferDeleteView(SuccessMessageMixin, LoginRequiredMixin, DeleteView):
             #profile = user.get_user_profile()
             context['userprofile'] = self.request.user
         return context
+
+
+
+
+'''
+class ContactOwnOfferView(View):
+
+    # Debe recibir el request de quien contacta, el pk de la oferta por la cual contacta y el
+    # email de la persona a contactar
+    def get(self, request, email, pk, *args, **kwargs):
+        #Capturamos el email del usuario al que queremos contactar (dueño de la oferta)
+        user_to_contact = get_object_or_404(User, email__iexact=email)
+
+        # Debemos capturar la oferta por la cual contacta
+        offer_to_interest = get_object_or_404(LodgingOffer, pk=pk)
+
+        # Si el usuario quien presiona contactar al dueño de la ofera esta autenticado
+        if request.user.is_authenticated():
+            is_contacting = UserProfile.objects.toggle_contact_own_offer(request.user, user_to_contact, offer_to_interest)
+        return redirect('hosts:detail', pk=pk)
+'''

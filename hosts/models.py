@@ -17,7 +17,15 @@ from django.db.models.signals import post_save
 from django.dispatch import receiver
 from django.template.defaultfilters import slugify
 from django_countries.fields import CountryField
+from django.db.models.signals import pre_save
 
+
+'''
+class LodgingOfferManager(models.Model):
+    use_for_related_fields = True
+
+    #def toggle_contact_own_offer(self, user_interested, user_to_contact, offer):
+'''
 
 class LodgingOffer(models.Model):
 
@@ -115,6 +123,8 @@ class LodgingOffer(models.Model):
         max_length=255,
         verbose_name='Título de la oferta'
     )
+
+    slug = models.SlugField(max_length=100, blank=True)
 
     country = CountryField(blank_label='(Seleccionar país)', verbose_name='Pais')
 
@@ -249,14 +259,31 @@ class LodgingOffer(models.Model):
         return u'/host/lodging-offer/%d' % self.id
     '''
     def get_absolute_url(self):
-        return reverse('host:detail', kwargs = {'pk' : self.pk })
+        return reverse('host:detail', kwargs = {'slug' : self.slug })
 
     def get_price(self):
         return self.room_value
 
+def create_slug(instance, new_slug=None):
+    slug = slugify(instance.ad_title)
+    if new_slug is not None:
+        slug = new_slug
+    qs = LodgingOffer.objects.filter(slug=slug).order_by("-id")
+    exists = qs.exists()
+    if exists:
+        new_slug = "%s-%s" % (slug, qs.first().id)
+        return create_slug(instance, new_slug=new_slug)
+    return slug
+
+def pre_save_article_receiver(sender, instance, *args, **kwargs):
+    if not instance.slug:
+        instance.slug = create_slug(instance)
+
+pre_save.connect(pre_save_article_receiver, sender=LodgingOffer)
+
+
 
 # class LodgingOfferImage(models.Model):
-
 
 
 class StudiesOffert(models.Model):

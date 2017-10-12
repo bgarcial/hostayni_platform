@@ -179,18 +179,21 @@
 								<tr>
 									<th>Valor</th>
 									<th>Descripción</th>
+									<th>Descripción</th>
 								</tr>
 								<tr>
 									<td>{{ lodgingofferdetail.room_value }}</td>
 									<td>{{ lodgingofferdetail.additional_description }}</td>
+									<td>{{ lodgingofferdetail.lodging_offer_owner_email }}</td>
 								</tr>
 							</tbody>
 						</table>
 					</div>
 					<div class="contact">
-						<a class="contact-button" href="#">
-							<img src="{% static 'img/icons/contact.svg' %}" alt="">
-							<span>Contactar</span>
+						<a class="contact-button" href="
+						{% url 'host:contact_owner_offer' lodging_offer_owner_full_name=lodging_offer_owner_full_name lodging_offer_owner_email=lodging_offer_owner_email user_interested_full_name=user_interested_full_name interested_email=user_interested_email lodging_offer_title=lodging_offer_title offer_url=offer_url %}">
+							<img src="{% static 'img/icons/social-lines.svg' %}" alt="">
+							<span>Aplicar</span>
 						</a>
 					</div>
 				</div>

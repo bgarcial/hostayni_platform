@@ -30,7 +30,12 @@
             </div>
         </div>
         {% if user.user_type == 'O' %}
-            {% bootstrap_form form exclude="first_name,last_name,gender,biography,date_of_birth,speak_languages,country_of_origin,city_of_origin,city_current_residence,entertainment_activities,is_student,is_professor,is_executive" %}
+            {% bootstrap_form form exclude="first_name,last_name,gender,biography,date_of_birth,speak_languages,country_of_origin,city_of_origin,city_current_residence,entertainment_activities,is_student,is_professor,is_executive,is_study_host,is_hosting_host" %}
+
+            <p><strong>Mis roles de usuario</strong></p>
+            {% bootstrap_field form.is_study_host %}
+            {% bootstrap_field form.is_hosting_host %}
+
             {% comment %}
             {% bootstrap_field form.enterprise_name %}
             {% bootstrap_field form.country_of_origin %}
@@ -49,6 +54,7 @@
         {% else %}
             {% bootstrap_form form exclude="enterprise_name,is_study_host,description,creation_date" %}
         {% endif %}
+
         <div class="submit-button-cont">
             <div>
               <input type="image" src="{% static 'img/icons/ok.png' %}" alt="Submit" width="48" height="48">
@@ -56,7 +62,7 @@
             </div>
         </div>
         <p class="legal" align="justify">Al dar clic en guardar, autoriza
-            <a href="#">el tratamiento de sus datos</a> y <a href="#">términos y condiciones</a>
+            <a href="#">el tratamiento de sus datos</a> y los <a href="#">términos y condiciones</a>
         </p>
     </form>
 

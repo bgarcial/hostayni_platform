@@ -6,7 +6,8 @@ from .views import (HostingOfferCreateView, HostingOfferUpdateView,
                     studies_offers_by_user, StudyOfferUpdateView,
                     LodgingOfferSearch, StudiesOffertSearch,
                     HostingOfferDeleteView, StudyOfferDeleteView,
-                    LodgingOffersByUser, LodgingOfferAjax)
+                    LodgingOffersByUser, LodgingOfferAjax,
+                    contact_owner_offer)
 
 
 urlpatterns = [
@@ -31,38 +32,42 @@ urlpatterns = [
         name='list'
     ),
 
-
-    url(r'^ofertas/by/u/@(?P<username>[-\w]+)/$',
-       LodgingOffersByUser.as_view(),
-        name='list2'
-    ),
-
-
     # Edit Hosting offer
-    url(r"^lodging-offer/(?P<pk>\d+)/edit/$",
+    url(r"^lodging-offer/(?P<slug>[\w-]+)/edit/$",
         HostingOfferUpdateView.as_view(),
         name='edit-lodging-offer'
     ),
 
     # Delete of a Hosting Offer
-    url(r"^lodging-offer/(?P<pk>\d+)/delete/$",
+    url(r"^lodging-offer/(?P<slug>[\w-]+)/delete/$",
         HostingOfferDeleteView.as_view(),
         name='delete-lodging-offer'
     ),
 
     # Detail a Hosting Offer
-    url(r"^lodging-offer/(?P<pk>\d+)/$",
-        HostingOfferDetailView.as_view(),
-        name='detail'
-    ),
 
-
-
+    # url(r"^lodging-offer/(?P<pk>\d+)/$",
+    #    HostingOfferDetailView.as_view(),
+    #    name='detail'
+    # ),
 
     # Search Hosting Offer
     url(r'^lodging-offer/search/$',
         LodgingOfferSearch.as_view(),
         name='hostingoffer-search'
+    ),
+
+    url(r"^lodging-offer/(?P<slug>[\w-]+)/$",
+        HostingOfferDetailView.as_view(),
+        name='detail'
+    ),
+
+
+    url(r'^contact-to-owner/(?P<lodging_offer_owner_full_name>[\w." "@+-]+)/(?P<lodging_offer_owner_email>[\w.@+-]+)/from/'
+        r'(?P<user_interested_full_name>[\w." "@+-]+)/(?P<interested_email>[\w.@+-]+)/'
+        r'(?P<lodging_offer_title>[\w." "@+-]+)/(?P<offer_url>[\w.@+-/]+)/$',
+        contact_owner_offer,
+        name='contact_owner_offer'
     ),
 
 

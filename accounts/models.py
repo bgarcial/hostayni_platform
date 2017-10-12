@@ -255,49 +255,46 @@ class User(AbstractBaseUser, PermissionsMixin):
     is_student = models.BooleanField(
         default=False,
         verbose_name='Estudiante',
-        help_text='Perfil de estudiante'
+
     )
 
     is_professor = models.BooleanField(
         default=False,
         verbose_name='Profesor',
-        help_text='Perfil de profesor'
+
     )
 
     is_executive = models.BooleanField(
         default=False,
         verbose_name='Ejecutivo/Emprendedor',
-        help_text='Perfil de ejecutivo o emprendedor',
     )
 
     is_study_host = models.BooleanField(
         default=False,
         verbose_name='Anfitrion de estudio',
-        help_text='Perfil de anfitrón académico',
     )
 
     is_innovation_host = models.BooleanField(
         default=False,
         verbose_name='Anfitrión de innovación',
-        help_text='Perfil de anfitrión de innovación',
+
     )
 
     is_hosting_host = models.BooleanField(
         default=False,
         verbose_name='Anfitrión de alojamiento',
-        help_text='Perfil de anfitrión de hospedaje',
+
     )
 
     is_entertainment_host = models.BooleanField(
         default=False,
         verbose_name='Anfitrión de entretenimiento',
-        help_text='Perfil de anfitrión de entretenimiento',
+
     )
 
     is_other_services_host = models.BooleanField(
         default=False,
         verbose_name='Anfitrión de otros servicios',
-        help_text='Perfil de anfitrión de otros servicios',
     )
 
     # Adicionarla ahora despues de la migración

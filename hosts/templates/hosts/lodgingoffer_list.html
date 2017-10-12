@@ -9,7 +9,7 @@
 <div class="container">
  <div class="panel panel-default">
  <!-- Default panel contents -->
-  <div class="panel-heading">My Lodging Offers</div>
+  <div class="panel-heading">Mis ofertas de alojamiento</div>
    <!-- Table -->
    <table class="table">
     <tr>
@@ -17,13 +17,14 @@
      <th>Actions</th>    
     </tr>
   {% for offers in lodging_offers %}
+
     <tr>
      <td>
-      <h5><a href="{% url 'host:detail' offers.pk %}">{{ offers.ad_title }}</a> 
+      <h5><a href="{% url 'host:detail' offers.slug %}">{{ offers.ad_title }}</a>
      </td>
      <td>
-     <p><a class='btn btn-warning' href = "{% url 'host:edit-lodging-offer' pk=offers.pk %}">Update</a>
-   <a class='btn btn-danger' href = "{% url 'host:delete-lodging-offer' pk=offers.pk %}">Delete</a></p>
+     <p><a class='btn btn-warning' href = "{% url 'host:edit-lodging-offer' slug=offers.slug %}">Update</a>
+   <a class='btn btn-danger' href = "{% url 'host:delete-lodging-offer' slug=offers.slug %}">Delete</a></p>
      </td>
     {% endfor %}
    </table>

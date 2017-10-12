@@ -30,6 +30,7 @@ urlpatterns = [
 
 
 
+
     # ---*** URLs with fbv ***---
 
     url(r'^$', views.ArticleListView.as_view(),name='article_list'),

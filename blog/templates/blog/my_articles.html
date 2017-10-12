@@ -6,7 +6,7 @@
 {% endblock %}
 
 {% block body_content %}
-  <div class="container">
+<div class="container">
  <div class="panel panel-default">
  <!-- Default panel contents -->
   <div class="panel-heading">Mis Artículos</div>
@@ -22,14 +22,17 @@
       <h5><a href="{% url 'articles:detail' article.slug %}">{{ article.title }}</a>
      </td>
      <td>
-     <p><a class='btn btn-warning' href = "{% url 'articles:update' article.slug %}">Update</a>
-   <a class='btn btn-danger' href = "{% url 'articles:article_remove' article.slug %}">Delete</a>
-   <a class='btn btn-success' href = "{% url 'articles:create' %}">Crear Artículo</a></p>
+     <!-- <p><a class='btn btn-warning' href = "{% url 'articles:update' article.slug %}">Update</a>-->
+     <p><a class="glyphicon glyphicon-pencil" aria-hidden="true" href = "{% url 'articles:update' article.slug %}">
+     </a><a class='glyphicon glyphicon-trash' href = "{% url 'articles:article_remove' article.slug %}"></a>
+   <!-- <a class='btn btn-danger' href = "{% url 'articles:article_remove' article.slug %}">Delete</a> -->
+    </p>
      </td>
     {% endfor %}
    </table>
  </div>
 </div>
+<a class='glyphicon glyphicon-plus' href = "{% url 'articles:create' %}"></a>
 {% endblock %}
 
 {%comment%}

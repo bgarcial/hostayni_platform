@@ -88,7 +88,7 @@ class UserUpdateForm(forms.ModelForm):
 
 
 class StudentProfileForm(forms.ModelForm):
-    title = "Detalles de un estudiante"
+    title = "Detalles del estudiante"
 
     class Meta:
         model = StudentProfile
@@ -98,7 +98,7 @@ class StudentProfileForm(forms.ModelForm):
 
 
 class ProfessorProfileForm(forms.ModelForm):
-    title = "Detalles de un Profesor"
+    title = "Detalles del Profesor"
     occupation = forms.MultipleChoiceField(
         required=False,
         label='Occupation',
@@ -117,7 +117,7 @@ class ProfessorProfileForm(forms.ModelForm):
 
 
 class ExecutiveProfileForm(forms.ModelForm):
-    title = "Detalles de un ejecutivo o emprendedor"
+    title = "Detalles del ejecutivo o emprendedor"
     # companies_to_visit = forms.CharField(widget=forms.Textarea)
 
     class Meta:
@@ -128,7 +128,7 @@ class ExecutiveProfileForm(forms.ModelForm):
 
 
 class StudyHostProfileForm(forms.ModelForm):
-    title = "Detalles de un anfitrión de estudios"
+    title = "Detalles del anfitrión de estudios"
     widgets = {
             'institute_character':forms.RadioSelect,
     }
@@ -153,7 +153,7 @@ class StudyHostProfileForm(forms.ModelForm):
 
 
 class HostingHostProfileForm(forms.ModelForm):
-    title = "Detalles de un anfitrión de alojamiento"
+    title = "Detalles del anfitrión de alojamiento"
 
     class Meta:
         model = HostingHostProfile

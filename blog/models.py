@@ -62,7 +62,7 @@ class Article(models.Model):
                               width_field="width_field",
                               height_field="height_field",
                               verbose_name='Imagen',
-                              help_text='La fotografía a publicarse, preferiblemente de ancho:1920 y de alto:1980')
+                              help_text='El tamaño de la imagen debe ser de 1080 por 920')
     height_field = models.IntegerField(default=0)
     width_field = models.IntegerField(default=0)
 

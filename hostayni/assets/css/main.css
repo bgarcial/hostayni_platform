@@ -159,8 +159,10 @@ header {
           text-align: right;
           cursor: pointer; }
       header .profile-options .name-options-cont .options {
-        width: 15px;
+        width: 60px;
         margin: 0 0 0 auto; }
+        header .profile-options .name-options-cont .options p {
+          font-size: 0.9em; }
         header .profile-options .name-options-cont .options img {
           width: 15px;
           height: 15px;
@@ -606,9 +608,6 @@ article {
 
 .host .post-type i {
   background-color: #006533; }
-
-.friends .post-type i {
-  background-color: #DBA901; }
 
 .full-width {
   display: block;

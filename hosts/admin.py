@@ -9,7 +9,7 @@ from .models import LodgingOffer, StudiesOffert
 class LodgingOfferAdmin(admin.ModelAdmin):
     list_display = ('id', 'ad_title', 'room_type_offered',
         'number_guest_room_type', 'photographies', 'room_value',
-        'additional_description')
+        'additional_description', 'slug')
 
 @admin.register(StudiesOffert)
 class StudiesOffertAdmin(admin.ModelAdmin):
