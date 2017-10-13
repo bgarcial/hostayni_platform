@@ -52,4 +52,7 @@ class LodgingOfferSearchForm(forms.Form):
 
 
 class StudiesOffertSearchForm(forms.Form):
-    query = forms.CharField(label='')
+    query = forms.CharField(label='', widget=forms.TextInput(
+        attrs={'placeholder': 'Buscar por: Título, Ciudad, caracter de organización,'
+                              'tipo de estudios, áreas de conocimiento, programa de movilidad académica,'
+                              'duración, modalidad, precio'}))

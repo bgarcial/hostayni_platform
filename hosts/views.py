@@ -104,27 +104,6 @@ class StudiesOffertSearch(FormView):
         if user.is_authenticated():
             context['userprofile'] = user.profile
 
-        '''
-        if user.is_student:
-            profile = user.get_student_profile()
-            context['userprofile'] = profile
-
-        elif user.is_professor:
-            profile = user.get_professor_profile()
-            context['userprofile'] = profile
-
-        elif user.is_executive:
-            profile = user.get_executive_profile()
-            context['userprofile'] = profile
-
-        elif user.is_study_host:
-            profile = user.get_study_host_profile()
-            context['userprofile'] = profile
-
-        elif user.is_hosting_host:
-            profile = user.get_hosting_host_profile()
-            context['userprofile'] = profile
-        '''
         return context
 
 class LodgingOfferSearch(FormView):
@@ -171,37 +150,13 @@ class LodgingOfferSearch(FormView):
             })
         if user.is_authenticated():
             context['userprofile'] = user.profile
-        '''
-        if user.is_student:
-            profile = user.get_student_profile()
-            context['userprofile'] = profile
 
-        elif user.is_professor:
-            profile = user.get_professor_profile()
-            context['userprofile'] = profile
-
-        elif user.is_executive:
-            profile = user.get_executive_profile()
-            context['userprofile'] = profile
-
-        elif user.is_study_host:
-            profile = user.get_study_host_profile()
-            context['userprofile'] = profile
-
-        elif user.is_hosting_host:
-            profile = user.get_hosting_host_profile()
-            context['userprofile'] = profile
-        '''
         return context
 
 def studies_offers_by_user(request, email):
     user = request.user
     profile = user.profile
     studies_offers = StudiesOffert.objects.filter(created_by__email=user.email)
-
-    if user.is_study_host:
-        profile = user.get_study_host_profile()
-
 
     return render(
         request,
@@ -210,7 +165,7 @@ def studies_offers_by_user(request, email):
         'userprofile':profile}
     )
 
-
+'''
 class LodgingOffersByUser(LoginRequiredMixin, ListView):
     template_name = 'hosts/lodgingoffer_list2.html'
 
@@ -220,35 +175,15 @@ class LodgingOffersByUser(LoginRequiredMixin, ListView):
         lodging_offers = LodgingOffer.objects.filter(created_by__username=self.request.user)
         context['offers_by_user'] = lodging_offers
 
-        if user.is_student:
-            profile = user.get_student_profile()
-            context['userprofile'] = profile
-        elif user.is_professor:
-            profile = user.get_professor_profile()
-            context['userprofile'] = profile
-        elif user.is_executive:
-            profile = user.get_executive_profile()
-            context['userprofile'] = profile
-        elif user.is_study_host:
-            profile = user.get_study_host_profile()
-            context['userprofile'] = profile
-        elif user.is_hosting_host:
-            profile = user.get_hosting_host_profile()
-            context['userprofile'] = profile
-        elif user.is_active:
-            #profile = user.get_user_profile()
-            context['userprofile'] = self.request.user
+        if user.is_authenticated():
+            context['userprofile'] = user.profile
         return context
-
+'''
 
 def lodging_offers_by_user(request, email):
     user = request.user
     profile = user.profile
     lodging_offers = LodgingOffer.objects.filter(created_by__email=user.email)
-
-    if user.is_hosting_host:
-        profile = user.get_hosting_host_profile()
-
 
     return render(
         request,
@@ -371,7 +306,6 @@ def contact_owner_offer(request, lodging_offer_owner_full_name, lodging_offer_ow
             'interested_email': interested_email,
             'user_interested_full_name': user_interested_full_name,
         }
-        print('Este es el request', request)
 
         message = render_to_string('contact_user_own_offer.html', context)
         #to_email = lodging_offer_owner.email,
@@ -435,7 +369,7 @@ class StudyOfferCreateView(SuccessMessageMixin, LoginRequiredMixin, UserProfileD
 
 
 
-class StudyOffertDetailView(LoginRequiredMixin, DetailView):
+class StudyOffertDetailView(LoginRequiredMixin, UserProfileDataMixin, DetailView):
     model=StudiesOffert
     template_name = 'studyoffert_detail.html'
     context_object_name = 'studyofferdetail'
@@ -449,31 +383,73 @@ class StudyOffertDetailView(LoginRequiredMixin, DetailView):
         # studies_type_study_offert = studiestype_query.studies_type_offered.all()
         # context['studiestypeoffered'] = studies_type_study_offert
 
+        # Capturamos quien creo la oferta, y su titulo de anuncio
+        study_offer_owner_full_name = self.get_object().created_by.get_long_name()
+        study_offer_owner_email = self.get_object().created_by.email
 
-        #scholarships_query = StudiesOffert.objects.get(pk=self.kwargs.get('pk'))
-        #scholarships = scholarships_query.scholarships.all()
-        #context['scholarships'] = scholarships
+        print('email del dueño oferta', study_offer_owner_email)
 
+        study_offer_title = self.get_object().ad_title
+        print('titulo oferta', study_offer_title)
 
-        if user.is_student:
-            profile = user.get_student_profile()
-            context['userprofile'] = profile
-        elif user.is_professor:
-            profile = user.get_professor_profile()
-            context['userprofile'] = profile
-        elif user.is_executive:
-            profile = user.get_executive_profile()
-            context['userprofile'] = profile
-        elif user.is_study_host:
-            profile = user.get_study_host_profile()
-            context['userprofile'] = profile
-        elif user.is_hosting_host:
-            profile = user.get_hosting_host_profile()
-            context['userprofile'] = profile
-        elif user.is_active:
-            #profile = user.get_user_profile()
-            context['userprofile'] = self.request.user
+        # Capturamos los datos de quien esta interesado en la oferta
+        user_interested_email = user.email
+        print('email del user interesado oferta', user_interested_email)
+        user_interested_full_name = user.get_long_name()
+
+        # Capturamos el url de la oferta de estudios
+        url_offer = self.request.get_full_path
+
+        # Enviamos contextos
+        context['study_offer_owner_email'] = study_offer_owner_email
+        context['study_offer_owner_full_name'] = study_offer_owner_full_name
+        context['study_offer_title'] = study_offer_title
+
+        context['user_interested_email'] = user_interested_email
+        context['user_interested_full_name'] = user_interested_full_name
+
+        context['url_offer'] = url_offer
+
         return context
+
+
+def contact_study_owner_offer(request, study_offer_owner_full_name, study_offer_owner_email,
+                              user_interested_full_name, user_interested_email, study_offer_title, url_offer):
+    user = request.user
+    if user.is_authenticated:
+        #print('Send email')
+        mail_subject = 'Interesados en tu oferta educativa'
+
+
+
+        context = {
+            # usuario dueño de la oferta  TO
+            'study_offer_owner_full_name': study_offer_owner_full_name,
+            'study_offer_owner_email': study_offer_owner_email,
+
+            # oferta por la que se pregunta
+            'study_offer_title': study_offer_title,
+            'url_offer': url_offer,
+            'domain': settings.SITE_URL,
+            'request': request.get_full_path,
+
+            # usuario interesado en la oferta
+            'user_interested_email': user_interested_email,
+            'user_interested_full_name': user_interested_full_name,
+        }
+
+        message = render_to_string('contact_study_own_offer.html', context)
+        #to_email = lodging_offer_owner.email,
+
+        send_mail(mail_subject, message, settings.DEFAULT_FROM_EMAIL,
+                  [study_offer_owner_email, user_interested_email], fail_silently=True)
+
+        #messages.success(request, "El anfitrión", lodging_offer_owner_email, "ha sido contactado " )
+
+    #return redirect('host:contact_owner_offer', lodging_offer_owner_email=lodging_offer_owner_email,
+                    #interested_email=interested_email, slug=slug)
+    return HttpResponseNotModified()
+
 
 
 class StudyOfferUpdateView(SuccessMessageMixin, LoginRequiredMixin, UpdateView):
@@ -488,24 +464,6 @@ class StudyOfferUpdateView(SuccessMessageMixin, LoginRequiredMixin, UpdateView):
         context = super(StudyOfferUpdateView, self).get_context_data(**kwargs)
 
         user = self.request.user
-        if user.is_student:
-            profile = user.get_student_profile()
-            context['userprofile'] = profile
-        elif user.is_professor:
-            profile = user.get_professor_profile()
-            context['userprofile'] = profile
-        elif user.is_executive:
-            profile = user.get_executive_profile()
-            context['userprofile'] = profile
-        elif user.is_study_host:
-            profile = user.get_study_host_profile()
-            context['userprofile'] = profile
-        elif user.is_hosting_host:
-            profile = user.get_hosting_host_profile()
-            context['userprofile'] = profile
-        elif user.is_active:
-            #profile = user.get_user_profile()
-            context['userprofile'] = self.request.user
         return context
 
 

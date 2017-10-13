@@ -6,8 +6,7 @@ from .views import (HostingOfferCreateView, HostingOfferUpdateView,
                     studies_offers_by_user, StudyOfferUpdateView,
                     LodgingOfferSearch, StudiesOffertSearch,
                     HostingOfferDeleteView, StudyOfferDeleteView,
-                    LodgingOffersByUser, LodgingOfferAjax,
-                    contact_owner_offer)
+                    LodgingOfferAjax, contact_owner_offer, contact_study_owner_offer)
 
 
 urlpatterns = [
@@ -116,6 +115,12 @@ urlpatterns = [
         name='studyoffertdetail'
     ),
 
+    url(r'^contact-study-owner/(?P<study_offer_owner_full_name>[\w." "@+-]+)/(?P<study_offer_owner_email>[\w.@+-]+)/from/'
+        r'(?P<user_interested_full_name>[\w." "@+-]+)/(?P<user_interested_email>[\w.@+-]+)/'
+        r'(?P<study_offer_title>[\w." "@+-]+)/(?P<url_offer>[\w.@+-/]+)/$',
+        contact_study_owner_offer,
+        name='contact_study_owner_offer'
+    ),
 
 
 
