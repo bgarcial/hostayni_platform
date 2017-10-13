@@ -60,7 +60,7 @@ class StudiesOffertIndex(indexes.SearchIndex, indexes.Indexable):
     # Un checkbox para que se deshabilite o habilite la oferta
     # encadenando sete query asi https://stackoverflow.com/questions/34281742/how-to-and-chain-filters-in-a-django-queryset
     def index_queryset(self, using=None):
-        return self.get_model().objects.filter(pub_date__lte=timezone.now())
+        return self.get_model().objects.filter(pub_date__lte=timezone.now()).filter(is_taked=False)
 
 
 
@@ -131,6 +131,6 @@ class LodgingOfferIndex(indexes.SearchIndex, indexes.Indexable):
     # las ofertas de alojamiento no tomadas.
     def index_queryset(self, using=None):
         # return self.LodgingOffer.objects.all()
-        return self.get_model().objects.filter(pub_date__lte=timezone.now())
+        return self.get_model().objects.filter(pub_date__lte=timezone.now()).filter(is_taked=False)
 
 

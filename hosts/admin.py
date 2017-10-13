@@ -7,13 +7,16 @@ from .models import LodgingOffer, StudiesOffert
 
 @admin.register(LodgingOffer)
 class LodgingOfferAdmin(admin.ModelAdmin):
-    list_display = ('id', 'ad_title', 'room_type_offered',
+    list_display = ('id', 'ad_title', 'is_taked', 'room_type_offered',
         'number_guest_room_type', 'image', 'room_value',
         'additional_description', 'slug')
 
+    list_editable = ('is_taked',)
+
 @admin.register(StudiesOffert)
 class StudiesOffertAdmin(admin.ModelAdmin):
-    list_display = ('id', 'ad_title', 'slug', 'tag_list',)
+    list_display = ('id', 'is_taked', 'ad_title', 'slug', 'tag_list',)
+    list_editable = ('is_taked',)
 
     def get_queryset(self, request):
         return super(StudiesOffertAdmin, self).get_queryset(request).prefetch_related('knowledge_topics')

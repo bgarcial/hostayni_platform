@@ -16,7 +16,7 @@ class StudiesOffertForm(forms.ModelForm):
             'institute_character', 'maximum_quota', 'knowledge_topics',
             'duration', 'studies_type_offered', 'academic_mobility_programs',
             'additional_description', 'photo', 'address', 'modality', 'studies_value',
-                  'studies_value')
+                  'studies_value', 'is_taked')
         # exclude = ('hosting_host_user',)
         # to put after: 'accreditations'
 
@@ -39,7 +39,7 @@ class LodgingOfferForm(forms.ModelForm):
             'featured_amenities', 'room_type_offered',
             'number_guest_room_type', 'bed_type', 'bathroom',
             'room_information', 'image', 'room_value',
-            'additional_description',)
+            'additional_description', 'is_taked')
 
         # exclude = ('hosting_host_user',)
 

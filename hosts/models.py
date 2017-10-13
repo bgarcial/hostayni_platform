@@ -245,13 +245,25 @@ class LodgingOffer(models.Model):
         verbose_name='Descripción adicional'
     )
 
-    def __str__(self):
-        return "%s" % self.ad_title
+
 
     pub_date = models.DateTimeField(
         auto_now_add=True,
     )
 
+    is_taked = models.BooleanField(
+        _('Oferta tomada'),
+        default=False,
+        help_text=_(
+            'Indica si esta oferta ya fue tomada por un usuario.  <br /> Este campo es solo para uso de '
+            'actualización de una oferta cuando ya ha habido un acuerdo por ella. '
+            'Si se selecciona, no aparecerá en los resultados '
+            'de búsquedas. <br /> Des-seleccionéla en lugar de eliminar la oferta'
+        ),
+    )
+
+    def __str__(self):
+        return "%s" % self.ad_title
 
     '''
     def get_absolute_url(self):
@@ -439,6 +451,17 @@ class StudiesOffert(models.Model):
     pub_date = models.DateTimeField(
         auto_now=True,
         # related_name="lodgingoffers"
+    )
+
+    is_taked = models.BooleanField(
+        _('Oferta tomada'),
+        default=False,
+        help_text=_(
+            'Indica si esta oferta ya fue tomada por un usuario.  <br /> Este campo es solo para uso de '
+            'actualización de una oferta cuando ya ha habido un acuerdo por ella. '
+            'Si se selecciona, no aparecerá en los resultados '
+            'de búsquedas. <br /> Des-seleccionéla en lugar de eliminar la oferta'
+        ),
     )
 
     def __str__(self):
