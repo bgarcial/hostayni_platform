@@ -222,7 +222,7 @@ class HostingOfferUpdateView(SuccessMessageMixin, UserProfileDataMixin, LoginReq
         return context
 
 
-class HostingOfferDetailView(UserProfileDataMixin, LoginRequiredMixin, DetailView):
+class HostingOfferDetailView(SuccessMessageMixin, UserProfileDataMixin, LoginRequiredMixin, DetailView):
     model = LodgingOffer
     template_name = 'lodgingoffer_detail.html'
     context_object_name = 'lodgingofferdetail'
@@ -256,6 +256,7 @@ class HostingOfferDetailView(UserProfileDataMixin, LoginRequiredMixin, DetailVie
         # Capturamos quien creo la oferta, y su titulo de anuncio
         #lodging_offer_owner = self.get_object()
         lodging_offer_owner_full_name = self.get_object().created_by.get_long_name()
+        lodging_offer_owner_enterprise_name = self.get_object().created_by.get_enterprise_name
         lodging_offer_owner_email = self.get_object().created_by.email
         lodging_offer_title = self.get_object().ad_title
 
@@ -269,12 +270,11 @@ class HostingOfferDetailView(UserProfileDataMixin, LoginRequiredMixin, DetailVie
 
         context['lodging_offer_owner_email'] = lodging_offer_owner_email
         context['lodging_offer_owner_full_name'] = lodging_offer_owner_full_name
+        context['lodging_offer_owner_enterprise_name'] = lodging_offer_owner_enterprise_name
         context['lodging_offer_title'] = lodging_offer_title
-
 
         context['user_interested_email'] = user_interested_email
         context['user_interested_full_name'] = user_interested_full_name
-
 
         context['offer_url'] = url_offer
 
@@ -294,6 +294,7 @@ def contact_owner_offer(request, lodging_offer_owner_full_name, lodging_offer_ow
         context = {
             # usuario dueño de la oferta  TO
             'lodging_offer_owner_full_name': lodging_offer_owner_full_name,
+            #'lodging_offer_owner_enterprise_name': lodging_offer_owner_enterprise_name,
             'lodging_offer_owner_email': lodging_offer_owner_email,
 
             # oferta por la que se pregunta
@@ -320,7 +321,7 @@ def contact_owner_offer(request, lodging_offer_owner_full_name, lodging_offer_ow
     return HttpResponseNotModified()
 
 
-class HostingOfferDeleteView(SuccessMessageMixin, LoginRequiredMixin, DeleteView):
+class HostingOfferDeleteView(SuccessMessageMixin, UserProfileDataMixin, LoginRequiredMixin, DeleteView):
     model = LodgingOffer
     success_url = reverse_lazy("articles:article_list")
     # success_url = reverse_lazy("host:list")

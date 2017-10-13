@@ -427,6 +427,9 @@ class User(AbstractBaseUser, PermissionsMixin):
 
         #self.avatar =
 
+        # if self.user_type=='O':
+        #    FirstName = self.enterprise_name
+
         if self.is_student and getattr(self, 'studentprofile', None) is None:
             StudentProfile.objects.create(
                 user=self,
