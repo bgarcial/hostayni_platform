@@ -1,4 +1,7 @@
 {{ object.ad_title }}
+{{ object.country }}
+{{ object.city }}
+{{ object.address }}
 {{ object.room_type_offered }}
 {{ object.lodging_offer_type }}
 {{ object.number_guest_room_type }}
@@ -18,8 +21,6 @@
     {{ amenities.name }}
 {% endfor %}
 
-{{ object.country }}
-{{ object.city }}
-{{ object.address }}
+
 {{ object.bed_type }}
 {{ object.bathroom }}

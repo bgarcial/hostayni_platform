@@ -38,14 +38,17 @@ class LodgingOfferForm(forms.ModelForm):
                   'check_in', 'check_out', 'offered_services',
             'featured_amenities', 'room_type_offered',
             'number_guest_room_type', 'bed_type', 'bathroom',
-            'room_information', 'photographies', 'room_value',
+            'room_information', 'image', 'room_value',
             'additional_description',)
 
         # exclude = ('hosting_host_user',)
 
 
 class LodgingOfferSearchForm(forms.Form):
-    query = forms.CharField(label='')
+    query = forms.CharField(label='', widget=forms.TextInput(
+        attrs={'placeholder': 'Buscar por: Título, Ciudad, tipo de alojamiento, # de estrellas, servicios ofrecidos, '
+                              'comodidades destacadas, tipo de acomodación, tipo de cama, características de la habitación,'
+                              'baño, precio ($COP)'}))
 
 
 class StudiesOffertSearchForm(forms.Form):

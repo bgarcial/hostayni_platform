@@ -126,13 +126,15 @@
 <!-- Contenido principal (ofertas) -->
 		<main>
 			<div class="post-body">
-				<div class="banner" style="background: url('{{ lodgingofferdetail.photographies.url }}') no-repeat center; background-size:cover;">
+                {% if lodgingofferdetail.image %}
+				<div class="banner" style="background: url('{{ lodgingofferdetail.image.url }}') no-repeat center; background-size:cover;">
+                {% endif %}
 					<div class="title-cont">
 						<h1>{{ lodgingofferdetail.ad_title }}</h1>
 					</div>
-				</div>
+				</div><br/>
 				<div class="post-type innovate">
-					<i class="host">ESTADÍA</i>
+					<i class="host">ALOJAMIENTO</i>
 				</div>
 				<div class="main-content hosting">
 					<div class="cont type">

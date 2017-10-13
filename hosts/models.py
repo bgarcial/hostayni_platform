@@ -230,7 +230,7 @@ class LodgingOffer(models.Model):
         related_name="lodgingoffers"
     )
 
-    photographies = models.ImageField(
+    image = models.ImageField(
         upload_to='hosting-host-photos',
         blank=False,
         null=False,

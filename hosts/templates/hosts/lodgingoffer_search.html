@@ -13,17 +13,19 @@
       <div class="ofert-icon">
         <img src="{% static 'img/icons/search.svg' %}" alt="">
         <div class="title">
-          <h2>Stayhost</h2>
-          <span>Search</span>
+          <h2>ALOJAMIENTO</h2>
+          <span>Buscar</span>
         </div>
       </div>
       <div class="submit-button-cont">
-                <div>
-                  <input type="image" src="{% static 'img/icons/ok.png' %}" alt="Submit" width="48" height="48">
-                  <input type="submit" value="Buscar" class="submit-button">
-                </div>
-            </div>
+        <div>
+          <input type="image" src="{% static 'img/icons/ok.png' %}" alt="Submit" width="48" height="48">
+          <input type="submit" value="Buscar" class="submit-button">
+        </div>
+      </div>
     </div>
+
+
     {% csrf_token %}
     <div class="formgroup">
       <span></span>
@@ -32,33 +34,60 @@
   </form>
   {% if "query" in request.GET %}<br />
   <div class="main">
-    <p><h3>Lodging Offers containing: "{{ cd.query }}"</h3></p>
-    <span>Found {{ total_results }} result{{ total_results|pluralize }}</span>
+    <p><h3>Ofertas de alojamiento que contengan: "{{ cd.query }}"</h3></p>
+    <span>Encontrados cerca de {{ total_results }} resultado{{ total_results|pluralize }}</span>
   </div>
   <br /><br />
 
-
-  
-  <table>
-    <tbody>
-      <tr>
-        <th>Lodging Offer Title</th>    
-        <th>Room type</th>    
-        <th>Guess Number</th>    
-      </tr>
-      {% for result in results %}
+    {% for result in results %}
         {% with lodgingoffer=result.object %}
-        <tr>
-          <td><a href="{% url 'host:detail' lodgingoffer.slug %}">{{ lodgingoffer.ad_title }}</a></td>
-          <td>{{ lodgingoffer.room_type_offered }}</td>
-          <td>{{ lodgingoffer.number_guest_room_type }}</td>
-        </tr>
+  <article class="host full-width" >
+    <a href="{% url 'host:detail' lodgingoffer.slug %}">
+        <div class="img-title-cont">
+            <!-- la imagen de las publicaciones debe ser una imagen de background para poder modificar el
+            contenedor independientemente del tamaño de la imagen -->
+            {% if lodgingoffer.image %}
+            <div class="img" style="background: url('{{ lodgingoffer.image.url }}') no-repeat center; background-size:cover;"></div>
+            {% endif %}
+            <div class="title-cont">
+                <h3>{{ lodgingoffer.ad_title }}</h3>
+            </div>
+        </div>
+    </a>
+    <small>{{ lodgingoffer.pub_date }}</small>
+    <div class="post-info">
+        <div class="post-type"><i>ALOJAMIENTO</i></div><br/>
+        <strong>Tipo de habitación ofrecida:</strong> {{ lodgingoffer.room_type_offered }}<br/>
+        <strong>Número de huéspedes en habitación:</strong> {{ lodgingoffer.number_guest_room_type }}
+
+        {% if lodgingoffer.created_by.first_name %}
+        <p>Publicada por: {{ lodgingoffer.created_by.get_long_name }}</p>
+        {% endif %}
+        {% if lodgingoffer.created_by.get_enterprise_name %}
+        <p>Publicada por: {{ lodgingoffer.created_by.get_enterprise_name }}</p>
+        {% endif %}
+        <div class="description">{{ lodgingoffer.additional_description|linebreaks|truncatechars:420 }}</div>
+        <!-- Calificaciones -->
+      <hr/>
+        {% comment %}
+        <div class="review">
+            <p class="cost"><span>$ </span>147.000</p>
+            <div class="stars">
+                <!-- Dentro de esta etiqueta se pondrán las estrellas, estas son de muestra-->
+                <img src="{% static 'img/stars.svg' %}" alt="4.5 estrellas">
+                <div class="average">
+                    <span>546</span>
+                    <span>Valoraciones</span>
+                </div>
+            </div>
+        </div>
+        {% endcomment %}
+        <!-- //Calificaciones -->
         {% endwith %}
         {% empty %}
-          <p>There are no results for your query.</p>
-      {% endfor %}   
-    </tbody>
-  </table>
-  {% endif %}
-</div>
+          <p>No existen resultados para tu búsqueda de "{{ cd.query }}".</p>
+    {% endfor %}
+    </div>
+  </article>
+{% endif %}
 {% endblock %}
