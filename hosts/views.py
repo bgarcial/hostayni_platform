@@ -384,7 +384,7 @@ class StudyOffertDetailView(LoginRequiredMixin, UserProfileDataMixin, DetailView
         # context['studiestypeoffered'] = studies_type_study_offert
 
         # Capturamos quien creo la oferta, y su titulo de anuncio
-        study_offer_owner_full_name = self.get_object().created_by.get_long_name()
+        study_offer_owner_full_name = self.get_object().created_by.get_enterprise_name()
         study_offer_owner_email = self.get_object().created_by.email
 
         print('email del dueño oferta', study_offer_owner_email)
