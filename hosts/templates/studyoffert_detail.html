@@ -124,8 +124,9 @@
             </div>
         </div>
         {% endif %}
+        <br/>
         <div class="post-type innovate">
-            <i class="learn">Aprendizaje</i>
+            <i class="learn">EDUCACIÓN</i>
         </div>
         <div class="main-content hosting">
             <div class="cont type">
@@ -133,7 +134,7 @@
                 <p align="justify">{{ studyofferdetail.additional_description }}</p>
             </div>
             <div class="cont amenities">
-                <h2>Temáticas</h2>
+                <h2>Áreas de conocimiento</h2>
                 <div>
                     <img src="{% static 'img/icons/diary-button.svg' %}" alt="">
                     <span>{{ studyofferdetail.knowledge_topics.all|join:", " }}</span>
@@ -142,6 +143,11 @@
                 <div>
                     <img src="{% static 'img/icons/diary-button.svg' %}" alt="">
                     <span>{{ studyofferdetail.duration }}</span>
+                </div>
+                <h2>Modalidad</h2>
+                <div>
+                    <img src="{% static 'img/icons/diary-button.svg' %}" alt="">
+                    <span>{{ studyofferdetail.modality }}</span>
                 </div>
 
                 <h2>Programas de movilidad académica</h2>

@@ -17,11 +17,11 @@
   {% for offers in studies_offers %}
     <tr>
      <td>
-      <h5><a href="{% url 'host:studyoffertdetail' offers.pk %}">{{ offers.ad_title }}</a></h5> 
+      <h5><a href="{% url 'host:studyoffertdetail' offers.slug %}">{{ offers.ad_title }}</a></h5>
      </td>
      <td>
-     <p><a class='btn btn-warning' href = "{% url 'host:edit-study-offer' offers.pk %}">Update</a>
-   <a class='btn btn-danger' href = "{% url 'host:delete-study-offer' pk=offers.pk %}">Delete</a></p>
+     <p><a class='btn btn-warning' href = "{% url 'host:edit-study-offer' offers.slug %}">Update</a>
+   <a class='btn btn-danger' href = "{% url 'host:delete-study-offer' slug=offers.slug %}">Delete</a></p>
      </td>
     </tr>
     {% endfor %}

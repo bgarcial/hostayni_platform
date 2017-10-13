@@ -181,12 +181,11 @@
 								<tr>
 									<th>Valor</th>
 									<th>Descripción</th>
-									<th>Descripción</th>
+
 								</tr>
 								<tr>
 									<td>{{ lodgingofferdetail.room_value }}</td>
 									<td>{{ lodgingofferdetail.additional_description }}</td>
-									<td>{{ lodgingofferdetail.lodging_offer_owner_email }}</td>
 								</tr>
 							</tbody>
 						</table>
@@ -197,7 +196,10 @@
 							<img src="{% static 'img/icons/social-lines.svg' %}" alt="">
 							<span>Aplicar</span>
 						</a>
+                        <h4>Al hacer clic en <strong>Aplicar</strong>, se enviará una notificación de correo electrónico
+                        al dueño de la oferta y al usuario interesado en ella.</h4>
 					</div>
+
 				</div>
 			</div>
             <div id="disqus_thread"></div>

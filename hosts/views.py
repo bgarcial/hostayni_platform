@@ -332,10 +332,6 @@ class HostingOfferDetailView(UserProfileDataMixin, LoginRequiredMixin, DetailVie
         url_offer = self.request.get_full_path
         # print(url_offer)
 
-        print("Hola", lodging_offer_owner_full_name, "el usuario", user_interested_email,
-              "esta interesado en tu oferta", lodging_offer_title,
-              )
-
         context['lodging_offer_owner_email'] = lodging_offer_owner_email
         context['lodging_offer_owner_full_name'] = lodging_offer_owner_full_name
         context['lodging_offer_title'] = lodging_offer_title

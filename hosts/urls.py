@@ -86,7 +86,7 @@ urlpatterns = [
     ),
 
     # Edit Studies offer
-    url(r"^study-offer/(?P<pk>\d+)/edit/$",
+    url(r"^study-offer/(?P<slug>[\w-]+)/edit/$",
         StudyOfferUpdateView.as_view(),
         name='edit-study-offer'
     ),
@@ -94,15 +94,9 @@ urlpatterns = [
 
 
     # Delete of a Hosting Offer
-    url(r"^study-offer/(?P<pk>\d+)/delete/$",
+    url(r"^study-offer/(?P<slug>[\w-]+)/delete/$",
         StudyOfferDeleteView.as_view(),
         name='delete-study-offer'
-    ),
-
-    #Detail of Studies Offert
-    url(r'^study-offer/(?P<pk>\d+)/',
-        StudyOffertDetailView.as_view(),
-        name='studyoffertdetail'
     ),
 
     # Search Studies Offer
@@ -110,6 +104,21 @@ urlpatterns = [
         StudiesOffertSearch.as_view(),
         name='studyoffer-search'
     ),
+
+    # Detail of Studies Offert
+    # url(r'^study-offer/(?P<pk>\d+)/',
+    #    StudyOffertDetailView.as_view(),
+    #    name='studyoffertdetail'
+    # ),
+
+    url(r'^study-offer/(?P<slug>[\w-]+)/$',
+        StudyOffertDetailView.as_view(),
+        name='studyoffertdetail'
+    ),
+
+
+
+
 
 
 

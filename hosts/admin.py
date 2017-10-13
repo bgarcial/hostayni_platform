@@ -13,7 +13,7 @@ class LodgingOfferAdmin(admin.ModelAdmin):
 
 @admin.register(StudiesOffert)
 class StudiesOffertAdmin(admin.ModelAdmin):
-    list_display = ('id', 'tag_list',)
+    list_display = ('id', 'ad_title', 'slug', 'tag_list',)
 
     def get_queryset(self, request):
         return super(StudiesOffertAdmin, self).get_queryset(request).prefetch_related('knowledge_topics')

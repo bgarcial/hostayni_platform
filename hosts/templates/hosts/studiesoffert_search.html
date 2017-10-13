@@ -12,19 +12,18 @@
       <div class="ofert-icon">
         <img src="{% static 'img/icons/search.svg' %}" alt="">
         <div class="title">
-          <h2>Learnhost</h2>
-          <span>Search</span>
+          <h2>EDUCACIÓN</h2>
+          <span>Buscar</span>
         </div>
       </div>
-      
       <div class="submit-button-cont">
-              <div>
-                <input type="image" src="{% static 'img/icons/ok.png' %}" alt="Submit" width="48" height="48">
-                <input type="submit" value="Buscar" class="submit-button">
-              </div>
-            </div>
+        <div>
+          <input type="image" src="{% static 'img/icons/ok.png' %}" alt="Submit" width="48" height="48">
+          <input type="submit" value="Buscar" class="submit-button">
+        </div>
+      </div>
     </div>
-    {% csrf_token %}
+
     <div class="formgroup">
       <span></span>
         {{ form.query }}
@@ -32,10 +31,57 @@
   </form>
   {% if "query" in request.GET %}<br />
   <div class="main">
-    <p><h3>Studies Offers containing: "{{ cd.query }}"</h3></p>
-    <span>Found {{ total_results }} resultado{{ total_results|pluralize }}</span>
+    <p><h3>Ofertas educativas que contengan: "{{ cd.query }}"</h3></p>
+    <span>Encontrados cerca de {{ total_results }} resultado{{ total_results|pluralize }}</span>
   </div>
   <br /><br />
+  {% for result in results %}
+    {% with studyoffer=result.object %}
+
+  <article class="learn full-width" >
+    <a href="{% url 'host:studyoffertdetail' studyoffer.slug %}">
+        <div class="img-title-cont">
+            {% if studyoffer.photo %}
+            <div class="img" style="background: url('{{ studyoffer.photo.url }}') no-repeat center; background-size:cover;"></div>
+            {% endif %}
+            <div class="title-cont">
+                <h3>{{ studyoffer.ad_title }}</h3>
+            </div>
+        </div>
+    </a>
+    <small>{{ studyoffer.pub_date }}</small>
+    <div class="post-info">
+        <div class="post-type"><i>EDUCACIÓN</i></div><br/>
+        <strong>Organización:</strong> {{ studyoffer.created_by.get_enterprise_name }}, {{ studyoffer.institute_character }}<br/>
+        <strong>Áreas de conocimiento:</strong> {{ studyoffer.knowledge_topics.all|join:", " }}<br/>
+        <strong>Ubicación:</strong> {{ studyoffer.city }}, {{ studyoffer.country }}<br/>
+
+
+        <div class="description">{{ studyoffer.additional_description|linebreaks|truncatechars:420 }}</div>
+        <!-- Calificaciones -->
+      <hr/>
+        {% comment %}
+        <div class="review">
+            <p class="cost"><span>$ </span>147.000</p>
+            <div class="stars">
+                <!-- Dentro de esta etiqueta se pondrán las estrellas, estas son de muestra-->
+                <img src="{% static 'img/stars.svg' %}" alt="4.5 estrellas">
+                <div class="average">
+                    <span>546</span>
+                    <span>Valoraciones</span>
+                </div>
+            </div>
+        </div>
+        {% endcomment %}
+        <!-- //Calificaciones -->
+        {% endwith %}
+        {% empty %}
+          <p>No existen resultados para tu búsqueda de "{{ cd.query }}".</p>
+    {% endfor %}
+    </div>
+  </article>
+
+  {% comment %}
   <table>
     <tbody>
       <tr>
@@ -47,7 +93,7 @@
       {% for result in results %}
           {% with studyoffer=result.object %}
         <tr>
-          <td><a href="{% url 'host:studyoffertdetail' studyoffer.pk %}">{{ studyoffer.ad_title }}</a></td>
+          <td><a href="{% url 'host:studyoffertdetail' studyoffer.slug %}">{{ studyoffer.ad_title }}</a></td>
           <td>{{ studyoffer.created_by.first_name }}, {{ studyoffer.institute_character }}</td>
           <td>{{ studyoffer.knowledge_topics.all|join:", " }}</td>
           <td>{{ studyoffer.city }}, {{ studyoffer.country }}</td>
@@ -58,6 +104,7 @@
       {% endfor %}   
     </tbody>
   </table>
+  {% endcomment %}
   {% endif %}
 </div>
 {% endblock %}

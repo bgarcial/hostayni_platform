@@ -237,8 +237,7 @@ class LodgingOffer(models.Model):
         verbose_name='Fotografía'
     )
 
-
-    room_value = models.CharField(_("Precio"), max_length=128)
+    room_value = models.CharField(_("Precio"), max_length=128, help_text='Precio en pesos colombianos')
 
     additional_description = models.TextField(
         null=False,
@@ -264,6 +263,7 @@ class LodgingOffer(models.Model):
     def get_price(self):
         return self.room_value
 
+
 def create_slug(instance, new_slug=None):
     slug = slugify(instance.ad_title)
     if new_slug is not None:
@@ -275,16 +275,16 @@ def create_slug(instance, new_slug=None):
         return create_slug(instance, new_slug=new_slug)
     return slug
 
-def pre_save_article_receiver(sender, instance, *args, **kwargs):
+
+def pre_save_lodging_offer_receiver(sender, instance, *args, **kwargs):
     if not instance.slug:
         instance.slug = create_slug(instance)
 
-pre_save.connect(pre_save_article_receiver, sender=LodgingOffer)
 
+pre_save.connect(pre_save_lodging_offer_receiver, sender=LodgingOffer)
 
 
 # class LodgingOfferImage(models.Model):
-
 
 class StudiesOffert(models.Model):
 
@@ -312,36 +312,10 @@ class StudiesOffert(models.Model):
     )
 
 
-    '''
-    ONE_MONTHS = 'One month or less'
-    ONE_TO_SIX_MONTHS = 'One to six months'
-    SIX_TO_TWELVE_MONTHS = 'Six to twelve months'
-    TWELVE_TO_EIGHTEEN_MONTHS = 'Twelve to eighteen moths'
-    EIGHTEEN_TO_TWENTY_FOUR_MONTHS = 'Eighteen to twenty four months'
-
-    TWENTY_FOUR_TO_THIRTY_SIX_MONTHS = 'Twenty four to Thirty six months'
-    THIRTY_SIX_TO_FOURTY_EIGHT_MONTHS = 'Thirty six to Fourty eight months'
-    FOURTY_EIGHT_TO_SIXTY_MONTHS = 'Fourty eight to Sixty months'
-    MORE_THAN_TO_SIXTY_MONTHS = 'More/Greater than Sixty months'
-
-    DURATION_STUDY_CHOICES = (
-        (ONE_MONTHS, '1 mes o menos'),
-        (ONE_TO_SIX_MONTHS, 'De 1 a 6 meses'),
-        (SIX_TO_TWELVE_MONTHS, 'De 6 a 12 meses'),
-        (TWELVE_TO_EIGHTEEN_MONTHS, 'De 12 a 18 meses'),
-        (EIGHTEEN_TO_TWENTY_FOUR_MONTHS, 'De 18 a 24 meses'),
-        (TWENTY_FOUR_TO_THIRTY_SIX_MONTHS, 'De 24 a 36 meses'),
-        (THIRTY_SIX_TO_FOURTY_EIGHT_MONTHS, 'De 36 a 48 meses'),
-        (FOURTY_EIGHT_TO_SIXTY_MONTHS, 'De 48 a 60 meses'),
-        (MORE_THAN_TO_SIXTY_MONTHS, 'Mayor a 60 meses'),
-
-    )
-    '''
-
     CONTINUING_EDUCATION_STUDIES = 'Estudios de educación contínua'
     TECHNIQUE = 'Técnica'
     TECHNOLOGY = 'Tecnología'
-    PROFESSIONAL = 'Profesional'
+    PREGRADO = 'Pregrado'
     SPECIALIZATION = 'Especialización'
     MASTER = 'Maestría'
     DOCTORATE = 'Doctorado'
@@ -349,9 +323,9 @@ class StudiesOffert(models.Model):
 
     STUDIES_TYPE_CHOICES = (
         (CONTINUING_EDUCATION_STUDIES, u'Estudios de educación contínua'),
-        (TECHNIQUE, u'Tecnología'),
-        (TECHNOLOGY, u'Técnica'),
-        (PROFESSIONAL, u'Profesional'),
+        (TECHNIQUE, u'Técnica'),
+        (TECHNOLOGY, u'Tecnología'),
+        (PREGRADO, u'Pregrado'),
         (SPECIALIZATION, u'Especialización'),
         (MASTER, u'Maestría'),
         (DOCTORATE, u'Doctorado'),
@@ -379,6 +353,8 @@ class StudiesOffert(models.Model):
         max_length=255,
         verbose_name='Título de la oferta'
     )
+
+    slug = models.SlugField(max_length=100, blank=True)
 
     country = CountryField(blank_label='(Seleccionar país)', verbose_name='País')
 
@@ -424,19 +400,6 @@ class StudiesOffert(models.Model):
         verbose_name='Tipo de estudios ofertados',
     )
 
-    '''
-    Model to be removed
-    studies_offert_list = ChainedManyToManyField(
-        'StudiesOffertList', # Modelo encadenado
-        horizontal=False,
-        verbose_name='Studies Offert List',
-        chained_field='studies_type_offered',
-        chained_model_field='studies_type_offered_associated',
-        help_text='What are your studies offerts?',
-        blank=True,
-    )
-    '''
-
     academic_mobility_programs = models.CharField(
         max_length=255,
         choices=ACADEMIC_MOBILITY_PROGRAMS_CHOICES,
@@ -455,7 +418,7 @@ class StudiesOffert(models.Model):
         verbose_name='Modalidad',
     )
 
-    studies_value = models.CharField(_("Precio"), max_length=128)
+    studies_value = models.CharField(_("Precio"), max_length=128, help_text='Precio en pesos colombianos')
 
     additional_description = models.TextField(
         null=False,
@@ -481,11 +444,33 @@ class StudiesOffert(models.Model):
     def __str__(self):
         return "{}".format(self.ad_title)
 
+    '''
     def get_absolute_url(self):
         return reverse('host:studyoffertdetail', kwargs = {'pk' : self.pk })
     '''
-    @property
-    def image_url(self):
-        if self.photo and hasattr(self.photo, 'url'):
-            return self.photo.url
-    '''
+
+    def get_absolute_url(self):
+        return reverse('host:studyoffertdetail', kwargs={'slug': self.slug})
+
+    def get_price(self):
+        return self.studies_value
+
+
+def create_study_offer_slug(instance, new_slug=None):
+    slug = slugify(instance.ad_title)
+    if new_slug is not None:
+        slug = new_slug
+    qs = StudiesOffert.objects.filter(slug=slug).order_by("-id")
+    exists = qs.exists()
+    if exists:
+        new_slug = "%s-%s" % (slug, qs.first().id)
+        return create_slug(instance, new_slug=new_slug)
+    return slug
+
+
+def pre_save_study_offer_receiver(sender, instance, *args, **kwargs):
+    if not instance.slug:
+        instance.slug = create_study_offer_slug(instance)
+
+
+pre_save.connect(pre_save_study_offer_receiver, sender=StudiesOffert)
