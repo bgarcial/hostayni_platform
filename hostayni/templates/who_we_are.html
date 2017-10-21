@@ -1,0 +1,33 @@
+{% extends "layout.html" %}
+{% load bootstrap3 %}
+{% load staticfiles %}
+{% block title_tag %}Quienes somos | {{ block.super }}{% endblock %}
+{% block top_logo %}
+{% include "top-logo.html" %}
+{% endblock %}
+{% block body_content %}
+<div class="container">
+
+    <h1>¿Quiénes somos?</h1>
+
+    <p align="justify">
+        Los pueblos originarios de América construían relaciones sociales basadas en la ayuda
+        mutua y la reciprocidad, esa forma de vida la definieron con la palabra quechua AYNI.
+        <br /><br />
+        Nuestra red crea una comunidad en la que todos somos anfitriones y también potenciales
+        visitantes a través de la cooperación solidaria y recíproca basada en AYNI,
+        así todos nos sentiremos como en casa.
+        <br /><br />
+        Miles de anfitriones de todo el mundo utilizan HOSTAYNI para compartir sus experiencias
+        académicas, recomendaciones de estudio, alojamiento, entretenimiento y todo lo que
+        necesitan para vivir su cotidianidad en cualquier ciudad.
+        Ampliando la red de contactos aumentarán sus experiencias de acuerdo a sus intereses y
+        gustos.
+        <br /><br />
+
+        HOSTAYNI es creado por un grupo de profesionales, emprendedores y viajeros que han
+        desempeñado todos los roles que ofrece nuestra red.
+        Esperamos que cada experiencia de viaje que realices de ahora en adelante, sea mucho mejor.
+    </p>
+</div>
+{% endblock %}

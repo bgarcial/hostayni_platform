@@ -2,7 +2,9 @@ from __future__ import unicode_literals
 
 from django.conf import settings
 from django.contrib import messages
-from django.http import HttpResponseNotModified
+from django.db import transaction
+from django.forms import modelformset_factory
+from django.http import HttpResponseNotModified, HttpResponse, HttpResponseRedirect
 from django.views.generic.edit import (CreateView, UpdateView,)
 from django.views.generic import DeleteView, ListView
 from django.views.generic.base import TemplateView, View
@@ -17,13 +19,13 @@ from rest_framework import viewsets
 
 from django.shortcuts import render, get_object_or_404, redirect
 from django.core.urlresolvers import reverse_lazy, reverse
-from .models import LodgingOffer, StudiesOffert, RoomInformation
+from .models import LodgingOffer, StudiesOffert, RoomInformation, LodgingOfferImage
 
 from host_information.models import OfferedServices, FeaturesAmenities
 from .serializers import LodgingOfferSerializer,StudiesOffertSerializer
 
-from .forms import (LodgingOfferForm,
-    StudiesOffertForm, LodgingOfferSearchForm, StudiesOffertSearchForm)
+from .forms import (LodgingOfferForm, StudiesOffertForm, LodgingOfferSearchForm,
+                    StudiesOffertSearchForm, LodgingOfferImagesForm)
 
 from django.views.generic.edit import FormView
 from haystack.query import SearchQuerySet
@@ -193,11 +195,42 @@ def lodging_offers_by_user(request, email):
     )
 
 
-# Add LoginRequiredMixin,
+'''
+class LodgingOfferImageCreate(UserProfileDataMixin, CreateView):
+    model = LodgingOffer
+    fields = ['ad_title', 'country', 'city', 'address', 'lodging_offer_type', 'stars',
+              'check_in', 'check_out', 'offered_services', 'featured_amenities',
+              'room_type_offered', 'number_guest_room_type', 'bed_type', 'bathroom',
+              'room_information', 'image', 'room_value', 'additional_description', 'is_taked']
+    # success_url = reverse_lazy("articles:article_list")
+
+    def get_context_data(self, **kwargs):
+        data = super(LodgingOfferImageCreate, self).get_context_data(**kwargs)
+        if self.request.POST:
+            data['lodgingimages'] = LodgingOfferImagesFormset(self.request.POST)
+        else:
+            data['lodgingimages'] = LodgingOfferImagesFormset()
+            return data
+
+    def form_valid(self, form):
+        context = self.get_context_data()
+        lodgingimages = context['lodgingimages']
+        print('contexto enviado', lodgingimages)
+        with transaction.atomic():
+            self.object = form.save()
+
+            if lodgingimages.is_valid():
+                lodgingimages.instance = self.object
+                lodgingimages.save()
+        return super(LodgingOfferImageCreate, self).form_valid(form)
+
+'''
+
+
 class HostingOfferCreateView(SuccessMessageMixin, LoginRequiredMixin, UserProfileDataMixin, CreateView):
     model = LodgingOffer
     form_class = LodgingOfferForm
-    #success_url = reverse_lazy('dashboard')
+    #success_url = reverse_lazy("articles:article_list")
     success_message = "Oferta de alojamiento creada con éxito"
 
     def form_valid(self, form):
@@ -206,6 +239,52 @@ class HostingOfferCreateView(SuccessMessageMixin, LoginRequiredMixin, UserProfil
         form.save()
         # success_message = "Oferta de estudio creada con éxito"
         return super(HostingOfferCreateView, self).form_valid(form)
+
+    '''
+    
+    def post(self, request, *args, **kwargs):
+        print('post arrive')
+        ImageFormSet = modelformset_factory(LodgingOfferImage, form=LodgingOfferImagesForm, extra=3)
+        lodging_offerForm = LodgingOfferForm(self.request.POST)
+        formset = ImageFormSet(self.request.POST, self.request.FILES,
+                               queryset=LodgingOfferImage.objects.none())
+
+        print('Request del usuario antes de validar el form', self.request.user)
+
+        if lodging_offerForm.is_valid() and formset.is_valid():
+            lodging_offer_form = lodging_offerForm.save(commit=False)
+            print('Request del usuario despues de validado el form', request.user.id)
+            lodging_offer_form.created_by_id = self.request.user.id
+            lodging_offer_form.save()
+
+            for form in formset.cleaned_data:
+                image = form['image']
+                photo = LodgingOfferImage(lodging_offer=lodging_offer_form, image=image)
+                photo.save()
+            messages.success(self.request,
+                             "Yeeew,check it out on the home page!")
+            #return redirect('host:detail', slug=self.slug_url_kwarg)
+            #return HttpResponseRedirect(lodging_offer_form.get_absolute_url())
+            #return self.form_valid(form)
+        return super(HostingOfferCreateView, self).post(request, *args, **kwargs)
+
+    def get_context_data(self, **kwargs):
+        print('Request del usuario', self.request.user)
+        context = super(HostingOfferCreateView, self).get_context_data(**kwargs)
+        ImageFormSet = modelformset_factory(LodgingOfferImage,
+                                            form=LodgingOfferImagesForm, extra=3)
+        lodging_offerForm = LodgingOfferForm()
+        formset = ImageFormSet(queryset=LodgingOfferImage.objects.none())
+        context['lodging_offerForm'] = lodging_offerForm
+        context['formset'] = formset
+        return context
+
+    '''
+
+
+
+
+
 
 
 class HostingOfferUpdateView(SuccessMessageMixin, UserProfileDataMixin, LoginRequiredMixin, UpdateView):
@@ -287,7 +366,7 @@ def contact_owner_offer(request, lodging_offer_owner_full_name, lodging_offer_ow
                         user_interested_full_name, interested_email, lodging_offer_title, offer_url):
     user = request.user
     if user.is_authenticated:
-        print('Send email')
+        # print('Send email')
         mail_subject = 'Interesados en tu oferta'
 
 

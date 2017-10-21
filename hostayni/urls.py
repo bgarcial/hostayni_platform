@@ -17,7 +17,7 @@ from django.conf.urls import url, include
 from django.conf.urls.static import static
 from django.contrib import admin
 from django.conf import settings
-# from .views import HomePageView
+from .views import WhoWeArePageView, TermsAndConditions, PrivacyPolicy, contact
 
 from accounts.views import activation_view, activate
 
@@ -35,6 +35,12 @@ urlpatterns = [
     # url(r'^$', HomePageView.as_view(), name='home'),
 
     # url(r'^$', home, name='home'),
+    url(r'^who-we-are/$', WhoWeArePageView.as_view(), name='who-we-are'),
+
+    url(r'^terms-and-conditions/$', TermsAndConditions.as_view(), name='terms-and-conditions'),
+
+    url(r'^privacy-policy/$', PrivacyPolicy.as_view(), name='privacy-policy'),
+    url(r'^contact/$', contact, name='contact'),
 
     # Call the accounts.urls.py
     url(r'^accounts/profiles/', include('accounts.urls', namespace='accounts')),

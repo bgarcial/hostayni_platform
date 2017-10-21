@@ -1,6 +1,7 @@
 from django import forms
-from .models import LodgingOffer, StudiesOffert
+from .models import LodgingOffer, StudiesOffert, LodgingOfferImage
 from django_countries.widgets import CountrySelectWidget
+from django.forms import inlineformset_factory
 
 class DateInput(forms.DateInput):
     input_type = 'date'
@@ -19,6 +20,7 @@ class StudiesOffertForm(forms.ModelForm):
                   'studies_value', 'is_taked')
         # exclude = ('hosting_host_user',)
         # to put after: 'accreditations'
+
 
 
 
@@ -41,7 +43,17 @@ class LodgingOfferForm(forms.ModelForm):
             'room_information', 'image', 'room_value',
             'additional_description', 'is_taked')
 
-        # exclude = ('hosting_host_user',)
+
+
+
+class LodgingOfferImagesForm(forms.ModelForm):
+    image = forms.ImageField(label='ImagenEEEEEEEE')
+
+    class Meta:
+        model = LodgingOfferImage
+        fields = ('image', )
+
+
 
 
 class LodgingOfferSearchForm(forms.Form):

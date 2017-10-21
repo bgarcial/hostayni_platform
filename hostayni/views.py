@@ -1,20 +1,62 @@
 # -*- coding: utf-8 -*-
 from __future__ import unicode_literals
 
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.http import HttpResponse
 from django.contrib.auth import get_user_model
 
 from django.db.models import Q
 
 from django.views.generic.base import TemplateView
+from django.views.generic import TemplateView
 
 from .mixins import UserProfileDataMixin
+from .forms import ContactForm
+from django.template.loader import get_template
+from django.core.mail import EmailMessage
+from django.template import Context
+from django.contrib import messages
+
 
 User = get_user_model()
 
 
-class HomePageView(TemplateView):
+def contact(request):
+    user = request.user
+    profile = user.profile
+    form_class = ContactForm
+    if request.method == 'POST':
+        form = form_class(data=request.POST)
+        if form.is_valid():
+            contact_name = form.cleaned_data['contact_name']
+            contact_email = form.cleaned_data['contact_email']
+            form_content = form.cleaned_data['form_content']
+
+            template = get_template('contact_template.txt')
+
+            context = Context({
+                'contact_name': contact_name,
+                'contact_email': contact_email,
+                'form_content': form_content
+            })
+            print (contact_email)
+            content = template.render(context)
+            mail_subject = 'Hola Hostayni, ' + contact_name + ' - ' + contact_email + ' desea contactar contigo'
+            email = EmailMessage(
+                mail_subject,
+                content,
+                contact_email,
+                ['hostayni@gmail.com'],
+                headers={'Reply-To': contact_email}
+            )
+            email.send()
+            messages.success(request,
+                             ' ' + contact_name + '. Tu mensaje ha sido enviado al equipo de Hostayni, te responderemos lo mas pronto posible')
+            return redirect('contact')
+
+    return render(request, 'contact.html', {'form': form_class, 'userprofile':profile})
+
+class HomePageView(UserProfileDataMixin, TemplateView):
     template_name = 'hostayni/home-bootstrap.html'
 
     def get_context_data(self, **kwargs):
@@ -27,6 +69,17 @@ class HomePageView(TemplateView):
         # else:
         return context
 
+
+class WhoWeArePageView(UserProfileDataMixin, TemplateView):
+    template_name = 'who_we_are.html'
+
+
+class TermsAndConditions(UserProfileDataMixin, TemplateView):
+    template_name = 'terms_and_conditions.html'
+
+
+class PrivacyPolicy(UserProfileDataMixin, TemplateView):
+    template_name = 'privacy-policy.html'
 
 # Buscando Users en hostayni social
 

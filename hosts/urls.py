@@ -6,7 +6,8 @@ from .views import (HostingOfferCreateView, HostingOfferUpdateView,
                     studies_offers_by_user, StudyOfferUpdateView,
                     LodgingOfferSearch, StudiesOffertSearch,
                     HostingOfferDeleteView, StudyOfferDeleteView,
-                    LodgingOfferAjax, contact_owner_offer, contact_study_owner_offer)
+                    LodgingOfferAjax, contact_owner_offer, contact_study_owner_offer,
+                    )
 
 
 urlpatterns = [
@@ -24,6 +25,7 @@ urlpatterns = [
         HostingOfferCreateView.as_view(),
         name='hosting-host'
     ),
+
 
     # List Hosting Offers
     url(r'^lodging-offers/by/u/@(?P<email>[-\w]+)/$',

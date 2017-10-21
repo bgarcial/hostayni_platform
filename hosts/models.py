@@ -296,7 +296,17 @@ def pre_save_lodging_offer_receiver(sender, instance, *args, **kwargs):
 pre_save.connect(pre_save_lodging_offer_receiver, sender=LodgingOffer)
 
 
-# class LodgingOfferImage(models.Model):
+def get_image_filename(instance, filename):
+    title = instance.lodging_offer.ad_title
+    slug = slugify(title)
+    return "lodging_offer_images/%s-%s" % (slug, filename)
+
+
+class LodgingOfferImage(models.Model):
+    lodging_offer = models.ForeignKey(LodgingOffer, default=None)
+    image = models.ImageField(upload_to=get_image_filename,
+                              verbose_name='Imagen',
+                              )
 
 class StudiesOffert(models.Model):
 
