@@ -1,5 +1,5 @@
 from django import forms
-from .models import LodgingOffer, StudiesOffert, LodgingOfferImage
+from .models import LodgingOffer, StudiesOffert, LodgingOfferImage, UploadStudyOffer
 from django_countries.widgets import CountrySelectWidget
 from django.forms import inlineformset_factory
 
@@ -21,6 +21,11 @@ class StudiesOffertForm(forms.ModelForm):
         # exclude = ('hosting_host_user',)
         # to put after: 'accreditations'
 
+
+class StudyOfferImagesUploadForm(forms.ModelForm):
+    class Meta:
+        model = UploadStudyOffer
+        fields = ('image',)
 
 
 

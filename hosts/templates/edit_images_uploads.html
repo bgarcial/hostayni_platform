@@ -1,0 +1,32 @@
+{% extends 'layout.html' %}
+{% load staticfiles %}
+{% load bootstrap3 %}
+{% bootstrap_css %}
+{% bootstrap_javascript %}
+{% block title_tag %}Editar Imágenes de {{ study_offer.ad_title }} | {{ block.super }}{% endblock %}
+{% block top_logo %}
+{% include "top-logo.html" %}
+{% endblock %}
+{% block body_content %}
+<h1>Editar Imágenes de {{ study_offer.ad_title }}</h1>
+<h2>Imágenes Subidas</h2>
+{% for upload in uploads %}
+    <img src="{{ upload.image.url }}" alt=""/>
+{% endfor %}
+
+<h2>Subir una nueva imagen</h2>
+<form role="form" action="" method="POST" enctype="multipart/form-data">
+    {% csrf_token %}
+    {{ form.as_p }}
+
+    <div class="submit-button-cont">
+        <div>
+          <input type="image" src="{% static 'img/icons/ok.png' %}" alt="Submit" width="48" height="48">
+          <input type="submit" value="Guardar" class="submit-button">
+        </div>
+    </div>
+
+</form>
+
+
+{% endblock %}

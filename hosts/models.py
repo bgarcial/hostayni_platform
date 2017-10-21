@@ -20,6 +20,14 @@ from django_countries.fields import CountryField
 from django.db.models.signals import pre_save
 
 
+class Timestamp(models.Model):
+    created = models.DateTimeField(auto_now_add=True)
+    updated = models.DateTimeField(auto_now=True)
+
+    class Meta:
+        abstract = True
+
+
 '''
 class LodgingOfferManager(models.Model):
     use_for_related_fields = True
@@ -308,6 +316,11 @@ class LodgingOfferImage(models.Model):
                               verbose_name='Imagen',
                               )
 
+
+def get_image_path(instance, filename):
+ return '/'.join(['studyoffer_images', instance.study_offer.slug, filename])
+
+
 class StudiesOffert(models.Model):
 
     ACADEMIC_SEMESTER = 'Semestre académico'
@@ -507,3 +520,9 @@ def pre_save_study_offer_receiver(sender, instance, *args, **kwargs):
 
 
 pre_save.connect(pre_save_study_offer_receiver, sender=StudiesOffert)
+
+
+class UploadStudyOffer(models.Model):
+    study_offer = models.ForeignKey(StudiesOffert, related_name='uploadsstudyoffer')
+    image = models.ImageField(upload_to=get_image_path)
+    # images folder per object

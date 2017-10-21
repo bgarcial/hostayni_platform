@@ -4,7 +4,7 @@ from django.conf import settings
 from django.contrib import messages
 from django.db import transaction
 from django.forms import modelformset_factory
-from django.http import HttpResponseNotModified, HttpResponse, HttpResponseRedirect
+from django.http import HttpResponseNotModified, HttpResponse, HttpResponseRedirect, Http404
 from django.views.generic.edit import (CreateView, UpdateView,)
 from django.views.generic import DeleteView, ListView
 from django.views.generic.base import TemplateView, View
@@ -19,13 +19,13 @@ from rest_framework import viewsets
 
 from django.shortcuts import render, get_object_or_404, redirect
 from django.core.urlresolvers import reverse_lazy, reverse
-from .models import LodgingOffer, StudiesOffert, RoomInformation, LodgingOfferImage
+from .models import LodgingOffer, StudiesOffert, RoomInformation, LodgingOfferImage, UploadStudyOffer
 
 from host_information.models import OfferedServices, FeaturesAmenities
 from .serializers import LodgingOfferSerializer,StudiesOffertSerializer
 
 from .forms import (LodgingOfferForm, StudiesOffertForm, LodgingOfferSearchForm,
-                    StudiesOffertSearchForm, LodgingOfferImagesForm)
+                    StudiesOffertSearchForm, LodgingOfferImagesForm, StudyOfferImagesUploadForm)
 
 from django.views.generic.edit import FormView
 from haystack.query import SearchQuerySet
@@ -233,6 +233,10 @@ class HostingOfferCreateView(SuccessMessageMixin, LoginRequiredMixin, UserProfil
     #success_url = reverse_lazy("articles:article_list")
     success_message = "Oferta de alojamiento creada con éxito"
 
+    #def post(self, request, *args, **kwargs):
+
+
+
     def form_valid(self, form):
         form.save(commit=False)
         form.instance.created_by = self.request.user
@@ -240,8 +244,9 @@ class HostingOfferCreateView(SuccessMessageMixin, LoginRequiredMixin, UserProfil
         # success_message = "Oferta de estudio creada con éxito"
         return super(HostingOfferCreateView, self).form_valid(form)
 
+
     '''
-    
+    # ORiginal
     def post(self, request, *args, **kwargs):
         print('post arrive')
         ImageFormSet = modelformset_factory(LodgingOfferImage, form=LodgingOfferImagesForm, extra=3)
@@ -277,8 +282,9 @@ class HostingOfferCreateView(SuccessMessageMixin, LoginRequiredMixin, UserProfil
         formset = ImageFormSet(queryset=LodgingOfferImage.objects.none())
         context['lodging_offerForm'] = lodging_offerForm
         context['formset'] = formset
-        return context
-
+        return context 
+    # END ORIGINAL
+    
     '''
 
 
@@ -480,7 +486,15 @@ class StudyOffertDetailView(LoginRequiredMixin, UserProfileDataMixin, DetailView
         # Capturamos el url de la oferta de estudios
         url_offer = self.request.get_full_path
 
+
+
+        study_offer = StudiesOffert.objects.get(slug=self.kwargs.get('slug'))
+        # Obteniendo imágenes
+        uploads = study_offer.uploadsstudyoffer.all()
+
+
         # Enviamos contextos
+        context['uploads'] = uploads
         context['study_offer_owner_email'] = study_offer_owner_email
         context['study_offer_owner_full_name'] = study_offer_owner_full_name
         context['study_offer_title'] = study_offer_title
@@ -491,6 +505,45 @@ class StudyOffertDetailView(LoginRequiredMixin, UserProfileDataMixin, DetailView
         context['url_offer'] = url_offer
 
         return context
+
+
+def edit_study_offer_uploads(request, slug):
+    # Obtenemos la oferta
+    study_offer = StudiesOffert.objects.get(slug=slug)
+
+    # Doublo checking just for security
+    if study_offer.user != request.user:
+        raise Http404
+
+    # Seteamos el form que estamos usando
+    form_class = StudyOfferImagesUploadForm
+
+    # if we make submit
+    if request.method == 'POST':
+        # grab the data from the submitted form,
+        # note the new "files" part
+        form = form_class(data=request.POST, files=request.FILES, instance=study_offer)
+        if form.is_valid():
+            # create a new object from the submitted form
+            UploadStudyOffer.objects.create(
+                image=form.cleaned_data['image'],
+                study_offer=study_offer
+            )
+            return redirect('edit_study_offer_uploads', slug=study_offer.slug)
+    # Otherwise just create the form
+    else:
+        form = form_class(instance=study_offer)
+
+    # grab all the object's images
+    uploads = study_offer.uploadsstudyoffer.all()
+
+    # and render the template
+    return render(request, 'edit_images_uploads.html', {
+        'study_offer': study_offer,
+        'form': form,
+        'uploads': uploads,
+    })
+
 
 
 def contact_study_owner_offer(request, study_offer_owner_full_name, study_offer_owner_email,

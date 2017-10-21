@@ -124,6 +124,9 @@
             </div>
         </div>
         {% endif %}
+
+        <a href="{% url 'edit_study_offer_uploads' slug=studyofferdetail.slug %}">Editar imagenes</a>-->
+
         <br/>
         <div class="post-type innovate">
             <i class="learn">EDUCACIÓN</i>
@@ -194,6 +197,9 @@
                 <h4>Al hacer clic en <strong>Aplicar</strong>, se enviará una notificación de correo electrónico
                 al dueño de la oferta y al usuario interesado en ella.</h4>
             </div>
+            {% for upload in uploads %}
+            <img src="{{upload.image.url}}" alt=""/>
+            {% endfor %}
         </div>
     </div>
     {% comment %}

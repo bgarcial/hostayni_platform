@@ -71,6 +71,7 @@ INSTALLED_APPS = [
     'blog.apps.BlogConfig',
     'host_information.apps.HostInformationConfig',
     'hosts.apps.HostsConfig',
+
 ]
 
 MIDDLEWARE = [

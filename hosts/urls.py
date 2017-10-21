@@ -7,6 +7,7 @@ from .views import (HostingOfferCreateView, HostingOfferUpdateView,
                     LodgingOfferSearch, StudiesOffertSearch,
                     HostingOfferDeleteView, StudyOfferDeleteView,
                     LodgingOfferAjax, contact_owner_offer, contact_study_owner_offer,
+                    edit_study_offer_uploads
                     )
 
 
@@ -90,6 +91,10 @@ urlpatterns = [
     url(r"^study-offer/(?P<slug>[\w-]+)/edit/$",
         StudyOfferUpdateView.as_view(),
         name='edit-study-offer'
+    ),
+
+    url(r'^study-offer/(?P<slug>[-\w]+)/edit/images/$',
+        edit_study_offer_uploads, name='edit_study_offer_uploads'
     ),
 
 
