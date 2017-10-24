@@ -18,7 +18,9 @@ from django.dispatch import receiver
 from django.template.defaultfilters import slugify
 from django_countries.fields import CountryField
 from django.db.models.signals import pre_save
-
+from PIL import Image
+from easy_thumbnails.fields import ThumbnailerImageField
+from django.utils import timezone
 
 class Timestamp(models.Model):
     created = models.DateTimeField(auto_now_add=True)
@@ -522,7 +524,89 @@ def pre_save_study_offer_receiver(sender, instance, *args, **kwargs):
 pre_save.connect(pre_save_study_offer_receiver, sender=StudiesOffert)
 
 
+class UploadStudyOfferQueryset(models.query.QuerySet):
+    def active(self):
+        return self.filter(active=True)
+
+    def featured(self):
+        return self.filter(featured=True) \
+            .filter(start_date__lt=timezone.now()) \
+            .filter(end_date__gte=timezone.now())
+
+
+class UploadStudyOfferManager(models.Manager):
+    def get_queryset(self):
+        return UploadStudyOfferQueryset(self.model, using=self._db)
+
+    def all(self):
+        return self.get_queryset().active()
+
+    def all_featured(self):
+        return self.get_queryset().active().featured()
+
+    def get_featured_item(self):
+        try:
+            return self.get_queryset().active().featured()[0]
+        except:
+            return None
+
+
+
+
+
+CROP_SETTINGS = {'size': (1000, 500), 'crop': 'smart'}
+
+
 class UploadStudyOffer(models.Model):
+
+    # puedo poner headere text and small text
     study_offer = models.ForeignKey(StudiesOffert, related_name='uploadsstudyoffer')
-    image = models.ImageField(upload_to=get_image_path)
+    # image = ThumbnailerImageField(upload_to=get_image_path, resize_source=CROP_SETTINGS)
+
+    image = models.ImageField(upload_to=get_image_path, verbose_name='Seleccionar imagen')
     # images folder per object
+
+    order = models.IntegerField(default=0)
+
+    featured = models.BooleanField(default=False, verbose_name='Destacada',
+                                   help_text='Indica si la imagen aparecera en el carrusel')
+    thumbnail = models.BooleanField(default=False)
+
+    active = models.BooleanField(default=True, verbose_name='Activa',
+                                 help_text='Indica si una imagen de oferta esta habilitada o disponible')
+    updated = models.DateTimeField(auto_now_add=False, auto_now=True)
+
+    start_date = models.DateTimeField(auto_now_add=False, auto_now=True, null=True, blank=True)
+
+    end_date = models.DateTimeField(auto_now_add=False, auto_now=True, null=True, blank=True)
+
+    objects = UploadStudyOfferManager()
+
+    def __str__(self):
+        return self.study_offer.ad_title
+
+    class Meta:
+        ordering = ['order', '-start_date', '-end_date']
+
+    '''
+    def get_image_url(self):
+        return "%s/%s/%s" %(settings.MEDIA_URL, self.study_offer.slug, self.image)
+
+    
+    def save(self, *args, **kwargs):
+        super(UploadStudyOffer, self).save(*args, **kwargs)
+        # We first check to make sure an image exists
+        if self.image:
+            # Open image and check their size
+            image = Image.open(self.image)
+            i_width, i_height = image.size
+            max_size = (1000,1000)
+
+            # We resize the image if it's too large
+            if i_width > 1000:
+                image.thumbnail(max_size, Image.ANTIALIAS)
+                # image.save(self.image.name) #[Errno 2] No such file or directory: 'studyoffer_images/ingenieria-de-sistemas/15061122523583.jpg'
+                image.save(self.image.file)
+                # image.save(self.image.url)
+                # image.save(self.image.path) #This backend doesn't support absolute paths.
+    '''

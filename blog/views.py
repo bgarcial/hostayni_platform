@@ -110,7 +110,6 @@ def artic_detail(request, slug=None): # retrieve
     return render(request, 'article_detail.html', context)
 
 
-
 class ArticleListView(UserProfileDataMixin, ListView):
     template_name = 'hostayni/home.html'
     model = Article
@@ -150,6 +149,7 @@ class ArticleListView(UserProfileDataMixin, ListView):
         today = timezone.now().date()
         context['today'] = today
         return context
+
 
 def article_list(request):
     user = request.user
@@ -198,12 +198,15 @@ def article_list(request):
         context['userprofile'] = user.profile
     return render(request, 'hostayni/home.html', context)
 
+
 @login_required
 def article_update(request, slug=None):
     user = request.user
     #if not user.is_staff or not user.is_superuser:
     #    raise Http404
     instance = get_object_or_404(Article, slug=slug)
+    if instance.author != user:
+        raise Http404
     # Para poder actualizar un articulo, su imagen es necesario request.FILES or NOne
     form = ArticleForm(request.POST or None, request.FILES or None, instance=instance)
     if form.is_valid():
@@ -230,7 +233,7 @@ def article_delete(request, slug=None):
     #    raise Http404
     instance = get_object_or_404(Article, slug=slug)
     instance.delete()
-    messages.success(request, "Tus artículo ha sido borrado")
+    messages.success(request, "Tu artículo ha sido borrado")
     return redirect("articles:article_list")
 
 
@@ -256,14 +259,13 @@ def article_share(request, slug):
             message = 'Read "{}" at {}\n\n{}\'s comments: {}'.format(article.title, article_url, cd['name'], cd['comments'])
             send_mail(subject, message, 'hostayni@gmail.com', [cd['to']])
             sent = True
-            print(sent)
+            #print(sent)
     else:
         form = EmailPostForm()
     return render(request, 'blog/share.html',
                  {'article': article,
                  'form': form,
                  'sent': sent})
-
 
 
 def articles_by_user(request, email):
@@ -335,6 +337,15 @@ class ArticleUpdateView(LoginRequiredMixin, UserProfileDataMixin, UpdateView):
 
     model=Article
     # messages.success(self.request, "Successfully created")
+
+    # Permiso para que solo el dueño pueda editarla
+    def get_object(self, queryset=None):
+        """ Hook to ensure object is owned by request.user. """
+        obj = super(ArticleUpdateView, self).get_object()
+        print (obj.author)
+        if not obj.author == self.request.user:
+            raise Http404
+        return obj
 
 
 class ArticleDeleteView(LoginRequiredMixin, UserProfileDataMixin, DeleteView):

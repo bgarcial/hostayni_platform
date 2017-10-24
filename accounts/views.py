@@ -50,8 +50,8 @@ def show_login_message(sender, user, request, **kwargs):
     # whatever...
     messages.info(request, 'Bienvenido a HOSTAYNI.')
 
-user_logged_in.connect(show_login_message)
 
+user_logged_in.connect(show_login_message)
 
 
 @login_required

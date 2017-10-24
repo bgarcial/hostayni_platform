@@ -14,8 +14,10 @@ from django.utils import timezone
 from django.contrib.auth.mixins import LoginRequiredMixin
 
 from accounts.models import User
+from django.contrib.auth.decorators import login_required
 from hostayni.mixins import UserProfileDataMixin
 from rest_framework import viewsets
+
 
 from django.shortcuts import render, get_object_or_404, redirect
 from django.core.urlresolvers import reverse_lazy, reverse
@@ -288,11 +290,6 @@ class HostingOfferCreateView(SuccessMessageMixin, LoginRequiredMixin, UserProfil
     '''
 
 
-
-
-
-
-
 class HostingOfferUpdateView(SuccessMessageMixin, UserProfileDataMixin, LoginRequiredMixin, UpdateView):
     model = LodgingOffer
     form_class = LodgingOfferForm
@@ -304,7 +301,22 @@ class HostingOfferUpdateView(SuccessMessageMixin, UserProfileDataMixin, LoginReq
         context = super(HostingOfferUpdateView, self).get_context_data(**kwargs)
 
         user = self.request.user
+        #lodging_offer = LodgingOffer.objects.get(slug=self.kwargs.get('slug'))
+        #print(lodging_offer)
+        #print(user)
+
+        #if not (lodging_offer.created_by_id == user.id):
+        #    return HttpResponse("It is not yours ! You are not permitted !",
+        #                        content_type="application/json", status=403)
         return context
+
+    # Permiso para que solo el dueño pueda editarla
+    def get_object(self, queryset=None):
+        """ Hook to ensure object is owned by request.user. """
+        obj = super(HostingOfferUpdateView, self).get_object()
+        if not obj.created_by == self.request.user:
+            raise Http404
+        return obj
 
 
 class HostingOfferDetailView(SuccessMessageMixin, UserProfileDataMixin, LoginRequiredMixin, DetailView):
@@ -457,7 +469,7 @@ class StudyOfferCreateView(SuccessMessageMixin, LoginRequiredMixin, UserProfileD
 
 class StudyOffertDetailView(LoginRequiredMixin, UserProfileDataMixin, DetailView):
     model=StudiesOffert
-    template_name = 'studyoffert_detail.html'
+    template_name = 'hosts/studyoffert_detail.html'
     context_object_name = 'studyofferdetail'
 
     def get_context_data(self, **kwargs):
@@ -473,22 +485,22 @@ class StudyOffertDetailView(LoginRequiredMixin, UserProfileDataMixin, DetailView
         study_offer_owner_full_name = self.get_object().created_by.get_enterprise_name()
         study_offer_owner_email = self.get_object().created_by.email
 
-        print('email del dueño oferta', study_offer_owner_email)
+        # print('email del dueño oferta', study_offer_owner_email)
 
         study_offer_title = self.get_object().ad_title
-        print('titulo oferta', study_offer_title)
+        # print('titulo oferta', study_offer_title)
 
         # Capturamos los datos de quien esta interesado en la oferta
         user_interested_email = user.email
-        print('email del user interesado oferta', user_interested_email)
+        # print('email del user interesado oferta', user_interested_email)
         user_interested_full_name = user.get_long_name()
 
         # Capturamos el url de la oferta de estudios
         url_offer = self.request.get_full_path
 
-
-
         study_offer = StudiesOffert.objects.get(slug=self.kwargs.get('slug'))
+        # print(study_offer)
+
         # Obteniendo imágenes
         uploads = study_offer.uploadsstudyoffer.all()
 
@@ -506,13 +518,15 @@ class StudyOffertDetailView(LoginRequiredMixin, UserProfileDataMixin, DetailView
 
         return context
 
-
+@login_required
 def edit_study_offer_uploads(request, slug):
     # Obtenemos la oferta
     study_offer = StudiesOffert.objects.get(slug=slug)
 
+
     # Doublo checking just for security
-    if study_offer.user != request.user:
+    # para cuando un usuario que no es quien lo creo intente editarlo
+    if study_offer.created_by != request.user:
         raise Http404
 
     # Seteamos el form que estamos usando
@@ -529,7 +543,7 @@ def edit_study_offer_uploads(request, slug):
                 image=form.cleaned_data['image'],
                 study_offer=study_offer
             )
-            return redirect('edit_study_offer_uploads', slug=study_offer.slug)
+            return redirect('host:edit_study_offer_uploads', slug=study_offer.slug)
     # Otherwise just create the form
     else:
         form = form_class(instance=study_offer)
@@ -543,6 +557,79 @@ def edit_study_offer_uploads(request, slug):
         'form': form,
         'uploads': uploads,
     })
+
+
+class StudyOfferImageUpdateView(SuccessMessageMixin, UserProfileDataMixin, LoginRequiredMixin, UpdateView):
+    model = UploadStudyOffer
+    form_class = StudyOfferImagesUploadForm
+
+    # success_url = reverse_lazy("host:edit-study-offer-image", pk_url_kwarg='pk')
+
+    success_message = "Imagen actualizada"
+
+    def get_success_url(self):
+        # return reverse("host:edit-study-offer-image", kwargs={self.pk_url_kwarg: self.kwargs.get('pk')})
+        return reverse("host:edit-study-offer-image",
+                       kwargs={'pk': self.kwargs['pk']})
+
+    def get_context_data(self, **kwargs):
+        context = super(StudyOfferImageUpdateView, self).get_context_data(**kwargs)
+
+        user = self.request.user
+        study_offer_image = UploadStudyOffer.objects.get(pk=self.kwargs.get('pk'))
+        context['study_offer_image'] = study_offer_image
+
+        return context
+
+    # Permiso para que solo el dueño pueda editarla
+
+    def get_object(self, queryset=None):
+        """ Hook to ensure object is owned by request.user. """
+        obj = super(StudyOfferImageUpdateView, self).get_object()
+        if not obj.study_offer.created_by == self.request.user:
+            raise Http404
+        return obj
+    '''
+    def get_object(self):
+        return get_object_or_404(UploadStudyOffer, pk=self.kwargs.get('pk'))
+    '''
+
+
+'''
+@login_required
+def edit_upload_study_image(request, slug, id):
+    # Obtenemos la oferta
+    study_offer = StudiesOffert.objects.get(slug=slug)
+    
+    # We get the image
+    upload = UploadStudyOffer.objects.get(id=id)
+
+    # Security check
+    if upload.study_offer.created_by != request.user:
+        raise Http404
+
+    # Seteamos el form que estamos usando
+    form_class = StudyOfferImagesUploadForm
+
+    # Delete image
+    upload.edit()
+    # Refresh the edit page
+    return redirect('host:edit_study_offer_uploads', slug=upload.study_offer.slug)
+'''
+
+@login_required
+def delete_upload(request, id):
+    # We get the image
+    upload = UploadStudyOffer.objects.get(id=id)
+
+    # Security check
+    if upload.study_offer.created_by != request.user:
+        raise Http404
+
+    # Delete image
+    upload.delete()
+    # Refresh the edit page
+    return redirect('host:edit_study_offer_uploads', slug=upload.study_offer.slug)
 
 
 
@@ -584,20 +671,32 @@ def contact_study_owner_offer(request, study_offer_owner_full_name, study_offer_
     return HttpResponseNotModified()
 
 
-
-class StudyOfferUpdateView(SuccessMessageMixin, LoginRequiredMixin, UpdateView):
+class StudyOfferUpdateView(SuccessMessageMixin, UserProfileDataMixin, LoginRequiredMixin, UpdateView):
     model = StudiesOffert
     form_class = StudiesOffertForm
     # success_url = reverse_lazy("articles:articles_list")
     # success_url = reverse_lazy("hosts:detail-lodging-offer")
     success_message = "Oferta de estudio actualizada con éxito"
 
-
     def get_context_data(self, **kwargs):
         context = super(StudyOfferUpdateView, self).get_context_data(**kwargs)
-
         user = self.request.user
+        study_offer = StudiesOffert.objects.get(slug=self.kwargs.get('slug'))
+        print(study_offer)
+        print(user)
+        if not (study_offer.created_by.email == user.email):
+            return HttpResponse("It is not yours ! You are not permitted !",
+                        content_type="application/json", status=403)
         return context
+
+
+    # Permiso para que solo el dueño pueda editarla
+    def get_object(self, queryset=None):
+        """ Hook to ensure object is owned by request.user. """
+        obj = super(StudyOfferUpdateView, self).get_object()
+        if not obj.created_by == self.request.user:
+            raise Http404
+        return obj
 
 
 class StudyOfferDeleteView(SuccessMessageMixin, LoginRequiredMixin, DeleteView):

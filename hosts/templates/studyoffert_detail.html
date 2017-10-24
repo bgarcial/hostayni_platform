@@ -1,5 +1,6 @@
 {% extends 'layout.html' %}
 {% load staticfiles %}
+{% load thumbnail %}
 {% load bootstrap3 %}
 {% bootstrap_css %}
 {% bootstrap_javascript %}
@@ -115,6 +116,7 @@
 <!-- //Columna a la derecha -->
 
 <!-- Contenido principal (ofertas) -->
+
 <main>
     <div class="post-body">
         {% if studyofferdetail.photo %}
@@ -125,12 +127,17 @@
         </div>
         {% endif %}
 
-        <a href="{% url 'edit_study_offer_uploads' slug=studyofferdetail.slug %}">Editar imagenes</a>-->
 
-        <br/>
+
         <div class="post-type innovate">
             <i class="learn">EDUCACIÓN</i>
+        {% if studyofferdetail.created_by_id == userprofile.user.id %}
+        <br/>
+        <a href="{% url 'host:edit_study_offer_uploads' slug=studyofferdetail.slug %}">Agregar/Editar imágenes</a>
+        {% endif %}
+        <br/>
         </div>
+
         <div class="main-content hosting">
             <div class="cont type">
                 <h2>{{ studyofferdetail.studies_type_offered }}</h2>
@@ -188,6 +195,11 @@
                     </tbody>
                 </table>
             </div>
+
+
+
+
+
             <div class="contact">
                 <a class="contact-button" href="
                 {% url 'host:contact_study_owner_offer' study_offer_owner_full_name=study_offer_owner_full_name study_offer_owner_email=study_offer_owner_email user_interested_full_name=user_interested_full_name user_interested_email=user_interested_email study_offer_title=study_offer_title url_offer=url_offer %}">
@@ -197,9 +209,101 @@
                 <h4>Al hacer clic en <strong>Aplicar</strong>, se enviará una notificación de correo electrónico
                 al dueño de la oferta y al usuario interesado en ella.</h4>
             </div>
-            {% for upload in uploads %}
-            <img src="{{upload.image.url}}" alt=""/>
+
+
+
+             <!-- Carousel cfe -->
+            <div class="container">
+                <div id="carousel-example-generic" class="carousel slide" data-ride="carousel">
+                  <!-- Indicators -->
+                  <ol class="carousel-indicators">
+                    <li data-target="#carousel-example-generic" data-slide-to="0" class="active"></li>
+                    <li data-target="#carousel-example-generic" data-slide-to="1"></li>
+                    <li data-target="#carousel-example-generic" data-slide-to="2"></li>
+                  </ol>
+
+                  <!-- Wrapper for slides -->
+                  <div class="carousel-inner" role="listbox">
+                    <div class="item active">
+                      <img src="http://www.wijayabeach.com/conmain/images/IMG_3950.jpg" alt="...">
+                      <div class="carousel-caption">
+
+                      </div>
+                    </div>
+                    <div class="item">
+                      <img src="http://www.hotelmockingbirdhill.com/wp-content/uploads/2012/11/Frenchmans-Cove1.jpg" alt="...">
+                      <div class="carousel-caption">
+                        ...
+                      </div>
+                    </div>
+                    ...
+                  </div>
+
+                  <!-- Controls -->
+                  <a class="left carousel-control" href="#carousel-example-generic" role="button" data-slide="prev">
+                    <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
+                    <span class="sr-only">Previous</span>
+                  </a>
+                  <a class="right carousel-control" href="#carousel-example-generic" role="button" data-slide="next">
+                    <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
+                    <span class="sr-only">Next</span>
+                  </a>
+                </div>
+            </div>
+
+
+
+            <!-- Carousel stack -->
+            <br/>
+            <div class="container">
+            <div id="myCarousel" class="carousel slide" data-ride="carousel">
+                <!-- Indicators -->
+                <ol class="carousel-indicators">
+                    <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
+                    <li data-target="#myCarousel" data-slide-to="1"></li>
+                    <li data-target="#myCarousel" data-slide-to="2"></li>
+                    <li data-target="#myCarousel" data-slide-to="3"></li>
+                    <li data-target="#myCarousel" data-slide-to="4"></li>
+                    <li data-target="#myCarousel" data-slide-to="5"></li>
+                </ol>
+                <!-- Wrapper for slides -->
+                <div class="carousel-inner" role="listbox">
+                    {% for upload in uploads %}
+                    {% if forloop.counter == 1 %}
+                    <div class="item active">
+                    {% else %}
+                    <div class="item">
+                    {% endif %}
+                      <img src="{{  upload.image.url }}">
+                     <!-- <img src="{% thumbnail upload.image 1000x500 crop %}">-->
+                  <div class="carousel-caption">
+                    <h3>dfd</h3>
+                    <p>dd</p>
+                  </div>
+                    </div>
+                    {% endfor %}
+            </div>
+
+    <!-- Left and right controls -->
+    <a class="left carousel-control" href="#myCarousel" role="button" data-slide="prev">
+        <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
+        <span class="sr-only">Previous</span>
+    </a>
+    <a class="right carousel-control" href="#myCarousel" role="button" data-slide="next">
+        <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
+        <span class="sr-only">Next</span>
+    </a>
+
+
+            </div>
+                {% comment %}
+                {% for upload in uploads %}
+
+            <img src="{{upload.image.url}}"  class="img-responsive"  alt=""/>
+            <!--<img src="{% thumbnail upload.image.url 1000x500 crop %}"  alt=""/>-->
+            <br/>
             {% endfor %}
+                {% endcomment %}
         </div>
     </div>
     {% comment %}

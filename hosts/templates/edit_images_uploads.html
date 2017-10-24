@@ -9,24 +9,29 @@
 {% endblock %}
 {% block body_content %}
 <h1>Editar Imágenes de {{ study_offer.ad_title }}</h1>
-<h2>Imágenes Subidas</h2>
+<a href="{% url 'host:studyoffertdetail' slug=study_offer.slug %}">Regresar a oferta</a>
+<hr/>
+<h2>Imágenes Disponibles</h2>
 {% for upload in uploads %}
-    <img src="{{ upload.image.url }}" alt=""/>
+    <img src="{{ upload.image.url }}" class="img-responsive" alt=""/>
+    <a href="{% url 'host:delete_upload' id=upload.id %}">Borrar</a>
+    <a href="{% url 'host:edit-study-offer-image' pk=upload.pk %}">editar</a>
 {% endfor %}
-
+<hr/>
 <h2>Subir una nueva imagen</h2>
 <form role="form" action="" method="POST" enctype="multipart/form-data">
     {% csrf_token %}
-    {{ form.as_p }}
+    {%bootstrap_form form %}
 
     <div class="submit-button-cont">
         <div>
           <input type="image" src="{% static 'img/icons/ok.png' %}" alt="Submit" width="48" height="48">
-          <input type="submit" value="Guardar" class="submit-button">
+          <input type="submit" value="Agregar imágen" class="submit-button">
         </div>
     </div>
 
 </form>
+<a href="{% url 'host:studyoffertdetail' slug=study_offer.slug %}">Regresar a oferta</a>
 
 
 {% endblock %}

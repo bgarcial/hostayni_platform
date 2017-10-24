@@ -56,6 +56,7 @@ INSTALLED_APPS = [
     'bootstrap3',
     'django_countries',
     'django_extensions',
+    'easy_thumbnails',
     # 'languages_plus',
     'haystack',
     'phonenumber_field',

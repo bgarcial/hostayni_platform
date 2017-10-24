@@ -25,6 +25,7 @@ def contact(request):
     user = request.user
     profile = user.profile
     form_class = ContactForm
+
     if request.method == 'POST':
         form = form_class(data=request.POST)
         if form.is_valid():
@@ -34,12 +35,13 @@ def contact(request):
 
             template = get_template('contact_template.txt')
 
-            context = Context({
+            context = {
                 'contact_name': contact_name,
                 'contact_email': contact_email,
                 'form_content': form_content
-            })
-            print (contact_email)
+            }
+            #print(contact_email)
+
             content = template.render(context)
             mail_subject = 'Hola Hostayni, ' + contact_name + ' - ' + contact_email + ' desea contactar contigo'
             email = EmailMessage(
@@ -51,10 +53,12 @@ def contact(request):
             )
             email.send()
             messages.success(request,
-                             ' ' + contact_name + '. Tu mensaje ha sido enviado al equipo de Hostayni, te responderemos lo mas pronto posible')
+            ' ' + contact_name + '. Tu mensaje ha sido enviado al equipo de Hostayni, te responderemos lo mas pronto posible')
+
             return redirect('contact')
 
     return render(request, 'contact.html', {'form': form_class, 'userprofile':profile})
+
 
 class HomePageView(UserProfileDataMixin, TemplateView):
     template_name = 'hostayni/home-bootstrap.html'

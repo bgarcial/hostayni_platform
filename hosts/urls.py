@@ -7,7 +7,7 @@ from .views import (HostingOfferCreateView, HostingOfferUpdateView,
                     LodgingOfferSearch, StudiesOffertSearch,
                     HostingOfferDeleteView, StudyOfferDeleteView,
                     LodgingOfferAjax, contact_owner_offer, contact_study_owner_offer,
-                    edit_study_offer_uploads
+                    edit_study_offer_uploads, delete_upload, StudyOfferImageUpdateView
                     )
 
 
@@ -87,19 +87,38 @@ urlpatterns = [
         name='studiesofferlist'
     ),
 
+    # Editando imagen de estudios
+    url(r"^study-offer/edit/images/(?P<pk>\d+)/$",
+        StudyOfferImageUpdateView.as_view(),
+        name='edit-study-offer-image'
+    ),
+
     # Edit Studies offer
     url(r"^study-offer/(?P<slug>[\w-]+)/edit/$",
         StudyOfferUpdateView.as_view(),
         name='edit-study-offer'
     ),
 
+    # Upload study offer images
     url(r'^study-offer/(?P<slug>[-\w]+)/edit/images/$',
         edit_study_offer_uploads, name='edit_study_offer_uploads'
     ),
 
+    #-----
+    #url(r'^study-offer/(?P<slug>[-\w]+)/edit/images/(?P<id>[-\w]+)/$',
+    #    edit_upload_study_image, name='edit_upload_study_image'),
+    # ---
 
 
-    # Delete of a Hosting Offer
+
+    url(r'^delete/(?P<id>[-\w]+)/$',
+        delete_upload, name='delete_upload'),
+
+
+
+
+
+    # Delete of a Study Offer
     url(r"^study-offer/(?P<slug>[\w-]+)/delete/$",
         StudyOfferDeleteView.as_view(),
         name='delete-study-offer'
