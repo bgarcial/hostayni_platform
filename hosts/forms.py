@@ -16,7 +16,7 @@ class StudiesOffertForm(forms.ModelForm):
         fields = ('ad_title', 'country', 'city',
             'institute_character', 'maximum_quota', 'knowledge_topics',
             'duration', 'studies_type_offered', 'academic_mobility_programs',
-            'additional_description', 'photo', 'address', 'modality', 'studies_value',
+            'additional_description', 'address', 'modality', 'studies_value',
                   'studies_value', 'is_taked')
         # exclude = ('hosting_host_user',)
         # to put after: 'accreditations'

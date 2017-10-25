@@ -319,10 +319,6 @@ class LodgingOfferImage(models.Model):
                               )
 
 
-def get_image_path(instance, filename):
- return '/'.join(['studyoffer_images', instance.study_offer.slug, filename])
-
-
 class StudiesOffert(models.Model):
 
     ACADEMIC_SEMESTER = 'Semestre académico'
@@ -407,14 +403,6 @@ class StudiesOffert(models.Model):
     latitude = models.CharField(_("latitude"), max_length=255, null=True, blank=True)
     longitude = models.CharField(_("longitude"), max_length=255, null=True, blank=True)
 
-    '''
-    accreditations = models.ManyToManyField(
-        Accreditations,
-        verbose_name=u'High Quality accreditations',
-        related_name="studiesofferts"
-    )
-    '''
-
     institute_character = models.CharField(
         max_length=20,
         choices=CHARACTER_INSTITUTE_CHOICES,
@@ -464,15 +452,14 @@ class StudiesOffert(models.Model):
 
     )
 
-    # TO-DO Consultar las becas del usuario studyhost solamente
-
+    '''
     photo = models.ImageField(
         upload_to='study-host-offert-photos',
         blank=False,
         verbose_name='Fotografía',
         null=False
     )
-
+    '''
     pub_date = models.DateTimeField(
         auto_now=True,
         # related_name="lodgingoffers"
@@ -522,6 +509,10 @@ def pre_save_study_offer_receiver(sender, instance, *args, **kwargs):
 
 
 pre_save.connect(pre_save_study_offer_receiver, sender=StudiesOffert)
+
+
+def get_image_path(instance, filename):
+    return '/'.join(['educational_offer_images', instance.study_offer.slug, filename])
 
 
 class UploadStudyOfferQueryset(models.query.QuerySet):

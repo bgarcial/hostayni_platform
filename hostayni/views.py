@@ -23,7 +23,7 @@ User = get_user_model()
 
 def contact(request):
     user = request.user
-    profile = user.profile
+    # profile = user.profile
     form_class = ContactForm
 
     if request.method == 'POST':
@@ -40,7 +40,9 @@ def contact(request):
                 'contact_email': contact_email,
                 'form_content': form_content
             }
-            #print(contact_email)
+            if user.is_authenticated():
+                context['userprofile']= user.profile
+            #return render(request, 'contact.html', {'form': form_class,}, context )
 
             content = template.render(context)
             mail_subject = 'Hola Hostayni, ' + contact_name + ' - ' + contact_email + ' desea contactar contigo'
@@ -56,8 +58,9 @@ def contact(request):
             ' ' + contact_name + '. Tu mensaje ha sido enviado al equipo de Hostayni, te responderemos lo mas pronto posible')
 
             return redirect('contact')
+        #if user.is_authenticated():
 
-    return render(request, 'contact.html', {'form': form_class, 'userprofile':profile})
+    return render(request, 'contact.html', {'form': form_class})
 
 
 class HomePageView(UserProfileDataMixin, TemplateView):

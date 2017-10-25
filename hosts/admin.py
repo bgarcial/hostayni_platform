@@ -12,9 +12,8 @@ class UploadStudyOfferAdmin(admin.ModelAdmin):
 
 @admin.register(LodgingOffer)
 class LodgingOfferAdmin(admin.ModelAdmin):
-    list_display = ('id', 'ad_title', 'is_taked', 'room_type_offered',
-        'number_guest_room_type', 'image', 'room_value',
-        'additional_description', 'slug')
+    list_display = ('id', 'ad_title', 'is_taked', 'room_type_offered', 'number_guest_room_type',
+                     'room_value', 'additional_description', 'slug')
 
     list_editable = ('is_taked',)
 
