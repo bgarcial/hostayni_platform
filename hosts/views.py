@@ -387,6 +387,9 @@ class HostingOfferDetailView(SuccessMessageMixin, UserProfileDataMixin, LoginReq
 
 @login_required
 def edit_lodging_offer_uploads_image(request, slug):
+    user = request.user
+    profile = user.profile
+
     # We get the lodging offer
     lodging_offer = LodgingOffer.objects.get(slug=slug)
 
@@ -419,7 +422,8 @@ def edit_lodging_offer_uploads_image(request, slug):
     return render(request, 'edit_lodging_offer_images.html', {
         'lodging_offer': lodging_offer,
         'form': form,
-        'uploads': uploads
+        'uploads': uploads,
+        'userprofile': profile
     })
 
 
@@ -459,6 +463,7 @@ class LodgingOfferImageUpdateView(SuccessMessageMixin, UserProfileDataMixin, Log
 def delete_lodging_offer_image(request, id):
     # We get the image
     upload = LodgingOfferImage.objects.get(id=id)
+    
 
     # Security check
     if upload.lodging_offer.created_by != request.user:
@@ -479,6 +484,7 @@ def delete_upload_study_offer_image(request, id):
     # We get the image
     upload = UploadStudyOffer.objects.get(id=id)
 
+
     # Security check
     if upload.study_offer.created_by != request.user:
         raise Http404
@@ -487,6 +493,7 @@ def delete_upload_study_offer_image(request, id):
     upload.delete()
     messages.success(request, 'Tu imágen ha sido borrada, ya no aparecerá en el detalle de tu '
                               'oferta ' + upload.study_offer.ad_title)
+
     # Refresh the edit page
     return redirect('host:edit_study_offer_uploads', slug=upload.study_offer.slug)
 
@@ -658,6 +665,7 @@ def edit_study_offer_uploads(request, slug):
                 image=form.cleaned_data['image'],
                 study_offer=study_offer
             )
+            messages.success(request, 'La fotografía ha sido cargada y asociada a la oferta ' + study_offer.ad_title)
             return redirect('host:edit_study_offer_uploads', slug=study_offer.slug)
     # Otherwise just create the form
     else:
