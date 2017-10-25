@@ -321,7 +321,7 @@ class HostingOfferUpdateView(SuccessMessageMixin, UserProfileDataMixin, LoginReq
 
 class HostingOfferDetailView(SuccessMessageMixin, UserProfileDataMixin, LoginRequiredMixin, DetailView):
     model = LodgingOffer
-    template_name = 'lodgingoffer_detail.html'
+    template_name = 'hosts/lodgingoffer_detail.html'
     context_object_name = 'lodgingofferdetail'
 
     def get_context_data(self, **kwargs):
@@ -363,8 +363,14 @@ class HostingOfferDetailView(SuccessMessageMixin, UserProfileDataMixin, LoginReq
 
 
         url_offer = self.request.get_full_path
-        # print(url_offer)
 
+        # We get the images of LodgingOffer - LodgingOfferImages model
+        lodging_offer = LodgingOffer.objects.get(slug=self.kwargs.get('slug'))
+        # We get images via related_name of lodging_offer pk in LodgingOfferImage model
+        uploads = lodging_offer.lodgingofferimage.all()
+
+        # We send the contexts
+        context['uploads'] = uploads
         context['lodging_offer_owner_email'] = lodging_offer_owner_email
         context['lodging_offer_owner_full_name'] = lodging_offer_owner_full_name
         context['lodging_offer_owner_enterprise_name'] = lodging_offer_owner_enterprise_name
@@ -378,6 +384,111 @@ class HostingOfferDetailView(SuccessMessageMixin, UserProfileDataMixin, LoginReq
         #contact_owner_offer(self.request, lodging_offer_owner_email, user_interested_email, lodging_offer_title)
 
         return context
+
+@login_required
+def edit_lodging_offer_uploads_image(request, slug):
+    # We get the lodging offer
+    lodging_offer = LodgingOffer.objects.get(slug=slug)
+
+    # Verifying user owner offer to edit capabilities
+    if lodging_offer.created_by != request.user:
+        raise Http404
+
+    # Use the LodgingOfferImageForm
+    form_class = LodgingOfferImagesForm
+
+    # If we make submit
+    if request.method == 'POST':
+        # We get data from the submitted form
+        form = form_class(data=request.POST, files=request.FILES, instance=lodging_offer)
+        if form.is_valid():
+            # Create the new LodgingOfferImage object from the submitted form
+            LodgingOfferImage.objects.create(
+                lodging_offer=lodging_offer, image=form.cleaned_data['image']
+            )
+            messages.success(request, "La fotografía ha sido cargada y asociada a tu oferta " + lodging_offer.ad_title)
+            return redirect('host:edit_lodging_offer_uploads_image', slug=lodging_offer.slug)
+    # Otherwise, just create the lodging offer upload image form
+    else:
+        form = form_class(instance=lodging_offer)
+
+    # We get all images of a LodginOffer object
+    uploads = lodging_offer.lodgingofferimage.all()
+
+    # Render to template
+    return render(request, 'edit_lodging_offer_images.html', {
+        'lodging_offer': lodging_offer,
+        'form': form,
+        'uploads': uploads
+    })
+
+
+class LodgingOfferImageUpdateView(SuccessMessageMixin, UserProfileDataMixin, LoginRequiredMixin, UpdateView):
+    model = LodgingOfferImage
+    form_class = LodgingOfferImagesForm
+
+    # success_url = reverse_lazy("host:edit-study-offer-image", pk_url_kwarg='pk')
+
+    success_message = "Imagen actualizada"
+
+    def get_success_url(self):
+        # return reverse("host:edit-study-offer-image", kwargs={self.pk_url_kwarg: self.kwargs.get('pk')})
+        return reverse("host:edit-lodging-offer-image",
+                       kwargs={'pk': self.kwargs['pk']})
+
+    def get_context_data(self, **kwargs):
+        context = super(LodgingOfferImageUpdateView, self).get_context_data(**kwargs)
+
+        user = self.request.user
+        lodging_offer_image = LodgingOfferImage.objects.get(pk=self.kwargs.get('pk'))
+        context['lodging_offer_image'] = lodging_offer_image
+        return context
+
+    # Permiso para que solo el dueño pueda editarla
+
+    def get_object(self, queryset=None):
+        """ Hook to ensure object is owned by request.user. """
+        obj = super(LodgingOfferImageUpdateView, self).get_object()
+        if not obj.lodging_offer.created_by == self.request.user:
+            raise Http404
+        return obj
+
+
+
+@login_required
+def delete_lodging_offer_image(request, id):
+    # We get the image
+    upload = LodgingOfferImage.objects.get(id=id)
+
+    # Security check
+    if upload.lodging_offer.created_by != request.user:
+        raise Http404
+
+    # Delete image
+    upload.delete()
+    messages.success(request, 'Tu imágen ha sido borrada, ya no aparecerá en el detalle de tu '
+                              'oferta ' + upload.lodging_offer.ad_title)
+    # Refresh the edit page
+    return redirect('host:edit_lodging_offer_uploads_image', slug=upload.lodging_offer.slug)
+
+
+@login_required
+def delete_upload_study_offer_image(request, id):
+
+    user = request.user
+    # We get the image
+    upload = UploadStudyOffer.objects.get(id=id)
+
+    # Security check
+    if upload.study_offer.created_by != request.user:
+        raise Http404
+
+    # Delete image
+    upload.delete()
+    messages.success(request, 'Tu imágen ha sido borrada, ya no aparecerá en el detalle de tu '
+                              'oferta ' + upload.study_offer.ad_title)
+    # Refresh the edit page
+    return redirect('host:edit_study_offer_uploads', slug=upload.study_offer.slug)
 
 
 def contact_owner_offer(request, lodging_offer_owner_full_name, lodging_offer_owner_email,
@@ -520,6 +631,10 @@ class StudyOffertDetailView(LoginRequiredMixin, UserProfileDataMixin, DetailView
 
 @login_required
 def edit_study_offer_uploads(request, slug):
+
+    user = request.user
+    profile = user.profile
+
     # Obtenemos la oferta
     study_offer = StudiesOffert.objects.get(slug=slug)
 
@@ -556,6 +671,7 @@ def edit_study_offer_uploads(request, slug):
         'study_offer': study_offer,
         'form': form,
         'uploads': uploads,
+        'userprofile': profile,
     })
 
 
@@ -579,6 +695,9 @@ class StudyOfferImageUpdateView(SuccessMessageMixin, UserProfileDataMixin, Login
         study_offer_image = UploadStudyOffer.objects.get(pk=self.kwargs.get('pk'))
         context['study_offer_image'] = study_offer_image
 
+        # study_offer = StudiesOffert.objects.get(slug=self.kwargs.get('slug'))
+
+
         return context
 
     # Permiso para que solo el dueño pueda editarla
@@ -595,30 +714,8 @@ class StudyOfferImageUpdateView(SuccessMessageMixin, UserProfileDataMixin, Login
     '''
 
 
-'''
 @login_required
-def edit_upload_study_image(request, slug, id):
-    # Obtenemos la oferta
-    study_offer = StudiesOffert.objects.get(slug=slug)
-    
-    # We get the image
-    upload = UploadStudyOffer.objects.get(id=id)
-
-    # Security check
-    if upload.study_offer.created_by != request.user:
-        raise Http404
-
-    # Seteamos el form que estamos usando
-    form_class = StudyOfferImagesUploadForm
-
-    # Delete image
-    upload.edit()
-    # Refresh the edit page
-    return redirect('host:edit_study_offer_uploads', slug=upload.study_offer.slug)
-'''
-
-@login_required
-def delete_upload(request, id):
+def delete_upload_study_offer_image(request, id):
     # We get the image
     upload = UploadStudyOffer.objects.get(id=id)
 
@@ -732,21 +829,3 @@ class StudyOfferDeleteView(SuccessMessageMixin, LoginRequiredMixin, DeleteView):
 
 
 
-
-'''
-class ContactOwnOfferView(View):
-
-    # Debe recibir el request de quien contacta, el pk de la oferta por la cual contacta y el
-    # email de la persona a contactar
-    def get(self, request, email, pk, *args, **kwargs):
-        #Capturamos el email del usuario al que queremos contactar (dueño de la oferta)
-        user_to_contact = get_object_or_404(User, email__iexact=email)
-
-        # Debemos capturar la oferta por la cual contacta
-        offer_to_interest = get_object_or_404(LodgingOffer, pk=pk)
-
-        # Si el usuario quien presiona contactar al dueño de la ofera esta autenticado
-        if request.user.is_authenticated():
-            is_contacting = UserProfile.objects.toggle_contact_own_offer(request.user, user_to_contact, offer_to_interest)
-        return redirect('hosts:detail', pk=pk)
-'''

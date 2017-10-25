@@ -22,12 +22,11 @@ from PIL import Image
 from easy_thumbnails.fields import ThumbnailerImageField
 from django.utils import timezone
 
-class Timestamp(models.Model):
-    created = models.DateTimeField(auto_now_add=True)
-    updated = models.DateTimeField(auto_now=True)
+# Resizing the image offers
+from io import BytesIO
+from django.core.files import File
+from pathlib import Path  # python 3.6+ only!
 
-    class Meta:
-        abstract = True
 
 
 '''
@@ -240,12 +239,14 @@ class LodgingOffer(models.Model):
         related_name="lodgingoffers"
     )
 
+    '''
     image = models.ImageField(
         upload_to='hosting-host-photos',
         blank=False,
         null=False,
         verbose_name='Fotografía'
     )
+    '''
 
     room_value = models.CharField(_("Precio"), max_length=128, help_text='Precio en pesos colombianos')
 
@@ -280,7 +281,7 @@ class LodgingOffer(models.Model):
         return u'/host/lodging-offer/%d' % self.id
     '''
     def get_absolute_url(self):
-        return reverse('host:detail', kwargs = {'slug' : self.slug })
+        return reverse('host:detail', kwargs={'slug':self.slug})
 
     def get_price(self):
         return self.room_value
@@ -309,12 +310,50 @@ pre_save.connect(pre_save_lodging_offer_receiver, sender=LodgingOffer)
 def get_image_filename(instance, filename):
     title = instance.lodging_offer.ad_title
     slug = slugify(title)
-    return "lodging_offer_images/%s-%s" % (slug, filename)
+    return "lodging_offer_images/%s/%s" % (slug, filename)
 
 
 class LodgingOfferImage(models.Model):
     lodging_offer = models.ForeignKey(LodgingOffer, related_name='lodgingofferimage')
     image = models.ImageField(upload_to=get_image_filename, verbose_name='Imagen',)
+
+    '''
+    def save(self, *args, **kwargs):
+        super(LodgingOfferImage, self).save(*args, **kwargs)
+
+        # We check to make sure an image exists
+        if self.image:
+            thumbnail_image = Image.open(self.image)
+            # Open image and check their size
+            i_width, i_height = thumbnail_image.size
+            max_size=(1000,1000)
+
+            image_types = {
+                'jpg': 'JPEG',
+                'png': 'PNG',
+                'gif': 'GIF',
+                'tif': 'TIFF',
+            }
+
+            # We resize the image if it's too large
+            if i_width > 1000:
+                buffer = BytesIO()
+
+                thumbnail_image = Image.open(self.image,)
+                thumbnail_image.thumbnail(max_size, Image.ANTIALIAS)
+
+                filename_suffix = Path(self.image.file).name[1:]
+                print(filename_suffix)
+                image_format = image_types[filename_suffix]
+
+                thumbnail_image.save(buffer, format=image_format)
+
+                file_object = File(buffer)
+                file_object.content_type = 'image/jpeg'
+
+                self.image.save(self.image.file, file_object)
+                self.save()
+    '''
 
     def __str__(self):
         return self.lodging_offer.ad_title

@@ -28,7 +28,6 @@ class StudyOfferImagesUploadForm(forms.ModelForm):
         fields = ('image',)
 
 
-
 class LodgingOfferForm(forms.ModelForm):
     title = "Crear oferta de alojamiento"
     # birth_year = forms.DateField(widget=forms.SelectDateWidget(years=LodgingOffer.BIRTH_YEAR_CHOICES))
@@ -42,23 +41,17 @@ class LodgingOfferForm(forms.ModelForm):
         }
         model = LodgingOffer
         fields = ('ad_title', 'country', 'city', 'address', 'lodging_offer_type', 'stars',
-                  'check_in', 'check_out', 'offered_services',
-            'featured_amenities', 'room_type_offered',
-            'number_guest_room_type', 'bed_type', 'bathroom',
-            'room_information', 'image', 'room_value',
-            'additional_description', 'is_taked')
-
-
+                  'check_in', 'check_out', 'offered_services', 'featured_amenities', 'room_type_offered',
+                'number_guest_room_type', 'bed_type', 'bathroom', 'room_information', 'room_value',
+                    'additional_description', 'is_taked')
 
 
 class LodgingOfferImagesForm(forms.ModelForm):
-    image = forms.ImageField(label='ImagenEEEEEEEE')
+    image = forms.ImageField(label='Fotografía')
 
     class Meta:
         model = LodgingOfferImage
         fields = ('image', )
-
-
 
 
 class LodgingOfferSearchForm(forms.Form):
