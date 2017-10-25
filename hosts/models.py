@@ -313,10 +313,11 @@ def get_image_filename(instance, filename):
 
 
 class LodgingOfferImage(models.Model):
-    lodging_offer = models.ForeignKey(LodgingOffer, default=None)
-    image = models.ImageField(upload_to=get_image_filename,
-                              verbose_name='Imagen',
-                              )
+    lodging_offer = models.ForeignKey(LodgingOffer, related_name='lodgingofferimage')
+    image = models.ImageField(upload_to=get_image_filename, verbose_name='Imagen',)
+
+    def __str__(self):
+        return self.lodging_offer.ad_title
 
 
 class StudiesOffert(models.Model):
