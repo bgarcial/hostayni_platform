@@ -373,18 +373,6 @@ class StudiesOffert(models.Model):
         (SUMMER_SCHOOL, 'Escuela de verano'),
     )
 
-
-    PRIVATE = 'Privada'
-    PUBLIC = 'Pública'
-    MIXED = 'Privada - Pública'
-
-    CHARACTER_INSTITUTE_CHOICES = (
-        (PRIVATE, "Privada"),
-        (PUBLIC, "Pública"),
-        (MIXED, "Privada - Pública"),
-    )
-
-
     CONTINUING_EDUCATION_STUDIES = 'Estudios de educación contínua'
     TECHNIQUE = 'Técnica'
     TECHNOLOGY = 'Tecnología'
@@ -443,12 +431,6 @@ class StudiesOffert(models.Model):
     latitude = models.CharField(_("latitude"), max_length=255, null=True, blank=True)
     longitude = models.CharField(_("longitude"), max_length=255, null=True, blank=True)
 
-    institute_character = models.CharField(
-        max_length=20,
-        choices=CHARACTER_INSTITUTE_CHOICES,
-        verbose_name='Caracter de la institución',
-    )
-
     maximum_quota = models.PositiveSmallIntegerField(
         verbose_name='Cupo máximo de estudiantes'
     )
@@ -475,6 +457,11 @@ class StudiesOffert(models.Model):
     duration = models.CharField(
         max_length=255,
         verbose_name='Duración',
+    )
+
+    intensity = models.CharField(
+        max_length=255,
+        verbose_name='Intensidad',
     )
 
     modality = models.CharField(

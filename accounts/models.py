@@ -715,10 +715,6 @@ def user_created(sender, instance, created, *args, **kwargs):
 post_save.connect(user_created, sender=settings.AUTH_USER_MODEL)
 
 
-
-
-
-
 class StudentProfile(models.Model):
     user = models.OneToOneField(
         settings.AUTH_USER_MODEL,
@@ -731,11 +727,11 @@ class StudentProfile(models.Model):
     )
 
     origin_education_school = models.CharField(
-        _("Institución de educación origen"), max_length=128
+        _("Institución de educación de origen"), max_length=128
     )
 
     current_education_school = models.CharField(
-        _("Institución de educación a la cual esta vinculada su actual residencia"), max_length=128
+        _("Institución educativa en la cual está vinculado en su actual lugar residencia"), max_length=128
     )
 
     extra_occupation = models.CharField(
@@ -752,7 +748,7 @@ class StudentProfile(models.Model):
     )
 
     knowledge_topics_choice = models.CharField(
-        _("Areas de conocimiento de su elección"), max_length=255
+        _("Áreas de conocimiento de su elección"), max_length=255
     )
 
     class Meta:
@@ -879,16 +875,14 @@ class ExecutiveProfile(models.Model):
 
 class StudyHostProfile(models.Model):
     UNIVERSITY = 'Universidad'
-    TECHNOLOGICAL_SCHOOL = 'Escuela Tecnológica'
     UNIVERSITY_INSTITUTION = 'Institución Universitaria'
     PROFESSIONAL_TECH_INSTITUTION = 'Institución Tecnológica Profesiona'
     CEC = 'Centro de Educación Contínua'
 
     INSTITUTION_TYPE_CHOICES = (
         (UNIVERSITY, 'Universidad'),
-        (TECHNOLOGICAL_SCHOOL, 'Escuela Tecnológica'),
         (UNIVERSITY_INSTITUTION, 'Institución Universitaria'),
-        (PROFESSIONAL_TECH_INSTITUTION, 'Institución Tecnológica Profesional'),
+        (PROFESSIONAL_TECH_INSTITUTION, 'Institución Técnica y/o Tecnológica '),
         (CEC, 'Centro de Educación Contínua'),
         (CEC, 'Centro de Educación para la vida y el trabajo'),
     )
@@ -960,47 +954,17 @@ class StudyHostProfile(models.Model):
     )
 
     knowledge_topics = TaggableManager(
-        verbose_name="Tópicos de conocimiento",
+        verbose_name="Áreas de conocimiento",
         # help_text= tag_helptext()
-        help_text=_("Una lista separada de temas.")
+        help_text=_("Una lista de temas separada por comas.")
     )
 
-    '''
-    strengths = models.CharField(
-        _("Fortalezas"), max_length=255
-    )
-    '''
-    # TO-DO Consultar las grupos del usuario studyhost solamente
-
-    '''
-    research_groups = models.ManyToManyField(
-        ResearchGroups,
-        help_text='What are your research groups?',
-        verbose_name='Research Groups'
-    )
-    
-
-    photography = models.ImageField(
-        upload_to='studyhosts',
-        blank=True,
-        null=True,
-        verbose_name='Photo'
-    )
-    '''
 
     class Meta:
         verbose_name_plural = 'Usuarios con perfil de anfitriones de estudio'
 
     def __str__(self):
         return "{}".format(self.user.email, )
-
-    '''
-    def tag_helptext():
-        help_text = "Options: "
-        for t in Tag.objects.all():
-            help_text += t.name + " ||| "
-        return help_text
-    '''
 
 
 class InnovationHostProfile(models.Model):
@@ -1030,40 +994,6 @@ class HostingHostProfile(models.Model):
     slug = models.SlugField(
         max_length=100,
         blank=True
-    )
-
-    '''
-    lodging_offer_type = models.ManyToManyField(
-        LodgingOfferType,
-        help_text='What lodging offer type?',
-        verbose_name='Lodging Offer Type'
-    )
-
-    featured_amenities = models.ManyToManyField(
-        FeaturesAmenities,
-        help_text='What amenities do you offer?',
-        verbose_name='Featured Amenities'
-    )
-
-    stars = models.PositiveIntegerField(
-        blank=True,
-        null=True,
-        verbose_name='Stars',
-        help_text='Number of stars'
-    )
-    
-
-    photography = models.ImageField(
-        upload_to='hostinghosts',
-        blank=True,
-        null=True,
-        verbose_name='Photo'
-    )
-    '''
-
-    additional_description = models.TextField(
-        null=False,
-        blank=False
     )
 
     class Meta:

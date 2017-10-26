@@ -44,7 +44,7 @@ h1 {
                         {% comment %} A quien corresponda {% endcomment %}
                         <a href="#">
                             {% if instance.author.get_long_name %}
-                            <span>{{ instance.author.get_long_name }}</span>
+                            <span>{{ instance.author.get_long_name }} (@{{ instance.author.email }})</span>
                             {% endif %}
                             {% if instance.author.get_enterprise_name %}
                             <span>{{ instance.author.get_enterprise_name }} (@{{ instance.author.email }})</span>
@@ -143,7 +143,8 @@ h1 {
         {% endif %}
 
         <div class="title-cont">
-            <h1>{{ title }} <small>{% if instance.draft %}<span style='color: red'> Borrador</span> {% endif %}{{ instance.publish }}</small> </h1>
+            <h1>{{ title }} <small>{% if instance.draft %}<span style='color: red'> Borrador</span> {% endif %}</small> </h1>
+
             {% comment %}
             {% if instance.author.has_perm %}
                 {{ instance.author.has_perm }}
@@ -207,7 +208,8 @@ h1 {
             </div>
         </div>
     </div>
-    <div class="fb-comments" data-href="{{ request.build_absolute_uri }}" data-numposts="5"></div>
+    <!-- <div class="fb-comments" data-href="{{ request.build_absolute_uri }}" data-numposts="5"></div> -->
+    <div id="disqus_thread"></div>
 </main>
 <!-- //Contenido principal (posts) -->
 {% endblock %}

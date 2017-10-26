@@ -463,7 +463,7 @@ class LodgingOfferImageUpdateView(SuccessMessageMixin, UserProfileDataMixin, Log
 def delete_lodging_offer_image(request, id):
     # We get the image
     upload = LodgingOfferImage.objects.get(id=id)
-    
+
 
     # Security check
     if upload.lodging_offer.created_by != request.user:

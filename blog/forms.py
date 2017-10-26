@@ -25,7 +25,7 @@ class ArticleForm(forms.ModelForm):
     #        }
     # )
 
-    content = forms.CharField(widget=forms.Textarea)
+    content = forms.CharField(label='Contenido', widget=forms.Textarea(attrs={'placeholder': 'Contenido'}))
     ad = "Nuevo artículo"
     # publish = forms.DateField(initial="2010-11-20", widget=forms.SelectDateWidget(years=YEARS))
     # publish = forms.DateField(widget=forms.DateInput(format='%d/%m/%Y'))

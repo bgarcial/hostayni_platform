@@ -93,23 +93,25 @@
           <div class="formgroup">
               {% bootstrap_field form.number_guest_room_type %}
           </div>
-          <div class="formgroup">
-              {% bootstrap_field form.bed_type %}
-              {% bootstrap_field form.bathroom %}
-              {% bootstrap_field form.room_information %}
-              {% bootstrap_field form.additional_description %}
-              {% bootstrap_field form.is_taked %}
-          </div>
       </div>
       <div class="col">
         <div class="formgroup">
-            {% bootstrap_field form.address %}
+          {% bootstrap_field form.bed_type %}
+          {% bootstrap_field form.bathroom %}
+          {% bootstrap_field form.room_information %}
+
+          {% bootstrap_field form.address %}
+            {% bootstrap_field form.room_value %}
+
+            {% comment %}
           <div class="map-cont">
             <iframe src="https://www.google.com/maps/embed?pb=!1m10!1m8!1m3!1d1983.0517024099001!2d-75.56337732682343!3d6.25010353077667!3m2!1i1024!2i768!4f13.1!5e0!3m2!1ses!2sco!4v1501007278560" frameborder="0" style="border:0" allowfullscreen></iframe>
           </div>
+            {% endcomment %}
         </div>
         <div class="formgroup">
-          {% bootstrap_field form.room_value %}
+            {% bootstrap_field form.additional_description %}
+             {% bootstrap_field form.is_taked %}
         </div>
         
       </div>

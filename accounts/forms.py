@@ -135,14 +135,17 @@ class StudyHostProfileForm(forms.ModelForm):
 
     high_quality_accreditations = forms.MultipleChoiceField(
         required=False,
-        label='Accreditations of high quality',
+        label='Acreditaciones de alta calidad',
         widget=CheckboxSelectMultiple(),
         choices=StudyHostProfile.ACCREDITATIONS_CHOICES,
     )
 
-    # rankings_classification = forms.CharField(widget=forms.Textarea)
-    #knowledge_topics_choice = forms.CharField(widget=forms.Textarea)
-    #strengths = forms.CharField(widget=forms.Textarea)
+    knowledge_topics = forms.CharField(label='Áreas de conocimiento',
+                                widget=forms.TextInput(attrs={
+                                    'placeholder': 'Una lista de temas separada por comas'}))
+
+
+
 
     class Meta:
         model = StudyHostProfile
@@ -152,9 +155,12 @@ class StudyHostProfileForm(forms.ModelForm):
         #exclude = ('studies_offert_list', )
 
 
+
+
+
 class HostingHostProfileForm(forms.ModelForm):
-    title = "Detalles del anfitrión de alojamiento"
+    title = "También eres anfitrión de alojamiento"
 
     class Meta:
         model = HostingHostProfile
-        fields = ('additional_description', )
+        fields = ( )

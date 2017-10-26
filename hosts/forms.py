@@ -13,11 +13,9 @@ class StudiesOffertForm(forms.ModelForm):
 
     class Meta:
         model = StudiesOffert
-        fields = ('ad_title', 'country', 'city',
-            'institute_character', 'maximum_quota', 'knowledge_topics',
-            'duration', 'studies_type_offered', 'academic_mobility_programs',
-            'additional_description', 'address', 'modality', 'studies_value',
-                  'studies_value', 'is_taked')
+        fields = ('ad_title', 'country', 'city', 'maximum_quota', 'knowledge_topics',
+            'duration', 'intensity', 'studies_type_offered', 'academic_mobility_programs',
+            'additional_description', 'address', 'modality', 'studies_value', 'studies_value', 'is_taked')
         # exclude = ('hosting_host_user',)
         # to put after: 'accreditations'
 
@@ -56,9 +54,8 @@ class LodgingOfferImagesForm(forms.ModelForm):
 
 class LodgingOfferSearchForm(forms.Form):
     query = forms.CharField(label='', widget=forms.TextInput(
-        attrs={'placeholder': 'Buscar por: Título, Ciudad, tipo de alojamiento, # de estrellas, servicios ofrecidos, '
-                              'comodidades destacadas, tipo de acomodación, tipo de cama, características de la habitación,'
-                              'baño, precio ($COP)'}))
+        attrs={'placeholder': 'Buscar por: Ciudad, tipo de alojamiento, servicios ofrecidos, '
+                              ' tipo de acomodación,'}))
 
 
 class StudiesOffertSearchForm(forms.Form):
