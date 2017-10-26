@@ -72,7 +72,7 @@ class ArticleForm(forms.ModelForm):
 
     def __init__(self, *args, **kwargs):
         super(ArticleForm, self).__init__(*args, **kwargs)
-        self.fields['title'].widget = forms.Textarea()
+        # self.fields['title'].widget = forms.Textarea()
         # self.fields['publish'].widget = forms.DateField()
         self.fields['title'].error_messages = {
             "max_lenght": "Este titulo es muy largo",
