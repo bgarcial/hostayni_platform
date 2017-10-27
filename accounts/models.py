@@ -450,11 +450,13 @@ class User(AbstractBaseUser, PermissionsMixin):
                 user=self,
                 slug=self.email
             )
+        '''
         if self.is_hosting_host and getattr(self, 'hostinghostprofile', None) is None:
             HostingHostProfile.objects.create(
                 user=self,
                 slug=self.email
             )
+        '''
 
 
 # https://docs.djangoproject.com/en/1.11/ref/signals/#django.db.models.signals.pre_save
@@ -984,7 +986,7 @@ class InnovationHostProfile(models.Model):
     def __str__(self):
         return "{}".format(self.user.display_name, )
 
-
+'''
 class HostingHostProfile(models.Model):
     user = models.OneToOneField(
         settings.AUTH_USER_MODEL,
@@ -996,11 +998,21 @@ class HostingHostProfile(models.Model):
         blank=True
     )
 
+<<<<<<< HEAD
+=======
+    additional_description = models.TextField(
+        null=False,
+        blank=False
+    )
+
+>>>>>>> development
     class Meta:
         verbose_name_plural = 'Usuarios con perfil de anfitriones de hospedaje'
 
     def __str__(self):
         return "{}".format(self.user.email, )
+
+'''
 
 
 class EntertainmentHostProfile(models.Model):

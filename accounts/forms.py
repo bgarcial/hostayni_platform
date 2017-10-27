@@ -3,7 +3,7 @@ from django.contrib.auth.forms import UserChangeForm, UserCreationForm
 from django.forms.widgets import CheckboxSelectMultiple
 from django import forms
 from .models import (StudentProfile, ProfessorProfile, ExecutiveProfile,
-                    StudyHostProfile, HostingHostProfile)
+                    StudyHostProfile,)
 
 from django_countries.widgets import CountrySelectWidget
 
@@ -154,13 +154,22 @@ class StudyHostProfileForm(forms.ModelForm):
             'rankings_classification', 'knowledge_topics', )
         #exclude = ('studies_offert_list', )
 
+<<<<<<< HEAD
 
 
 
 
+=======
+'''
+>>>>>>> development
 class HostingHostProfileForm(forms.ModelForm):
     title = "También eres anfitrión de alojamiento"
 
     class Meta:
         model = HostingHostProfile
+<<<<<<< HEAD
         fields = ( )
+=======
+        fields = ('additional_description', )
+'''
+>>>>>>> development

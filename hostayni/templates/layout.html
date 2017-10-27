@@ -102,7 +102,7 @@ s.setAttribute('data-timestamp', +new Date());
                     <div class="profile-options">
                         <div class="img">
                             {% if userprofile.user.avatar %}
-                                <img src="{{ userprofile.user.avatar.url }}" class="img-responsive">
+                                <img src="{{ userprofile.user.avatar.url }}" width="100" height="100" class="img-responsive">
                             {% else %}
                                 <img src="{% static 'img/default_profile_pic.png' %}" class="img-responsive">
                             {% endif %}
@@ -195,12 +195,32 @@ s.setAttribute('data-timestamp', +new Date());
 
 
     <footer>
-      <p align="center">{% now 'Y' %} &copy; HOSTAYNI S.A.S. Todos los derechos reservados.
+			<div class="main-cont">
+				<div class="content">
+					<div class="logo">
+						<img src="{% static 'img/footer-logo.png' %}" alt="">
+					</div>
+					<div class="links">
+						<a href="{% url 'who-we-are' %}">Quiénes somos</a>
+						<a href="{% url 'terms-and-conditions' %}">Términos y condiciones</a>
+						<a href="{% url 'privacy-policy' %}">Política de privacidad</a>
+						<a href="{% url 'contact' %}">Contáctenos</a>
+					</div>
+					<div class="legal">
+						<p>{% now 'Y' %} &copy; HOSTAYNI S.A.S. Todos los derechos reservados.</p>
+					</div>
+				</div>
+			</div>
+	</footer>
+
+
+        <!--
+        <p align="center">{% now 'Y' %} &copy; HOSTAYNI S.A.S. Todos los derechos reservados.
           <br />
           <a href="{% url 'who-we-are' %}">Quiénes Somos</a> | <a href="{% url 'terms-and-conditions' %}">Términos y Condiciones</a> | <a href="{% url 'privacy-policy' %}">Política de Privacidad</a> | <a href="{% url 'contact' %}">Contáctenos</a>
       </p>
         <br/>
 
-    </footer>
+    </footer>-->
 </body>
 </html>

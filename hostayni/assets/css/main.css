@@ -111,7 +111,7 @@ header {
       vertical-align: baseline;
       color: #706f6f; }
   header .registration {
-    width: 300px;
+    width: 450px;
     margin: 0 0 0 auto;
     height: 50px;
     border-bottom: 1px solid #4c4c4c;
@@ -119,7 +119,7 @@ header {
     header .registration a {
       color: #4c4c4c;
       display: inline-block;
-      width: 50%;
+      width: 150px;
       text-align: center;
       height: inherit;
       padding-top: 20px;
@@ -1810,3 +1810,142 @@ article {
   overflow: hidden; }
   .comment-form-cont form textarea {
     max-height: 150px; }
+
+.configuration .container {
+  max-width: 1000px;
+  margin: 0 auto; }
+  .configuration .container .tabs {
+    display: inline-block;
+    width: 220px;
+    margin-right: -4px;
+    margin-left: 5px;
+    vertical-align: top; }
+    .configuration .container .tabs .title {
+      margin-bottom: 15px; }
+      .configuration .container .tabs .title .icon {
+        display: inline-block;
+        vertical-align: middle;
+        margin-right: 5px; }
+        .configuration .container .tabs .title .icon img {
+          width: 30px;
+          height: 30px; }
+      .configuration .container .tabs .title h2 {
+        font-size: 1.25em;
+        display: inline-block;
+        vertical-align: middle; }
+    .configuration .container .tabs .tab {
+      display: block;
+      padding: 5px 0 5px 15px; }
+      .configuration .container .tabs .tab .icon {
+        margin-right: 4px;
+        display: inline-block; }
+        .configuration .container .tabs .tab .icon img {
+          width: 25px;
+          height: 25px; }
+      .configuration .container .tabs .tab p {
+        display: inline-block;
+        font-weight: 600;
+        vertical-align: top; }
+    .configuration .container .tabs a[tab-active=true] {
+      border-bottom: 1px solid #706f6f; }
+  .configuration .container .content {
+    display: inline-block;
+    max-width: 480px;
+    margin-right: -4px;
+    border-left: 1px solid #706f6f;
+    padding-left: 30px; }
+    .configuration .container .content .title {
+      margin-bottom: 30px; }
+      .configuration .container .content .title .icon {
+        display: inline-block;
+        vertical-align: middle;
+        margin-right: 10px; }
+        .configuration .container .content .title .icon img {
+          width: 60px;
+          height: 60px; }
+      .configuration .container .content .title h2 {
+        display: inline-block;
+        vertical-align: middle;
+        font-size: 2em; }
+    .configuration .container .content form .formgroup {
+      margin-bottom: 15px; }
+      .configuration .container .content form .formgroup span {
+        display: block;
+        color: #706f6f;
+        font-weight: 600;
+        margin-bottom: 10px; }
+      .configuration .container .content form .formgroup input {
+        width: 100%;
+        box-sizing: border-box;
+        -webkit-border-radius: 10px;
+        -moz-border-radius: 10px;
+        -ms-border-radius: 10px;
+        border-radius: 10px;
+        padding: 5px 10px;
+        border: 1px solid #d6d6d6; }
+      .configuration .container .content form .formgroup textarea {
+        width: 100%;
+        max-width: 100%;
+        height: 100px;
+        max-height: 150px;
+        box-sizing: border-box;
+        -webkit-border-radius: 10px;
+        -moz-border-radius: 10px;
+        -ms-border-radius: 10px;
+        border-radius: 10px;
+        padding: 5px 10px;
+        border: 1px solid #d6d6d6;
+        overflow: hidden; }
+      .configuration .container .content form .formgroup select {
+        width: 100%;
+        color: #706f6f;
+        -webkit-border-radius: 10px;
+        -moz-border-radius: 10px;
+        -ms-border-radius: 10px;
+        border-radius: 10px;
+        padding: 5px 10px;
+        border: 1px solid #d6d6d6; }
+      .configuration .container .content form .formgroup .rad-cont {
+        display: inline-block;
+        width: 160px; }
+        .configuration .container .content form .formgroup .rad-cont label {
+          font-weight: 600;
+          color: #706f6f;
+          font-size: 0.95em; }
+
+footer {
+  margin-top: 50px; }
+  footer .main-cont {
+    background: url('{% static  "img/background-text.jpg"%}');
+    /* background-color: #eeeeee; */
+    background-repeat: repeat;
+    padding: 20px 10px; }
+    footer .main-cont .content {
+      margin: 0 auto;
+      max-width: 1500px; }
+      footer .main-cont .content .logo {
+        display: inline-block;
+        height: 60px;
+        width: auto;
+        margin-right: 40px;
+        vertical-align: middle; }
+        footer .main-cont .content .logo img {
+          height: inherit;
+          width: auto; }
+      footer .main-cont .content .links {
+        display: inline-block;
+        vertical-align: middle; }
+        footer .main-cont .content .links a {
+          color: #706f6f;
+          margin-right: 35px;
+          font-size: 0.9em; }
+        footer .main-cont .content .links a:last-child {
+          margin-right: 0; }
+        footer .main-cont .content .links a:hover {
+          text-decoration: underline; }
+      footer .main-cont .content .legal {
+        margin-top: 20px;
+        text-align: center; }
+        footer .main-cont .content .legal p {
+          color: #706f6f;
+          font-size: 0.8em; }
