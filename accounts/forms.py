@@ -154,22 +154,19 @@ class StudyHostProfileForm(forms.ModelForm):
             'rankings_classification', 'knowledge_topics', )
         #exclude = ('studies_offert_list', )
 
-<<<<<<< HEAD
 
 
 
-
-=======
 '''
->>>>>>> development
+
 class HostingHostProfileForm(forms.ModelForm):
     title = "También eres anfitrión de alojamiento"
 
     class Meta:
         model = HostingHostProfile
-<<<<<<< HEAD
+
         fields = ( )
-=======
+
         fields = ('additional_description', )
 '''
->>>>>>> development
+
