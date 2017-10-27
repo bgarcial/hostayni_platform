@@ -4,10 +4,8 @@ from django.contrib import admin
 from django.contrib.auth.admin import UserAdmin
 
 from .models import (
-    User, UserProfile, StudentProfile,
-    ProfessorProfile, ExecutiveProfile,
-    StudyHostProfile, InnovationHostProfile,
-    HostingHostProfile, EntertainmentHostProfile,
+    User, UserProfile, StudentProfile, ProfessorProfile, ExecutiveProfile,
+    StudyHostProfile, InnovationHostProfile, EntertainmentHostProfile,
     OtherServicesHostProfile, EmailConfirmed
 )
 
@@ -107,17 +105,16 @@ class ExecutiveProfileAdmin(admin.ModelAdmin):
 class StudyHostProfileAdmin(admin.ModelAdmin):
     list_display = ('id', 'user_id', 'slug', )
 
+
 @admin.register(InnovationHostProfile)
 class InnovationHostProfileAdmin(admin.ModelAdmin):
     list_display = ('id', 'user_id', 'slug', )
 
-@admin.register(HostingHostProfile)
-class HostingHostProfileAdmin(admin.ModelAdmin):
-    list_display = ('id', 'user_id', 'slug', )
 
 @admin.register(EntertainmentHostProfile)
 class EntertainmentHostProfileAdmin(admin.ModelAdmin):
     list_display = ('id', 'user_id', 'slug', )
+
 
 @admin.register(OtherServicesHostProfile)
 class OtherServicesHostProfileAdmin(admin.ModelAdmin):

@@ -450,11 +450,13 @@ class User(AbstractBaseUser, PermissionsMixin):
                 user=self,
                 slug=self.email
             )
+        '''
         if self.is_hosting_host and getattr(self, 'hostinghostprofile', None) is None:
             HostingHostProfile.objects.create(
                 user=self,
                 slug=self.email
             )
+        '''
 
 
 # https://docs.djangoproject.com/en/1.11/ref/signals/#django.db.models.signals.pre_save
@@ -1020,7 +1022,7 @@ class InnovationHostProfile(models.Model):
     def __str__(self):
         return "{}".format(self.user.display_name, )
 
-
+'''
 class HostingHostProfile(models.Model):
     user = models.OneToOneField(
         settings.AUTH_USER_MODEL,
@@ -1032,35 +1034,6 @@ class HostingHostProfile(models.Model):
         blank=True
     )
 
-    '''
-    lodging_offer_type = models.ManyToManyField(
-        LodgingOfferType,
-        help_text='What lodging offer type?',
-        verbose_name='Lodging Offer Type'
-    )
-
-    featured_amenities = models.ManyToManyField(
-        FeaturesAmenities,
-        help_text='What amenities do you offer?',
-        verbose_name='Featured Amenities'
-    )
-
-    stars = models.PositiveIntegerField(
-        blank=True,
-        null=True,
-        verbose_name='Stars',
-        help_text='Number of stars'
-    )
-    
-
-    photography = models.ImageField(
-        upload_to='hostinghosts',
-        blank=True,
-        null=True,
-        verbose_name='Photo'
-    )
-    '''
-
     additional_description = models.TextField(
         null=False,
         blank=False
@@ -1071,6 +1044,8 @@ class HostingHostProfile(models.Model):
 
     def __str__(self):
         return "{}".format(self.user.email, )
+
+'''
 
 
 class EntertainmentHostProfile(models.Model):

@@ -23,7 +23,7 @@ from django.contrib.auth.signals import user_logged_in
 from .forms import (
         StudentProfileForm, ExecutiveProfileForm,
         ProfessorProfileForm, UserCreateForm, UserUpdateForm,
-        StudyHostProfileForm, HostingHostProfileForm, )
+        StudyHostProfileForm, )
 
 from .models import (
         StudentProfile, ProfessorProfile,
@@ -65,6 +65,7 @@ def user_profile_update_view(request, slug):
     # Populate the forms and Instances (if applicable)
     form_profiles = []
     profile = user.profile
+    print(profile)
 
     if user.is_student:
         profile = user.get_student_profile()
@@ -84,9 +85,9 @@ def user_profile_update_view(request, slug):
         profile = user.get_study_host_profile()
         form_profiles.append({'form': StudyHostProfileForm, 'instance': user.studyhostprofile, 'title': "Study Host Details"})
 
-    if user.is_hosting_host:
-        profile = user.get_hosting_host_profile()
-        form_profiles.append({'form': HostingHostProfileForm, 'instance': user.hostinghostprofile, 'title': "Hosting Host Details"})
+    #if user.is_hosting_host:
+        # profile = user.get_hosting_host_profile()
+        # form_profiles.append({'form': HostingHostProfileForm, 'instance': user.hostinghostprofile, 'title': "Hosting Host Details"})
 
     if request.method == 'POST':
         forms = [x['form'](data=request.POST, instance=x['instance'],) for x in form_profiles]
@@ -108,6 +109,8 @@ class AccountSettingsUpdateView(SuccessMessageMixin, LoginRequiredMixin, UserPro
     success_message = "Perfil actualizado exitosamente"
     success_url = reverse_lazy('articles:article_list')
     # success_url = reverse_lazy('accounts:preferences', kwargs={'slug': user.slug})
+
+    # Mirar como redireccionar a esta misma vista despues del post
 
 
 def logout_view(request):
