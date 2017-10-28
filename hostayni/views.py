@@ -44,7 +44,7 @@ def contact(request):
             }
             if user.is_authenticated():
                 context['userprofile']= request.user.profile
-            # return render(request, 'contact.html', {'form': form_class,}, context )
+            return render(request, 'contact.html', {'form': form_class,}, context )
 
             content = template.render(context)
             mail_subject = 'Hola Hostayni, ' + contact_name + ' - ' + contact_email + ' desea contactar contigo'
