@@ -159,7 +159,7 @@ s.setAttribute('data-timestamp', +new Date());
                 {% endif %}
                 {% else %}
                     <div class="registration">
-                        <a href="{% url 'accounts:signup' %}">Registrarse</a><a href="{% url 'login' %}">Iniciar sesión</a>
+                        <a href="{% url 'who-we-are' %}">Quiénes somos</a><a href="{% url 'accounts:signup' %}">Registrarse</a><a href="{% url 'login' %}">Iniciar sesión</a>
                     </div>
             {% endif %}
         </header>
@@ -196,22 +196,22 @@ s.setAttribute('data-timestamp', +new Date());
 
 
     <footer>
-			<div class="main-cont">
-				<div class="content">
-					<div class="logo">
-						<img src="{% static 'img/footer-logo.png' %}" alt="">
-					</div>
-					<div class="links">
-						<a href="{% url 'who-we-are' %}">Quiénes somos</a>
-						<a href="{% url 'terms-and-conditions' %}">Términos y condiciones</a>
-						<a href="{% url 'privacy-policy' %}">Política de privacidad</a>
-						<a href="{% url 'contact' %}">Contáctenos</a>
-					</div>
-					<div class="legal">
-						<p>{% now 'Y' %} &copy; HOSTAYNI S.A.S. Todos los derechos reservados.</p>
-					</div>
-				</div>
-			</div>
+        <div class="main-cont">
+            <div class="content">
+                <div class="logo">
+                    <img src="{% static 'img/footer-logo.png' %}" alt="">
+                </div>
+                <div class="links">
+                    <a href="{% url 'who-we-are' %}">Quiénes somos</a>
+                    <a href="{% url 'terms-and-conditions' %}">Términos y condiciones</a>
+                    <a href="{% url 'privacy-policy' %}">Política de privacidad</a>
+                    <a href="{% url 'contact' %}">Contáctenos</a>
+                </div>
+                <div class="legal">
+                    <p>{% now 'Y' %} &copy; HOSTAYNI S.A.S. Todos los derechos reservados.</p>
+                </div>
+            </div>
+        </div>
 	</footer>
 
 

@@ -29,7 +29,7 @@ urlpatterns = [
         name='hosting-host'),
 
     # List Lodging Offer's user
-    url(r'^lodging-offers/by/u/@(?P<email>[-\w]+)/$',
+    url(r'^lodging-offers/by/u/(?P<email>[-\w]+)/$',
         lodging_offers_by_user,
         name='list'),
 

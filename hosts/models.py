@@ -36,6 +36,9 @@ class LodgingOfferManager(models.Model):
     #def toggle_contact_own_offer(self, user_interested, user_to_contact, offer):
 '''
 
+def get_lodging_image_search_path(instance, filename):
+    return '/'.join(['lodging_offer_images', instance.slug, filename])
+
 class LodgingOffer(models.Model):
 
     ALL_PROPERTY = 'Toda la propiedad'
@@ -239,14 +242,14 @@ class LodgingOffer(models.Model):
         related_name="lodgingoffers"
     )
 
-    '''
     image = models.ImageField(
-        upload_to='hosting-host-photos',
+        upload_to=get_lodging_image_search_path,
         blank=False,
         null=False,
-        verbose_name='Fotografía'
+        verbose_name='Fotografía',
+        help_text='Esta imagen acompañará tu oferta en los resultados de búsquedas'
     )
-    '''
+
 
     room_value = models.CharField(_("Precio"), max_length=128, help_text='Precio en pesos colombianos')
 
@@ -359,6 +362,9 @@ class LodgingOfferImage(models.Model):
         return self.lodging_offer.ad_title
 
 
+def get_image_search_path(instance, filename):
+    return '/'.join(['educational_offer_images', instance.slug, filename])
+
 class StudiesOffert(models.Model):
 
     ACADEMIC_SEMESTER = 'Semestre académico'
@@ -440,7 +446,6 @@ class StudiesOffert(models.Model):
         help_text=_("Una lista de temáticas separada por comas.")
     )
 
-
     studies_type_offered = models.CharField(
         max_length=255,
         choices=STUDIES_TYPE_CHOICES,
@@ -479,14 +484,14 @@ class StudiesOffert(models.Model):
 
     )
 
-    '''
     photo = models.ImageField(
-        upload_to='study-host-offert-photos',
+        upload_to=get_image_search_path,
         blank=False,
         verbose_name='Fotografía',
-        null=False
+        null=False,
+        help_text = 'Esta imagen acompañará tu oferta en los resultados de búsquedas'
     )
-    '''
+
     pub_date = models.DateTimeField(
         auto_now=True,
         # related_name="lodgingoffers"
@@ -526,7 +531,7 @@ def create_study_offer_slug(instance, new_slug=None):
     exists = qs.exists()
     if exists:
         new_slug = "%s-%s" % (slug, qs.first().id)
-        return create_slug(instance, new_slug=new_slug)
+        return create_study_offer_slug(instance, new_slug=new_slug)
     return slug
 
 
@@ -567,9 +572,6 @@ class UploadStudyOfferManager(models.Manager):
             return self.get_queryset().active().featured()[0]
         except:
             return None
-
-
-
 
 
 CROP_SETTINGS = {'size': (1000, 500), 'crop': 'smart'}

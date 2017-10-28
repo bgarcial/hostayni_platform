@@ -7,7 +7,7 @@ from .views import (
     article_delete,
     artic_detail,
     article_update,
-    article_detail,
+    # article_detail,
     article_share,
     article_publish,
     categories,

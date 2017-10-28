@@ -1913,16 +1913,10 @@ article {
           color: #706f6f;
           font-size: 0.95em; }
 
-.footer {
-    margin-top: 50px;
-    width: 100%;
-    position: absolute;
-    bottom: 0;
-    height: 136px;
-}
+footer {
+  margin-top: 50px; }
   footer .main-cont {
-    background: url('{% static  "img/background-text.jpg"%}');
-    /* background-color: #eeeeee; */
+    background: url("../img/background-text.jpg");
     background-repeat: repeat;
     padding: 20px 10px; }
     footer .main-cont .content {

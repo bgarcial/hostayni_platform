@@ -139,17 +139,16 @@ h1 {
 <main>
     <div class="blog-body">
         {% if instance.image %}
-        <img src="{{ instance.image.url }}" class="img-responsive">
+        <img src="{{ instance.image.url }}" width="1000" height="1000" class="img-responsive">
         {% endif %}
 
         <div class="title-cont">
             <h1>{{ title }} <small>{% if instance.draft %}<span style='color: red'> Borrador</span> {% endif %}</small> </h1>
-
-            {% comment %}
-            {% if instance.author.has_perm %}
-                {{ instance.author.has_perm }}
+            {% if instance.author.id == userprofile.user.id %}
+                <p><a class="glyphicon glyphicon-pencil" aria-hidden="true" href = "{% url 'articles:update' instance.slug %}"></a>
+                &nbsp;&nbsp;&nbsp;&nbsp;| &nbsp;&nbsp;&nbsp;&nbsp;
+                <a class='glyphicon glyphicon-trash' href = "{% url 'articles:article_remove' instance.slug %}"></a>
             {% endif %}
-            {% endcomment %}
             {% comment %} <h1>{{ title }} <small>{{ instance.timestamp|timesince }}</small> </h1>{% endcomment %}
         </div>
 

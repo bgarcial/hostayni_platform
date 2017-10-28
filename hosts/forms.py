@@ -15,7 +15,7 @@ class StudiesOffertForm(forms.ModelForm):
         model = StudiesOffert
         fields = ('ad_title', 'country', 'city', 'maximum_quota', 'knowledge_topics',
             'duration', 'intensity', 'studies_type_offered', 'academic_mobility_programs',
-            'additional_description', 'address', 'modality', 'studies_value', 'studies_value', 'is_taked')
+            'additional_description', 'photo', 'address', 'modality', 'studies_value', 'studies_value', 'is_taked')
         # exclude = ('hosting_host_user',)
         # to put after: 'accreditations'
 
@@ -40,7 +40,7 @@ class LodgingOfferForm(forms.ModelForm):
         model = LodgingOffer
         fields = ('ad_title', 'country', 'city', 'address', 'lodging_offer_type', 'stars',
                   'check_in', 'check_out', 'offered_services', 'featured_amenities', 'room_type_offered',
-                'number_guest_room_type', 'bed_type', 'bathroom', 'room_information', 'room_value',
+                'number_guest_room_type', 'image', 'bed_type', 'bathroom', 'room_information', 'room_value',
                     'additional_description', 'is_taked')
 
 

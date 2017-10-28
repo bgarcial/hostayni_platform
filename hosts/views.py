@@ -110,6 +110,7 @@ class StudiesOffertSearch(FormView):
 
         return context
 
+
 class LodgingOfferSearch(FormView):
     template_name = 'hosts/lodgingoffer_search.html'
 
@@ -156,6 +157,7 @@ class LodgingOfferSearch(FormView):
             context['userprofile'] = user.profile
 
         return context
+
 
 def studies_offers_by_user(request, email):
     user = request.user
@@ -539,32 +541,27 @@ def contact_owner_offer(request, lodging_offer_owner_full_name, lodging_offer_ow
 class HostingOfferDeleteView(SuccessMessageMixin, UserProfileDataMixin, LoginRequiredMixin, DeleteView):
     model = LodgingOffer
     success_url = reverse_lazy("articles:article_list")
+
     # success_url = reverse_lazy("host:list")
     context_object_name = 'lodgingofferdelete'
     success_message = "Oferta de alojamientio eliminada con éxito"
 
+    def get_object(self, queryset=None):
+        """ Hook to ensure object is owned by request.user. """
+        obj = super(HostingOfferDeleteView, self).get_object()
+        if not obj.created_by == self.request.user:
+            raise Http404
+        return obj
+
+    '''
+    def get_success_url(self):
+        lodging_offer = LodgingOffer.objects.get(slug=self.kwargs.get('slug'))
+        print('dsddsds',lodging_offer.created_by.slug)
+        # return reverse("host:edit-study-offer-image", kwargs={self.pk_url_kwarg: self.kwargs.get('pk')})
+        return reverse_lazy("host:list", kwargs={self.slug_url_kwarg:lodging_offer.created_by.email})
+    '''
     def get_context_data(self, **kwargs):
         context = super(HostingOfferDeleteView, self).get_context_data(**kwargs)
-
-        user = self.request.user
-        if user.is_student:
-            profile = user.get_student_profile()
-            context['userprofile'] = profile
-        elif user.is_professor:
-            profile = user.get_professor_profile()
-            context['userprofile'] = profile
-        elif user.is_executive:
-            profile = user.get_executive_profile()
-            context['userprofile'] = profile
-        elif user.is_study_host:
-            profile = user.get_study_host_profile()
-            context['userprofile'] = profile
-        elif user.is_hosting_host:
-            profile = user.get_hosting_host_profile()
-            context['userprofile'] = profile
-        elif user.is_active:
-            #profile = user.get_user_profile()
-            context['userprofile'] = self.request.user
         return context
 
 
@@ -582,7 +579,6 @@ class StudyOfferCreateView(SuccessMessageMixin, LoginRequiredMixin, UserProfileD
         form.instance.pub_date = timezone.now()
         form.save()
         return super(StudyOfferCreateView, self).form_valid(form)
-
 
 
 class StudyOffertDetailView(LoginRequiredMixin, UserProfileDataMixin, DetailView):
@@ -737,10 +733,10 @@ def delete_upload_study_offer_image(request, id):
     return redirect('host:edit_study_offer_uploads', slug=upload.study_offer.slug)
 
 
-
 def contact_study_owner_offer(request, study_offer_owner_full_name, study_offer_owner_email,
                               user_interested_full_name, user_interested_email, study_offer_title, url_offer):
     user = request.user
+    print(study_offer_owner_full_name)
     if user.is_authenticated:
         #print('Send email')
         mail_subject = 'Interesados en tu oferta educativa'
@@ -804,7 +800,7 @@ class StudyOfferUpdateView(SuccessMessageMixin, UserProfileDataMixin, LoginRequi
         return obj
 
 
-class StudyOfferDeleteView(SuccessMessageMixin, LoginRequiredMixin, DeleteView):
+class StudyOfferDeleteView(SuccessMessageMixin, UserProfileDataMixin, LoginRequiredMixin, DeleteView):
     model = StudiesOffert
     success_url = reverse_lazy("articles:article_list")
     # success_url = reverse_lazy("host:list")
@@ -813,27 +809,15 @@ class StudyOfferDeleteView(SuccessMessageMixin, LoginRequiredMixin, DeleteView):
 
     def get_context_data(self, **kwargs):
         context = super(StudyOfferDeleteView, self).get_context_data(**kwargs)
-
         user = self.request.user
-        if user.is_student:
-            profile = user.get_student_profile()
-            context['userprofile'] = profile
-        elif user.is_professor:
-            profile = user.get_professor_profile()
-            context['userprofile'] = profile
-        elif user.is_executive:
-            profile = user.get_executive_profile()
-            context['userprofile'] = profile
-        elif user.is_study_host:
-            profile = user.get_study_host_profile()
-            context['userprofile'] = profile
-        elif user.is_hosting_host:
-            profile = user.get_hosting_host_profile()
-            context['userprofile'] = profile
-        elif user.is_active:
-            #profile = user.get_user_profile()
-            context['userprofile'] = self.request.user
         return context
+
+    def get_object(self, queryset=None):
+        """ Hook to ensure object is owned by request.user. """
+        obj = super(StudyOfferDeleteView, self).get_object()
+        if not obj.created_by == self.request.user:
+            raise Http404
+        return obj
 
 
 

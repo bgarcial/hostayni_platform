@@ -37,7 +37,7 @@
         <div class="ofert-icon">
           <img src="{% static 'img/icons/hosting.svg' %}" alt="">
           <div class="title">
-            <h2>Stayhost</h2>
+            <h2>ALOJAMIENTO</h2>
             <span>Crear oferta</span>
           </div>
         </div>
@@ -96,6 +96,7 @@
       </div>
       <div class="col">
         <div class="formgroup">
+          {% bootstrap_field form.image %}
           {% bootstrap_field form.bed_type %}
           {% bootstrap_field form.bathroom %}
           {% bootstrap_field form.room_information %}
