@@ -88,7 +88,7 @@ class UserManager(BaseUserManager):
 
 
 def get_image_path(instance, filename):
-    return os.path.join('userprofile-pics', str(instance.id), filename)
+    return os.path.join('userprofile-pictures', str(instance.email), filename)
 
 class User(AbstractBaseUser, PermissionsMixin):
 
@@ -791,15 +791,16 @@ class ProfessorProfile(models.Model):
     )
 
     current_education_school = models.CharField(
-        _("Institución de educación a la cual esta vinculada su actual residencia"), max_length=128
+        _("Institución educativa en la cual está vinculado en su actual lugar residencia"), max_length=128
     )
 
     educational_titles = models.CharField(
         max_length=255,
+        verbose_name='Títulos educativos'
     )
 
     complete_studies_school = models.CharField(
-        _("Institución donde terminó sus estudios anteriores"), max_length=255
+        _("Institución en donde terminó sus estudios anteriores"), max_length=255
     )
 
     knowledge_topics_choice = models.CharField(
@@ -865,7 +866,7 @@ class ExecutiveProfile(models.Model):
     )
 
     complete_studies_school = models.CharField(
-        _("Institución donde terminó sus estudios anteriores"), max_length=255
+        _("Institución en donde terminó sus estudios anteriores"), max_length=255
     )
 
     class Meta:

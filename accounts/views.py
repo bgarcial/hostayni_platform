@@ -65,7 +65,11 @@ def user_profile_update_view(request, slug):
     # Populate the forms and Instances (if applicable)
     form_profiles = []
     profile = user.profile
-    print(profile)
+    # print(profile)
+
+    user_roles = User.objects.get(slug=slug)
+    if user_roles.id != request.user.id:
+        raise Http404
 
     if user.is_student:
         profile = user.get_student_profile()
@@ -90,13 +94,14 @@ def user_profile_update_view(request, slug):
         # form_profiles.append({'form': HostingHostProfileForm, 'instance': user.hostinghostprofile, 'title': "Hosting Host Details"})
 
     if request.method == 'POST':
+        # user_roles = User.objects.get(slug=slug)
         forms = [x['form'](data=request.POST, instance=x['instance'],) for x in form_profiles]
         if all([form.is_valid() for form in forms]):
             for form in forms:
                 form.save()
             messages.success(request, "Tus datos de roles de usuario han sido actualizados")
-            return redirect('articles:article_list')
-            #return redirect('home')
+            # return redirect('articles:article_list')
+            return redirect('accounts:profile', slug=user_roles.slug)
     else:
         forms = [x['form'](instance=x['instance']) for x in form_profiles]
 
@@ -107,10 +112,31 @@ class AccountSettingsUpdateView(SuccessMessageMixin, LoginRequiredMixin, UserPro
     model = get_user_model()
     form_class = UserUpdateForm
     success_message = "Perfil actualizado exitosamente"
-    success_url = reverse_lazy('articles:article_list')
+    # success_url = reverse_lazy('articles:article_list')
     # success_url = reverse_lazy('accounts:preferences', kwargs={'slug': user.slug})
 
     # Mirar como redireccionar a esta misma vista despues del post
+
+    def get_success_url(self):
+        # return reverse("host:edit-study-offer-image", kwargs={self.pk_url_kwarg: self.kwargs.get('pk')})
+        return reverse("accounts:preferences",
+                       kwargs={'slug': self.kwargs['slug']})
+
+    def get_context_data(self, **kwargs):
+        context = super(AccountSettingsUpdateView, self).get_context_data(**kwargs)
+
+        user = self.request.user
+        user_preferences = User.objects.get(slug=self.kwargs.get('slug'))
+        context['user_preferences'] = user_preferences
+        return context
+
+
+    def get_object(self, queryset=None):
+        """ Hook to ensure object is owned by request.user. """
+        obj = super(AccountSettingsUpdateView, self).get_object()
+        if not obj.id == self.request.user.id:
+            raise Http404
+        return obj
 
 
 def logout_view(request):

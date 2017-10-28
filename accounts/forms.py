@@ -101,12 +101,12 @@ class ProfessorProfileForm(forms.ModelForm):
     title = "Detalles del Profesor"
     occupation = forms.MultipleChoiceField(
         required=False,
-        label='Occupation',
+        label='Ocupación',
         widget=CheckboxSelectMultiple(),
         choices=ProfessorProfile.OCCUPATION_CHOICES
     )
-    research_groups = forms.CharField(widget=forms.Textarea)
-    autorship_publications = forms.CharField(widget=forms.Textarea)
+    research_groups = forms.CharField(label='Grupos de Investigación', widget=forms.Textarea)
+    autorship_publications = forms.CharField(label='Publicaciones', widget=forms.Textarea)
 
     class Meta:
         model = ProfessorProfile
