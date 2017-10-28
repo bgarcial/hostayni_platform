@@ -117,7 +117,7 @@ class LodgingOffer(models.Model):
     )
 
     PRIVATE_BATHROOM = 'Baño privado'
-    SHARED_BATHROOM = 'Baño compartid'
+    SHARED_BATHROOM = 'Baño compartido'
 
     BATHROOM_CHOICES = (
         (PRIVATE_BATHROOM, "Baño privado"),
