@@ -189,12 +189,15 @@ main {
   width: 930px; }
 
 .search-column {
-  width: 330px;
+  /*width: 330px;*/
+  width: 30%;
   float: right;
   padding-left: 10px; }
   .search-column .logo {
     float: right;
-    margin-bottom: 30px; }
+    margin-bottom: 30px;
+    width: 100%;
+    }
   .search-column .map-search-text {
     -webkit-border-radius: 10px;
     -moz-border-radius: 10px;
