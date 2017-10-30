@@ -117,7 +117,7 @@ bgarcial@elpug ‹ frontend ●● › : ~/workspace/hostayni_platform
 
 * Push files to the github repository
 
-`git push origin master`
+`git push origin frontend`
 
 </dl>
 
