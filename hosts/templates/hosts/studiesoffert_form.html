@@ -68,9 +68,6 @@
               {% bootstrap_field form.city %}
           </div>
           <div class="formgroup">
-              {% bootstrap_field form.institute_character %}
-          </div>
-          <div class="formgroup">
               {% bootstrap_field form.maximum_quota %}
           </div>
           <div class="formgroup">
@@ -82,25 +79,23 @@
           <div class="formgroup">
               {% bootstrap_field form.academic_mobility_programs %}
           </div>
-          <div class="formgroup">
-              {% bootstrap_field form.duration %}
-          </div>
-          <div class="formgroup">
-              {% bootstrap_field form.modality %}
-          </div>
-          <div class="formgroup">
-              {% bootstrap_field form.studies_value %}
-              {% bootstrap_field form.additional_description %}
-              {% bootstrap_field form.photo %}
-              {% bootstrap_field form.is_taked %}
-          </div>
+
       </div>
       <div class="col">
         <div class="formgroup">
+            {% bootstrap_field form.photo %}
+            {% bootstrap_field form.duration %}
+              {% bootstrap_field form.intensity %}
+            {% bootstrap_field form.modality %}
             {% bootstrap_field form.address %}
+            {% bootstrap_field form.studies_value %}
+              {% bootstrap_field form.additional_description %}
+            {% bootstrap_field form.is_taked %}
+            {% comment %}
           <div class="map-cont">
             <iframe src="https://www.google.com/maps/embed?pb=!1m10!1m8!1m3!1d1983.0517024099001!2d-75.56337732682343!3d6.25010353077667!3m2!1i1024!2i768!4f13.1!5e0!3m2!1ses!2sco!4v1501007278560" frameborder="0" style="border:0" allowfullscreen></iframe>
           </div>
+            {% endcomment %}
         </div>
       </div>
 

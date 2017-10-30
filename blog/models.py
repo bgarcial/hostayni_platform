@@ -135,6 +135,8 @@ def pre_save_article_receiver(sender, instance, *args, **kwargs):
 
 pre_save.connect(pre_save_article_receiver, sender=Article)
 
+
+'''
 class Comment(models.Model):
     article = models.ForeignKey('blog.Article', related_name='comments')
     name = models.CharField(max_length=80)
@@ -156,3 +158,4 @@ class Comment(models.Model):
     def __str__(self):
         return 'Comment by {} on {}'.format(self.name, self.article)
 
+'''

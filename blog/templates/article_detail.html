@@ -44,7 +44,7 @@ h1 {
                         {% comment %} A quien corresponda {% endcomment %}
                         <a href="#">
                             {% if instance.author.get_long_name %}
-                            <span>{{ instance.author.get_long_name }}</span>
+                            <span>{{ instance.author.get_long_name }} (@{{ instance.author.email }})</span>
                             {% endif %}
                             {% if instance.author.get_enterprise_name %}
                             <span>{{ instance.author.get_enterprise_name }} (@{{ instance.author.email }})</span>
@@ -139,16 +139,16 @@ h1 {
 <main>
     <div class="blog-body">
         {% if instance.image %}
-        <img src="{{ instance.image.url }}" class="img-responsive">
+        <img src="{{ instance.image.url }}" width="1000" height="1000" class="img-responsive">
         {% endif %}
 
         <div class="title-cont">
-            <h1>{{ title }} <small>{% if instance.draft %}<span style='color: red'> Borrador</span> {% endif %}{{ instance.publish }}</small> </h1>
-            {% comment %}
-            {% if instance.author.has_perm %}
-                {{ instance.author.has_perm }}
+            <h1>{{ title }} <small>{% if instance.draft %}<span style='color: red'> Borrador</span> {% endif %}</small> </h1>
+            {% if instance.author.id == userprofile.user.id %}
+                <p><a class="glyphicon glyphicon-pencil" aria-hidden="true" href = "{% url 'articles:update' instance.slug %}"></a>
+                &nbsp;&nbsp;&nbsp;&nbsp;| &nbsp;&nbsp;&nbsp;&nbsp;
+                <a class='glyphicon glyphicon-trash' href = "{% url 'articles:article_remove' instance.slug %}"></a>
             {% endif %}
-            {% endcomment %}
             {% comment %} <h1>{{ title }} <small>{{ instance.timestamp|timesince }}</small> </h1>{% endcomment %}
         </div>
 
@@ -207,7 +207,8 @@ h1 {
             </div>
         </div>
     </div>
-    <div class="fb-comments" data-href="{{ request.build_absolute_uri }}" data-numposts="5"></div>
+    <!-- <div class="fb-comments" data-href="{{ request.build_absolute_uri }}" data-numposts="5"></div> -->
+    <div id="disqus_thread"></div>
 </main>
 <!-- //Contenido principal (posts) -->
 {% endblock %}

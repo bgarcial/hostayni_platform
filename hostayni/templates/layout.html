@@ -8,6 +8,7 @@
     <title>{% block title_tag %}HOSTAYNI{% endblock %}</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="shortcut icon" href="{% static 'img/favicons/favicon.ico' %}" type="image/x-icon">
     {% comment %} Jeronimo's static files  {% endcomment %}
     <link rel="stylesheet" href="{% static 'css/main.css' %}">
     <!-- <link rel="stylesheet" href="css/main.css"> -->
@@ -159,7 +160,7 @@ s.setAttribute('data-timestamp', +new Date());
                 {% endif %}
                 {% else %}
                     <div class="registration">
-                        <a href="{% url 'accounts:signup' %}">Registrarse</a><a href="{% url 'login' %}">Iniciar sesión</a>
+                        <a href="{% url 'who-we-are' %}">Quiénes somos</a><a href="{% url 'accounts:signup' %}">Registrarse</a><a href="{% url 'login' %}">Iniciar sesión</a>
                     </div>
             {% endif %}
         </header>
@@ -196,29 +197,29 @@ s.setAttribute('data-timestamp', +new Date());
 
 
     <footer>
-			<div class="main-cont">
-				<div class="content">
-					<div class="logo">
-						<img src="{% static 'img/footer-logo.png' %}" alt="">
-					</div>
-					<div class="links">
-						<a href="{% url 'who-we-are' %}">Quiénes somos</a>
-						<a href="{% url 'terms-and-conditions' %}">Términos y condiciones</a>
-						<a href="{% url 'privacy-policy' %}">Política de privacidad</a>
-						<a href="{% url 'contact' %}">Contáctenos</a>
-					</div>
-					<div class="legal">
-						<p>{% now 'Y' %} &copy; HOSTAYNI S.A.S. Todos los derechos reservados.</p>
-					</div>
-				</div>
-			</div>
+        <div class="main-cont">
+            <div class="content">
+                <div class="logo">
+                    <img src="{% static 'img/footer-logo.png' %}" alt="">
+                </div>
+                <div class="links">
+                    <a href="{% url 'who-we-are' %}">Quiénes somos</a>
+                    <a href="{% url 'terms-and-conditions' %}">Términos y condiciones</a>
+                    <a href="{% url 'privacy-policy' %}">Política de privacidad</a>
+                    <a href="{% url 'contact' %}">Contáctenos</a>
+                </div>
+                <div class="legal">
+                    <p>{% now 'Y' %} &copy; HOSTAYNI S.A.S. Todos los derechos reservados.</p>
+                </div>
+            </div>
+        </div>
 	</footer>
 
 
         <!--
         <p align="center">{% now 'Y' %} &copy; HOSTAYNI S.A.S. Todos los derechos reservados.
           <br />
-          <a href="{% url 'who-we-are' %}">Quienes Somos</a> | <a href="{% url 'terms-and-conditions' %}">Terminos y Condiciones</a> | <a href="{% url 'privacy-policy' %}">Política de Privacidad</a> | <a href="{% url 'contact' %}">Contáctenos</a>
+          <a href="{% url 'who-we-are' %}">Quiénes Somos</a> | <a href="{% url 'terms-and-conditions' %}">Términos y Condiciones</a> | <a href="{% url 'privacy-policy' %}">Política de Privacidad</a> | <a href="{% url 'contact' %}">Contáctenos</a>
       </p>
         <br/>
 

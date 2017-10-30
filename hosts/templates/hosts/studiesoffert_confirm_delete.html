@@ -7,11 +7,11 @@
 {% block body_content %}
 
 <div class="container">
-    <h1>Borrar {{ studyofferdetail.ad_title }} ?</h1>
+    <h1>¿ Estas seguro que deseas borrar la oferta {{ studyofferdelete.ad_title }} ?</h1>
     <form method="post">
         {% csrf_token %}
         <input type="submit" class="btn btn-danger" value="Borrar">
-        <a href="#">Cancelar</a>
+        <a href="{% url 'host:studiesofferlist' studyofferdelete.slug %}">Cancelar</a>
     </form>
 
     

@@ -101,12 +101,12 @@ class ProfessorProfileForm(forms.ModelForm):
     title = "Detalles del Profesor"
     occupation = forms.MultipleChoiceField(
         required=False,
-        label='Occupation',
+        label='Ocupación',
         widget=CheckboxSelectMultiple(),
         choices=ProfessorProfile.OCCUPATION_CHOICES
     )
-    research_groups = forms.CharField(widget=forms.Textarea)
-    autorship_publications = forms.CharField(widget=forms.Textarea)
+    research_groups = forms.CharField(label='Grupos de Investigación', widget=forms.Textarea)
+    autorship_publications = forms.CharField(label='Publicaciones', widget=forms.Textarea)
 
     class Meta:
         model = ProfessorProfile
@@ -135,14 +135,17 @@ class StudyHostProfileForm(forms.ModelForm):
 
     high_quality_accreditations = forms.MultipleChoiceField(
         required=False,
-        label='Accreditations of high quality',
+        label='Acreditaciones de alta calidad',
         widget=CheckboxSelectMultiple(),
         choices=StudyHostProfile.ACCREDITATIONS_CHOICES,
     )
 
-    # rankings_classification = forms.CharField(widget=forms.Textarea)
-    #knowledge_topics_choice = forms.CharField(widget=forms.Textarea)
-    #strengths = forms.CharField(widget=forms.Textarea)
+    knowledge_topics = forms.CharField(label='Áreas de conocimiento',
+                                widget=forms.TextInput(attrs={
+                                    'placeholder': 'Una lista de temas separada por comas'}))
+
+
+
 
     class Meta:
         model = StudyHostProfile
@@ -151,11 +154,19 @@ class StudyHostProfileForm(forms.ModelForm):
             'rankings_classification', 'knowledge_topics', )
         #exclude = ('studies_offert_list', )
 
+
+
+
 '''
+
 class HostingHostProfileForm(forms.ModelForm):
-    title = "Detalles del anfitrión de alojamiento"
+    title = "También eres anfitrión de alojamiento"
 
     class Meta:
         model = HostingHostProfile
+
+        fields = ( )
+
         fields = ('additional_description', )
 '''
+

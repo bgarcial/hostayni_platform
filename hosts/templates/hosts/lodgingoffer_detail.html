@@ -61,6 +61,10 @@
             {% if lodgingofferdetail.created_by_id == userprofile.user.id %}
             <br/><br/>
             <a href="{% url 'host:edit_lodging_offer_uploads_image' slug=lodgingofferdetail.slug %}">Agregar/Editar imágenes</a>
+            <br/><br/>
+            <p><a class='glyphicon glyphicon-pencil' href = "{% url 'host:edit-lodging-offer' slug=lodgingofferdetail.slug %}"></a>
+      &nbsp;&nbsp;&nbsp;&nbsp;| &nbsp;&nbsp;&nbsp;&nbsp;
+   <a class='glyphicon glyphicon-trash' href = "{% url 'host:delete-lodging-offer' slug=lodgingofferdetail.slug %}"></a></p>
             {% endif %}
         </div>
         <div class="search-column">
@@ -88,8 +92,9 @@
                                     <span>{{ lodgingofferdetail.created_by.get_long_name }}</span>
                                     <span>{{ lodgingofferdetail.created_by.get_enterprise_name }} (@{{ lodgingofferdetail.created_by.email }})</span>
                                 </a>
-                                <img src="{% static 'img/stars.svg' %}" alt="">
                                 {% comment %}
+                                <img src="{% static 'img/stars.svg' %}" alt="">
+
                                 <div class="average">
                                     <span>546</span>
                                     <span>valoraciones</span>

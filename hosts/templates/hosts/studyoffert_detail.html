@@ -65,6 +65,10 @@
             {% if studyofferdetail.created_by_id == userprofile.user.id %}
             <br/><br/>
             <a href="{% url 'host:edit_study_offer_uploads' slug=studyofferdetail.slug %}">Agregar/Editar imágenes</a>
+            <br/><br/>
+            <p><a class='glyphicon glyphicon-pencil' href = "{% url 'host:edit-study-offer' slug=studyofferdetail.slug %}"></a>
+      &nbsp;&nbsp;&nbsp;&nbsp;| &nbsp;&nbsp;&nbsp;&nbsp;
+   <a class='glyphicon glyphicon-trash' href = "{% url 'host:delete-study-offer' slug=studyofferdetail.slug %}"></a></p>
             {% endif %}
         </div>
         <div class="search-column">
@@ -92,8 +96,9 @@
                                     <span>{{ studyofferdetail.created_by.get_long_name }}</span>
                                     <span>{{ studyofferdetail.created_by.get_enterprise_name }} (@{{ studyofferdetail.created_by.email }})</span>
                                 </a>
-                                <img src="{% static 'img/stars.svg' %}" alt="">
                                 {% comment %}
+                                <img src="{% static 'img/stars.svg' %}" alt="">
+
                                 <div class="average">
                                     <span>546</span>
                                     <span>valoraciones</span>

@@ -36,6 +36,9 @@ class LodgingOfferManager(models.Model):
     #def toggle_contact_own_offer(self, user_interested, user_to_contact, offer):
 '''
 
+def get_lodging_image_search_path(instance, filename):
+    return '/'.join(['lodging_offer_images', instance.slug, filename])
+
 class LodgingOffer(models.Model):
 
     ALL_PROPERTY = 'Toda la propiedad'
@@ -114,7 +117,7 @@ class LodgingOffer(models.Model):
     )
 
     PRIVATE_BATHROOM = 'Baño privado'
-    SHARED_BATHROOM = 'Baño compartid'
+    SHARED_BATHROOM = 'Baño compartido'
 
     BATHROOM_CHOICES = (
         (PRIVATE_BATHROOM, "Baño privado"),
@@ -239,14 +242,14 @@ class LodgingOffer(models.Model):
         related_name="lodgingoffers"
     )
 
-    '''
     image = models.ImageField(
-        upload_to='hosting-host-photos',
+        upload_to=get_lodging_image_search_path,
         blank=False,
         null=False,
-        verbose_name='Fotografía'
+        verbose_name='Fotografía',
+        help_text='Esta imagen acompañará tu oferta en los resultados de búsquedas'
     )
-    '''
+
 
     room_value = models.CharField(_("Precio"), max_length=128, help_text='Precio en pesos colombianos')
 
@@ -359,6 +362,9 @@ class LodgingOfferImage(models.Model):
         return self.lodging_offer.ad_title
 
 
+def get_image_search_path(instance, filename):
+    return '/'.join(['educational_offer_images', instance.slug, filename])
+
 class StudiesOffert(models.Model):
 
     ACADEMIC_SEMESTER = 'Semestre académico'
@@ -372,18 +378,6 @@ class StudiesOffert(models.Model):
         (ROTATIONS_OR_PRACTICES, 'Rotaciones o prácticas'),
         (SUMMER_SCHOOL, 'Escuela de verano'),
     )
-
-
-    PRIVATE = 'Privada'
-    PUBLIC = 'Pública'
-    MIXED = 'Privada - Pública'
-
-    CHARACTER_INSTITUTE_CHOICES = (
-        (PRIVATE, "Privada"),
-        (PUBLIC, "Pública"),
-        (MIXED, "Privada - Pública"),
-    )
-
 
     CONTINUING_EDUCATION_STUDIES = 'Estudios de educación contínua'
     TECHNIQUE = 'Técnica'
@@ -443,12 +437,6 @@ class StudiesOffert(models.Model):
     latitude = models.CharField(_("latitude"), max_length=255, null=True, blank=True)
     longitude = models.CharField(_("longitude"), max_length=255, null=True, blank=True)
 
-    institute_character = models.CharField(
-        max_length=20,
-        choices=CHARACTER_INSTITUTE_CHOICES,
-        verbose_name='Caracter de la institución',
-    )
-
     maximum_quota = models.PositiveSmallIntegerField(
         verbose_name='Cupo máximo de estudiantes'
     )
@@ -457,7 +445,6 @@ class StudiesOffert(models.Model):
         verbose_name="Tópicos de conocimiento",
         help_text=_("Una lista de temáticas separada por comas.")
     )
-
 
     studies_type_offered = models.CharField(
         max_length=255,
@@ -477,6 +464,11 @@ class StudiesOffert(models.Model):
         verbose_name='Duración',
     )
 
+    intensity = models.CharField(
+        max_length=255,
+        verbose_name='Intensidad',
+    )
+
     modality = models.CharField(
         max_length=20,
         choices=MODALITY_CHOICES,
@@ -492,14 +484,14 @@ class StudiesOffert(models.Model):
 
     )
 
-    '''
     photo = models.ImageField(
-        upload_to='study-host-offert-photos',
+        upload_to=get_image_search_path,
         blank=False,
         verbose_name='Fotografía',
-        null=False
+        null=False,
+        help_text = 'Esta imagen acompañará tu oferta en los resultados de búsquedas'
     )
-    '''
+
     pub_date = models.DateTimeField(
         auto_now=True,
         # related_name="lodgingoffers"
@@ -539,7 +531,7 @@ def create_study_offer_slug(instance, new_slug=None):
     exists = qs.exists()
     if exists:
         new_slug = "%s-%s" % (slug, qs.first().id)
-        return create_slug(instance, new_slug=new_slug)
+        return create_study_offer_slug(instance, new_slug=new_slug)
     return slug
 
 
@@ -580,9 +572,6 @@ class UploadStudyOfferManager(models.Manager):
             return self.get_queryset().active().featured()[0]
         except:
             return None
-
-
-
 
 
 CROP_SETTINGS = {'size': (1000, 500), 'crop': 'smart'}

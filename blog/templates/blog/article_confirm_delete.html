@@ -3,7 +3,8 @@
 {% block body_content %}
     <form action="" method="post">
         {% csrf_token %}
-        <p>¿Estas seguro que deseas borrar el artículo "{{ object }}"?</p>
+        <h1>¿ Estas seguro que deseas borrar el artículo "{{ object }}" ?</h1>
         <input class='btn btn-danger' type="submit" value="Confirmar" />
+        <a href="{% url 'articles:list' object.author.slug %}">Cancel</a>
   </form>
 {% endblock %}

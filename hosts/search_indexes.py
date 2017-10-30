@@ -22,7 +22,7 @@ class StudiesOffertIndex(indexes.SearchIndex, indexes.Indexable):
 
     city = indexes.CharField(model_attr='city', null=True)
 
-    institute_character = indexes.CharField(model_attr='institute_character', null=True)
+    # institute_character = indexes.CharField(model_attr='institute_character', null=True)
 
     # accreditations = indexes.MultiValueField()
 
