@@ -1,0 +1,6 @@
+<div class="row">
+    <form id="navbar-search-form" method="GET" action="{% url 'post:search'  %}">
+        <input type="text" name="q", placeholder="Your search" value="{{ request.GET.q }}"/>
+        <input type="submit" value="Search"/>
+    </form>
+</div>

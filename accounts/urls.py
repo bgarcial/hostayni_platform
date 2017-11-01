@@ -20,7 +20,9 @@ urlpatterns = [
     url(r"^data/u/(?P<slug>[\w\-]+)/$", views.user_profile_update_view, name='profile'),
 
 
-    # Url que llama a la vista de contactar dueño d eoferta, recibe el email del
-    # dueño de la oferta, el pk de la oferta
-    # url(r'^(?P<email>[\w.@+-]+)/(?P<pk>\d+)/contact/$', views.ContactOwnOfferView.as_view(), name='contact_own_offer'),
+    # User DetailView with pk and email
+    # url(r"^(?P<pk>\d+)/$", views.UserDetailView.as_view(), name='detail'),
+    url(r"^(?P<email>[\w.@+-]+)/$", views.UserDetailView.as_view(), name='detail'),
+
+
 ]

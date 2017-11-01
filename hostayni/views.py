@@ -22,6 +22,22 @@ from django.core.urlresolvers import reverse
 User = get_user_model()
 
 
+class SearchView(UserProfileDataMixin, TemplateView):
+
+    def get(self, request, *args, **kwargs):
+        query = request.GET.get("q")
+        qs = None
+        if query:
+            qs = User.objects.filter(
+                    Q(email__icontains=query)
+                    # Aca podriamos buscar por cualquier atributo
+                    # relacionado con el usuario o del usuario
+                    # # https://docs.djangoproject.com/en/1.11/topics/db/queries/#complex-lookups-with-q-objects
+                )
+        context = {"users": qs}
+        return render(request, "search.html", context)
+
+
 def contact(request):
     user = request.user
     #profile = user.profile

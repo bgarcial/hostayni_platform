@@ -46,6 +46,37 @@ from django.http import HttpResponse
 User = get_user_model()
 
 
+# Vista de detalle de usuario, sera usada para el detalle de perfil
+class UserDetailView(UserProfileDataMixin, generic.DetailView):
+    # manejado dentro del ambito de la clase para que no cree conflicto si lo ponemos
+    # global con las otras clases en donde se llama el esquema de usuarios
+    # aunque lo llamamos model = ...
+
+    # POdria hacer un UserDetailAPIVIew como PostDetailView con permission_classes = [permissions.AllowAny]
+
+    template_name = 'accounts/user_detail.html'
+    queryset = User.objects.all()
+
+    def get_object(self):
+        return get_object_or_404(
+                    User,
+                    email__iexact=self.kwargs.get("email")
+                    )
+
+    def get_context_data(self, *args, **kwargs):
+        context = super(UserDetailView, self).get_context_data(*args, **kwargs)
+        user = self.request.user
+        following = UserProfile.objects.is_following(self.request.user, self.get_object())
+        context['following'] = following
+        context['recommended'] = UserProfile.objects.recommended(self.request.user)
+        return context
+
+
+# https://docs.djangoproject.com/en/1.11/ref/class-based-views/base/#view
+
+
+
+
 def show_login_message(sender, user, request, **kwargs):
     # whatever...
     messages.info(request, 'Bienvenido a HOSTAYNI.')
