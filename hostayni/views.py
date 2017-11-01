@@ -24,8 +24,11 @@ User = get_user_model()
 
 def contact(request):
     user = request.user
-    profile = user.profile
+    #profile = user.profile
     form_class = ContactForm
+    context={}
+    if user.is_authenticated():
+        context['userprofile'] = request.user.profile
 
     if request.method == 'POST':
         form = form_class(data=request.POST)
@@ -40,11 +43,10 @@ def contact(request):
                 'contact_name': contact_name,
                 'contact_email': contact_email,
                 'form_content': form_content,
-                'userprofile': profile
+                #'userprofile': request.user.profile
             }
-            if user.is_authenticated():
-                context['userprofile']= request.user.profile
-            return render(request, 'contact.html', {'form': form_class,}, context )
+
+            #return render(request, 'contact.html', {'form': form_class,}, context )
 
             content = template.render(context)
             mail_subject = 'Hola Hostayni, ' + contact_name + ' - ' + contact_email + ' desea contactar contigo'
