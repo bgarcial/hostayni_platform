@@ -130,11 +130,11 @@ s.setAttribute('data-timestamp', +new Date());
                     Configuración de la cuenta</a></li>
                                         <li><a href="{% url 'accounts:profile' userprofile.user.slug %}">Mis roles de usuario</a></li>
                                         <li class="line"></li>
-                                        <p>Contenidos</p>
+                                        <p><strong>Contenido</strong>s</p>
                                         <li><a href="{% url 'articles:create' %}">Crear Artículo</a></li>
                                         <li><a href="{% url 'articles:list' userprofile.user.slug %}">Mis artículos</a></li>
                                         <li class="line"></li>
-                                        <p>Anfitrión</p>
+                                        <p><strong>Anfitrión</strong></p>
                                         {% if userprofile.user.is_hosting_host %}
                                           <li><a href="{% url 'host:hosting-host' %}">Crear oferta de alojamiento</a></li>
                                           <li><a href="{% url 'host:list' userprofile.user.slug %}">Mis ofertas de alojamiento</a></li>
@@ -144,7 +144,7 @@ s.setAttribute('data-timestamp', +new Date());
                                              <li><a href="{% url 'host:studiesofferlist' userprofile.user.slug %}">Mis ofertas de educación</a></li>
                                         {% endif %}
                                         <li class="line"></li>
-                                        <p>Búsquedas</p>
+                                        <p><strong>Búsquedas</strong></p>
                                         <li><a href="{% url 'host:hostingoffer-search' %}">Ofertas de alojamiento</a></li>
                                         <li><a href="{% url 'host:studyoffer-search' %}">Ofertas de educación</a></li>
 
