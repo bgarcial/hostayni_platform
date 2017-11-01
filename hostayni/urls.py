@@ -48,6 +48,14 @@ urlpatterns = [
     url(r'^accounts/', include('django.contrib.auth.urls'),  name='login'),
     # I don't assign namespace because this is django URL
 
+
+    # ----- Nuevo ------#
+    # URL para CRUD de posts en la aplicacion web (convencional)
+    # y para mapear las busquedas de posts a /post/search/?q=sdsds
+    url(r'^post/', include('posts.urls', namespace='post')),
+    # ----- End Nuevo ------#
+
+
     # url(r'^accounts/activate/(?P<activation_key>\w+)/$', activation_view, name='activation_view'),
     url(r'^accounts/activate/(?P<uidb64>[0-9A-Za-z_\-]+)/(?P<token>[0-9A-Za-z]{1,13}-[0-9A-Za-z]{1,20})/$', activate, name='activate'),
 
