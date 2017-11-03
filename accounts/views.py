@@ -3,6 +3,7 @@ from __future__ import unicode_literals
 import re
 
 from django.contrib.auth import get_user_model
+from django.template import Context
 
 from django.views import generic
 from django.views.generic.edit import UpdateView
@@ -34,7 +35,7 @@ from hosts.models import LodgingOffer
 
 # --- Packages to signup and activate fbv's ---
 from django.contrib.sites.shortcuts import get_current_site
-from django.template.loader import render_to_string
+from django.template.loader import render_to_string, get_template
 from django.core.mail import EmailMessage
 from django.conf import settings
 from django.utils.encoding import force_bytes, force_text
@@ -256,7 +257,17 @@ def signup(request):
             user = form.save(commit=False)
             user.is_active = False
             user.save()
-            current_site = get_current_site(request)
+            #current_site = get_current_site(request)
+
+            ctx = {
+                'user': user,
+                'domain': settings.SITE_URL,
+                'uid': urlsafe_base64_encode(force_bytes(user.pk)),
+                'token': account_activation_token.make_token(user),
+            }
+            message = get_template('acc_active_email.html').render(Context(ctx))
+
+            '''
             message = render_to_string('acc_active_email.html', {
                 'user': user,
                 #'domain': current_site.domain,
@@ -264,9 +275,11 @@ def signup(request):
                 'uid': urlsafe_base64_encode(force_bytes(user.pk)),
                 'token': account_activation_token.make_token(user),
             })
+            '''
             mail_subject = 'HOSTAYNI - Activa tu cuenta'
             to_email = form.cleaned_data.get('email')
             email = EmailMessage(mail_subject, message, to=[to_email])
+            email.content_subtype = 'html'
             email.send()
             messages.success(request, "Registro exitoso. Te hemos enviado un enlace para que confirmes tu correo electrónico. Por favor hazlo para poder iniciar sesión")
             #return HttpResponse('Please confirm your email address to complete the registration')
