@@ -529,7 +529,11 @@ def contact_owner_offer(request, lodging_offer_owner_full_name, lodging_offer_ow
         #to_email = lodging_offer_owner.email,
 
         send_mail(mail_subject, message, settings.DEFAULT_FROM_EMAIL,
-                  [lodging_offer_owner_email, interested_email], fail_silently=True)
+                  [lodging_offer_owner_email, interested_email], html_message=message, fail_silently=True)
+
+        msg_to_owner = render_to_string('to_own_offer.html', context)
+        send_mail(mail_subject, msg_to_owner, settings.DEFAULT_FROM_EMAIL,
+                  [lodging_offer_owner_email], html_message=msg_to_owner, fail_silently=True)
 
         #messages.success(request, "El anfitrión", lodging_offer_owner_email, "ha sido contactado " )
 

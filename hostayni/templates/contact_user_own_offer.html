@@ -1,18 +1,330 @@
-Hola {{ lodging_offer_owner_full_name }} {{ lodging_offer_owner_email }}
+{% load bootstrap3 %}
+{% bootstrap_css %}
+{% load staticfiles %}
+{% autoescape off %}
+<head>
+    <meta charset="UTF-8">
+    <title>Notificacion de usuario</title>
+    <link href='https://fonts.googleapis.com/css?family=Source+Sans+Pro' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" href="{% static 'css/mail-notifications.css' %}">
+    <style>
+        .logo{
+          width: 490.54px;
+          height: 89.77px;
+          margin: auto;
+          box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+        }
+        .logoTitle{
+          background-color:	#FFFFFF;
+          padding-left: 15.0px;
+          padding-top: 10.0px;
+          padding-bottom: 10.0px;
+        }
+        /*.imgLogoContainer{
+          width: 219.53px;
+          height: 55.59px;
+        }*/
+        .logoRed{
+          background-color: #DEDC00;
+          width: 490.54px;
+          height: 29.73px;
+          box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+        }
+        .logoFacebook{
+          margin-top: 5.5px;
+          margin-bottom: 5.5px;
+          margin-right: 5px;
+        }
+        .completeMsg{
+          background-color: #EBEBEA;
+          border-radius: 25px;
+          width: 593.98px;
+          height: 880.76px;
+        }
+        .bodyMsg{
+          /*margin-top: 30px;*/
+          /*background-color: #FFFFFF;*/
+          margin: 0;
+        }
+        .bodyPart1{
+          box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+          margin: auto;
+          width: 490.72px;
+          height: 421.16px;
+          background-color: #FFFFFF;
+          padding-top: 0px;
+        }
+        .titleSlogan{
+          background-color:	#706F6F;
+          height: 121.43px;
+          font-family: "sans-serif";
+        }
+        .title{
+          color: #FFFFFF;
+          font-size: 30pt;
+          font-family: 'Source Sans Pro', sans-serif;
+          font-weight: bold;
+          margin: auto;
+          text-align: center;
+          width: 358px;
+          height: 58px;
+        }
+        .slogan{
+          color: #DEDC00;
+          font-size: 12pt;
+          font-family: "sans-serif";
+          text-align: center;
+          height: 33;
+          font-family: 'Source Sans Pro', sans-serif;
+        }
+        .msgSaludo{
+          margin-left: 50px;
+          background-color: #FFFFFF;
+        }
+        .saludoHola{
+          font-size: 14pt;
+          font-family: 'Source Sans Pro', sans-serif;
+        }
+        .body1{
+          text-align: left;
+          font-family: 'Source Sans Pro', sans-serif;
+        }
+        .button {
+          background-color: #DEDC00;
+          border: none;
+          color: #706F6F;
+          padding: 15px 32px;
+          text-align: center;
+          text-decoration: none;
+          /*display: inline-block;*/
+          font-size: 16px;
+          margin: 4px 2px;
+          cursor: pointer;
+          border-radius: 5px;
+          font-family: 'Source Sans Pro', sans-serif;
+        }
+        .contButton{
+          position:relative;
+          left: 25%;
+        }
+        .body2{
+          font-family: 'Source Sans Pro', sans-serif;
+        }
+        .footerUp{
+          width: 490.72px;
+          height: 169.64px;
+          background-color: #FFFFFF;
+          margin: auto;
+          margin-top: 20px;
+          margin-bottom: 20px;
+          border-style: dashed;
+          border-color: #DEDC00;
+          border-width: thin;
+        }
+        .footerDown{
+          margin-top: 20px;
+          margin-bottom: 20px;
+          background-color: #DEDC00;
+          width: 490.72px;
+          height: 69.24px;
+          box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+          margin: auto;
+        }
+        .textFooterUp{
+          font-size: 10pt;
+          margin-left: 50px;
+          padding-top: 10px;
+          font-family: 'Source Sans Pro', sans-serif;
+        }
+        .iconsFooterUp{
+          width: 416.44px;
+          height: 88.69px;
+          margin-left: 50px;
+          font-family: 'Source Sans Pro', sans-serif;
+        }
+        .iconServices{
+          width: 69.33px;
+          height: 88.69px;
+          margin: 0;
+          display: inline-block;
+          float: left;
+        }
+        .iconImageHost{
+          display: block;
+          margin: 0 auto;
+          margin-top: 5px;
+        }
+        .iconTextHost{
+          text-align: center;
+          text-decoration: underline;
+          margin-top: 2px;
+          color: #006633;
+          font-size: 7pt;
+        }
+        .iconImageLearn{
+          display: block;
+          margin: 0 auto;
+          margin-top: 25px;
+        }
+        .iconTextLearn{
+          text-align: center;
+          text-decoration: underline;
+          margin-top: 2px;
+          color: #E94E1B;
+          font-size: 7pt;
+        }
+        .iconImageInnovacion{
+          display: block;
+          margin: 0 auto;
+          margin-top: 5px;
+        }
+        .iconTextInnovacion{
+          text-align: center;
+          text-decoration: underline;
+          margin-top: 2px;
+          color: #1D71B8;
+          font-size: 7pt;
+        }
+        .iconImageEntretenimiento{
+          display: block;
+          margin: 0 auto;
+          margin-top: 25px;
+        }
+        .iconTextEntretenimiento{
+          text-align: center;
+          text-decoration: underline;
+          margin-top: 2px;
+          color: #D93382;
+          font-size: 7pt;
+        }
+        .iconImageSocial{
+          display: block;
+          margin: 0 auto;
+          margin-top: 5px;
+        }
+        .iconTextSocial{
+          text-align: center;
+          text-decoration: underline;
+          margin-top: 2px;
+          color: #F39325;
+          font-size: 7pt;
+        }
+        .iconImageVida{
+          display: block;
+          margin: 0 auto;
+          margin-top: 25px;
+        }
+        .iconTextVida{
+          text-align: center;
+          text-decoration: underline;
+          margin-top: 2px;
+          color: #3F4E55;
+          font-size: 7pt;
+        }
+        .iconBackHost{
+          background-color: green;
+        }
+        .foot{
+          color: #ffffff;
+          font-size: 10pt;
+          font-family: 'Source Sans Pro', sans-serif;
+          /*font-weight: bold;*/
+          margin: auto;
+          text-align: justify;
+          width: 358px;
+          height: 58px;
+        }
+  </style>
+
+</head>
+
+<body>
+  <div class="completeMsg">
+    <div class="logo">
+      <div class="logoTitle">
+        <div class="imgLogoContainer">
+          <img src="{% static 'img/mail-notifications/Hostayni-Logo-Slongan-Esp.svg' %}" width="219" height="55">
+          <!-- <img src="LogoHostayni.png"> -->
+        </div>
+      </div>
+      <div class="logoRed">
+        <a href="#" target="_blank">
+            <img class="logoFacebook" src="{% static 'img/mail-notifications/facebookLogo.svg' %}" width="18" height="18" align="right">
+        </a>
+      </div>
+    </div>
+    <div class="bodyMsg">
+      <div class="bodyPart1">
+        <div class="titleSlogan">
+          <div class="title">
+            <p>Aplicación a oferta</p>
+          </div>
+          <div class="slogan">
+            <p style="display:inline">Ha ocurrido una aplicación a una oferta de alojamiento por parte de {{ user_interested_full_name }}</p>
+
+          </div>
+        </div>
+        <div class="msgSaludo">
+          <div class="body1">
+            <p class="saludoHola">Hola HOSTAYNERS,</p>
+            <p>El usuario {{ user_interested_full_name }} ({{ interested_email }}) esta interesado en esta oferta
+de alojamiento:</p><br/>
+              {{ lodging_offer_title }}
+          </div> <br/><br/>
+          <div class="contButton">
+            <a href="{{ domain }}{{ offer_url }}" class="button">Ir a oferta</a>
+          </div><br/>
+          <div class="body2">
+            <p>Saludos,</p>
+            <br/>
+            <p>Equipo Hostayni</p>
 
 
-El usuario {{ user_interested_full_name }} ({{ interested_email }}) esta interesado en esta oferta
-de alojamiento que tu has publicado con nosotros:
 
-{{ lodging_offer_title }} - {{ domain }}{{ offer_url }}
+          </div>
+        </div>
 
+      </div>
+      <div class="footerUp">
+        <div class="textFooterUp">
+          <p>Crea tus roles y empieza a compartir y a promocionar tus productos o servicio</p>
+        </div>
+        <div class="iconsFooterUp">
+          <div class="iconServices">
+            <img class="iconImageHost" src="{% static 'img/mail-notifications/hosting.svg' %}" width="38" height="38">
+            <p class="iconTextHost">ALOJAMIENTO</p>
+          </div>
+          <div class="iconServices">
+            <img class="iconImageLearn" src="{% static 'img/mail-notifications/learn.svg' %}" width="38" height="38">
+            <p class="iconTextLearn">EDUCACIÓN</p>
+          </div>
+          <div class="iconServices">
+            <img class="iconImageInnovacion" src="{% static 'img/mail-notifications/innovate-grey.svg' %}" width="38" height="38">
+            <p class="iconTextInnovacion">INNOVACIÓN</p>
+          </div>
+          <div class="iconServices">
+            <img class="iconImageEntretenimiento" src="{% static 'img/mail-notifications/enjoy-grey.svg' %}" width="38" height="38">
+            <p class="iconTextEntretenimiento">ENTRETENIMIENTO</p>
+          </div>
+          <div class="iconServices">
+            <img class="iconImageSocial" src="{% static 'img/mail-notifications/social-grey.svg' %}" width="38" height="38">
+            <p class="iconTextSocial">SOSTENIBILIDAD</p>
+          </div>
+          <div class="iconServices">
+            <img class="iconImageVida" src="{% static 'img/mail-notifications/life-grey.svg' %}" width="38" height="38">
+            <p class="iconTextVida">VIDA DIARIA</p>
+          </div>
+        </div>
+      </div>
+      <div class="footerDown">
+          <div class="foot"><br/>
+          Al usuario {{ lodging_offer_owner_full_name }} {{ lodging_offer_owner_email }} se le ha notificado
+                  el interés por parte de {{ user_interested_full_name }} en relación a la oferta de alojamiento {{ lodging_offer_title }}
+          </div>
+      </div>
+    </div>
+  </div>
+</body>
+</html>
+{% endautoescape %}
 
-Si existe un acuerdo por la oferta {{ lodging_offer_title }}, el dueño deberá
-actualizarla seleccionando el estado "Oferta tomada" en su formulario para que ésta
-no sea incluida en los resultados de búsquedas de HOSTAYNI.
-
-
-
-Saludos,
-
-Equipo de HOSTAYNI
