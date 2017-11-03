@@ -25,6 +25,8 @@ from hosts.views import LodgingOfferViewSet,StudiesOffertViewSet
 
 from rest_framework import routers
 
+from posts.api.views import SearchPostAPIView
+
 # Routers provide an easy way of automatically determining the URL conf.
 router = routers.DefaultRouter()
 router.register(r'lodging-offers', LodgingOfferViewSet)
@@ -61,6 +63,12 @@ urlpatterns = [
     # y para mapear las busquedas de posts a /post/search/?q=sdsds
     url(r'^post/', include('posts.urls', namespace='post')),
     # ----- End Nuevo ------#
+
+    # ----- Nuevo ------#
+    # Buscando en Hostayni social seria /api/search/
+    url(r'^api/search/$', SearchPostAPIView.as_view(), name='search-api'), #
+    # ----- End Nuevo ------#
+
 
     # ----- Nuevo ------#
     # URL para los posts en el sistema de quienes sigo
