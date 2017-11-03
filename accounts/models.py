@@ -557,44 +557,6 @@ class UserProfileManager(models.Manager):
         return qs
 
 
-    # Debe hacerse en models.py de hosts para lodgingoffer manager o algo asi
-    # para poder llamar desde el template un metodo que obtenga el url que llame
-    # a la vista de contactar oferta
-
-    # Usuario que contacta al dueño de la oferta - user
-    # Usuario al que vamos a contactar dueño de la ofera - user_to_contact
-    # request es para capturar el request de donde se hace la petición y obtener con el su url
-    # Oferta que me interesa - offer_to_interest, puedo capturar su url
-    def toggle_contact_own_offer(self, user, user_to_contact, offer_to_interest):
-
-        # Capturamos el perfil del usuario al que queremos contactar
-        # no se necesita, porque ya viene como parametro desde la vista que llama esta
-        # funcion y ademas en userprofile no hay un metodo que se necesite para
-        # enviar este correo
-        # user_profile, created = UserProfile.objects.get_or_create(user=user)
-
-        # Capturamos el titulo de la oferta
-        offer = offer_to_interest.ad_title
-
-        #current_site = get_current_site(request)
-        message = render_to_string('contact_user_own_offer.html', {
-            'user': user, # usuario que pregunta por la oferta
-            'offer': offer, # oferta por la que se pregunta
-            'user_to_contact': user_to_contact, # usuario a contactar
-            #'domain': current_site.domain, # link de la oferta
-            # 'domain': settings.SITE_URL,
-        })
-        mail_subject = 'HOSTAYNI - Activa tu cuenta'
-        to_email = user_to_contact.email,
-        email = EmailMessage(mail_subject, message, to=[to_email])
-        email.send()
-        contact=True
-        # messages.success(request,"El dueño de esta oferta ha sido contactado ")
-        # return HttpResponse('Please confirm your email address to complete the registration')
-        # return redirect('login')
-        return contact
-
-
 
 # volvera ver Model Manager for following https://www.udemy.com/tweetme-django/learn/v4/t/lecture/6134698?start=0 y el de signals
 
@@ -630,9 +592,6 @@ class UserProfile(models.Model):
     def get_follow_url(self):
         return reverse_lazy('accounts:follow', kwargs={"email": self.user.email})
 
-    def get_contact_own_offer_url(self):
-        # return reverse_lazy('accounts:contact_own_offer', kwargs={"email": self.user.email, 'pk de oferta'})
-        pass
 
     def get_absolute_url(self):
         return reverse_lazy('accounts:detail', kwargs={"email": self.user.email})

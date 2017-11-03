@@ -1,0 +1,45 @@
+{% extends "layout.html" %}
+
+<style>
+  #post-container{
+
+  }
+
+</style>
+
+{% block script %}
+<script>
+ // http://api.jquery.com/jquery.ajax/
+ $(document).ready(function(){
+     loadPostContainer("post-container")
+ });
+</script>
+{% endblock script %}
+
+
+{% block body_content %}
+    <div class="row">
+    <h1>#{{ obj.tag }}</h1>
+        <div class='col-sm-12'>
+            {% if request.GET.q %}
+                <p class="lead">Results for {{ request.GET.q }}</p>
+                <hr/>
+            {% endif %}
+        </div>
+        <div class='col-sm-8 col-sm-offset-2'>
+        <h1>Posts</h1>
+        <hr/>
+         {% include "posts/search_form.html" %} <br />
+
+        <div id="post-container" data-url="/api/tags/{{ obj.tag }}/">
+            {% comment %}
+                Con data-url="/api/post/ solo puedo buscar posts de personas a las que sigo
+                Con data-url="/api/search/" buscare posts de personas asi no las siga, para
+                lo cual crearemos un SearchApiView igual que PostListApiView
+            {% endcomment %}
+
+        </div>
+        <a href="#" id="loadmore">Load More Posts</a>
+        </div>
+    </div>
+{% endblock body_content %}

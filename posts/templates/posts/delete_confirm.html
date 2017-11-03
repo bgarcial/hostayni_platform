@@ -1,0 +1,9 @@
+{% extends "layout.html" %}
+
+{% block body_content %}
+    <form action="" method="post">{% csrf_token %}
+        <p>¿Estás seguro de querer borrar este post:? "{{ object }}"?</p>
+        <input type="submit" value="Confirmar" />
+        <a href="{% url 'post:detail' object.pk %}">Cancelar</a>
+    </form>
+{% endblock body_content %}

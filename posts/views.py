@@ -9,12 +9,28 @@ from django.views.generic import(
     UpdateView,
     DeleteView
 )
+from django.views import View
 from django.db.models import Q
 from django.urls import reverse_lazy
 from django.views.generic.detail import DetailView
+from django.http import HttpResponseRedirect
 
 from .forms import PostModelForm
 from .mixins import FormUserNeededMixin, UserOwnerMixin
+
+
+class RepostView(View):
+    def get(self, request, pk, *args, **kwargs):
+        post = get_object_or_404(Post, pk=pk)
+        if request.user.is_authenticated():
+            # Llamamos al PostManager y le pasamos el user que hace el repost y el post
+            new_post = Post.objects.repost(request.user, post)
+            # Retornamos el nuevo post (reposteado) con su url haciendo uso de get_absolute_url
+            return HttpResponseRedirect("/post")
+        # sino, retornamos el post original con su url
+        return HttpResponseRedirect(post.get_absolute_url())
+
+
 
 # Create
 # https://docs.djangoproject.com/en/1.11/ref/class-based-views/generic-editing/#createview
@@ -52,6 +68,21 @@ def post_create_view(request):
     }
     return render(request, 'posts/create_view.html', context)
 '''
+
+
+class PostUpdateView(LoginRequiredMixin, UserProfileDataMixin, UserOwnerMixin, UpdateView):
+    queryset = Post.objects.all()
+    form_class = PostModelForm
+    template_name = 'posts/update_view.html'
+    success_url = '/post/'
+
+
+class PostDeleteView(LoginRequiredMixin, UserProfileDataMixin, DeleteView):
+    # queryset = Post.objects.all()
+    model = Post
+    template_name = 'posts/delete_confirm.html'
+    success_url = reverse_lazy('post:list')
+
 
 # List Posts
 
@@ -101,15 +132,24 @@ def post_list_view(request):
 
 
 class PostDetailView(UserProfileDataMixin,DetailView):
-    template_name = "posts/detail_view.html"
+    # template_name = "posts/detail_view.html" go to post_detail.html template
     queryset = Post.objects.all()
 
+    def get_context_data(self, **kwargs):
+        context = super(PostDetailView, self).get_context_data(**kwargs)
+        user = self.request.user
+        # Pasando context userprofile para borrar o actualizar post desde
+        # el detalle de post, hacerlo en el post list del layout en JS
+        context['userprofile'] = user.profile
+        return context
+
     def get_object(self):
-        #print(self.kwargs)
+        # print(self.kwargs)
         pk = self.kwargs.get('pk')
         obj = get_object_or_404(Post, pk=pk)
         return obj
 
+'''
 def post_detail_view(request, pk=None): # pk=id
     # obj = Post.objects.get(pk=pk)
     obj = get_object_or_404(Post, pk=pk)
@@ -119,3 +159,4 @@ def post_detail_view(request, pk=None): # pk=id
     }
 
     return render(request, "posts/detail_view.html", context)
+'''

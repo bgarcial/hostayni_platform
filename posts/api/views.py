@@ -9,6 +9,54 @@ from posts.models import Post
 from .serializers import PostModelSerializer
 from .pagination import StandardResultsPagination
 
+class LikeToggleAPIView(APIView):
+    permission_classes = [permissions.IsAuthenticated]
+
+    def get(self, request, pk, format=None):
+        post_qs = Post.objects.filter(pk=pk)
+        message = "Not allowed"
+
+        if request.user.is_authenticated():
+
+            # Llamamos al PostManager y le pasamos el user que hace el like con like_toggle
+            is_liked = Post.objects.like_toggle(request.user, post_qs.first())
+            return Response({"liked": is_liked})
+        return Response({"message": message}, status=400)
+
+    # http://www.django-rest-framework.org/api-guide/views/
+    # Managing retweets not same in 1 day
+
+class RepostAPIView(APIView):
+    permission_classes = [permissions.IsAuthenticated]
+
+    def get(self, request, pk, format=None):
+        post_qs = Post.objects.filter(pk=pk)
+        message = "Not allowed"
+        # Si el post existe y es solo uno
+        if post_qs.exists() and post_qs.count() == 1:
+            # if request.user.is_authenticated():
+            # Llamamos al PostManager y le pasamos el user que hace el repost y el post
+            new_post = Post.objects.repost(request.user, post_qs.first())
+
+            if new_post is not None:
+                # Serializamos y desplegamos el resultado de la consulta que es el post reposteado
+                # como respuesta retornada
+                data = PostModelSerializer(new_post).data
+                return Response(data)
+            message = "Cannot repost the same in 1 day"
+        return Response({"message": message}, status=400)
+
+
+# http://www.django-rest-framework.org/api-guide/generic-views/#createapiview
+
+class PostCreateAPIView(generics.CreateAPIView):
+    serializer_class = PostModelSerializer
+    # Solicita Credenciales de autenticacion
+    permission_classes = [permissions.IsAuthenticated]
+
+    def perform_create(self, serializer):
+        serializer.save(user=self.request.user)
+
 
 class PostDetailAPIView(generics.ListAPIView):
     queryset = Post.objects.all()
@@ -37,6 +85,36 @@ class PostDetailAPIView(generics.ListAPIView):
 
 #Esta vista servira para listar los posts en el sistema y para listar
 # los posts de un usuario en particular
+
+
+# ApiView para encontrar post de cualquier persona
+
+class SearchPostAPIView(generics.ListAPIView):
+    queryset = Post.objects.all().order_by('-timestamp')
+    serializer_class = PostModelSerializer
+    pagination_class = StandardResultsPagination
+
+    def get_serializer_context(self, *args, **kwargs):
+        context = super(SearchPostAPIView, self).get_serializer_context(*args, **kwargs)
+        context['request'] = self.request
+        return context
+
+    def get_queryset(self, *args, **kwargs):
+        # Le decimos que para el mismo queryset global definido
+        qs = self.queryset
+        query = self.request.GET.get("q", None)
+        if query is not None:
+            # qs = qs.filter(content__icontains=query)
+            # Mirar esto
+            # https://docs.djangoproject.com/en/1.11/topics/db/queries/#complex-lookups-with-q-objects
+            # que busque por contenido y email un post de cualquier persona
+            qs = qs.filter(
+                Q(content__icontains=query) |
+                Q(user__email__icontains=query)
+                )
+        return qs
+
+
 
 
 # ApiView para encontrar post de quienes sig
