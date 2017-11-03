@@ -1,0 +1,11 @@
+{% extends "layout.html" %}
+
+{% block body_content %}
+
+    {% for obj in object_list %}
+        {{ obj.content }}<br/>
+        {{ obj.user }}<br/>
+        {{ obj.timestamp|timesince }} ago<br/><br/>
+    {% endfor %}
+
+{% endblock body_content %}

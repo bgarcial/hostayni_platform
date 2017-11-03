@@ -1,0 +1,32 @@
+{% extends "layout.html" %}
+
+{% block script %}
+<script>
+ // http://api.jquery.com/jquery.ajax/
+ $(document).ready(function(){
+     loadPostContainer("post-container", {{ object.id }})
+ });
+</script>
+{% endblock script %}
+
+{% block body_content %}
+<div class="row">
+    <div class="col-sm-3 col-xs-12" style="background-color: yellow;">
+        <h2>{{ object.user }}</h2>
+    </div>
+    <div class="col-sm-9 col-xs-12">
+        <div id="post-container">
+            {% if object.user == userprofile.user %}
+                <br/>
+            <p><a class='glyphicon glyphicon-pencil' href = "{% url 'post:update' pk=object.pk %}"></a>
+              &nbsp;&nbsp;&nbsp;&nbsp;| &nbsp;&nbsp;&nbsp;&nbsp;
+            <a class='glyphicon glyphicon-trash' href = "{% url 'post:delete' pk=object.pk %}"></a></p>
+            {% endif %}
+        </div>
+    </div>
+</div>
+    {% comment %}
+    {{ object.timestamp }}<br/>
+    {{ object.timestamp|timesince }}<br/>
+    {% endcomment %}
+{% endblock body_content %}

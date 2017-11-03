@@ -5,9 +5,9 @@ from .views import (
     PostCreateView,
     PostListView,
     PostDetailView,
-    # PostUpdateView,
-    # PostDeleteView,
-    # RepostView,
+    PostUpdateView,
+    PostDeleteView,
+    RepostView,
     )
 
 from hostayni.views import SearchView
@@ -31,11 +31,11 @@ urlpatterns = [
     # url(r'^(?P<pk>\d+)/$', post_detail_view, name='detail'),
     url(r'^(?P<pk>\d+)/$', PostDetailView.as_view(), name='detail'), # /post/1/
 
-    # url(r'^(?P<pk>\d+)/repost/$', RepostView.as_view(), name='detail'),  # /post/45/retweet/
+    url(r'^(?P<pk>\d+)/repost/$', RepostView.as_view(), name='repost-detail'),  # /post/45/repost/
 
 
-    # url(r'^(?P<pk>\d+)/update/$', PostUpdateView.as_view(), name='update'), # /post/1/update/
+    url(r'^(?P<pk>\d+)/update/$', PostUpdateView.as_view(), name='update'), # /post/1/update/
 
-    # url(r'^(?P<pk>\d+)/delete/$', PostDeleteView.as_view(), name='delete'), # /post/1/delete/
+    url(r'^(?P<pk>\d+)/delete/$', PostDeleteView.as_view(), name='delete'), # /post/1/delete/
 
 ]
