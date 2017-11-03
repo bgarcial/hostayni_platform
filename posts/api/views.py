@@ -10,6 +10,17 @@ from .serializers import PostModelSerializer
 from .pagination import StandardResultsPagination
 
 
+# http://www.django-rest-framework.org/api-guide/generic-views/#createapiview
+
+class PostCreateAPIView(generics.CreateAPIView):
+    serializer_class = PostModelSerializer
+    # Solicita Credenciales de autenticacion
+    permission_classes = [permissions.IsAuthenticated]
+
+    def perform_create(self, serializer):
+        serializer.save(user=self.request.user)
+
+
 class PostDetailAPIView(generics.ListAPIView):
     queryset = Post.objects.all()
     serializer_class = PostModelSerializer
