@@ -1,0 +1,69 @@
+{% extends "layout.html" %}
+
+<style>
+  #post-container{
+
+  }
+
+</style>
+
+{% block script %}
+<script>
+ // http://api.jquery.com/jquery.ajax/
+ $(document).ready(function(){
+     loadPostContainer("post-container")
+ });
+</script>
+{% endblock script %}
+
+
+{% block body_content %}
+
+
+
+    <div class="row">
+        <div class='col-sm-12'>
+            {% if request.GET.q %}
+                <p class="lead">Results for {{ request.GET.q }}</p>
+                <hr/>
+            {% endif %}
+        </div>
+        <div class='col-sm-9'>
+        <h1>Posts</h1>
+        <hr/>
+         {% include "posts/search_form.html" %} <br />
+
+
+        {% comment %} Cargando post desde cualquier lado
+        Con el data-url y el url del listado de posts (a quienes sigo en el sistema)
+        le envio ese url a la llamada arriba de la funcion loadPostContainer("post-container") linea 14
+        y esta es llamada alli (fue declarada en el layout.html) en donde se cargan todos los posts
+
+            Este url es clave, es desde aqui en donde se toma el endpoint para ser enviado su URL y
+            listarlo
+
+        {% endcomment %}
+        <div id="post-container" data-url="/api/search/">
+            {% comment %}
+                Con data-url="/api/post/ solo puedo buscar posts de personas a las que sigo
+                Con data-url="/api/search/" buscare posts de personas asi no las siga, para
+                lo cual crearemos un SearchApiView igual que PostListApiView
+            {% endcomment %}
+
+        </div>
+        <a href="#" id="loadmore">Load More Posts</a>
+        </div>
+        <div class="col-sm-3">
+            <h1>Users</h1>
+            <hr/>
+            {% for user in users %}
+                <a href='{% url 'accounts:detail' user.email %}'>{{ user.email }}</a><br />
+
+                {% empty %}
+                <p>No users found</p>
+            {% endfor %}
+
+        </div>
+
+    </div>
+{% endblock body_content %}

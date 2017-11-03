@@ -1,0 +1,56 @@
+{% extends "layout.html" %}
+{% load bootstrap3 %}
+{% comment %}
+{% load recommended %}
+{% endcomment %}
+
+<style>
+  #post-container{
+
+  }
+
+</style>
+
+{% block script %}
+<script>
+ // http://api.jquery.com/jquery.ajax/
+ $(document).ready(function(){
+     loadPostContainer("post-container")
+ });
+</script>
+{% endblock script %}
+
+
+{% block body_content %}
+
+
+
+    <div class="row">
+        <div class="col-sm-3 col-xs-12">
+            <h2>{{ request.user }}</h2>
+            <hr/>
+            <br/>
+            {% comment %}
+            <p class='lead'>Recommended Users</p>
+            {% recommended request.user %}
+            {% endcomment %}
+        </div>
+
+        <div class="col-sm-8 col-sm-offset-2"><br/>
+         {% include "posts/search_form.html" %} <br />
+            <div class="col-sm-9">
+                {% if not request.GET.q %}
+                <div class="">
+                    {% include "posts/form.html" with form=create_form action_url=create_url btn_title='Post' form_class='post-form' %}
+                </div> <hr/>
+                {% endif %}
+
+
+                <div id="post-container" data-url="/api/post/">
+
+                </div>
+                <a href="#" id="loadmore">Load More Posts</a>
+            </div>
+        </div>
+    </div>
+{% endblock body_content %}
