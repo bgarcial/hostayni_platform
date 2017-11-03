@@ -179,8 +179,8 @@
 
     </div>
 
-    <!-- Optional JavaScript
-   <script  type="text/javascript" src="{% static 'js/bootstrap.min.js' %}"></script>-->
+    <!-- Optional JavaScript, is more below too.. before of footer -->
+   <script  type="text/javascript" src="{% static 'js/bootstrap.min.js' %}"></script>
 
     <!-- Reply Modal to reply to some post. -->
     {% include "reply-modal.html" %}
@@ -362,6 +362,7 @@
              // por ejemplo postValue.content es el contenido de un post en base de datos
              // PostgreSQL
              // Esta funcion dara el formato de visualizacion para los posts, los reposts y los reply
+             //  { if request.user == userprofile.user %} poner borrar
              function formatPost(postValue){
 
 
@@ -425,6 +426,8 @@
                      "<a class='repostBtn' href='/post/" + postValue.id + "/repost/'>Repost</a>" + " | <a href='#' " +
                      "class='post-like' data-id='"+ postValue.id + "'>" + verb + " (" + postValue.likes + ")</a>"
                     + " | <a href='#' " + "class='post-reply' data-user='" + postValue.user.email + "'  data-id='"+ replyId + "'>Reply</a>"
+
+                 // { if request.user == userprofile.user %} poner borrar
 
                 // Si el post es un repost, que le de formato de repost y adjunte el contenido orignal postContent para
                  // indicar de donde salio este repost

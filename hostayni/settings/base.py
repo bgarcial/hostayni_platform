@@ -70,6 +70,7 @@ INSTALLED_APPS = [
     # Project apps
     'accounts.apps.AccountsConfig',
     'blog.apps.BlogConfig',
+    'hashtags.apps.HashtagsConfig',
     'host_information.apps.HostInformationConfig',
     'hosts.apps.HostsConfig',
     'posts.apps.PostsConfig',

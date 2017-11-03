@@ -26,6 +26,8 @@ from hosts.views import LodgingOfferViewSet,StudiesOffertViewSet
 from rest_framework import routers
 
 from posts.api.views import SearchPostAPIView
+from hashtags.views import HashTagView
+from hashtags.api.views import TagPostAPIView
 
 # Routers provide an easy way of automatically determining the URL conf.
 router = routers.DefaultRouter()
@@ -53,16 +55,20 @@ urlpatterns = [
 
 
 
-
-
-
+    # ----- Nuevo ------#
+    url(r'^tags/(?P<hashtag>.*)/$', HashTagView.as_view(), name='hashtag'),
+    # ----- End Nuevo ------#
 
 
     # ----- Nuevo ------#
     # URL para CRUD de posts en la aplicacion web (convencional)
     # y para mapear las busquedas de posts a /post/search/?q=sdsds
     url(r'^post/', include('posts.urls', namespace='post')),
-    # ----- End Nuevo ------#
+    # ----- End Nuevo ------#\
+
+    # ----- Nuevo ------#\
+    url(r'^api/tags/(?P<hashtag>.*)/$', TagPostAPIView.as_view(), name='tag-post-api'), #
+    # ----- End Nuevo ------#\
 
     # ----- Nuevo ------#
     # Buscando en Hostayni social seria /api/search/
