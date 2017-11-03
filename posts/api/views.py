@@ -23,6 +23,29 @@ class LikeToggleAPIView(APIView):
             return Response({"liked": is_liked})
         return Response({"message": message}, status=400)
 
+    # http://www.django-rest-framework.org/api-guide/views/
+    # Managing retweets not same in 1 day
+
+class RepostAPIView(APIView):
+    permission_classes = [permissions.IsAuthenticated]
+
+    def get(self, request, pk, format=None):
+        post_qs = Post.objects.filter(pk=pk)
+        message = "Not allowed"
+        # Si el post existe y es solo uno
+        if post_qs.exists() and post_qs.count() == 1:
+            # if request.user.is_authenticated():
+            # Llamamos al PostManager y le pasamos el user que hace el repost y el post
+            new_post = Post.objects.repost(request.user, post_qs.first())
+
+            if new_post is not None:
+                # Serializamos y desplegamos el resultado de la consulta que es el post reposteado
+                # como respuesta retornada
+                data = PostModelSerializer(new_post).data
+                return Response(data)
+            message = "Cannot repost the same in 1 day"
+        return Response({"message": message}, status=400)
+
 
 # http://www.django-rest-framework.org/api-guide/generic-views/#createapiview
 
