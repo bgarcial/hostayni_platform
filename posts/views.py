@@ -138,6 +138,8 @@ class PostDetailView(UserProfileDataMixin,DetailView):
     def get_context_data(self, **kwargs):
         context = super(PostDetailView, self).get_context_data(**kwargs)
         user = self.request.user
+        # Pasando context userprofile para borrar o actualizar post desde
+        # el detalle de post, hacerlo en el post list del layout en JS
         context['userprofile'] = user.profile
         return context
 
