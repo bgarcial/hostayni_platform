@@ -24,11 +24,45 @@ User = get_user_model()
 
 def contact(request):
     user = request.user
-    #profile = user.profile
+
     form_class = ContactForm
-    context={}
+    context = {}
     if user.is_authenticated():
-        context['userprofile'] = request.user.profile
+        context['userprofile'] = user.profile
+        print(user.profile)
+        if request.method == 'POST':
+            form = form_class(data=request.POST)
+            if form.is_valid():
+                contact_name = form.cleaned_data['contact_name']
+                contact_email = form.cleaned_data['contact_email']
+                form_content = form.cleaned_data['form_content']
+
+                template = get_template('contact_template.txt')
+
+                context = {
+                    'contact_name': contact_name,
+                    'contact_email': contact_email,
+                    'form_content': form_content,
+                }
+
+                # return render(request, 'contact.html', {'form': form_class}, context )
+
+                content = template.render(context)
+                mail_subject = 'Hola Hostayni, ' + contact_name + ' - ' + contact_email + ' desea contactar contigo'
+                email = EmailMessage(
+                    mail_subject,
+                    content,
+                    contact_email,
+                    ['hostayni@gmail.com'],
+                    headers={'Reply-To': contact_email}
+                )
+                email.send()
+                messages.success(request,
+                                 ' ' + contact_name + '. Tu mensaje ha sido enviado al equipo de Hostayni, te responderemos lo mas pronto posible <a href="%s">Ir al Inicio</a>' % reverse(
+                                     'articles:article_list'), extra_tags='safe, abc')
+
+                return redirect('contact')
+        return render(request, 'contact.html', {'form': form_class, 'userprofile':user.profile})
 
     if request.method == 'POST':
         form = form_class(data=request.POST)
@@ -43,10 +77,7 @@ def contact(request):
                 'contact_name': contact_name,
                 'contact_email': contact_email,
                 'form_content': form_content,
-                #'userprofile': request.user.profile
             }
-
-            #return render(request, 'contact.html', {'form': form_class,}, context )
 
             content = template.render(context)
             mail_subject = 'Hola Hostayni, ' + contact_name + ' - ' + contact_email + ' desea contactar contigo'
