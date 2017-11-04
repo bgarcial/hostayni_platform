@@ -262,6 +262,9 @@
           <div class="contButton">
             <a href="{{ domain }}{% url 'activate' uidb64=uid token=token %}" class="button">VERIFICAR EMAIL</a>
           </div><br/>
+
+            {{ domain }}{% url 'activate' uidb64=uid token=token %}
+
           <div class="body2">
             <p>Saludos,</p>
             <br/>

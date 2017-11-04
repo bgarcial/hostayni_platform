@@ -750,8 +750,6 @@ def contact_study_owner_offer(request, study_offer_owner_full_name, study_offer_
         #print('Send email')
         mail_subject = 'Interesados en tu oferta educativa'
 
-
-
         context = {
             # usuario dueño de la oferta  TO
             'study_offer_owner_full_name': study_offer_owner_full_name,
@@ -772,7 +770,12 @@ def contact_study_owner_offer(request, study_offer_owner_full_name, study_offer_
         #to_email = lodging_offer_owner.email,
 
         send_mail(mail_subject, message, settings.DEFAULT_FROM_EMAIL,
-                  [study_offer_owner_email, user_interested_email], fail_silently=True)
+                  [study_offer_owner_email, user_interested_email], html_message=message, fail_silently=True)
+
+        msg_to_owner = render_to_string('to_educational_own_offer.html', context)
+
+        send_mail(mail_subject, msg_to_owner, settings.DEFAULT_FROM_EMAIL,
+                  [study_offer_owner_email], html_message=msg_to_owner, fail_silently=True)
 
         #messages.success(request, "El anfitrión", lodging_offer_owner_email, "ha sido contactado " )
 
