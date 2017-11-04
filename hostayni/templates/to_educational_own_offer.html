@@ -267,19 +267,19 @@
         <div class="msgSaludo">
           <div class="body1">
             <p class="saludoHola">Hola {{ study_offer_owner_full_name }} - {{ study_offer_owner_email }},</p>
-            <p>El usuario {{ user_interested_full_name }} ({{ interested_email }}) ha mostrado interés por tu oferta
+            <p>El usuario {{ user_interested_full_name }} ({{ user_interested_email }}) ha mostrado interés por tu oferta
 educativa:</p><br/>
                {{ study_offer_title }}
           </div> <br/><br/>
 
           <div class="body2">
 
-            <p>Si llegas a un acuerdo con {{ user_interested_full_name }} ({{ user_interested_email }}), debes actualizar
+            <p>Si llegas a un acuerdo con {{ user_interested_full_name }} {{ user_interested_email }}, debes actualizar
                 tu oferta, editando su estado a <strong>"Oferta tomada"</strong> para que ésta no sea incluida en los resultados de
             búsquedas futuras por parte de otros usuarios de HOSTAYNI</p>
             <br/><br/>
               <div class="contButton">
-            <a href="{{ domain }}{{ url_offer }}/edit" class="button">Actualizar estado de oferta</a>
+            <a href="{{ domain }}{{ url_offer }}" class="button">Actualizar estado de oferta</a>
           </div><br/>
 
             <p>Saludos,</p>
