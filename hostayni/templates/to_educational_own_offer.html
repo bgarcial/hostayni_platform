@@ -257,24 +257,31 @@
       <div class="bodyPart1">
         <div class="titleSlogan">
           <div class="title">
-            <p>Aplicación a oferta</p>
+            <p>Importante</p>
           </div>
           <div class="slogan">
-            <p style="display:inline">Ha ocurrido una aplicación a una oferta de alojamiento por parte de {{ user_interested_full_name }}</p>
+            <p style="display:inline">Una recomendación por parte de HOSTAYNI</p>
 
           </div>
         </div>
         <div class="msgSaludo">
           <div class="body1">
-            <p class="saludoHola">Hola HOSTAYNERS,</p>
-            <p>El usuario {{ user_interested_full_name }} ({{ interested_email }}) esta interesado en esta oferta
-de alojamiento publicada por {{ lodging_offer_owner_full_name }} - {{ lodging_offer_owner_email }} :</p><br/>
-              {{ lodging_offer_title }}
+            <p class="saludoHola">Hola {{ study_offer_owner_full_name }} - {{ study_offer_owner_email }},</p>
+            <p>El usuario {{ user_interested_full_name }} ({{ interested_email }}) ha mostrado interés por tu oferta
+educativa:</p><br/>
+               {{ study_offer_title }}
           </div> <br/><br/>
-          <div class="contButton">
-            <a href="{{ domain }}{{ offer_url }}" class="button">Ir a oferta</a>
-          </div><br/>
+
           <div class="body2">
+
+            <p>Si llegas a un acuerdo con {{ user_interested_full_name }} ({{ user_interested_email }}), debes actualizar
+                tu oferta, editando su estado a <strong>"Oferta tomada"</strong> para que ésta no sea incluida en los resultados de
+            búsquedas futuras por parte de otros usuarios de HOSTAYNI</p>
+            <br/><br/>
+              <div class="contButton">
+            <a href="{{ domain }}{{ url_offer }}/edit" class="button">Actualizar estado de oferta</a>
+          </div><br/>
+
             <p>Saludos,</p>
             <br/>
             <p>Equipo Hostayni</p>
@@ -317,10 +324,7 @@ de alojamiento publicada por {{ lodging_offer_owner_full_name }} - {{ lodging_of
         </div>
       </div>
       <div class="footerDown">
-          <div class="foot"><br/>
-          Al usuario {{ lodging_offer_owner_full_name }} {{ lodging_offer_owner_email }} se le ha notificado
-                  el interés por parte de {{ user_interested_full_name }} en relación a la oferta de alojamiento {{ lodging_offer_title }}
-          </div>
+
       </div>
     </div>
   </div>

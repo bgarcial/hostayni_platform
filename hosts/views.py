@@ -1,5 +1,7 @@
 from __future__ import unicode_literals
 
+from time import sleep
+
 from django.conf import settings
 from django.contrib import messages
 from django.db import transaction
@@ -531,7 +533,10 @@ def contact_owner_offer(request, lodging_offer_owner_full_name, lodging_offer_ow
         send_mail(mail_subject, message, settings.DEFAULT_FROM_EMAIL,
                   [lodging_offer_owner_email, interested_email], html_message=message, fail_silently=True)
 
-        msg_to_owner = render_to_string('to_own_offer.html', context)
+        #sleep(60)
+        # Hacer esto con celery --- pagina 66 https://docs.google.com/document/d/1aUVRvGFh0MwYZydjXlebaSQJgZnHJDOKx3ccjWmusgc/edit#
+
+        msg_to_owner = render_to_string('to_lodging_own_offer.html', context)
         send_mail(mail_subject, msg_to_owner, settings.DEFAULT_FROM_EMAIL,
                   [lodging_offer_owner_email], html_message=msg_to_owner, fail_silently=True)
 
@@ -745,8 +750,6 @@ def contact_study_owner_offer(request, study_offer_owner_full_name, study_offer_
         #print('Send email')
         mail_subject = 'Interesados en tu oferta educativa'
 
-
-
         context = {
             # usuario dueño de la oferta  TO
             'study_offer_owner_full_name': study_offer_owner_full_name,
@@ -767,7 +770,12 @@ def contact_study_owner_offer(request, study_offer_owner_full_name, study_offer_
         #to_email = lodging_offer_owner.email,
 
         send_mail(mail_subject, message, settings.DEFAULT_FROM_EMAIL,
-                  [study_offer_owner_email, user_interested_email], fail_silently=True)
+                  [study_offer_owner_email, user_interested_email], html_message=message, fail_silently=True)
+
+        msg_to_owner = render_to_string('to_educational_own_offer.html', context)
+
+        send_mail(mail_subject, msg_to_owner, settings.DEFAULT_FROM_EMAIL,
+                  [study_offer_owner_email], html_message=msg_to_owner, fail_silently=True)
 
         #messages.success(request, "El anfitrión", lodging_offer_owner_email, "ha sido contactado " )
 
