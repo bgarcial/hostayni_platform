@@ -1,0 +1,86 @@
+{% extends "layout.html" %}
+
+
+{% block script %}
+<script>
+ // http://api.jquery.com/jquery.ajax/
+ $(document).ready(function(){
+     loadPostContainer("post-container")
+ });
+</script>
+{% endblock script %}
+
+{% block body_content %}
+    <div>
+
+        <h1>{{ object.first_name }}</h1><br/>
+        {{ object.email }}<br/>
+        <hr/>
+        <p>Followers: {{ object.followed_by.all.count }}</p>
+
+        {% if object.profile.user.id != userprofile.user.id %}
+        <p>
+            <a href='{{ object.profile.get_follow_url }}'>
+                {% if following %}
+                    Unfollow
+                {% else %}
+                    Follow
+                {% endif %}
+            </a>
+
+        </p>
+        {% endif %}
+
+        <hr/>
+        <h1>Following <small>{{ object.profile.get_following.count }}</small></h1>
+            {% for user in object.profile.get_following %}
+            <a href='../{{ user.email }}'>{{ user.email }}</a> <br /><br />
+                {% comment %}usar el mismo js que en post-list.hml{% endcomment %}
+            {% empty %}
+                <h4>Not following any users</h4>
+            {% endfor %}
+
+        <hr/>
+        <h1>Followed By</h1>
+            {% for profile in object.followed_by.all %}
+                <a href='../{{ profile.user.email }}'>{{ profile.user.email }}</a><br /><br />
+            {% empty %}
+                <h4>Not followed by any users</h4>
+            {% endfor %}
+
+        <hr/>
+
+
+    </div>
+    <div>
+        <h1>Posts</h1>
+
+        {% comment %} Cargando post desde cualquier lado
+        Con el data-url y el url del listado de posts (a quienes sigo en el sistema)
+        le envio ese url a la llamada arriba de la funcion loadPostContainer("post-container") linea 14
+        y esta es llamada alli (fue declarada en el layout.html) en donde se cargan todos los posts
+
+        Este url es clave, es desde aqui en donde se toma el endpoint para ser enviado su URL y
+        listarlo
+
+        Enviamos el url /api/email/post para que sean los posts de un usuario
+
+        {% endcomment %}
+
+        <div id="post-container" data-url="/api/{{ object.email }}/post/">
+
+        </div>
+        <a href="#" id="loadmore">Load More Posts</a>
+
+
+        {% comment %} Trayendo posts de la forma tradicional sin Ajax ni JQuery
+        {% for post in object.post_set.all %}
+            {{ post }} <br /><br />
+        {% endfor %}
+        {% endcomment %}
+
+
+
+
+    </div>
+{% endblock body_content %}

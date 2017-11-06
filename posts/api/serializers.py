@@ -4,6 +4,7 @@ from rest_framework import serializers
 from accounts.api.serializers import UserDisplaySerializer
 from posts.models import Post # from ..models import
 
+
 class ParentPostModelSerializer(serializers.ModelSerializer):
     # user = UserDisplaySerializer()
     user = UserDisplaySerializer(read_only=True) # write_only

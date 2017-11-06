@@ -107,6 +107,9 @@ urlpatterns = [
     url(r'^api/', include(router.urls,)),
 
 
+    # url(r'^api-auth/', include('rest_framework.urls',
+    #    namespace='rest_framework')),
+
     # -----------Nuevo----------------------#
     # URL para posts de un usuario en REST, salen los posts propios y de los que el sigue
     url(r'^api/', include('accounts.api.urls', namespace='profiles-api')),

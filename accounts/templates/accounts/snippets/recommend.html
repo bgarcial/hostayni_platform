@@ -1,0 +1,6 @@
+{% for profile in recommended %}
+    <a href='{% url 'accounts:detail' profile.user.email %}'>{{ profile.user.email }}</a><br /><br />
+    {% empty %}
+    <p class="lead">Not followed by any users</p>
+{% endfor %}
+
