@@ -76,6 +76,26 @@ class UserDetailView(UserProfileDataMixin, generic.DetailView):
 # https://docs.djangoproject.com/en/1.11/ref/class-based-views/base/#view
 
 
+class UserFollowView(View):
+
+    def get(self, request, email, *args, **kwargs):
+
+        # Capturamos el usuario al que queremos seguir
+        toggle_user = get_object_or_404(User, email__iexact=email)
+
+        # Si el usuario quien presiona Follow esta autenticado ...
+        if request.user.is_authenticated():
+
+            # enviamos ese request a la funcion toggle_user que se encarga
+            # de la accion de Follow cuando se presiona el boton de Follow
+            # enviandole el usuario al que queremos darle follow
+            is_following = UserProfile.objects.toggle_follow(request.user, toggle_user)
+
+        return redirect("accounts:detail", email=email)
+        # url = reverse("profiles:detail", kwargs={"username": username})
+# HttpResponseRedirect(url)
+
+
 
 
 def show_login_message(sender, user, request, **kwargs):
