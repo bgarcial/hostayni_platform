@@ -122,7 +122,7 @@ class User(AbstractBaseUser, PermissionsMixin):
         (ENTERPRISE, "Organización"),
     )
 
-    email = models.EmailField(unique=True, null=True, verbose_name='Correo electrónico',
+    email = models.EmailField(unique=True, null=True, verbose_name='correo electrónico',
             # help_text=_('Required. Letters, digits and ''@/./+/-/_ only.'),
         validators=[RegexValidator(r'^[\w.@+-]+$', _('Enter a valid email address.'), 'invalid')
         ])
