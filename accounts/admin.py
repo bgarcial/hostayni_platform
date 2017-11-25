@@ -60,6 +60,7 @@ class UserAdmin(CustomUserAdmin):
                     'username',
                     'email',
                     'slug',
+                    'user_type',
                     'first_name',
                     'last_name',
                     'gender',

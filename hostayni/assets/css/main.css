@@ -1934,8 +1934,7 @@ article {
 footer {
   margin-top: 50px; }
   footer .main-cont {
-    background: url('{% static  "img/background-text.jpg"%}');
-    /* background-color: #eeeeee; */
+    background: url("../img/background-text.jpg");
     background-repeat: repeat;
     padding: 20px 10px; }
     footer .main-cont .content {

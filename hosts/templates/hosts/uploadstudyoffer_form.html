@@ -8,6 +8,8 @@
 {% include "top-logo.html" %}
 {% endblock %}
 {% block body_content %}
+<a href="{% url 'host:edit_study_offer_uploads' slug=study_offer_image.study_offer.slug %}"> Agregar más imágenes a esta oferta</a>
+&nbsp;&nbsp;&nbsp;&nbsp;| &nbsp;&nbsp;&nbsp;&nbsp;
 <a href="{% url 'host:studyoffertdetail' slug=study_offer_image.study_offer.slug %}">Regresar a oferta</a>
 <h2>Editar imágen</h2>
 <form role="form" action="" method="POST" enctype="multipart/form-data">

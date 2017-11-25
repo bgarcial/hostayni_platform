@@ -1,15 +1,8 @@
 from django import forms
-from blog.models import Article, Comment
+from blog.models import Article
 from django.utils.text import slugify
 
 
-
-class EmailPostForm(forms.Form):
-    name = forms.CharField(max_length=25)
-    email = forms.EmailField()
-    to = forms.EmailField()
-    comments = forms.CharField(required=False,
-                               widget=forms.Textarea)
 
 
 YEARS = [x for x in range(1980, 2050)]
@@ -25,7 +18,7 @@ class ArticleForm(forms.ModelForm):
     #        }
     # )
 
-    content = forms.CharField(widget=forms.Textarea)
+    content = forms.CharField(label='Contenido', widget=forms.Textarea(attrs={'placeholder': 'Contenido'}))
     ad = "Nuevo artículo"
     # publish = forms.DateField(initial="2010-11-20", widget=forms.SelectDateWidget(years=YEARS))
     # publish = forms.DateField(widget=forms.DateInput(format='%d/%m/%Y'))
@@ -72,7 +65,7 @@ class ArticleForm(forms.ModelForm):
 
     def __init__(self, *args, **kwargs):
         super(ArticleForm, self).__init__(*args, **kwargs)
-        self.fields['title'].widget = forms.Textarea()
+        # self.fields['title'].widget = forms.Textarea()
         # self.fields['publish'].widget = forms.DateField()
         self.fields['title'].error_messages = {
             "max_lenght": "Este titulo es muy largo",
@@ -118,19 +111,3 @@ class ArticleForm(forms.ModelForm):
 
 
 
-
-
-class ReviewForm(forms.Form):
-    pass
-
-class CommentForm(forms.ModelForm):
-
-    class Meta:
-        model = Comment
-        fields = ('name', 'email', 'body')
-
-        widgets = {
-            'name':forms.TextInput(attrs={'class':'textinputclass'}),
-            'body': forms.Textarea(attrs={'class':'editable medium-editor-textarea '})
-
-        }

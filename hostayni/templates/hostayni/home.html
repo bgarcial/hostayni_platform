@@ -132,7 +132,7 @@
     </article>
     {% endif  %}
 
-    {% if article.category.title == 'SOCIAL' %}
+    {% if article.category.title == 'SOSTENIBILIDAD' %}
     <article class="social full-width" >
         {% if article.draft %}<h3> Hostayni Staff Only Draft</h3>{% endif %} {% if article.publish > today %}<h3>Hostayni Staff Only: Futuro articulo</h3>{% endif %}
         <a href="{% url 'articles:detail' slug=article.slug %}">
@@ -179,7 +179,7 @@
     </article>
     {% endif  %}
 
-    {% if article.category.title == 'ESTADÍA'  %}
+    {% if article.category.title == 'ALOJAMIENTO'  %}
     <article class="host full-width">
          {% if article.draft %}<h3> Hostayni Staff Only Draft</h3>{% endif %} {% if article.publish > today %}<h3>Hostayni Staff Only: Futuro articulo</h3>{% endif %}
         <a href="{% url 'articles:detail' slug=article.slug %}">
@@ -224,7 +224,7 @@
     </article>
     {% endif  %}
 
-    {% if article.category.title == 'APRENDIZAJE'  %}
+    {% if article.category.title == 'EDUCACIÓN'  %}
     <article class="learn full-width">
         {% if article.draft %}<h3> Hostayni Staff Only Draft</h3>{% endif %} {% if article.publish > today %}<h3>Hostayni Staff Only: Futuro articulo</h3>{% endif %}
         <a href="{% url 'articles:detail' slug=article.slug %}">
@@ -360,7 +360,7 @@
         </div>
     </article>
     {% endif  %}
-    {% if article.category.title == 'VIDA'  %}
+    {% if article.category.title == 'VIDA DIARIA'  %}
     <article class="life full-width">
         {% if article.draft %}<h3> Hostayni Staff Only Draft</h3>{% endif %} {% if article.publish > today %}<h3>Hostayni Staff Only: Futuro articulo</h3>{% endif %}
         <a href="{% url 'articles:detail' slug=article.slug %}">

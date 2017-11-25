@@ -2,11 +2,12 @@ from django.shortcuts import render, get_object_or_404, redirect, render_to_resp
 from django.utils import timezone
 from django.core.mail import send_mail
 
-from blog.models import Article, Comment, Category
-from blog.forms import ArticleForm, CommentForm, EmailPostForm
+from blog.models import Article, Category
+from blog.forms import ArticleForm
 from django.urls import reverse_lazy
 
 from django.contrib import messages
+from django.contrib.messages.views import SuccessMessageMixin
 from django.contrib.auth.mixins import LoginRequiredMixin
 from hostayni.mixins import UserProfileDataMixin
 from django.contrib.auth.decorators import login_required
@@ -285,7 +286,7 @@ def articles_by_user(request, email):
 class ArticleDetailView(UserProfileDataMixin, DetailView):
     model = Article
 
-
+'''
 def article_detail(request, slug):
     user = request.user
     article = get_object_or_404(Article, slug=slug)
@@ -313,6 +314,7 @@ def article_detail(request, slug):
         context['comment_form'] = comment_form
     return render(request, 'blog/article_detail.html',
                   context)
+'''
 
 
 class CreateArticleView(LoginRequiredMixin, UserProfileDataMixin, CreateView):
@@ -348,9 +350,29 @@ class ArticleUpdateView(LoginRequiredMixin, UserProfileDataMixin, UpdateView):
         return obj
 
 
-class ArticleDeleteView(LoginRequiredMixin, UserProfileDataMixin, DeleteView):
+class ArticleDeleteView(SuccessMessageMixin, LoginRequiredMixin, UserProfileDataMixin, DeleteView):
     model=Article
     success_url = reverse_lazy('articles:article_list')
+    success_message = "Tu artículo ha sido eliminado exitsamente"
+
+    #def get_success_url(self):
+    #    return reverse_lazy('articles:list', kwargs={'slug': self.kwargs['slug']})
+
+    '''
+    def get_context_data(self, **kwargs):
+        context = super(ArticleDeleteView, self).get_context_data(**kwargs)
+        user = self.request.user
+        article = Article.objects.get(slug=self.kwargs.get('slug')) # borrando articulo
+        context['article'] = article
+        return context
+    '''
+    
+    def get_object(self, queryset=None):
+        """ Hook to ensure object is owned by request.user. """
+        obj = super(ArticleDeleteView, self).get_object()
+        if not obj.author == self.request.user:
+            raise Http404
+        return obj
 
 
 class ArticleDraftListView(LoginRequiredMixin, UserProfileDataMixin, ListView):
