@@ -189,12 +189,17 @@ main {
   width: 930px; }
 
 .search-column {
-  width: 330px;
+  /*width: 330px;*/
+  width: 30%;
   float: right;
   padding-left: 10px; }
+
   .search-column .logo {
     float: right;
-    margin-bottom: 30px; }
+    margin-bottom: 30px;
+    width: 100%;
+    }
+
   .search-column .map-search-text {
     -webkit-border-radius: 10px;
     -moz-border-radius: 10px;
@@ -210,14 +215,17 @@ main {
       border: none;
       padding: 5px 10px;
       width: 255px; }
+
     .search-column .map-search-text input:focus {
       outline: 0; }
+
     .search-column .map-search-text i {
       display: inline-block;
       width: 15px;
       height: 15px;
       margin: 5px 8px 5px 0;
       float: right; }
+
   .search-column .search-map {
     -webkit-border-radius: 10px;
     -moz-border-radius: 10px;
@@ -225,6 +233,7 @@ main {
     border-radius: 10px;
     border: 1px solid #d6d6d6;
     margin-bottom: 10px; }
+
     .search-column .search-map svg {
       width: 100%;
       overflow: auto; }
@@ -244,6 +253,7 @@ main {
         fill: #ccc; }
       .search-column .search-map svg path:hover {
         fill: #bbb; }
+
   .search-column .search-filter {
     margin-bottom: 35px; }
     .search-column .search-filter p {
@@ -504,9 +514,11 @@ article {
   border-top-left-radius: 10px;
   border-top-right-radius: 10px;
   margin: 0 10px 30px 0; }
+
   article .img-title-cont {
     height: 250px; }
-    article .img-title-cont .title-cont {
+
+  article .img-title-cont .title-cont {
       -webkit-transition: all 100ms ease-in-out;
       -moz-transition: all 100ms ease-in-out;
       -ms-transition: all 100ms ease-in-out;
@@ -522,9 +534,11 @@ article {
       left: 0 !important;
       right: 0 !important;
       max-width: 250px; }
-    article .img-title-cont .img {
+
+  article .img-title-cont .img {
       height: 250px; }
-    article .img-title-cont h3 {
+
+  article .img-title-cont h3 {
       color: #fff;
       position: absolute;
       bottom: 0;
@@ -535,18 +549,31 @@ article {
       line-height: 1.1em;
       /* fallback */
       max-height: 4em; }
+
   article .img-title-cont:hover .title-cont {
     background: -moz-linear-gradient(left, rgba(0, 0, 0, 0.46) 0%, rgba(125, 185, 232, 0) 100%) !important;
     background: -webkit-linear-gradient(left, rgba(0, 0, 0, 0.46) 0%, rgba(125, 185, 232, 0) 100%) !important;
     background: linear-gradient(to right, rgba(0, 0, 0, 0.46) 0%, rgba(125, 185, 232, 0) 100%) !important;
     filter: progid:DXImageTransform.Microsoft.gradient( startColorstr= '#66000000', endColorstr='#007db9e8',GradientType=1 ); }
+
   article .post-info {
-    padding-top: 5px; }
-    article .post-info .post-type {
-      display: inline-block;
-      height: 23px;
-      margin-right: 10px; }
-      article .post-info .post-type i {
+    padding-top: 5px;
+    margin-left: 10px;
+    margin-right: 10px;
+    margin-bottom: 10px;
+    margin-top: 10px;}
+
+  article .post-info .post-type {
+    display: inline-block;
+    height: 23px;
+    margin-right: 10px; }
+
+  .article-date{
+    margin-left: 10px;
+    margin-top: 10px;
+  }
+
+  article .post-info .post-type i {
         padding: 3px 6px;
         -webkit-border-radius: 5px;
         -moz-border-radius: 5px;
@@ -560,7 +587,8 @@ article {
         font-weight: 600;
         letter-spacing: 0.07em;
         margin-top: -4px; }
-    article .post-info .description {
+
+  article .post-info .description {
       display: block;
       vertical-align: top;
       color: #4c4c4c;
@@ -569,7 +597,8 @@ article {
       line-height: 1.3em;
       text-overflow: ellipsis;
       max-height: 2.6em; }
-    article .post-info .review {
+
+  article .post-info .review {
       display: block;
       width: 200px;
       float: right;
@@ -612,15 +641,23 @@ article {
 .full-width {
   display: block;
   width: auto;
-  margin-right: 17px; }
-  .full-width .post-info .description {
+  margin-right: 17px;
+  margin-left: 17px;
+  border-style: solid;
+  border-width: 1px;
+  border-color: #ccc;
+  }
+
+ .full-width .post-info .description {
     display: inline-block;
     width: 64%; }
-  .full-width .post-info .review {
+
+ .full-width .post-info .review {
     display: inline-block;
     margin-top: 0;
     width: 115px; }
-    .full-width .post-info .review .cost {
+
+ .full-width .post-info .review .cost {
       display: block; }
 
 .full-width-mobile {
