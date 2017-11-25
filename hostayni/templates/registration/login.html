@@ -21,9 +21,7 @@
         <img src="{% static 'img/Logo-slogan.png' %}">
       </a>
         <form action="{% url 'login' %}" method="POST">
-            {% csrf_token %}
-            <h3>Iniciar Sesión</h3>
-
+            {% csrf_token %} <br/>
             {% bootstrap_form form %}
             {% comment %}
             {% bootstrap_field form.username %}

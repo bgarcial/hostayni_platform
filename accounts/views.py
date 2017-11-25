@@ -2,7 +2,7 @@ from __future__ import unicode_literals
 
 import re
 
-from django.contrib.auth import get_user_model
+
 from django.template import Context
 
 from django.views import generic
@@ -10,7 +10,7 @@ from django.views.generic.edit import UpdateView
 from django.views import View
 
 from django.core.urlresolvers import reverse_lazy, reverse
-from django.contrib.auth import login, logout, authenticate
+from django.contrib.auth import login, logout, authenticate, get_user_model
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import redirect, render, Http404, HttpResponseRedirect, get_object_or_404
 from django.contrib.auth.mixins import LoginRequiredMixin
@@ -55,7 +55,7 @@ class UserDetailView(UserProfileDataMixin, generic.DetailView):
 
     # POdria hacer un UserDetailAPIVIew como PostDetailView con permission_classes = [permissions.AllowAny]
 
-    template_name = 'accounts/user_detail.html'
+    template_name = 'accounts/user_detail2.html'
     queryset = User.objects.all()
 
     def get_object(self):

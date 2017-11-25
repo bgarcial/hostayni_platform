@@ -105,9 +105,13 @@
                     <div class="profile-options">
                         <div class="img">
                             {% if userprofile.user.avatar %}
-                                <img src="{{ userprofile.user.avatar.url }}" width="100" height="100" class="img-responsive">
+                                <a href="{% url 'accounts:detail' userprofile.user.email %}">
+                                    <img src="{{ userprofile.user.avatar.url }}" width="100" height="100" class="img-responsive">
+                                </a>
                             {% else %}
-                                <img src="{% static 'img/default_profile_pic.png' %}" class="img-responsive">
+                                <a href="{% url 'accounts:detail' userprofile.user.email %}">
+                                    <img src="{% static 'img/default_profile_pic.png' %}" class="img-responsive">
+                                </a>
                             {% endif %}
                             <!-- Imagen de perfil -->
                            {% comment %} <img src="{{ object.image_url|default_if_none:'#' }}" alt="">{% endcomment %}
@@ -132,9 +136,12 @@
                     Configuración de la cuenta</a></li>
                                         <li><a href="{% url 'accounts:profile' userprofile.user.slug %}">Mis roles de usuario</a></li>
                                         <li class="line"></li>
-                                        <p><strong>Contenido</strong>s</p>
+                                        <p><strong>Contenidos</strong></p>
                                         <li><a href="{% url 'articles:create' %}">Crear Artículo</a></li>
                                         <li><a href="{% url 'articles:list' userprofile.user.slug %}">Mis artículos</a></li>
+                                        <li class="line"></li>
+                                        <p><strong>Social</strong></p>
+                                        <li><a href="{% url 'post:list' %}">Mi Red Social</a></li>
                                         <li class="line"></li>
                                         <p><strong>Anfitrión</strong></p>
                                         {% if userprofile.user.is_hosting_host %}
