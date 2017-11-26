@@ -10,7 +10,7 @@
     <h1>¿ Estas seguro que deseas borrar la oferta {{ studyofferdelete.ad_title }} ?</h1>
     <form method="post">
         {% csrf_token %}
-        <input type="submit" class="btn btn-danger" value="Borrar">
+        <input type="submit" class="btn btn-danger" value="Eliminar">
         <a href="{% url 'host:studiesofferlist' studyofferdelete.slug %}">Cancelar</a>
     </form>
 

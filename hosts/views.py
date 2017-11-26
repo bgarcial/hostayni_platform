@@ -237,7 +237,9 @@ class HostingOfferCreateView(SuccessMessageMixin, LoginRequiredMixin, UserProfil
     model = LodgingOffer
     form_class = LodgingOfferForm
     #success_url = reverse_lazy("articles:article_list")
-    success_message = "Oferta de alojamiento creada con éxito"
+    success_message = "Tu oferta de alojamiento creada con éxito. " \
+                      "A continuación agrega más imágenes para generar " \
+                      "mayor interés en los usuarios"
 
     #def post(self, request, *args, **kwargs):
 
@@ -580,7 +582,9 @@ class StudyOfferCreateView(SuccessMessageMixin, LoginRequiredMixin, UserProfileD
     form_class = StudiesOffertForm
     #success_url = reverse_lazy("host:detail")
     #success_url = reverse_lazy("dashboard")
-    success_message = "Oferta de estudio creada con éxito"
+    success_message = "Tu oferta educativa ha sido creada con éxito. " \
+                      "A continuación agrega más imágenes para generar " \
+                      "mayor interés en los usuarios"
 
     def form_valid(self, form):
         form.save(commit=False)

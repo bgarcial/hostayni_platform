@@ -254,8 +254,8 @@ class LodgingOffer(models.Model):
     room_value = models.CharField(_("Precio"), max_length=128, help_text='Precio en pesos colombianos')
 
     additional_description = models.TextField(
-        null=False,
-        blank=False,
+        null=True,
+        blank=True,
         verbose_name='Descripción adicional'
     )
 
@@ -478,8 +478,8 @@ class StudiesOffert(models.Model):
     studies_value = models.CharField(_("Precio"), max_length=128, help_text='Precio en pesos colombianos')
 
     additional_description = models.TextField(
-        null=False,
-        blank=False,
+        null=True,
+        blank=True,
         verbose_name='Descripción adicional',
 
     )
