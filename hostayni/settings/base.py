@@ -70,8 +70,10 @@ INSTALLED_APPS = [
     # Project apps
     'accounts.apps.AccountsConfig',
     'blog.apps.BlogConfig',
+    'hashtags.apps.HashtagsConfig',
     'host_information.apps.HostInformationConfig',
     'hosts.apps.HostsConfig',
+    'posts.apps.PostsConfig',
 
 ]
 
@@ -104,6 +106,8 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
+                # 'django.template.context_processors.media',
+                'hostayni.context_processors.images',
             ],
         },
     },
@@ -332,6 +336,7 @@ EMAIL_USE_TLS = True
 
 SITE_URL = 'http://www.hostayni.com'
 
+
 '''
 if DEBUG:
     SITE_URL = 'http://127.0.0.1:8000'
@@ -357,3 +362,4 @@ send_mail(
     to_email_list, # must be a list
     fail_silently=False)
 """
+

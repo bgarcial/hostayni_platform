@@ -14,3 +14,13 @@ DATABASES = {
         'PORT': '5432',
     }
 }
+
+
+# STATIC_URL = '/assets/'
+# STATICFILES_LOCATION = 'assets'
+
+# MEDIAFILES_LOCATION = 'media/'
+# MEDIA_URL = MEDIAFILES_LOCATION
+
+# STATIC_ROOT = os.path.join(BASE_DIR, "assets")
+# MEDIA_ROOT = os.path.join(BASE_DIR, "media")

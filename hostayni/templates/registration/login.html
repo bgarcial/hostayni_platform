@@ -21,9 +21,7 @@
         <img src="{% static 'img/Logo-slogan.png' %}">
       </a>
         <form action="{% url 'login' %}" method="POST">
-            {% csrf_token %}
-            <h3>Iniciar Sesión</h3>
-
+            {% csrf_token %} <br/>
             {% bootstrap_form form %}
             {% comment %}
             {% bootstrap_field form.username %}
@@ -41,10 +39,11 @@
         </form>
     </div>
     <div class="portrait">
-      <div class="img-cont" style="background: url('{% static "img/canada-toronto.jpg"%}') no-repeat center; background-size:cover;">
+      <div class="img-cont" style="background: url('{{ image.0  }}') no-repeat center; background-size:cover;">
       </div>
-          <span>Toronto, Canadá</span>
+          <span>{{ image.1  }}</span>
     </div>
+
 
 </div>
 

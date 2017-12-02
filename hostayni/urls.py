@@ -25,6 +25,10 @@ from hosts.views import LodgingOfferViewSet,StudiesOffertViewSet
 
 from rest_framework import routers
 
+from posts.api.views import SearchPostAPIView
+from hashtags.views import HashTagView
+from hashtags.api.views import TagPostAPIView
+
 # Routers provide an easy way of automatically determining the URL conf.
 router = routers.DefaultRouter()
 router.register(r'lodging-offers', LodgingOfferViewSet)
@@ -47,7 +51,46 @@ urlpatterns = [
 
     url(r'^accounts/', include('django.contrib.auth.urls'),  name='login'),
     # I don't assign namespace because this is django URL
+    # ----------------------------------------------------------------------------------------
 
+
+
+    # ----- Nuevo ------#
+    url(r'^tags/(?P<hashtag>.*)/$', HashTagView.as_view(), name='hashtag'),
+    # ----- End Nuevo ------#
+
+
+    # ----- Nuevo ------#
+    # URL para CRUD de posts en la aplicacion web (convencional)
+    # y para mapear las busquedas de posts a /post/search/?q=sdsds
+    url(r'^post/', include('posts.urls', namespace='post')),
+    # ----- End Nuevo ------#\
+
+    # ----- Nuevo ------#\
+    url(r'^api/tags/(?P<hashtag>.*)/$', TagPostAPIView.as_view(), name='tag-post-api'), #
+    # ----- End Nuevo ------#\
+
+    # ----- Nuevo ------#
+    # Buscando en Hostayni social seria /api/search/
+    url(r'^api/search/$', SearchPostAPIView.as_view(), name='search-api'), #
+    # ----- End Nuevo ------#
+
+
+    # ----- Nuevo ------#
+    # URL para los posts en el sistema de quienes sigo
+    url(r'^api/post/', include('posts.api.urls', namespace='post-api')),
+    # ----- End Nuevo ------#
+
+
+
+
+
+
+
+
+
+
+    # ----------------------------------------------------------------------------------------------
     # url(r'^accounts/activate/(?P<activation_key>\w+)/$', activation_view, name='activation_view'),
     url(r'^accounts/activate/(?P<uidb64>[0-9A-Za-z_\-]+)/(?P<token>[0-9A-Za-z]{1,13}-[0-9A-Za-z]{1,20})/$', activate, name='activate'),
 
@@ -64,11 +107,26 @@ urlpatterns = [
     url(r'^api/', include(router.urls,)),
 
 
+    # url(r'^api-auth/', include('rest_framework.urls',
+    #    namespace='rest_framework')),
+
+    # -----------Nuevo----------------------#
+    # URL para posts de un usuario en REST, salen los posts propios y de los que el sigue
+    url(r'^api/', include('accounts.api.urls', namespace='profiles-api')),
+    # -----------End Nuevo----------------------#
+
 
 ]
 
+'''
 # pARA CARGAR ESTATICOS EN DESARROLLO, No aplica ahora
 if settings.DEBUG:
     urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
     urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+'''
 
+if settings.DEBUG:
+    import debug_toolbar
+    urlpatterns = [
+        url(r'^__debug__/', include(debug_toolbar.urls)),
+    ] + urlpatterns

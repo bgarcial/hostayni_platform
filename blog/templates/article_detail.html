@@ -30,11 +30,11 @@ h1 {
                 <p class="title">Autor</p>
                 <div class="profile">
                     <div class="img-cont">
-                        <a href="#">
+                        <a href="{% url 'accounts:detail' instance.author.email %}">
                             {% if instance.author.avatar%}
                         <img src="{{ instance.author.avatar.url }}" alt="">
                             {% else %}
-                               <img src="{% static 'img/default_profile_pic.png' %}" class="img-responsive">
+                               <img src="{% static 'img/default_profile_pic.png' %}" class="img-fluid">
                             {% endif %}
 
                         </a>
@@ -42,12 +42,14 @@ h1 {
                     <div class="name-review-cont">
 
                         {% comment %} A quien corresponda {% endcomment %}
-                        <a href="#">
+                        <a href="{% url 'accounts:detail' instance.author.email %}">
                             {% if instance.author.get_long_name %}
-                            <span>{{ instance.author.get_long_name }} (@{{ instance.author.email }})</span>
+                            <span>{{ instance.author.get_long_name }}</span><br/>
+                            <span>@{{ instance.author.email }}</span>
                             {% endif %}
                             {% if instance.author.get_enterprise_name %}
-                            <span>{{ instance.author.get_enterprise_name }} (@{{ instance.author.email }})</span>
+                            <span>{{ instance.author.get_enterprise_name }}</span>
+                            <span>@{{ instance.author.email }}</span>
                             {% endif %}
                         </a>
                         <p><div class="fb-like" data-href="{{ request.build_absolute_uri }" data-layout="standard"

@@ -64,7 +64,15 @@
             <i class="learn">EDUCACIÓN</i>
             {% if studyofferdetail.created_by_id == userprofile.user.id %}
             <br/><br/>
-            <a href="{% url 'host:edit_study_offer_uploads' slug=studyofferdetail.slug %}">Agregar/Editar imágenes</a>
+            <div class="main-content hosting">
+                <div class="cont amenities">
+                    <div>
+                        <a href="{% url 'host:edit_study_offer_uploads' slug=studyofferdetail.slug %}">
+                            <img src="{% static 'img/icons/photo.svg' %}" alt=""> Agregar / Editar imagenes
+                        </a>
+                    </div>
+                </div>
+            </div>
             <br/><br/>
             <p><a class='glyphicon glyphicon-pencil' href = "{% url 'host:edit-study-offer' slug=studyofferdetail.slug %}"></a>
       &nbsp;&nbsp;&nbsp;&nbsp;| &nbsp;&nbsp;&nbsp;&nbsp;
@@ -112,7 +120,7 @@
                         <span>{{ studyofferdetail.pub_date }}</span>
                     </div>
 
-
+                    {% if studyofferdetail.created_by_id != userprofile.user.id %}
                     <div class="contact">
                         <a class="contact-button" href="
                         {% url 'host:contact_study_owner_offer' study_offer_owner_full_name=study_offer_owner_full_name study_offer_owner_email=study_offer_owner_email user_interested_full_name=user_interested_full_name user_interested_email=user_interested_email study_offer_title=study_offer_title url_offer=url_offer %}">
@@ -122,6 +130,7 @@
                         <h4 align="justify">Al hacer clic en <strong>Aplicar</strong>, se enviará una notificación de correo electrónico
                         al dueño de la oferta y al usuario interesado en ella.</h4>
                     </div>
+                    {% endif %}
                      <div class="main-content hosting">
                         <div class="cont amenities">
                             <h2>Valor</h2>

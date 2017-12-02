@@ -2,14 +2,15 @@ from __future__ import unicode_literals
 
 import re
 
-from django.contrib.auth import get_user_model
+
+from django.template import Context
 
 from django.views import generic
 from django.views.generic.edit import UpdateView
 from django.views import View
 
 from django.core.urlresolvers import reverse_lazy, reverse
-from django.contrib.auth import login, logout, authenticate
+from django.contrib.auth import login, logout, authenticate, get_user_model
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import redirect, render, Http404, HttpResponseRedirect, get_object_or_404
 from django.contrib.auth.mixins import LoginRequiredMixin
@@ -34,7 +35,7 @@ from hosts.models import LodgingOffer
 
 # --- Packages to signup and activate fbv's ---
 from django.contrib.sites.shortcuts import get_current_site
-from django.template.loader import render_to_string
+from django.template.loader import render_to_string, get_template
 from django.core.mail import EmailMessage
 from django.conf import settings
 from django.utils.encoding import force_bytes, force_text
@@ -46,13 +47,64 @@ from django.http import HttpResponse
 User = get_user_model()
 
 
+# Vista de detalle de usuario, sera usada para el detalle de perfil
+class UserDetailView(UserProfileDataMixin, generic.DetailView):
+    # manejado dentro del ambito de la clase para que no cree conflicto si lo ponemos
+    # global con las otras clases en donde se llama el esquema de usuarios
+    # aunque lo llamamos model = ...
+
+    # POdria hacer un UserDetailAPIVIew como PostDetailView con permission_classes = [permissions.AllowAny]
+
+    template_name = 'accounts/user_detail2.html'
+    queryset = User.objects.all()
+
+    def get_object(self):
+        return get_object_or_404(
+                    User,
+                    email__iexact=self.kwargs.get("email")
+                    )
+
+    def get_context_data(self, *args, **kwargs):
+        context = super(UserDetailView, self).get_context_data(*args, **kwargs)
+        user = self.request.user
+        following = UserProfile.objects.is_following(self.request.user, self.get_object())
+        context['following'] = following
+        context['recommended'] = UserProfile.objects.recommended(self.request.user)
+        return context
+
+
+# https://docs.djangoproject.com/en/1.11/ref/class-based-views/base/#view
+
+
+class UserFollowView(View):
+
+    def get(self, request, email, *args, **kwargs):
+
+        # Capturamos el usuario al que queremos seguir
+        toggle_user = get_object_or_404(User, email__iexact=email)
+
+        # Si el usuario quien presiona Follow esta autenticado ...
+        if request.user.is_authenticated():
+
+            # enviamos ese request a la funcion toggle_user que se encarga
+            # de la accion de Follow cuando se presiona el boton de Follow
+            # enviandole el usuario al que queremos darle follow
+            is_following = UserProfile.objects.toggle_follow(request.user, toggle_user)
+
+        return redirect("accounts:detail", email=email)
+        # url = reverse("profiles:detail", kwargs={"username": username})
+# HttpResponseRedirect(url)
+
+
+
+'''
 def show_login_message(sender, user, request, **kwargs):
     # whatever...
     messages.info(request, 'Bienvenido a HOSTAYNI.')
 
 
 user_logged_in.connect(show_login_message)
-
+'''
 
 @login_required
 def user_profile_update_view(request, slug):
@@ -225,7 +277,17 @@ def signup(request):
             user = form.save(commit=False)
             user.is_active = False
             user.save()
-            current_site = get_current_site(request)
+            #current_site = get_current_site(request)
+
+            ctx = {
+                'user': user,
+                'domain': settings.SITE_URL,
+                'uid': urlsafe_base64_encode(force_bytes(user.pk)),
+                'token': account_activation_token.make_token(user),
+            }
+            message = get_template('acc_active_email.html').render(Context(ctx))
+
+            '''
             message = render_to_string('acc_active_email.html', {
                 'user': user,
                 #'domain': current_site.domain,
@@ -233,9 +295,11 @@ def signup(request):
                 'uid': urlsafe_base64_encode(force_bytes(user.pk)),
                 'token': account_activation_token.make_token(user),
             })
+            '''
             mail_subject = 'HOSTAYNI - Activa tu cuenta'
             to_email = form.cleaned_data.get('email')
             email = EmailMessage(mail_subject, message, to=[to_email])
+            email.content_subtype = 'html'
             email.send()
             messages.success(request, "Registro exitoso. Te hemos enviado un enlace para que confirmes tu correo electrónico. Por favor hazlo para poder iniciar sesión")
             #return HttpResponse('Please confirm your email address to complete the registration')

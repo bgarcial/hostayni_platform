@@ -1,5 +1,7 @@
 from __future__ import unicode_literals
 
+from time import sleep
+
 from django.conf import settings
 from django.contrib import messages
 from django.db import transaction
@@ -235,7 +237,9 @@ class HostingOfferCreateView(SuccessMessageMixin, LoginRequiredMixin, UserProfil
     model = LodgingOffer
     form_class = LodgingOfferForm
     #success_url = reverse_lazy("articles:article_list")
-    success_message = "Oferta de alojamiento creada con éxito"
+    success_message = "Tu oferta de alojamiento creada con éxito. " \
+                      "A continuación agrega más imágenes para generar " \
+                      "mayor interés en los usuarios"
 
     #def post(self, request, *args, **kwargs):
 
@@ -529,7 +533,14 @@ def contact_owner_offer(request, lodging_offer_owner_full_name, lodging_offer_ow
         #to_email = lodging_offer_owner.email,
 
         send_mail(mail_subject, message, settings.DEFAULT_FROM_EMAIL,
-                  [lodging_offer_owner_email, interested_email], fail_silently=True)
+                  [lodging_offer_owner_email, interested_email], html_message=message, fail_silently=True)
+
+        #sleep(60)
+        # Hacer esto con celery --- pagina 66 https://docs.google.com/document/d/1aUVRvGFh0MwYZydjXlebaSQJgZnHJDOKx3ccjWmusgc/edit#
+
+        msg_to_owner = render_to_string('to_lodging_own_offer.html', context)
+        send_mail(mail_subject, msg_to_owner, settings.DEFAULT_FROM_EMAIL,
+                  [lodging_offer_owner_email], html_message=msg_to_owner, fail_silently=True)
 
         #messages.success(request, "El anfitrión", lodging_offer_owner_email, "ha sido contactado " )
 
@@ -571,7 +582,9 @@ class StudyOfferCreateView(SuccessMessageMixin, LoginRequiredMixin, UserProfileD
     form_class = StudiesOffertForm
     #success_url = reverse_lazy("host:detail")
     #success_url = reverse_lazy("dashboard")
-    success_message = "Oferta de estudio creada con éxito"
+    success_message = "Tu oferta educativa ha sido creada con éxito. " \
+                      "A continuación agrega más imágenes para generar " \
+                      "mayor interés en los usuarios"
 
     def form_valid(self, form):
         form.save(commit=False)
@@ -741,8 +754,6 @@ def contact_study_owner_offer(request, study_offer_owner_full_name, study_offer_
         #print('Send email')
         mail_subject = 'Interesados en tu oferta educativa'
 
-
-
         context = {
             # usuario dueño de la oferta  TO
             'study_offer_owner_full_name': study_offer_owner_full_name,
@@ -763,7 +774,12 @@ def contact_study_owner_offer(request, study_offer_owner_full_name, study_offer_
         #to_email = lodging_offer_owner.email,
 
         send_mail(mail_subject, message, settings.DEFAULT_FROM_EMAIL,
-                  [study_offer_owner_email, user_interested_email], fail_silently=True)
+                  [study_offer_owner_email, user_interested_email], html_message=message, fail_silently=True)
+
+        msg_to_owner = render_to_string('to_educational_own_offer.html', context)
+
+        send_mail(mail_subject, msg_to_owner, settings.DEFAULT_FROM_EMAIL,
+                  [study_offer_owner_email], html_message=msg_to_owner, fail_silently=True)
 
         #messages.success(request, "El anfitrión", lodging_offer_owner_email, "ha sido contactado " )
 
