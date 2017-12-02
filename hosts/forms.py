@@ -28,6 +28,11 @@ class StudyOfferImagesUploadForm(forms.ModelForm):
 
 class LodgingOfferForm(forms.ModelForm):
     title = "Crear oferta de alojamiento"
+    offer_taked = ("\n" 
+     " Indica si esta oferta ya fue tomada por un usuario.Este campo es solo para uso de \n"
+     " actualización de una oferta cuando ya ha habido un acuerdo por ella. "
+     " Si se selecciona, no aparecerá en los resultados de búsquedas. \n "
+     "Des-seleccionéla en lugar de eliminar la oferta ")
     # birth_year = forms.DateField(widget=forms.SelectDateWidget(years=LodgingOffer.BIRTH_YEAR_CHOICES))
 
     class Meta:

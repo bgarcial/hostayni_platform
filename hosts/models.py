@@ -268,12 +268,13 @@ class LodgingOffer(models.Model):
     is_taked = models.BooleanField(
         _('Oferta tomada'),
         default=False,
-        help_text=_(
-            'Indica si esta oferta ya fue tomada por un usuario.  <br /> Este campo es solo para uso de '
-            'actualización de una oferta cuando ya ha habido un acuerdo por ella. '
-            'Si se selecciona, no aparecerá en los resultados '
-            'de búsquedas. <br /> Des-seleccionéla en lugar de eliminar la oferta'
-        ),
+
+        # help_text=_(
+        #    'Indica si esta oferta ya fue tomada por un usuario.  <br /> Este campo es solo para uso de '
+        #    'actualización de una oferta cuando ya ha habido un acuerdo por ella. '
+        #    'Si se selecciona, no aparecerá en los resultados '
+        #    'de búsquedas. <br /> Des-seleccionéla en lugar de eliminar la oferta'
+        #),
     )
 
     def __str__(self):

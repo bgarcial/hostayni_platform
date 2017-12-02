@@ -112,7 +112,11 @@
         </div>
         <div class="formgroup">
             {% bootstrap_field form.additional_description %}
-             {% bootstrap_field form.is_taked %}
+            {% if not form.instance.pk %}
+            {% else %}
+                {% bootstrap_field form.is_taked %}
+                {{ form.offer_taked }}
+            {% endif %}
         </div>
         
       </div>
