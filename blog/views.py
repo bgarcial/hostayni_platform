@@ -114,7 +114,7 @@ def artic_detail(request, slug=None): # retrieve
 class ArticleListView(UserProfileDataMixin, ListView):
     template_name = 'hostayni/home.html'
     model = Article
-    paginate_by = 4
+    # paginate_by = 4
     # context_object_name = article_list
 
 
