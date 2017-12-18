@@ -114,7 +114,7 @@ def artic_detail(request, slug=None): # retrieve
 class ArticleListView(UserProfileDataMixin, ListView):
     template_name = 'hostayni/home.html'
     model = Article
-    paginate_by = 4
+    # paginate_by = 4
     # context_object_name = article_list
 
 
@@ -366,7 +366,7 @@ class ArticleDeleteView(SuccessMessageMixin, LoginRequiredMixin, UserProfileData
         context['article'] = article
         return context
     '''
-    
+
     def get_object(self, queryset=None):
         """ Hook to ensure object is owned by request.user. """
         obj = super(ArticleDeleteView, self).get_object()
@@ -435,19 +435,3 @@ def comment_remove(request, pk):
     article_pk = comment.article.pk
     comment.delete()
     return redirect('article_detail', pk=article_pk)
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

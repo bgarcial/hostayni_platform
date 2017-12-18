@@ -186,7 +186,8 @@ header {
 
 main {
   display: inline-block;
-  width: 930px; }
+  width: 930px;
+  }
 
 .search-column {
   /*width: 330px;*/
@@ -572,6 +573,7 @@ article {
     margin-left: 10px;
     margin-top: 10px;
     width: 51%;
+    background-color: red;
   }
 
   article .article-author{

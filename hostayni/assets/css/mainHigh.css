@@ -365,7 +365,7 @@ article {
   border-width: 1px;
   margin-top: 20px;
   box-shadow: 0 0 1px 1px rgba(20,23,28,.1), 0 3px 1px 0 rgba(20,23,28,.1);
-  flex: 0 0 90%;
+  flex: 0 0 30%;
   }
 
  .full-width .post-info .description {
@@ -398,11 +398,11 @@ article {
       margin-right: 10px; }
     .full-width-mobile .post-info .review .average {
       font-size: 0.95em;
-      color: #706f6f; }
+      color: #706f6f; }*/
 
     .medium-post{
       width: 20%;
-    }*/
+    }
 
 footer {
   margin-top: 50px; }
