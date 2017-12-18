@@ -129,6 +129,18 @@
                         al dueño de la oferta y al usuario interesado en ella.</h4>
 					</div>
                     {% endif %}
+                    <div class="main-content hosting">
+                        <div class="cont amenities">
+                            <h2>Características del cuarto</h2>
+                            {% for offer in lodgingoffer %}
+                            <div>
+                                <img src="{% static 'img/icons/diary-button.svg' %}" alt="">
+                                <span>{{ offer }}</span>
+                            </div>
+                            {% endfor %}
+                        </div>
+                    </div>
+
                      <div class="main-content hosting">
                         <div class="cont amenities">
                             <h2>Valor</h2>
@@ -174,13 +186,6 @@
                     <span>{{ fa }}</span>
                 </div>
                 {% endfor %}
-                <h2>Room information</h2>
-                {% for offer in lodgingoffer %}
-                <div>
-                    <img src="{% static 'img/icons/diary-button.svg' %}" alt="">
-                    <span>{{ offer }}</span>
-                </div>
-                {% endfor %}
             </div>
             <div class="cont location">
                 <h2>Ubicación</h2>
@@ -193,7 +198,17 @@
             </div>
         </div>
         <br/>
-        <p align="justify">{{ lodgingofferdetail.additional_description }}</p>
+        <h2>Descripción Adicional</h2>
+        <div class="container">
+            <div class="row">
+                <div class="col">
+                    <div class="col-sm-6 col-24">
+                        <span><p align="justify">{{ lodgingofferdetail.additional_description }}</p></span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
         <div id="disqus_thread"></div>
     </div>
 </main>

@@ -28,6 +28,11 @@ class StudyOfferImagesUploadForm(forms.ModelForm):
 
 class LodgingOfferForm(forms.ModelForm):
     title = "Crear oferta de alojamiento"
+    offer_taked = ("\n" 
+     " Indica si esta oferta ya fue tomada por un usuario.Este campo es solo para uso de \n"
+     " actualización de una oferta cuando ya ha habido un acuerdo por ella. "
+     " Si se selecciona, no aparecerá en los resultados de búsquedas. \n "
+     "Des-seleccionéla en lugar de eliminar la oferta ")
     # birth_year = forms.DateField(widget=forms.SelectDateWidget(years=LodgingOffer.BIRTH_YEAR_CHOICES))
 
     class Meta:
@@ -38,7 +43,7 @@ class LodgingOfferForm(forms.ModelForm):
             'country': CountrySelectWidget(),
         }
         model = LodgingOffer
-        fields = ('ad_title', 'country', 'city', 'address', 'lodging_offer_type', 'stars',
+        fields = ('ad_title', 'country', 'city', 'address', 'lodging_offer_type' , 'lodging_offer_type_org', 'stars',
                   'check_in', 'check_out', 'offered_services', 'featured_amenities', 'room_type_offered',
                 'number_guest_room_type', 'image', 'bed_type', 'bathroom', 'room_information', 'room_value',
                     'additional_description', 'is_taked')

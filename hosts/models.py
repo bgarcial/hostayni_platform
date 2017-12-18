@@ -76,6 +76,18 @@ class LodgingOffer(models.Model):
         (TEN_GUESTS, "Para 10 huéspedes"),
     )
 
+    STUDENT_RESIDENCE = 'Residencia estudiantil'
+    ACCOMODATION_WITH_LOCAL_FAMILY = 'Acomodación con familia local'
+    HOUSE_APT_SHARE_VISITORS = 'Casa o apartamento para compartir con otros huéspedes'
+    HOUSE_OR_PRIV_APT = 'Casa o apartamento privado'
+
+    LODGING_OFFER_TYPE_CHOICES = (
+        (STUDENT_RESIDENCE, "Residencia estudiantil"),
+        (ACCOMODATION_WITH_LOCAL_FAMILY, "Acomodación con familia local"),
+        (HOUSE_APT_SHARE_VISITORS, "Casa o apartamento para compartir con otros huéspedes"),
+        (HOUSE_OR_PRIV_APT, "Casa o apartamento privado"),
+    )
+
     HOTEL = 'Hotel'
     HOSTEL = 'Hostal'
     STUDENT_RESIDENCE = 'Residencia estudiantil'
@@ -84,7 +96,7 @@ class LodgingOffer(models.Model):
     HOUSE_OR_PRIV_APT = 'Casa o apartamento privado'
 
 
-    LODGING_OFFER_TYPE_CHOICES = (
+    LODGING_OFFER_TYPE_ORG_CHOICES = (
         (HOTEL, "Hotel"),
         (HOSTEL, "Hostal"),
         (STUDENT_RESIDENCE, "Residencia estudiantil"),
@@ -152,6 +164,12 @@ class LodgingOffer(models.Model):
     latitude = models.CharField(_("latitude"), max_length=255, null=True, blank=True)
 
     longitude = models.CharField(_("longitude"), max_length=255, null=True, blank=True)
+
+    lodging_offer_type_org = models.CharField(
+        max_length=255,
+        choices=LODGING_OFFER_TYPE_ORG_CHOICES,
+        verbose_name='Tipo de oferta de alojamiento',
+    )
 
     lodging_offer_type = models.CharField(
         max_length=255,
@@ -268,12 +286,13 @@ class LodgingOffer(models.Model):
     is_taked = models.BooleanField(
         _('Oferta tomada'),
         default=False,
-        help_text=_(
-            'Indica si esta oferta ya fue tomada por un usuario.  <br /> Este campo es solo para uso de '
-            'actualización de una oferta cuando ya ha habido un acuerdo por ella. '
-            'Si se selecciona, no aparecerá en los resultados '
-            'de búsquedas. <br /> Des-seleccionéla en lugar de eliminar la oferta'
-        ),
+
+        # help_text=_(
+        #    'Indica si esta oferta ya fue tomada por un usuario.  <br /> Este campo es solo para uso de '
+        #    'actualización de una oferta cuando ya ha habido un acuerdo por ella. '
+        #    'Si se selecciona, no aparecerá en los resultados '
+        #    'de búsquedas. <br /> Des-seleccionéla en lugar de eliminar la oferta'
+        #),
     )
 
     def __str__(self):

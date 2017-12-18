@@ -4,8 +4,54 @@
 {% load staticfiles %}
 
 {% block title_tag %}Bienvenidos a {{ block.super }}{% endblock %}
+<link rel="stylesheet" href='{% static "css/main.css" %}' >
 
 {% block body_content %}
+<<<<<<< HEAD
+=======
+    <img src="{% static 'img/beach.jpg' %}" class='img-fluid'/>
+<!-- Columna del logo, mapa, filtro -->
+<div class="search-column">
+   <img class="logo" src="{% static 'img/Logo-slogan-lg.png' %}" alt="Logo Hostayni - Haz del mundo tu hogar" />
+
+    <form method="GET" action="">
+        <input type="text" name="q" placeholder="Título o autor o contenido o categoría" value="{{request.GET.q}}"/>
+        <p>Presiona Enter para buscar</p>
+
+    </form><br/>
+    <div class="map-search-text">
+
+        {% comment %}
+        <input type="text" name="search-term" placeholder="Quiero ir a..." maxlength="50" />
+        <i><img src="{% static 'img/icons/search.svg' %}" alt="buscar"></i>
+        {% endcomment %}
+
+    </div>
+
+
+    <!-- Mapa -->
+    <div class="search-map">
+        {% include "hostayni/map.html" %}
+    </div>
+
+    <!-- // Mapa -->
+    <div class="search-filter">
+        <p>Estoy buscando:</p>
+        <div class="icons">
+            <a href="{% url 'host:hostingoffer-search' %}"><img src="{% static 'img/icons/hosting.svg' %}" title="Ofertas de alojamiento" alt=""></a>
+            <a href="{% url 'host:studyoffer-search' %}"><img src="{% static 'img/icons/learn.svg' %}" title="Ofertas de estudio" alt=""></a>
+            <a href="#"><img src="{% static 'img/icons/innovate-grey.svg' %}" alt="" title="Próximamente"></a>
+            <a href="#"><img src="{% static 'img/icons/life-grey.svg' %}" alt="" title="Próximamente"></a>
+            <a href="#"><img src="{% static 'img/icons/enjoy-grey.svg' %}" alt="" title="Próximamente"></a>
+            <a href="#"><img src="{% static 'img/icons/social-grey.svg' %}" alt="" title="Próximamente"></a>
+        </div>
+    </div>
+
+    {% comment %}
+    <div class="search-filter">
+        <p>Estoy buscando:</p>
+        {% for cat in categories %}
+>>>>>>> bd88c1c0526126a7a80ebdcd16aa47c267e4ce32
 
 <!-- Columna del logo, mapa, filtro -->
 <div class="search_ele">
