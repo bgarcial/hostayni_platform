@@ -125,6 +125,9 @@ class LodgingOfferSearch(FormView):
         form = LodgingOfferSearchForm(self.request.GET or None)
         return self.render_to_response(self.get_context_data(form=form))
 
+    def get_queryset(self):
+        qs = LodgingOffer.objects.active()
+        return qs
 
     def get_context_data(self, **kwargs):
         context = super(LodgingOfferSearch, self).get_context_data(**kwargs)
@@ -136,6 +139,12 @@ class LodgingOfferSearch(FormView):
         # valid, we use the we use SearchQuerySet to perform a search for
         # indexed LodgingOffer objects whose main content contains the given
         # query
+
+        qs = LodgingOffer.objects.active()
+        print(qs)
+        context['offer_list']= qs
+
+
         if form.is_valid():
             cd = form.cleaned_data
             # The load_all() method loads all related LodgingOffer objects
@@ -154,6 +163,7 @@ class LodgingOfferSearch(FormView):
                 'cd': cd,
                 'results':results,
                 'total_results': total_results,
+
             })
         if user.is_authenticated():
             context['userprofile'] = user.profile

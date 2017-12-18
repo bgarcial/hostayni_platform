@@ -33,6 +33,13 @@
     </div> 
   </form>
 </div>
+ofertas
+   {% for offers in offer_list %}
+       {{ offers.ad_title }}
+       {{ offers.lodging_offer_type }}
+   {% endfor %}
+
+
   {% if "query" in request.GET %}<br />
   <div class="main">
     <p><h3>Ofertas de alojamiento que contengan: "{{ cd.query }}"</h3></p>

@@ -29,12 +29,12 @@ from pathlib import Path  # python 3.6+ only!
 
 
 
-'''
-class LodgingOfferManager(models.Model):
-    use_for_related_fields = True
 
-    #def toggle_contact_own_offer(self, user_interested, user_to_contact, offer):
-'''
+class LodgingOfferManager(models.Manager):
+
+    def active(self, *args, **kwargs):
+        return super(LodgingOfferManager, self).filter(is_taked=False).filter(pub_date__lte=timezone.now())
+
 
 def get_lodging_image_search_path(instance, filename):
     return '/'.join(['lodging_offer_images', instance.slug, filename])
@@ -268,7 +268,6 @@ class LodgingOffer(models.Model):
         help_text='Esta imagen acompañará tu oferta en los resultados de búsquedas'
     )
 
-
     room_value = models.CharField(_("Precio"), max_length=128, help_text='Precio en pesos colombianos')
 
     additional_description = models.TextField(
@@ -294,6 +293,8 @@ class LodgingOffer(models.Model):
         #    'de búsquedas. <br /> Des-seleccionéla en lugar de eliminar la oferta'
         #),
     )
+
+    objects = LodgingOfferManager()
 
     def __str__(self):
         return "%s" % self.ad_title
