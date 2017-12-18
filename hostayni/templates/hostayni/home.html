@@ -7,8 +7,7 @@
 <link rel="stylesheet" href='{% static "css/main.css" %}' >
 
 {% block body_content %}
-<<<<<<< HEAD
-=======
+
     <img src="{% static 'img/beach.jpg' %}" class='img-fluid'/>
 <!-- Columna del logo, mapa, filtro -->
 <div class="search-column">
@@ -51,7 +50,6 @@
     <div class="search-filter">
         <p>Estoy buscando:</p>
         {% for cat in categories %}
->>>>>>> bd88c1c0526126a7a80ebdcd16aa47c267e4ce32
 
 <!-- Columna del logo, mapa, filtro -->
 <div class="search_ele">
@@ -133,7 +131,7 @@
             <!-- //Calificaciones -->
         </div>
     </article>
-    {% endif  %}
+    {% endif %}
 
     {% if article.category.title == 'SOSTENIBILIDAD' %}
     <article class="social full-width" >
