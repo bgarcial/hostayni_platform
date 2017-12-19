@@ -1,46 +1,11 @@
 {% extends "layout.html" %}
+
+
 {% load staticfiles %}
 
 {% block title_tag %}Bienvenidos a {{ block.super }}{% endblock %}
-<link rel="stylesheet" href='{% static "css/main.css" %}' >
 
 {% block body_content %}
-<!-- Columna del logo, mapa, filtro -->
-<div class="search-column">
-   <img class="logo" src="{% static 'img/Logo-slogan-lg.png' %}" alt="Logo Hostayni - Haz del mundo tu hogar" />
-
-    <form method="GET" action="">
-        <input type="text" name="q" placeholder="Título o autor o contenido o categoría" value="{{request.GET.q}}"/>
-        <p>Presiona Enter para buscar</p>
-
-    </form><br/>
-    <div class="map-search-text">
-
-        {% comment %}
-        <input type="text" name="search-term" placeholder="Quiero ir a..." maxlength="50" />
-        <i><img src="{% static 'img/icons/search.svg' %}" alt="buscar"></i>
-        {% endcomment %}
-
-    </div>
-
-
-    <!-- Mapa -->
-    <div class="search-map">
-        {% include "hostayni/map.html" %}
-    </div>
-
-    <!-- // Mapa -->
-    <div class="search-filter">
-        <p>Estoy buscando:</p>
-        <div class="icons">
-            <a href="{% url 'host:hostingoffer-search' %}"><img src="{% static 'img/icons/hosting.svg' %}" title="Ofertas de alojamiento" alt=""></a>
-            <a href="{% url 'host:studyoffer-search' %}"><img src="{% static 'img/icons/learn.svg' %}" title="Ofertas de estudio" alt=""></a>
-            <a href="#"><img src="{% static 'img/icons/innovate-grey.svg' %}" alt="" title="Próximamente"></a>
-            <a href="#"><img src="{% static 'img/icons/life-grey.svg' %}" alt="" title="Próximamente"></a>
-            <a href="#"><img src="{% static 'img/icons/enjoy-grey.svg' %}" alt="" title="Próximamente"></a>
-            <a href="#"><img src="{% static 'img/icons/social-grey.svg' %}" alt="" title="Próximamente"></a>
-        </div>
-    </div>
 
 <!-- Columna del logo, mapa, filtro -->
 <div class="search_ele">
@@ -72,8 +37,7 @@
         {% comment %} Si el articulo tiene draft entonces es borrador {%endcomment%}
         {% comment %} Si el articulo tiene una fecha de ublicacion mayor a la actual today  es futuro articulo {%endcomment%}
 
-        {% if article.draft %}<h3> Hostayni Staff Only Draft</h3>{% endif %}
-        {% if article.publish > today %}<h3>Hostayni Staff Only: Futuro articulo</h3>{% endif %}
+        {% if article.draft %}<h3> Hostayni Staff Only Draft</h3>{% endif %} {% if article.publish > today %}<h3>Hostayni Staff Only: Futuro articulo</h3>{% endif %}
         <a href="{% url 'articles:detail' slug=article.slug %}">
         <div class="img-title-cont">
             <!-- la imagen de las publicaciones debe ser una imagen de background para poder modificar el
@@ -102,7 +66,7 @@
               {% if article.author.get_enterprise_name %}
               <p>Autor: {{ article.author.get_enterprise_name }}</p>
               {% endif %}
-            </div>
+          </div>
 
             <div class="article-date">{{ article.publish }}</div>
 
@@ -123,7 +87,7 @@
             <!-- //Calificaciones -->
         </div>
     </article>
-    {% endif %}
+    {% endif  %}
 
     {% if article.category.title == 'SOSTENIBILIDAD' %}
     <article class="social full-width" >
@@ -170,7 +134,7 @@
         </div>
 
     </article>
-    {% endif %}
+    {% endif  %}
 
     {% if article.category.title == 'ALOJAMIENTO'  %}
     <article class="host full-width">
