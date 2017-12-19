@@ -1,6 +1,4 @@
 {% extends "layout.html" %}
-
-
 {% load staticfiles %}
 
 {% block title_tag %}Bienvenidos a {{ block.super }}{% endblock %}
@@ -46,11 +44,6 @@
         </div>
     </div>
 
-    {% comment %}
-    <div class="search-filter">
-        <p>Estoy buscando:</p>
-        {% for cat in categories %}
-
 <!-- Columna del logo, mapa, filtro -->
 <div class="search_ele">
   <form class="form_search" method="GET" action="">
@@ -81,7 +74,8 @@
         {% comment %} Si el articulo tiene draft entonces es borrador {%endcomment%}
         {% comment %} Si el articulo tiene una fecha de ublicacion mayor a la actual today  es futuro articulo {%endcomment%}
 
-        {% if article.draft %}<h3> Hostayni Staff Only Draft</h3>{% endif %} {% if article.publish > today %}<h3>Hostayni Staff Only: Futuro articulo</h3>{% endif %}
+        {% if article.draft %}<h3> Hostayni Staff Only Draft</h3>{% endif %}
+        {% if article.publish > today %}<h3>Hostayni Staff Only: Futuro articulo</h3>{% endif %}
         <a href="{% url 'articles:detail' slug=article.slug %}">
         <div class="img-title-cont">
             <!-- la imagen de las publicaciones debe ser una imagen de background para poder modificar el
@@ -110,7 +104,7 @@
               {% if article.author.get_enterprise_name %}
               <p>Autor: {{ article.author.get_enterprise_name }}</p>
               {% endif %}
-          </div>
+            </div>
 
             <div class="article-date">{{ article.publish }}</div>
 
@@ -178,7 +172,7 @@
         </div>
 
     </article>
-    {% endif  %}
+    {% endif %}
 
     {% if article.category.title == 'ALOJAMIENTO'  %}
     <article class="host full-width">
