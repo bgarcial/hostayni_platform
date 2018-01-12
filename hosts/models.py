@@ -39,6 +39,7 @@ class LodgingOfferManager(models.Manager):
 def get_lodging_image_search_path(instance, filename):
     return '/'.join(['lodging_offer_images', instance.slug, filename])
 
+
 class LodgingOffer(models.Model):
 
     ALL_PROPERTY = 'Toda la propiedad'
@@ -260,11 +261,11 @@ class LodgingOffer(models.Model):
         related_name="lodgingoffers"
     )
 
-    image = models.ImageField(
+    photo = models.ImageField(
         upload_to=get_lodging_image_search_path,
         blank=False,
-        null=False,
         verbose_name='Fotografía',
+        null=False,
         help_text='Esta imagen acompañará tu oferta en los resultados de búsquedas'
     )
 
@@ -384,6 +385,7 @@ class LodgingOfferImage(models.Model):
 
 def get_image_search_path(instance, filename):
     return '/'.join(['educational_offer_images', instance.slug, filename])
+
 
 class StudiesOffert(models.Model):
 
@@ -567,37 +569,10 @@ def get_image_path(instance, filename):
     return '/'.join(['educational_offer_images', instance.study_offer.slug, filename])
 
 
-class UploadStudyOfferQueryset(models.query.QuerySet):
-    def active(self):
-        return self.filter(active=True)
-
-    def featured(self):
-        return self.filter(featured=True) \
-            .filter(start_date__lt=timezone.now()) \
-            .filter(end_date__gte=timezone.now())
+# CROP_SETTINGS = {'size': (1000, 500), 'crop': 'smart'}
 
 
-class UploadStudyOfferManager(models.Manager):
-    def get_queryset(self):
-        return UploadStudyOfferQueryset(self.model, using=self._db)
-
-    def all(self):
-        return self.get_queryset().active()
-
-    def all_featured(self):
-        return self.get_queryset().active().featured()
-
-    def get_featured_item(self):
-        try:
-            return self.get_queryset().active().featured()[0]
-        except:
-            return None
-
-
-CROP_SETTINGS = {'size': (1000, 500), 'crop': 'smart'}
-
-
-class UploadStudyOffer(models.Model):
+class StudyOfferImage(models.Model):
 
     # puedo poner headere text and small text
     study_offer = models.ForeignKey(StudiesOffert, related_name='uploadsstudyoffer')
@@ -606,27 +581,9 @@ class UploadStudyOffer(models.Model):
     image = models.ImageField(upload_to=get_image_path, verbose_name='Seleccionar imagen')
     # images folder per object
 
-    order = models.IntegerField(default=0)
-
-    featured = models.BooleanField(default=False, verbose_name='Destacada',
-                                   help_text='Indica si la imagen aparecera en el carrusel')
-    thumbnail = models.BooleanField(default=False)
-
-    active = models.BooleanField(default=True, verbose_name='Activa',
-                                 help_text='Indica si una imagen de oferta esta habilitada o disponible')
-    updated = models.DateTimeField(auto_now_add=False, auto_now=True)
-
-    start_date = models.DateTimeField(auto_now_add=False, auto_now=True, null=True, blank=True)
-
-    end_date = models.DateTimeField(auto_now_add=False, auto_now=True, null=True, blank=True)
-
-    objects = UploadStudyOfferManager()
-
     def __str__(self):
         return self.study_offer.ad_title
 
-    class Meta:
-        ordering = ['order', '-start_date', '-end_date']
 
     '''
     def get_image_url(self):

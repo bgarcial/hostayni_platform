@@ -23,7 +23,7 @@ from rest_framework import viewsets
 
 from django.shortcuts import render, get_object_or_404, redirect
 from django.core.urlresolvers import reverse_lazy, reverse
-from .models import LodgingOffer, StudiesOffert, RoomInformation, LodgingOfferImage, UploadStudyOffer
+from .models import LodgingOffer, StudiesOffert, RoomInformation, LodgingOfferImage, StudyOfferImage
 
 from host_information.models import OfferedServices, FeaturesAmenities
 from .serializers import LodgingOfferSerializer,StudiesOffertSerializer
@@ -418,7 +418,7 @@ def delete_upload_study_offer_image(request, id):
 
     user = request.user
     # We get the image
-    upload = UploadStudyOffer.objects.get(id=id)
+    upload = StudyOfferImage.objects.get(id=id)
 
 
     # Security check
@@ -593,7 +593,7 @@ def edit_study_offer_uploads(request, slug):
         form = form_class(data=request.POST, files=request.FILES, instance=study_offer)
         if form.is_valid():
             # create a new object from the submitted form
-            UploadStudyOffer.objects.create(
+            StudyOfferImage.objects.create(
                 image=form.cleaned_data['image'],
                 study_offer=study_offer
             )
@@ -616,7 +616,7 @@ def edit_study_offer_uploads(request, slug):
 
 
 class StudyOfferImageUpdateView(SuccessMessageMixin, UserProfileDataMixin, LoginRequiredMixin, UpdateView):
-    model = UploadStudyOffer
+    model = StudyOfferImage
     form_class = StudyOfferImagesUploadForm
 
     # success_url = reverse_lazy("host:edit-study-offer-image", pk_url_kwarg='pk')
@@ -632,7 +632,7 @@ class StudyOfferImageUpdateView(SuccessMessageMixin, UserProfileDataMixin, Login
         context = super(StudyOfferImageUpdateView, self).get_context_data(**kwargs)
 
         user = self.request.user
-        study_offer_image = UploadStudyOffer.objects.get(pk=self.kwargs.get('pk'))
+        study_offer_image = StudyOfferImage.objects.get(pk=self.kwargs.get('pk'))
         context['study_offer_image'] = study_offer_image
 
         # study_offer = StudiesOffert.objects.get(slug=self.kwargs.get('slug'))
@@ -657,7 +657,7 @@ class StudyOfferImageUpdateView(SuccessMessageMixin, UserProfileDataMixin, Login
 @login_required
 def delete_upload_study_offer_image(request, id):
     # We get the image
-    upload = UploadStudyOffer.objects.get(id=id)
+    upload = StudyOfferImage.objects.get(id=id)
 
     # Security check
     if upload.study_offer.created_by != request.user:
