@@ -125,6 +125,9 @@ class LodgingOfferSearch(FormView):
         form = LodgingOfferSearchForm(self.request.GET or None)
         return self.render_to_response(self.get_context_data(form=form))
 
+    def get_queryset(self):
+        qs = LodgingOffer.objects.active()
+        return qs
 
     def get_context_data(self, **kwargs):
         context = super(LodgingOfferSearch, self).get_context_data(**kwargs)
@@ -136,6 +139,11 @@ class LodgingOfferSearch(FormView):
         # valid, we use the we use SearchQuerySet to perform a search for
         # indexed LodgingOffer objects whose main content contains the given
         # query
+
+        qs = LodgingOffer.objects.active()
+        context['offer_list']= qs
+
+
         if form.is_valid():
             cd = form.cleaned_data
             # The load_all() method loads all related LodgingOffer objects
@@ -154,6 +162,7 @@ class LodgingOfferSearch(FormView):
                 'cd': cd,
                 'results':results,
                 'total_results': total_results,
+
             })
         if user.is_authenticated():
             context['userprofile'] = user.profile
@@ -201,38 +210,6 @@ def lodging_offers_by_user(request, email):
     )
 
 
-'''
-class LodgingOfferImageCreate(UserProfileDataMixin, CreateView):
-    model = LodgingOffer
-    fields = ['ad_title', 'country', 'city', 'address', 'lodging_offer_type', 'stars',
-              'check_in', 'check_out', 'offered_services', 'featured_amenities',
-              'room_type_offered', 'number_guest_room_type', 'bed_type', 'bathroom',
-              'room_information', 'image', 'room_value', 'additional_description', 'is_taked']
-    # success_url = reverse_lazy("articles:article_list")
-
-    def get_context_data(self, **kwargs):
-        data = super(LodgingOfferImageCreate, self).get_context_data(**kwargs)
-        if self.request.POST:
-            data['lodgingimages'] = LodgingOfferImagesFormset(self.request.POST)
-        else:
-            data['lodgingimages'] = LodgingOfferImagesFormset()
-            return data
-
-    def form_valid(self, form):
-        context = self.get_context_data()
-        lodgingimages = context['lodgingimages']
-        print('contexto enviado', lodgingimages)
-        with transaction.atomic():
-            self.object = form.save()
-
-            if lodgingimages.is_valid():
-                lodgingimages.instance = self.object
-                lodgingimages.save()
-        return super(LodgingOfferImageCreate, self).form_valid(form)
-
-'''
-
-
 class HostingOfferCreateView(SuccessMessageMixin, LoginRequiredMixin, UserProfileDataMixin, CreateView):
     model = LodgingOffer
     form_class = LodgingOfferForm
@@ -241,59 +218,12 @@ class HostingOfferCreateView(SuccessMessageMixin, LoginRequiredMixin, UserProfil
                       "A continuación agrega más imágenes para generar " \
                       "mayor interés en los usuarios"
 
-    #def post(self, request, *args, **kwargs):
-
-
-
     def form_valid(self, form):
         form.save(commit=False)
         form.instance.created_by = self.request.user
         form.save()
         # success_message = "Oferta de estudio creada con éxito"
         return super(HostingOfferCreateView, self).form_valid(form)
-
-
-    '''
-    # ORiginal
-    def post(self, request, *args, **kwargs):
-        print('post arrive')
-        ImageFormSet = modelformset_factory(LodgingOfferImage, form=LodgingOfferImagesForm, extra=3)
-        lodging_offerForm = LodgingOfferForm(self.request.POST)
-        formset = ImageFormSet(self.request.POST, self.request.FILES,
-                               queryset=LodgingOfferImage.objects.none())
-
-        print('Request del usuario antes de validar el form', self.request.user)
-
-        if lodging_offerForm.is_valid() and formset.is_valid():
-            lodging_offer_form = lodging_offerForm.save(commit=False)
-            print('Request del usuario despues de validado el form', request.user.id)
-            lodging_offer_form.created_by_id = self.request.user.id
-            lodging_offer_form.save()
-
-            for form in formset.cleaned_data:
-                image = form['image']
-                photo = LodgingOfferImage(lodging_offer=lodging_offer_form, image=image)
-                photo.save()
-            messages.success(self.request,
-                             "Yeeew,check it out on the home page!")
-            #return redirect('host:detail', slug=self.slug_url_kwarg)
-            #return HttpResponseRedirect(lodging_offer_form.get_absolute_url())
-            #return self.form_valid(form)
-        return super(HostingOfferCreateView, self).post(request, *args, **kwargs)
-
-    def get_context_data(self, **kwargs):
-        print('Request del usuario', self.request.user)
-        context = super(HostingOfferCreateView, self).get_context_data(**kwargs)
-        ImageFormSet = modelformset_factory(LodgingOfferImage,
-                                            form=LodgingOfferImagesForm, extra=3)
-        lodging_offerForm = LodgingOfferForm()
-        formset = ImageFormSet(queryset=LodgingOfferImage.objects.none())
-        context['lodging_offerForm'] = lodging_offerForm
-        context['formset'] = formset
-        return context 
-    # END ORIGINAL
-    
-    '''
 
 
 class HostingOfferUpdateView(SuccessMessageMixin, UserProfileDataMixin, LoginRequiredMixin, UpdateView):
@@ -555,7 +485,7 @@ class HostingOfferDeleteView(SuccessMessageMixin, UserProfileDataMixin, LoginReq
 
     # success_url = reverse_lazy("host:list")
     context_object_name = 'lodgingofferdelete'
-    success_message = "Oferta de alojamientio eliminada con éxito"
+    success_message = "Oferta de alojamiento eliminada con éxito"
 
     def get_object(self, queryset=None):
         """ Hook to ensure object is owned by request.user. """
@@ -564,13 +494,6 @@ class HostingOfferDeleteView(SuccessMessageMixin, UserProfileDataMixin, LoginReq
             raise Http404
         return obj
 
-    '''
-    def get_success_url(self):
-        lodging_offer = LodgingOffer.objects.get(slug=self.kwargs.get('slug'))
-        print('dsddsds',lodging_offer.created_by.slug)
-        # return reverse("host:edit-study-offer-image", kwargs={self.pk_url_kwarg: self.kwargs.get('pk')})
-        return reverse_lazy("host:list", kwargs={self.slug_url_kwarg:lodging_offer.created_by.email})
-    '''
     def get_context_data(self, **kwargs):
         context = super(HostingOfferDeleteView, self).get_context_data(**kwargs)
         return context

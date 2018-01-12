@@ -24,71 +24,80 @@
         </div>
       </div>
     </div>
-
-
-
     <div class="formgroup">
       <span></span>
         {{ form.query }}
-    </div> 
+    </div> <br />
   </form>
-</div>
-  {% if "query" in request.GET %}<br />
-  <div class="main">
-    <p><h3>Ofertas de alojamiento que contengan: "{{ cd.query }}"</h3></p>
-    <span>Encontrados cerca de {{ total_results }} resultado{{ total_results|pluralize }}</span>
-  </div>
-  <br /><br />
 
-    {% for result in results %}
-        {% with lodgingoffer=result.object %}
-  <article class="host full-width" >
-    <a href="{% url 'host:detail' lodgingoffer.slug %}">
-        <div class="img-title-cont">
-            <!-- la imagen de las publicaciones debe ser una imagen de background para poder modificar el
-            contenedor independientemente del tamaño de la imagen -->
-            {% if lodgingoffer.image %}
-            <div class="img" style="background: url('{{ lodgingoffer.image.url }}') no-repeat center; background-size:cover;"></div>
-            {% endif %}
-            <div class="title-cont">
-                <h3>{{ lodgingoffer.ad_title }}</h3>
-            </div>
-        </div>
-    </a>
-    <small>{{ lodgingoffer.pub_date }}</small>
-    <div class="post-info">
-        <div class="post-type"><i>ALOJAMIENTO</i></div><br/>
-        <strong>Tipo de habitación ofrecida:</strong> {{ lodgingoffer.room_type_offered }}<br/>
-        <strong>Número de huéspedes en habitación:</strong> {{ lodgingoffer.number_guest_room_type }}
-
-        {% if lodgingoffer.created_by.first_name %}
-        <p>Publicada por: {{ lodgingoffer.created_by.get_long_name }}</p>
-        {% endif %}
-        {% if lodgingoffer.created_by.get_enterprise_name %}
-        <p>Publicada por: {{ lodgingoffer.created_by.get_enterprise_name }}</p>
-        {% endif %}
-        <div class="description">{{ lodgingoffer.additional_description|linebreaks|truncatechars:420 }}</div>
-        <!-- Calificaciones -->
-      <hr/>
-        {% comment %}
-        <div class="review">
-            <p class="cost"><span>$ </span>147.000</p>
-            <div class="stars">
-                <!-- Dentro de esta etiqueta se pondrán las estrellas, estas son de muestra-->
-                <img src="{% static 'img/stars.svg' %}" alt="4.5 estrellas">
-                <div class="average">
-                    <span>546</span>
-                    <span>Valoraciones</span>
+{% for offers in offer_list %}
+   <article class="host full-width" >
+       <a href="{% url 'host:detail' offers.slug %}">
+           <div class="img-title-cont">
+               {% if offers.image %}
+                    <div class="img" style="background: url('{{ offers.image.url }}') no-repeat center; background-size:cover;"></div>
+                {% endif %}
+                <div class="title-cont">
+                    <h3>{{ offers.ad_title }}</h3>
                 </div>
             </div>
-        </div>
-        {% endcomment %}
-        <!-- //Calificaciones -->
+       </a>
+       <small>{{ offers.pub_date }}</small>
+       <div class="post-info">
+           <div class="post-type"><i>ALOJAMIENTO</i></div><br/>
+           <strong>Tipo de habitación ofrecida:</strong> {{ offers.room_type_offered }}<br/>
+           <strong>Número de huéspedes en habitación:</strong> {{ offers.number_guest_room_type }}
+           {% if offers.created_by.first_name %}
+               <p>Publicada por: {{ offers.created_by.get_long_name }}</p>
+           {% endif %}
+           {% if offers.created_by.get_enterprise_name %}
+               <p>Publicada por: {{ offers.created_by.get_enterprise_name }}</p>
+           {% endif %}
+           <div class="description">{{ offers.additional_description|linebreaks|truncatechars:420 }}</div>
+       </div>
+   </article>
+{% endfor %}
+
+{% if "query" in request.GET %}<br />
+    <div class="main">
+        <p><h3>Ofertas de alojamiento que contengan: "{{ cd.query }}"</h3></p>
+        <span>Encontrados cerca de {{ total_results }} resultado{{ total_results|pluralize }}</span>
+    </div>
+    <br /><br />
+    {% for result in results %}
+        {% with lodgingoffer=result.object %}
+        <article class="host full-width" >
+            <a href="{% url 'host:detail' lodgingoffer.slug %}">
+                <div class="img-title-cont">
+                    {% if lodgingoffer.image %}
+                    <div class="img" style="background: url('{{ lodgingoffer.image.url }}') no-repeat center; background-size:cover;"></div>
+                    {% endif %}
+                    <div class="title-cont">
+                        <h3>{{ lodgingoffer.ad_title }}</h3>
+                    </div>
+                </div>
+            </a>
+            <small>{{ lodgingoffer.pub_date }}</small>
+            <div class="post-info">
+                <div class="post-type"><i>ALOJAMIENTO</i></div><br/>
+                <strong>Tipo de habitación ofrecida:</strong> {{ lodgingoffer.room_type_offered }}<br/>
+                <strong>Número de huéspedes en habitación:</strong> {{ lodgingoffer.number_guest_room_type }}
+
+                {% if lodgingoffer.created_by.first_name %}
+                <p>Publicada por: {{ lodgingoffer.created_by.get_long_name }}</p>
+                {% endif %}
+                {% if lodgingoffer.created_by.get_enterprise_name %}
+                <p>Publicada por: {{ lodgingoffer.created_by.get_enterprise_name }}</p>
+                {% endif %}
+                <div class="description">{{ lodgingoffer.additional_description|linebreaks|truncatechars:420 }}</div>
+              <hr/>
         {% endwith %}
         {% empty %}
-          <p>No existen resultados para tu búsqueda de "{{ cd.query }}".</p>
+        <p>No existen resultados para tu búsqueda de "{{ cd.query }}".</p>
     {% endfor %}
+            </div>
+        </article>
     </div>
-  </article>
 {% endif %}
+
 {% endblock %}
