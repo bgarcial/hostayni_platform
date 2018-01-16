@@ -28,6 +28,8 @@ from django.core.files import File
 from pathlib import Path  # python 3.6+ only!
 
 
+def get_images_search_path(instance, filename):
+    return '/'.join(['lodging_offer_images', instance.slug, filename])
 
 
 class LodgingOfferManager(models.Manager):
@@ -36,12 +38,16 @@ class LodgingOfferManager(models.Manager):
         return super(LodgingOfferManager, self).filter(is_taked=False).filter(pub_date__lte=timezone.now())
 
 
+'''
 def get_lodging_image_search_path(instance, filename):
     return '/'.join(['lodging_offer_images', instance.slug, filename])
+'''
+
+
+
 
 
 class LodgingOffer(models.Model):
-
     ALL_PROPERTY = 'Toda la propiedad'
     PRIVATE_ROOM = 'Habitación privada'
     SHARED_ROOM = 'Habitación compartida'
@@ -96,7 +102,6 @@ class LodgingOffer(models.Model):
     HOUSE_APT_SHARE_VISITORS = 'Casa o apartamento para compartir con otros huéspedes'
     HOUSE_OR_PRIV_APT = 'Casa o apartamento privado'
 
-
     LODGING_OFFER_TYPE_ORG_CHOICES = (
         (HOTEL, "Hotel"),
         (HOSTEL, "Hostal"),
@@ -111,7 +116,6 @@ class LodgingOffer(models.Model):
     THREE_STARS = '3 estrellas'
     FOUR_STARS = '4 estrellas'
     FIVE_STARS = '5 estrellas'
-
 
     STARS_NUMBER_CHOICES = (
         (ONE_STAR, "1 estrella"),
@@ -262,7 +266,7 @@ class LodgingOffer(models.Model):
     )
 
     photo = models.ImageField(
-        upload_to=get_lodging_image_search_path,
+        upload_to=get_images_search_path,
         blank=False,
         verbose_name='Fotografía',
         null=False,
@@ -332,9 +336,10 @@ pre_save.connect(pre_save_lodging_offer_receiver, sender=LodgingOffer)
 
 
 def get_image_filename(instance, filename):
-    title = instance.lodging_offer.ad_title
-    slug = slugify(title)
-    return "lodging_offer_images/%s/%s" % (slug, filename)
+    # title = instance.lodging_offer.ad_title
+    # slug = slugify(title)
+    #return "lodging_offer_images/%s/%s" % (slug, filename)
+    return '/'.join(['lodging_offer_images', instance.lodging_offer.slug, filename])
 
 
 class LodgingOfferImage(models.Model):

@@ -1,0 +1,31 @@
+[{
+	"model": "accounts.professorprofile",
+	"pk": 1,
+	"fields": {
+		"user": 3,
+		"slug": "christiandiazleon@gmail.com",
+		"occupation": "['CATHEDRAL', 'RESEARCH']",
+		"origin_education_school": "Universidad EAFIT",
+		"current_education_school": "Universidad EAFIT",
+		"educational_titles": "Ing. Biom\u00e9dico, M.Sc., Ph.D.",
+		"complete_studies_school": "Universidad EAFIT",
+		"knowledge_topics_choice": "Virtual reality, biomedical engineering, health simulation, surgical simulation, augmented reality, videogames",
+		"research_groups": "Grupo de Investigaci\u00f3n SimDesign",
+		"autorship_publications": "Varias"
+	}
+}, {
+	"model": "accounts.professorprofile",
+	"pk": 2,
+	"fields": {
+		"user": 8,
+		"slug": "juanjaimearroyaver@gmail.com",
+		"occupation": "",
+		"origin_education_school": "",
+		"current_education_school": "",
+		"educational_titles": "",
+		"complete_studies_school": "",
+		"knowledge_topics_choice": "",
+		"research_groups": "",
+		"autorship_publications": ""
+	}
+}]

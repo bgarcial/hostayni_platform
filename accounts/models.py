@@ -958,14 +958,13 @@ class HostingHostProfile(models.Model):
         blank=True
     )
 
-<<<<<<< HEAD
-=======
+
     additional_description = models.TextField(
         null=False,
         blank=False
     )
 
->>>>>>> development
+
     class Meta:
         verbose_name_plural = 'Usuarios con perfil de anfitriones de hospedaje'
 

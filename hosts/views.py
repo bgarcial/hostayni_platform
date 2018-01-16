@@ -221,6 +221,7 @@ class HostingOfferCreateView(SuccessMessageMixin, LoginRequiredMixin, UserProfil
     def form_valid(self, form):
         form.save(commit=False)
         form.instance.created_by = self.request.user
+        form.instance.pub_date = timezone.now()
         form.save()
         # success_message = "Oferta de estudio creada con éxito"
         return super(HostingOfferCreateView, self).form_valid(form)
@@ -503,8 +504,6 @@ class HostingOfferDeleteView(SuccessMessageMixin, UserProfileDataMixin, LoginReq
 class StudyOfferCreateView(SuccessMessageMixin, LoginRequiredMixin, UserProfileDataMixin, CreateView):
     model = StudiesOffert
     form_class = StudiesOffertForm
-    #success_url = reverse_lazy("host:detail")
-    #success_url = reverse_lazy("dashboard")
     success_message = "Tu oferta educativa ha sido creada con éxito. " \
                       "A continuación agrega más imágenes para generar " \
                       "mayor interés en los usuarios"

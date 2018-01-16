@@ -1,0 +1,43 @@
+[{
+	"model": "blog.category",
+	"pk": 1,
+	"fields": {
+		"title": "ALOJAMIENTO",
+		"description": "ALOJAMIENTO"
+	}
+}, {
+	"model": "blog.category",
+	"pk": 2,
+	"fields": {
+		"title": "INNOVACI\u00d3N",
+		"description": "INNOVACI\u00d3N"
+	}
+}, {
+	"model": "blog.category",
+	"pk": 3,
+	"fields": {
+		"title": "VIDA DIARIA",
+		"description": "VIDA DIARIA"
+	}
+}, {
+	"model": "blog.category",
+	"pk": 4,
+	"fields": {
+		"title": "SOSTENIBILIDAD",
+		"description": "SOSTENIBILIDAD"
+	}
+}, {
+	"model": "blog.category",
+	"pk": 5,
+	"fields": {
+		"title": "AMIGOS",
+		"description": "AMIGOS"
+	}
+}, {
+	"model": "blog.category",
+	"pk": 6,
+	"fields": {
+		"title": "EDUCACI\u00d3N",
+		"description": "EDUCACI\u00d3N"
+	}
+}]
