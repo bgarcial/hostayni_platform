@@ -44,7 +44,6 @@ header {
   flex-flow: row wrap;
   box-shadow: 0 0 1px 1px rgba(20,23,28,.1), 0 3px 1px 0 rgba(20,23,28,.1);
   width: 100%;
-  /*justify-content: space-evenly;*/
   }
   header .registration {
     display: flex;
@@ -60,11 +59,9 @@ header {
     display: flex;
     flex-flow: row wrap;
     height: 100%;
-    margin: 20px 20px 0 0px;
-    width: 18%;
-    justify-content: flex-end; }
-
-
+    margin: 0 0 0 0;
+    width: 300px;
+    justify-content: center; }
     header .profile-options .img {
       display: flex;
       flex-flow: row wrap;
@@ -73,9 +70,9 @@ header {
       -ms-border-radius: 10px;
       border-radius: 10px;
       width: 50px;
-      height: auto;
+      height: inherit;
       float: right;
-      margin-top: 23%;
+      margin-top: 15%;
     }
       header .profile-options .img img {
         display: inline-block;
@@ -85,16 +82,13 @@ header {
     header .profile-options .name-options-cont {
       display: flex;
       flex-flow: row wrap;
-      height: auto;
-      width: 60%;
-      margin: 30% 0 0 0;
-      justify-content: flex-end; }
-
+      height: inherit;
+      width: 70%;
+      margin: 20% 0 0 auto; }
       header .profile-options .name-options-cont .name {
         color: #706f6f;
         overflow: hidden;
-        height: 21px;
-        display: none;}
+        height: 21px; }
         header .profile-options .name-options-cont .name p {
           text-align: right;
           cursor: pointer; }
@@ -124,6 +118,7 @@ header {
             border-bottom: 2px solid #d6d6d6;
             margin: 7px 0; }
 
+
 .button_a{
   width: 50%;
 }
@@ -151,16 +146,17 @@ main {
   width: 90%;
   margin: 50px;
   justify-content: center;
+  background-color: #DEDC00;
  }
 
 
 .logo_container{
   display: flex;
   flex-flow: row wrap;
-  height: auto;
-  max-width: 30%;
+  height: 80%;
+  max-width: 40%;
   padding-right: 0.9rem;
-  padding-left: 2.0rem;
+  padding-left: 3.0rem;
   margin-top: 45px;
 }
 
@@ -169,31 +165,24 @@ main {
   height: 55%;
 }
 
-.logo_img_low{
-  width: 90%;
-  height: 55%;
-  display: none;
-}
-
 .icons{
   display: flex;
   flex-flow: row wrap;
   width: 40%;
-  margin-left: 1.0%;
-  margin-right: 1.0%;
+  margin-left: 5px;
+  margin-right: 5px;
   justify-content: center;
-  margin-top: 40px;
-  margin-bottom: 20px;
+  margin-top: 65px;
 }
 
 .pic_icon{
   padding: 0;
-  flex: 0 0 14%;
+  flex: 0 0 12%;
   margin: 1px;
   align-items: center;
   margin-left: 5px;
   margin-right: 5px;
-  margin-top: 20px;
+  margin-top: 10px;
 }
 
 .search_ele{
@@ -278,10 +267,6 @@ article {
     filter: progid:DXImageTransform.Microsoft.gradient( startColorstr= '#66000000', endColorstr='#007db9e8',GradientType=1 ); }
 
   article .post-info {
-    display: flex;
-    flex-flow: row wrap;
-    /*height: 80%;
-    max-width: 40%;*/
     padding-top: 5px;
     margin-left: 10px;
     margin-right: 10px;
@@ -289,22 +274,19 @@ article {
     margin-top: 10px;}
 
   article .post-info .post-type {
-    display: flex;
-    flex-flow: row wrap;
-    height: 15px;
-    align-items: left;
-    margin-left: 7.5%; }
+    display: inline-block;
+    height: 23px;
+    margin-right: 10px; }
 
   article .article-date{
-    width: 45%;
     margin-left: 10px;
-    font-size: 80%;
-    text-align: right;
+    margin-top: 10px;
+    width: 51%;
+    background-color: red;
   }
 
   article .article-author{
-    width: 50%;
-    font-size: 90%;
+    width: 30%;
   }
 
   article .medium-post{
@@ -328,12 +310,8 @@ article {
         margin-top: -4px; }
 
   article .post-info .description {
-      /*display: block;
-      vertical-align: top;*/
-      display: flex;
-      flex-flow: row wrap;
-      height: 50%;
-      width: 50%;
+      display: block;
+      vertical-align: top;
       color: #4c4c4c;
       overflow: hidden;
       font-size: 0.95em;
@@ -363,20 +341,6 @@ article {
         font-size: 0.95em;
         color: #706f6f; }
 
-.first_part_postinfo{
-  display: flex;
-  flex-flow: row wrap;
-  height: 10%;
-  width: 100%;
-}
-
-.second_part_postinfo{
-  display: flex;
-  flex-flow: row wrap;
-  height: 3%;
-  width: 100%
-}
-
 .innovate .post-type i {
   background-color: #1d71b6; }
 
@@ -402,14 +366,12 @@ article {
   border-width: 1px;
   margin-top: 20px;
   box-shadow: 0 0 1px 1px rgba(20,23,28,.1), 0 3px 1px 0 rgba(20,23,28,.1);
-  flex: 0 0 45%;
+  flex: 0 0 30%;
   }
 
  .full-width .post-info .description {
-   display: flex;
-   flex-flow: row wrap;
-   width: 65%;
-   height: 100%; }
+    display: inline-block;
+    width: 64%; }
 
  .full-width .post-info .review {
     display: inline-block;
@@ -448,20 +410,16 @@ footer {
   footer .main-cont {
     background: url("../img/background-text.jpg");
     background-repeat: repeat;
-    padding: 20px 10px;
-    height: 200px; }
+    padding: 20px 10px; }
     footer .main-cont .content {
-      display: flex;
-      flex-flow: row wrap;
       margin: 0 auto;
       max-width: 1500px; }
       footer .main-cont .content .logo {
-        display: flex;
-        flex-flow: row wrap;
-        margin-right: 10px;
-        vertical-align: middle;
-        width: 14%;
-        height: 70%;}
+        display: inline-block;
+        height: 60px;
+        width: auto;
+        margin-right: 40px;
+        vertical-align: middle; }
         footer .main-cont .content img {
           height: inherit;
           width: auto; }
@@ -482,47 +440,3 @@ footer {
         footer .main-cont .content .legal p {
           color: #706f6f;
           font-size: 0.8em; }
-
-    .quienes-somos{
-      display: flex;
-      flex-flow: row wrap;
-      width: 25%;
-      height: auto;
-      margin-right: 10px;
-      font-size: 11px;
-    }
-
-    .links-servicios{
-      display: flex;
-      flex-flow: row wrap;
-      width: 20%;
-      height: 70%;
-      margin-top: 10px;
-    }
-
-    .link-each{
-      width: 100%;
-      height: auto;
-      text-align: center;
-      vertical-align: middle;
-    }
-
-    .terminos-contactenos{
-      display: flex;
-      flex-flow: row wrap;
-      width: 37%;
-      height: 40%;
-      margin-top: 33px;
-    }
-
-    .terminos-each{
-      width: 100%;
-      height: auto;
-      text-align: right;
-    }
-
-    .legal{
-      width: 100%;
-      text-align: center;
-      margin-top: 5px;
-    }

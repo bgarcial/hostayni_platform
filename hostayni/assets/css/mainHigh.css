@@ -44,6 +44,7 @@ header {
   flex-flow: row wrap;
   box-shadow: 0 0 1px 1px rgba(20,23,28,.1), 0 3px 1px 0 rgba(20,23,28,.1);
   width: 100%;
+  justify-content: space-evenly;
   }
   header .registration {
     display: flex;
@@ -59,9 +60,11 @@ header {
     display: flex;
     flex-flow: row wrap;
     height: 100%;
-    margin: 0 0 0 0;
-    width: 300px;
-    justify-content: center; }
+    margin: 0 0 0 -13px;
+    width: 26%;
+    justify-content: flex-end; }
+
+
     header .profile-options .img {
       display: flex;
       flex-flow: row wrap;
@@ -70,7 +73,7 @@ header {
       -ms-border-radius: 10px;
       border-radius: 10px;
       width: 50px;
-      height: inherit;
+      height: auto;
       float: right;
       margin-top: 15%;
     }
@@ -82,9 +85,11 @@ header {
     header .profile-options .name-options-cont {
       display: flex;
       flex-flow: row wrap;
-      height: inherit;
+      height: auto;
       width: 70%;
-      margin: 20% 0 0 auto; }
+      margin: 20% 0 0 0;
+      justify-content: flex-end; }
+
       header .profile-options .name-options-cont .name {
         color: #706f6f;
         overflow: hidden;
@@ -118,7 +123,6 @@ header {
             border-bottom: 2px solid #d6d6d6;
             margin: 7px 0; }
 
-
 .button_a{
   width: 50%;
 }
@@ -146,7 +150,6 @@ main {
   width: 90%;
   margin: 50px;
   justify-content: center;
-  background-color: #DEDC00;
  }
 
 
@@ -165,15 +168,23 @@ main {
   height: 55%;
 }
 
+.logo_img_low{
+  width: 90%;
+  height: 55%;
+  display: none;
+}
+
 .icons{
   display: flex;
   flex-flow: row wrap;
-  width: 40%;
-  margin-left: 5px;
-  margin-right: 5px;
+  width: 41%;
+  margin-left: 2.5%;
+  margin-right: 2%;
   justify-content: center;
-  margin-top: 65px;
+  margin-top: 50px;
+  margin-bottom: 20px;
 }
+
 
 .pic_icon{
   padding: 0;
@@ -267,6 +278,10 @@ article {
     filter: progid:DXImageTransform.Microsoft.gradient( startColorstr= '#66000000', endColorstr='#007db9e8',GradientType=1 ); }
 
   article .post-info {
+    display: flex;
+    flex-flow: row wrap;
+    /*height: 80%;
+    max-width: 40%;*/
     padding-top: 5px;
     margin-left: 10px;
     margin-right: 10px;
@@ -274,19 +289,22 @@ article {
     margin-top: 10px;}
 
   article .post-info .post-type {
-    display: inline-block;
-    height: 23px;
-    margin-right: 10px; }
+    display: flex;
+    flex-flow: row wrap;
+    height: 15px;
+    align-items: left;
+    margin-left: 7.5%; }
 
   article .article-date{
+    width: 45%;
     margin-left: 10px;
-    margin-top: 10px;
-    width: 51%;
-    background-color: red;
+    font-size: 80%;
+    text-align: right;
   }
 
   article .article-author{
-    width: 30%;
+    width: 50%;
+    font-size: 90%;
   }
 
   article .medium-post{
@@ -310,8 +328,12 @@ article {
         margin-top: -4px; }
 
   article .post-info .description {
-      display: block;
-      vertical-align: top;
+      /*display: block;
+      vertical-align: top;*/
+      display: flex;
+      flex-flow: row wrap;
+      height: 50%;
+      width: 50%;
       color: #4c4c4c;
       overflow: hidden;
       font-size: 0.95em;
@@ -340,6 +362,20 @@ article {
       article .post-info .review .average {
         font-size: 0.95em;
         color: #706f6f; }
+
+.first_part_postinfo{
+  display: flex;
+  flex-flow: row wrap;
+  height: 10%;
+  width: 100%;
+}
+
+.second_part_postinfo{
+  display: flex;
+  flex-flow: row wrap;
+  height: 3%;
+  width: 100%
+}
 
 .innovate .post-type i {
   background-color: #1d71b6; }
@@ -370,8 +406,10 @@ article {
   }
 
  .full-width .post-info .description {
-    display: inline-block;
-    width: 64%; }
+   display: flex;
+   flex-flow: row wrap;
+   width: 65%;
+   height: 100%; }
 
  .full-width .post-info .review {
     display: inline-block;
@@ -410,16 +448,20 @@ footer {
   footer .main-cont {
     background: url("../img/background-text.jpg");
     background-repeat: repeat;
-    padding: 20px 10px; }
+    padding: 20px 10px;
+    height: 200px; }
     footer .main-cont .content {
+      display: flex;
+      flex-flow: row wrap;
       margin: 0 auto;
       max-width: 1500px; }
       footer .main-cont .content .logo {
-        display: inline-block;
-        height: 60px;
-        width: auto;
-        margin-right: 40px;
-        vertical-align: middle; }
+        display: flex;
+        flex-flow: row wrap;
+        margin-right: 10px;
+        vertical-align: middle;
+        width: 10%;
+        height: 70%;}
         footer .main-cont .content img {
           height: inherit;
           width: auto; }
@@ -440,3 +482,46 @@ footer {
         footer .main-cont .content .legal p {
           color: #706f6f;
           font-size: 0.8em; }
+
+    .quienes-somos{
+      display: flex;
+      flex-flow: row wrap;
+      width: 25%;
+      height: auto;
+      margin-right: 10px;
+    }
+
+    .links-servicios{
+      display: flex;
+      flex-flow: row wrap;
+      width: 25%;
+      height: 70%;
+      margin-top: 10px;
+    }
+
+    .link-each{
+      width: 100%;
+      height: auto;
+      text-align: center;
+      vertical-align: middle;
+    }
+
+    .terminos-contactenos{
+      display: flex;
+      flex-flow: row wrap;
+      width: 37%;
+      height: 40%;
+      margin-top: 33px;
+    }
+
+    .terminos-each{
+      width: 100%;
+      height: auto;
+      text-align: right;
+    }
+
+    .legal{
+      width: 100%;
+      text-align: center;
+      margin-top: 5px;
+    }
