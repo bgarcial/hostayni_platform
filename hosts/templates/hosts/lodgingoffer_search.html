@@ -34,7 +34,7 @@
    <article class="host full-width" >
        <a href="{% url 'host:detail' offers.slug %}">
            <div class="img-title-cont">
-               {% if offers.image %}
+               {% if offers.photo %}
                     <div class="img" style="background: url('{{ offers.photo.url }}') no-repeat center; background-size:cover;"></div>
                 {% endif %}
                 <div class="title-cont">
@@ -69,8 +69,8 @@
         <article class="host full-width" >
             <a href="{% url 'host:detail' lodgingoffer.slug %}">
                 <div class="img-title-cont">
-                    {% if lodgingoffer.image %}
-                    <div class="img" style="background: url('{{ lodgingoffer.image.url }}') no-repeat center; background-size:cover;"></div>
+                    {% if lodgingoffer.photo %}
+                    <div class="img" style="background: url('{{ lodgingoffer.photo.url }}') no-repeat center; background-size:cover;"></div>
                     {% endif %}
                     <div class="title-cont">
                         <h3>{{ lodgingoffer.ad_title }}</h3>
