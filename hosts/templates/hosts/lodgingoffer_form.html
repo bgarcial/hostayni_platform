@@ -47,16 +47,6 @@
               <input type="submit" value="Guardar" class="submit-button">
             </div>
         </div>
-        
-        <!-- botón opcional, creo que por el momento sería mejor no aplicar esta funcionalidad ya que había que hacer una pantalla de ofertas guardadas -->
-        {% comment %}
-        <div class="save">
-          <a href="#">
-              <img src="img/icons/save.png" alt="">
-              <span>Guardar</span>
-              </a>
-        </div>
-        {% endcomment %}        
       </div>
       {% csrf_token %}
       <div class="col margin-right">
@@ -106,7 +96,7 @@
       </div>
       <div class="col">
         <div class="formgroup">
-          {% bootstrap_field form.image %}
+          {% bootstrap_field form.photo %}
           {% bootstrap_field form.bed_type %}
           {% bootstrap_field form.bathroom %}
           {% bootstrap_field form.room_information %}

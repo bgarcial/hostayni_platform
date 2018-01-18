@@ -1,14 +1,14 @@
 from django.contrib import admin
 
 from django.contrib import admin
-from .models import LodgingOffer, StudiesOffert, UploadStudyOffer
+from .models import LodgingOffer, StudiesOffert, StudyOfferImage
     #StudiesTypeOffered, StudiesOffertList, ,
 
 
-@admin.register(UploadStudyOffer)
-class UploadStudyOfferAdmin(admin.ModelAdmin):
-    list_display = ['__str__', 'study_offer', 'order', 'start_date', 'end_date', 'active', 'featured', 'image']
-    list_editable = ['order', 'active', 'featured']
+@admin.register(StudyOfferImage)
+class StudyOfferImageAdmin(admin.ModelAdmin):
+    list_display = ['__str__', 'study_offer', 'image']
+    # list_editable = ['order', 'active', 'featured']
 
 @admin.register(LodgingOffer)
 class LodgingOfferAdmin(admin.ModelAdmin):

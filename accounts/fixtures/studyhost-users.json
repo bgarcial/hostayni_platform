@@ -1,0 +1,13 @@
+[{
+	"model": "accounts.studyhostprofile",
+	"pk": 2,
+	"fields": {
+		"user": 13,
+		"slug": "bgarcial@eafit.edu.co",
+		"institution_type": "",
+		"institute_character": "",
+		"high_quality_accreditations": "",
+		"students_number": "",
+		"rankings_classification": ""
+	}
+}]

@@ -53,8 +53,8 @@ def article_create(request):
         instance = form.save(commit=False)
         instance.author = request.user
         instance.publish = timezone.now()
-        print(form.cleaned_data.get('title'))
-        print(form.cleaned_data.get('content'))
+        # print(form.cleaned_data.get('title'))
+        # print(form.cleaned_data.get('content'))
         instance.save()
         # message success
         messages.success(request, "Tus artículo ha sido creado con éxito")
@@ -71,8 +71,8 @@ def article_create(request):
                 field=key,
                 error=value.as_text()
             )
-            print(error_str)
-        print(form.non_field_errors)
+            # print(error_str)
+        # print(form.non_field_errors)
         # Falta que se limpien los campos delmformulario
         #title = form.cleaned_data.get('title')
         #form.cleaned_data.get('title')
@@ -238,37 +238,6 @@ def article_delete(request, slug=None):
     return redirect("articles:article_list")
 
 
-
-# ****--- fbv CRUD blog poss ---*****
-
-def article_share(request, slug):
-    # Retrieve article by id
-    article = get_object_or_404(Article, slug=slug,
-        published_date__lte=timezone.now())
-
-    sent = False
-
-    if request.method == 'POST':
-        # Form was submitted
-        form = EmailPostForm(request.POST)
-        if form.is_valid():
-            # Form fields passed validation
-            cd = form.cleaned_data
-            article_url = request.build_absolute_uri(
-                                          article.get_absolute_url())
-            subject = '{} ({}) recommends you reading "{}"'.format(cd['name'], cd['email'], article.title)
-            message = 'Read "{}" at {}\n\n{}\'s comments: {}'.format(article.title, article_url, cd['name'], cd['comments'])
-            send_mail(subject, message, 'hostayni@gmail.com', [cd['to']])
-            sent = True
-            #print(sent)
-    else:
-        form = EmailPostForm()
-    return render(request, 'blog/share.html',
-                 {'article': article,
-                 'form': form,
-                 'sent': sent})
-
-
 def articles_by_user(request, email):
     user = request.user
     profile = user.profile
@@ -278,8 +247,6 @@ def articles_by_user(request, email):
         'blog/my_articles.html',
         {'articles': articles,
         'userprofile': profile})
-
-
 
 
 
@@ -385,53 +352,8 @@ class ArticleDraftListView(LoginRequiredMixin, UserProfileDataMixin, ListView):
     def get_queryset(self):
         return Article.objects.filter(published_date__isnull=True).order_by('created_date')
 
-#######################################
-## Functions that require a pk match ##
-#######################################
-
-@login_required
-def article_publish(request, slug):
-    article = get_object_or_404(Article, slug=slug)
-    # View publish method in Article model
-    article.publish()
-    return redirect('articles:detail', slug=slug)
-
-@login_required
-def add_comment_to_article(request, pk):
-    article = get_object_or_404(Article, pk=pk)
-    if request.method == 'POST':
-        form = CommentForm(request.POST)
-        if form.is_valid():
-            comment = form.save(commit=False)
-            # Queremos conectar ese comentario particular de un articulo
-            # a un objeto articulo y grabarlo
-            # ver en modelo Comment la F.K article
-            comment.article = article
-            comment.save()
-            return redirect('article_detail', pk=article.pk)
-    # Pero si el request method no es un POST, es decir, que alguien
-    # no ha llenado el formulario de comentario, pinte el formulario
-    # y pasamos en el contexto, un diccionario que contiene el form
-    # a renderizar
-    else:
-        form = CommentForm()
-    return render(request, 'blog/comment_form.html', {'form':form})
 
 
-@login_required
-def comment_approve(request, pk):
-    comment = get_object_or_404(Comment, pk=pk)
-    # View approve method in Comment model which set one Comment object
-    # to approved_comment = True
-    comment.approve()
-    return redirect('article_detail', pk=comment.article.pk)
-    # Un comment esta conectado a un articulo particular en el modelo
-    # Comment
 
 
-@login_required
-def comment_remove(request, pk):
-    comment = get_object_or_404(Comment, pk=pk)
-    article_pk = comment.article.pk
-    comment.delete()
-    return redirect('article_detail', pk=article_pk)
+
