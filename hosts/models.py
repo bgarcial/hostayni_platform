@@ -267,6 +267,7 @@ class LodgingOffer(models.Model):
 
     photo = models.ImageField(
         upload_to=get_images_search_path,
+        # upload_to='lodging_offer_images',
         blank=False,
         verbose_name='Fotografía',
         null=False,
@@ -280,8 +281,6 @@ class LodgingOffer(models.Model):
         blank=True,
         verbose_name='Descripción adicional'
     )
-
-
 
     pub_date = models.DateTimeField(
         auto_now_add=True,

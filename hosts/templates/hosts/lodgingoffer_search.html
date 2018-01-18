@@ -35,7 +35,7 @@
        <a href="{% url 'host:detail' offers.slug %}">
            <div class="img-title-cont">
                {% if offers.image %}
-                    <div class="img" style="background: url('{{ offers.image.url }}') no-repeat center; background-size:cover;"></div>
+                    <div class="img" style="background: url('{{ offers.photo.url }}') no-repeat center; background-size:cover;"></div>
                 {% endif %}
                 <div class="title-cont">
                     <h3>{{ offers.ad_title }}</h3>
