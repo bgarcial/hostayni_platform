@@ -1,10 +1,7 @@
 {% extends "layout.html" %}
-{% load bootstrap3 %}
+<!-- {% load bootstrap3 %} -->
 {% load staticfiles %}
 {% block title_tag %} {{ instance.title }} | {{ block.super }}{% endblock %}
-{% block top_logo %}
-{% include "top-logo.html" %}
-{% endblock %}
 
 <!--
 <style>
@@ -18,6 +15,119 @@ h1 {
 -->
 {% block body_content %}
 
+<div class="article-container">
+
+
+<!-- Contenido principal (ofertas) -->
+
+<div class="main-article">
+    <div class="blog-body">
+        {% if instance.image %}
+        <img src="{{ instance.image.url }}" width="1000" height="1000" class="img-responsive">
+        {% endif %}
+
+        <div class="title-cont">
+            <h1 class="title-article">{{ title }} <small>{% if instance.draft %}<span style='color: red'> Borrador</span> {% endif %}</small> </h1>
+            {% if instance.author.id == userprofile.user.id %}
+                <p><a class="glyphicon glyphicon-pencil" aria-hidden="true" href = "{% url 'articles:update' instance.slug %}"></a>
+                &nbsp;&nbsp;&nbsp;&nbsp;| &nbsp;&nbsp;&nbsp;&nbsp;
+                <a class='glyphicon glyphicon-trash' href = "{% url 'articles:article_remove' instance.slug %}"></a>
+            {% endif %}
+            {% comment %} <h1>{{ title }} <small>{{ instance.timestamp|timesince }}</small> </h1>{% endcomment %}
+        </div>
+
+        <!-- Columna a la derecha -->
+        <div class="search-column-low">
+          <div class="img-cont">
+              <a href="{% url 'accounts:detail' instance.author.email %}">
+                  {% if instance.author.avatar%}
+              <img src="{{ instance.author.avatar.url }}" alt="">
+                  {% else %}
+                     <img src="{% static 'img/default_profile_pic.png' %}" class="img-fluid">
+                  {% endif %}
+
+              </a>
+          </div>
+          <div class="name-review-author">
+            {% comment %} A quien corresponda {% endcomment %}
+            <a href="{% url 'accounts:detail' instance.author.email %}">
+                {% if instance.author.get_long_name %}
+                <span>{{ instance.author.get_long_name }}</span><br/>
+                <span>@{{ instance.author.email }}</span>
+                {% endif %}
+                {% if instance.author.get_enterprise_name %}
+                <span>{{ instance.author.get_enterprise_name }}</span>
+                <span>@{{ instance.author.email }}</span>
+                {% endif %}
+            </a>
+          </div>
+          <div class="name-review-facebook">
+            <div class="fb-like" data-href="{{ request.build_absolute_uri }" data-layout="standard"
+                    data-action="like" data-size="small" data-show-faces="true" data-share="true"></div>
+          </div>
+        </div>
+
+        <!-- //Columna a la derecha -->
+
+        <!-- Social Share Links guides https://github.com/codingforentrepreneurs/Guides/blob/master/all/social_share_links.md -->
+        {% comment %}
+        <a href="https://www.facebook.com/sharer/sharer.php?u={{ request.build_absolute_uri }}">
+                Facebook
+        </a>
+
+
+        <a href="https://twitter.com/home?status=Ha%llegado%20una%20nueva%20forma%de%20aprender%20y%20recorrer%20tu%20mundo%20con%20@hostayni%20{{ request.build_absolute_uri }}">
+            Twitter
+        </a>
+
+
+        <a href="https://twitter.com/home?status=Ha%llegado%20una%20nueva%20forma%de%20aprender%20y%20recorrer%20tu%20mundo%20{{ request.build_absolute_uri }}">
+            Twitter
+        </a>
+
+        <a href='https://plus.google.com/share?url={{ request.build_absolute_uri }}'>
+
+        <a href="https://www.linkedin.com/shareArticle?mini=true&url={{ request.build_absolute_uri }}&title=Se%el%20%primero%20en%20unirte%20a%20Hostayni&summary=Ha%llegado%20una%20nueva%20forma%de%20aprender%20y%20recorrer%20tu%20mundo%20&source={{ request.build_absolute_uri }}">
+            Linkedin
+        </a>
+
+        <a href="http://www.reddit.com/submit?url={{ request.build_absolute_uri }}&title=Ha%llegado%20una%20nueva%20forma%de%20aprender%20y%20recorrer%20tu%20mundo%20.">Reddit</a>
+        {% endcomment %}
+        <!--
+        <div class="banner" style="background: url(img/londres.jpg) no-repeat center; background-size:cover;">
+            <div class="title-cont">
+                <h1>Cómo sobrevivir a londres, guía práctica</h1>
+            </div>
+        </div> -->
+        <div class="text-cont">
+            <!-- icono verde del blog que aparece al lado del texto -->
+            <div class="side-icon">
+                <img src="{% static 'img/icons/blog-icon.svg' %}" alt="">
+            </div>
+            <div class="main-text">
+                {{ instance.content|linebreaks }}<br/>
+
+
+                {% comment %}
+                Forma en como se ha distribuido el cuerpo del articulo
+                <h4>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent maximus nisi lorem, eu sodales risus cursus non. Quisque urna nulla, fermentum eget sagittis eu, egestas id eros. Praesent ante justo, ullamcorper vitae nisl blandit, tincidunt rhoncus justo. Vivamus hendrerit semper vestibulum.</h4>
+                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent maximus nisi lorem, eu sodales risus cursus non. Quisque urna nulla, fermentum eget sagittis eu, egestas id eros. Praesent ante justo, ullamcorper vitae nisl blandit, tincidunt rhoncus justo. Vivamus <a href="#">hendrerit semper vestibulum</a>. Maecenas fermentum felis consequat, suscipit magna ac, pulvinar quam. Aliquam vestibulum, nulla sed viverra tempus, ligula tortor auctor felis, sed feugiat nibh ipsum a velit. Praesent maximus nisi lorem, eu sodales risus cursus non. Quisque urna nulla, fermentum eget sagittis eu, egestas id eros. Praesent ante justo,</p>
+                <!-- contenedor para imagenes que tiene la imagen y un pie de foto opcional -->
+                <div class="img-cont">
+                    <img src="img/medellin.jpg" alt="">
+                    <span>Pie de foto</span>
+                </div>
+                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent maximus nisi lorem, eu sodales risus cursus non. Quisque urna nulla, fermentum eget sagittis eu, egestas id eros. Praesent ante justo, ullamcorper vitae nisl blandit, tincidunt rhoncus justo. Vivamus <a href="#">hendrerit semper vestibulum</a>. Maecenas fermentum felis consequat, suscipit magna ac, pulvinar quam. Aliquam vestibulum, nulla sed viverra tempus, ligula tortor auctor felis, sed feugiat nibh ipsum a velit.</p>
+                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent maximus nisi lorem, eu sodales risus cursus non. Quisque urna nulla, fermentum eget sagittis eu, egestas id eros. Praesent ante justo, ullamcorper vitae nisl blandit, tincidunt rhoncus justo. Vivamus <a href="#">hendrerit semper vestibulum</a>. Maecenas fermentum felis consequat, suscipit magna ac, pulvinar quam. Aliquam vestibulum, nulla sed viverra tempus, ligula tortor auctor felis, sed feugiat nibh ipsum a velit.</p>
+                {% endcomment %}
+
+            </div>
+        </div>
+    </div>
+    <!-- <div class="fb-comments" data-href="{{ request.build_absolute_uri }}" data-numposts="5"></div> -->
+    <div id="disqus_thread"></div>
+</div>
+
 <!-- Columna a la derecha -->
 <div class="search-column">
     <div class="post-column">
@@ -27,7 +137,6 @@ h1 {
                 <span>Información</span>
             </div>
             <div class="autor">
-                <p class="title">Autor</p>
                 <div class="profile">
                     <div class="img-cont">
                         <a href="{% url 'accounts:detail' instance.author.email %}">
@@ -67,7 +176,6 @@ h1 {
                 </div>
             </div>
             <div class="date">
-                <p class="title">Fecha de creación</p>
                 <span>{{ instance.timestamp }}</span>
             </div>
             {% comment %}
@@ -133,84 +241,7 @@ h1 {
 
 <!-- //Columna a la derecha -->
 
-<!-- Contenido principal (ofertas) -->
+</div>
 
-
-
-
-<main>
-    <div class="blog-body">
-        {% if instance.image %}
-        <img src="{{ instance.image.url }}" width="1000" height="1000" class="img-responsive">
-        {% endif %}
-
-        <div class="title-cont">
-            <h1>{{ title }} <small>{% if instance.draft %}<span style='color: red'> Borrador</span> {% endif %}</small> </h1>
-            {% if instance.author.id == userprofile.user.id %}
-                <p><a class="glyphicon glyphicon-pencil" aria-hidden="true" href = "{% url 'articles:update' instance.slug %}"></a>
-                &nbsp;&nbsp;&nbsp;&nbsp;| &nbsp;&nbsp;&nbsp;&nbsp;
-                <a class='glyphicon glyphicon-trash' href = "{% url 'articles:article_remove' instance.slug %}"></a>
-            {% endif %}
-            {% comment %} <h1>{{ title }} <small>{{ instance.timestamp|timesince }}</small> </h1>{% endcomment %}
-        </div>
-
-        <!-- Social Share Links guides https://github.com/codingforentrepreneurs/Guides/blob/master/all/social_share_links.md -->
-        {% comment %}
-        <a href="https://www.facebook.com/sharer/sharer.php?u={{ request.build_absolute_uri }}">
-                Facebook
-        </a>
-
-
-        <a href="https://twitter.com/home?status=Ha%llegado%20una%20nueva%20forma%de%20aprender%20y%20recorrer%20tu%20mundo%20con%20@hostayni%20{{ request.build_absolute_uri }}">
-            Twitter
-        </a>
-
-
-        <a href="https://twitter.com/home?status=Ha%llegado%20una%20nueva%20forma%de%20aprender%20y%20recorrer%20tu%20mundo%20{{ request.build_absolute_uri }}">
-            Twitter
-        </a>
-
-        <a href='https://plus.google.com/share?url={{ request.build_absolute_uri }}'>
-
-        <a href="https://www.linkedin.com/shareArticle?mini=true&url={{ request.build_absolute_uri }}&title=Se%el%20%primero%20en%20unirte%20a%20Hostayni&summary=Ha%llegado%20una%20nueva%20forma%de%20aprender%20y%20recorrer%20tu%20mundo%20&source={{ request.build_absolute_uri }}">
-            Linkedin
-        </a>
-
-        <a href="http://www.reddit.com/submit?url={{ request.build_absolute_uri }}&title=Ha%llegado%20una%20nueva%20forma%de%20aprender%20y%20recorrer%20tu%20mundo%20.">Reddit</a>
-        {% endcomment %}
-        <!--
-        <div class="banner" style="background: url(img/londres.jpg) no-repeat center; background-size:cover;">
-            <div class="title-cont">
-                <h1>Cómo sobrevivir a londres, guía práctica</h1>
-            </div>
-        </div> -->
-        <div class="text-cont">
-            <!-- icono verde del blog que aparece al lado del texto -->
-            <div class="side-icon">
-                <img src="{% static 'img/icons/blog-icon.svg' %}" alt="">
-            </div>
-            <div class="main-text">
-                {{ instance.content|linebreaks }}<br/>
-
-
-                {% comment %}
-                Forma en como se ha distribuido el cuerpo del articulo
-                <h4>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent maximus nisi lorem, eu sodales risus cursus non. Quisque urna nulla, fermentum eget sagittis eu, egestas id eros. Praesent ante justo, ullamcorper vitae nisl blandit, tincidunt rhoncus justo. Vivamus hendrerit semper vestibulum.</h4>
-                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent maximus nisi lorem, eu sodales risus cursus non. Quisque urna nulla, fermentum eget sagittis eu, egestas id eros. Praesent ante justo, ullamcorper vitae nisl blandit, tincidunt rhoncus justo. Vivamus <a href="#">hendrerit semper vestibulum</a>. Maecenas fermentum felis consequat, suscipit magna ac, pulvinar quam. Aliquam vestibulum, nulla sed viverra tempus, ligula tortor auctor felis, sed feugiat nibh ipsum a velit. Praesent maximus nisi lorem, eu sodales risus cursus non. Quisque urna nulla, fermentum eget sagittis eu, egestas id eros. Praesent ante justo,</p>
-                <!-- contenedor para imagenes que tiene la imagen y un pie de foto opcional -->
-                <div class="img-cont">
-                    <img src="img/medellin.jpg" alt="">
-                    <span>Pie de foto</span>
-                </div>
-                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent maximus nisi lorem, eu sodales risus cursus non. Quisque urna nulla, fermentum eget sagittis eu, egestas id eros. Praesent ante justo, ullamcorper vitae nisl blandit, tincidunt rhoncus justo. Vivamus <a href="#">hendrerit semper vestibulum</a>. Maecenas fermentum felis consequat, suscipit magna ac, pulvinar quam. Aliquam vestibulum, nulla sed viverra tempus, ligula tortor auctor felis, sed feugiat nibh ipsum a velit.</p>
-                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent maximus nisi lorem, eu sodales risus cursus non. Quisque urna nulla, fermentum eget sagittis eu, egestas id eros. Praesent ante justo, ullamcorper vitae nisl blandit, tincidunt rhoncus justo. Vivamus <a href="#">hendrerit semper vestibulum</a>. Maecenas fermentum felis consequat, suscipit magna ac, pulvinar quam. Aliquam vestibulum, nulla sed viverra tempus, ligula tortor auctor felis, sed feugiat nibh ipsum a velit.</p>
-                {% endcomment %}
-
-            </div>
-        </div>
-    </div>
-    <!-- <div class="fb-comments" data-href="{{ request.build_absolute_uri }}" data-numposts="5"></div> -->
-    <div id="disqus_thread"></div>
-</main>
 <!-- //Contenido principal (posts) -->
 {% endblock %}
