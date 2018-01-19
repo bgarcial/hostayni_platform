@@ -141,7 +141,7 @@ class LodgingOfferSearch(FormView):
         # query
 
         qs = LodgingOffer.objects.active()
-        context['offer_list']= qs
+        context['offer_list'] = qs
 
 
         if form.is_valid():
