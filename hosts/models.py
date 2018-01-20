@@ -35,7 +35,10 @@ def get_images_search_path(instance, filename):
 class LodgingOfferManager(models.Manager):
 
     def active(self, *args, **kwargs):
-        return super(LodgingOfferManager, self).filter(is_taked=False).filter(pub_date__lte=timezone.now())
+        return super(LodgingOfferManager, self).filter(is_taked=False).filter(is_paid=False).filter(pub_date__lte=timezone.now())
+
+    def paid(self, *args, **kwargs):
+        return super(LodgingOfferManager, self).filter(is_paid=True).filter(pub_date__lte=timezone.now())
 
 
 '''
@@ -296,6 +299,11 @@ class LodgingOffer(models.Model):
         #    'Si se selecciona, no aparecerá en los resultados '
         #    'de búsquedas. <br /> Des-seleccionéla en lugar de eliminar la oferta'
         #),
+    )
+
+    is_paid = models.BooleanField(
+        _('Oferta promovida'),
+        default=False,
     )
 
     objects = LodgingOfferManager()
