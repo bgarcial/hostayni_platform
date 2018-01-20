@@ -77,7 +77,7 @@
        <a href="{% url 'host:detail' po.slug %}">
            <div class="img-title-cont">
                {% if po.photo %}
-                    <div class="img" style="background: url('{{ offers.photo.url }}') no-repeat center; background-size:cover;"></div>
+                    <div class="img" style="background: url('{{ po.photo.url }}') no-repeat center; background-size:cover;"></div>
                 {% endif %}
                 <div class="title-cont">
                     <h3>{{ po.ad_title }}</h3>
