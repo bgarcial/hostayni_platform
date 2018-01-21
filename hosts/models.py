@@ -303,6 +303,8 @@ class LodgingOffer(models.Model):
         default=False,
     )
 
+
+
     objects = LodgingOfferManager()
 
     def __str__(self):
@@ -318,6 +320,9 @@ class LodgingOffer(models.Model):
 
     def get_price(self):
         return self.room_value
+
+    class Meta:
+        ordering = ['-pub_date']
 
 
 def create_slug(instance, new_slug=None):
