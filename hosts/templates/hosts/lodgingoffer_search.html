@@ -71,6 +71,34 @@
 </article>
 
 {% else %}
+    {% for po in offers_paid %}
+   <article class="host full-width" >
+       <a href="{% url 'host:detail' po.slug %}">
+           <div class="img-title-cont">
+               {% if po.photo %}
+                    <div class="img" style="background: url('{{ offers.photo.url }}') no-repeat center; background-size:cover;"></div>
+                {% endif %}
+                <div class="title-cont">
+                    <h3>{{ po.ad_title }}</h3>
+                </div>
+            </div>
+       </a>
+       <small>{{ po.pub_date }}</small>
+       <div class="post-info">
+           <div class="post-type"><i>ALOJAMIENTO</i></div><br/>
+           <div class="post-type"><i>PROMOVIDA</i></div><br/>
+           <strong>Tipo de habitación ofrecida:</strong> {{ po.room_type_offered }}<br/>
+           <strong>Número de huéspedes en habitación:</strong> {{ po.number_guest_room_type }}
+           {% if po.created_by.first_name %}
+               <p>Publicada por: {{ po.created_by.get_long_name }}</p>
+           {% endif %}
+           {% if po.created_by.get_enterprise_name %}
+               <p>Publicada por: {{ po.created_by.get_enterprise_name }}</p>
+           {% endif %}
+           <div class="description">{{ po.additional_description|linebreaks|truncatechars:420 }}</div>
+       </div>
+   </article>
+{% endfor %}
     {% for offers in offer_list %}
    <article class="host full-width" >
        <a href="{% url 'host:detail' offers.slug %}">
