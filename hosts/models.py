@@ -321,6 +321,9 @@ class LodgingOffer(models.Model):
     def get_price(self):
         return self.room_value
 
+    class Meta:
+        ordering = ['-pub_date']
+
 
 def create_slug(instance, new_slug=None):
     slug = slugify(instance.ad_title)
