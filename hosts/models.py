@@ -320,7 +320,7 @@ class LodgingOffer(models.Model):
         return self.room_value
 
     class Meta:
-        ordering = ['-pub_date', '-updated', ]
+        ordering = ['-is_paid', '-pub_date', '-updated', ]
 
 
 def create_slug(instance, new_slug=None):
@@ -573,7 +573,7 @@ class StudiesOffert(models.Model):
         return self.studies_value
 
     class Meta:
-        ordering = ['-pub_date', '-updated', ]
+        ordering = ['-is_paid', '-pub_date', '-updated', ]
 
 
 def create_study_offer_slug(instance, new_slug=None):
