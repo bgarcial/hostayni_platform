@@ -6,7 +6,7 @@ from django.contrib.auth.admin import UserAdmin
 from .models import (
     User, UserProfile, StudentProfile, ProfessorProfile, ExecutiveProfile,
     StudyHostProfile, InnovationHostProfile, EntertainmentHostProfile,
-    OtherServicesHostProfile, EmailConfirmed
+    OtherServicesHostProfile,
 )
 
 from .forms import CustomUserChangeForm, CustomUserCreationForm
@@ -84,9 +84,6 @@ class UserAdmin(CustomUserAdmin):
 class UserProfileAdmin(admin.ModelAdmin):
     list_display = ('id', 'user_id', )
 
-@admin.register(EmailConfirmed)
-class EmailConfirmedAdmin(admin.ModelAdmin):
-    list_display = ('id', 'user_id', 'activation_key', 'confirmed')
 
 @admin.register(StudentProfile)
 class StudentProfileAdmin(admin.ModelAdmin):

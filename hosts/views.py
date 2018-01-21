@@ -219,7 +219,6 @@ def lodging_offers_by_user(request, email):
 class HostingOfferCreateView(SuccessMessageMixin, LoginRequiredMixin, UserProfileDataMixin, CreateView):
     model = LodgingOffer
     form_class = LodgingOfferForm
-    #success_url = reverse_lazy("articles:article_list")
     success_message = "Tu oferta de alojamiento creada con éxito. " \
                       "A continuación agrega más imágenes para generar " \
                       "mayor interés en los usuarios"
@@ -229,7 +228,6 @@ class HostingOfferCreateView(SuccessMessageMixin, LoginRequiredMixin, UserProfil
         form.instance.created_by = self.request.user
         form.instance.pub_date = timezone.now()
         form.save()
-        # success_message = "Oferta de estudio creada con éxito"
         return super(HostingOfferCreateView, self).form_valid(form)
 
 

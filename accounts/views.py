@@ -28,7 +28,7 @@ from .forms import (
 
 from .models import (
         StudentProfile, ProfessorProfile,
-        ExecutiveProfile, User, UserProfile, EmailConfirmed
+        ExecutiveProfile, User, UserProfile
         )
 
 from hosts.models import LodgingOffer

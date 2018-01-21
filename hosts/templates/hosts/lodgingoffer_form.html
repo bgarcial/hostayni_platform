@@ -32,7 +32,7 @@
       Actualizar oferta de alojamiento
       {% endif %}
     </h1>
-    <form class="stayhost" method="POST" enctype="multipart/form-data">
+    <form class="stayhost" enctype="multipart/form-data" method="post">
       <div class="head">
         <div class="ofert-icon">
           <img src="{% static 'img/icons/hosting.svg' %}" alt="">
@@ -52,11 +52,7 @@
       <div class="col margin-right">
           <div class="formgroup">
               {% bootstrap_field form.ad_title %}
-          </div>
-          <div class="formgroup">
               {% bootstrap_field form.country %}
-          </div>
-          <div class="formgroup">
               {% bootstrap_field form.city %}
           </div>
 
@@ -74,34 +70,21 @@
 
           <div class="formgroup">
               {% bootstrap_field form.stars %}
-          </div>
-          <div class="formgroup">
               {% bootstrap_field form.check_in %}
-          </div>
-          <div class="formgroup">
               {% bootstrap_field form.check_out %}
-          </div>
-          <div class="formgroup">
               {% bootstrap_field form.offered_services %}
-          </div>
-          <div class="formgroup">
               {% bootstrap_field form.featured_amenities %}
-          </div>
-          <div class="formgroup">
-              {% bootstrap_field form.room_type_offered %}
-          </div>
-          <div class="formgroup">
-              {% bootstrap_field form.number_guest_room_type %}
           </div>
       </div>
       <div class="col">
         <div class="formgroup">
-          {% bootstrap_field form.photo %}
-          {% bootstrap_field form.bed_type %}
-          {% bootstrap_field form.bathroom %}
-          {% bootstrap_field form.room_information %}
-
-          {% bootstrap_field form.address %}
+            {% bootstrap_field form.room_type_offered %}
+            {% bootstrap_field form.number_guest_room_type %}
+            {% bootstrap_field form.photo %}
+            {% bootstrap_field form.bed_type %}
+            {% bootstrap_field form.bathroom %}
+            {% bootstrap_field form.room_information %}
+            {% bootstrap_field form.address %}
             {% bootstrap_field form.room_value %}
 
             {% comment %}
@@ -110,14 +93,13 @@
           </div>
             {% endcomment %}
         </div>
-        <div class="formgroup">
             {% bootstrap_field form.additional_description %}
             {% if not form.instance.pk %}
             {% else %}
                 {% bootstrap_field form.is_taked %}
                 {{ form.offer_taked }}
             {% endif %}
-        </div>
+
         
       </div>
 

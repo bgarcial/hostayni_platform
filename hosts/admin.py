@@ -1,9 +1,13 @@
 from django.contrib import admin
 
 from django.contrib import admin
-from .models import LodgingOffer, StudiesOffert, StudyOfferImage
+from .models import LodgingOffer, StudiesOffert, StudyOfferImage, LodgingOfferImage
     #StudiesTypeOffered, StudiesOffertList, ,
 
+
+@admin.register(LodgingOfferImage)
+class StudyOfferImageAdmin(admin.ModelAdmin):
+    list_display = ['__str__', 'lodging_offer', 'image']
 
 @admin.register(StudyOfferImage)
 class StudyOfferImageAdmin(admin.ModelAdmin):

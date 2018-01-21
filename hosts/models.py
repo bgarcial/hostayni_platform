@@ -1,4 +1,7 @@
 from __future__ import unicode_literals
+
+import os
+
 from django.db import models
 
 from host_information.models import (
@@ -28,8 +31,6 @@ from django.core.files import File
 from pathlib import Path  # python 3.6+ only!
 
 
-def get_images_search_path(instance, filename):
-    return '/'.join(['lodging_offer_images', instance.slug, filename])
 
 
 class LodgingOfferManager(models.Manager):
@@ -41,10 +42,8 @@ class LodgingOfferManager(models.Manager):
         return super(LodgingOfferManager, self).filter(is_paid=True).filter(pub_date__lte=timezone.now())
 
 
-'''
 def get_lodging_image_search_path(instance, filename):
     return '/'.join(['lodging_offer_images', instance.slug, filename])
-'''
 
 
 
@@ -86,18 +85,23 @@ class LodgingOffer(models.Model):
         (TEN_GUESTS, "Para 10 huéspedes"),
     )
 
+    EMPTY = ' '
     STUDENT_RESIDENCE = 'Residencia estudiantil'
     ACCOMODATION_WITH_LOCAL_FAMILY = 'Acomodación con familia local'
     HOUSE_APT_SHARE_VISITORS = 'Casa o apartamento para compartir con otros huéspedes'
     HOUSE_OR_PRIV_APT = 'Casa o apartamento privado'
 
     LODGING_OFFER_TYPE_CHOICES = (
+        (EMPTY, " "),
         (STUDENT_RESIDENCE, "Residencia estudiantil"),
         (ACCOMODATION_WITH_LOCAL_FAMILY, "Acomodación con familia local"),
         (HOUSE_APT_SHARE_VISITORS, "Casa o apartamento para compartir con otros huéspedes"),
         (HOUSE_OR_PRIV_APT, "Casa o apartamento privado"),
     )
 
+    # LODGING_OFFER_TYPE_EMPTY = [('', '-------')] +
+
+    EMPTY = ' '
     HOTEL = 'Hotel'
     HOSTEL = 'Hostal'
     STUDENT_RESIDENCE = 'Residencia estudiantil'
@@ -106,6 +110,7 @@ class LodgingOffer(models.Model):
     HOUSE_OR_PRIV_APT = 'Casa o apartamento privado'
 
     LODGING_OFFER_TYPE_ORG_CHOICES = (
+        (EMPTY, " "),
         (HOTEL, "Hotel"),
         (HOSTEL, "Hostal"),
         (STUDENT_RESIDENCE, "Residencia estudiantil"),
@@ -177,12 +182,16 @@ class LodgingOffer(models.Model):
         max_length=255,
         choices=LODGING_OFFER_TYPE_ORG_CHOICES,
         verbose_name='Tipo de oferta de alojamiento',
+        null=True,
+        blank=True
     )
 
     lodging_offer_type = models.CharField(
         max_length=255,
         choices=LODGING_OFFER_TYPE_CHOICES,
         verbose_name='Tipo de oferta de alojamiento',
+        null=True,
+        blank=True
     )
 
     stars = models.CharField(
@@ -269,8 +278,7 @@ class LodgingOffer(models.Model):
     )
 
     photo = models.ImageField(
-        upload_to=get_images_search_path,
-        # upload_to='lodging_offer_images',
+        upload_to=get_lodging_image_search_path,
         blank=False,
         verbose_name='Fotografía',
         null=False,
@@ -314,7 +322,7 @@ class LodgingOffer(models.Model):
         return u'/host/lodging-offer/%d' % self.id
     '''
     def get_absolute_url(self):
-        return reverse('host:detail', kwargs={'slug':self.slug})
+        return reverse('host:detail', kwargs={'slug': self.slug})
 
     def get_price(self):
         return self.room_value
