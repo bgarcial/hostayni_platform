@@ -29,6 +29,7 @@
         {{ form.query }}
     </div> <br />
   </form>
+</div>
 
 {% if "query" in request.GET %}<br />
     <div class="main">
@@ -63,12 +64,14 @@
                 {% endif %}
                 <div class="description">{{ lodgingoffer.additional_description|linebreaks|truncatechars:420 }}</div>
               <hr/>
+            </div>
         {% endwith %}
         {% empty %}
+        </article>
         <p>No existen resultados para tu búsqueda de "{{ cd.query }}".</p>
     {% endfor %}
-            </div>
-</article>
+
+
 
 {% else %}
 
@@ -129,6 +132,4 @@
    </article>
 {% endfor %}
     {% endif %}
-
 {% endblock %}
-</div>

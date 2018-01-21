@@ -402,6 +402,16 @@ def get_image_search_path(instance, filename):
     return '/'.join(['educational_offer_images', instance.slug, filename])
 
 
+class StudiesOffertManager(models.Manager):
+
+    def active(self, *args, **kwargs):
+        return super(StudiesOffertManager, self).filter(is_taked=False).filter(is_paid=False).filter(
+            pub_date__lte=timezone.now())
+
+    def paid(self, *args, **kwargs):
+        return super(StudiesOffertManager, self).filter(is_paid=True).filter(pub_date__lte=timezone.now())
+
+
 class StudiesOffert(models.Model):
 
     ACADEMIC_SEMESTER = 'Semestre académico'
@@ -537,13 +547,14 @@ class StudiesOffert(models.Model):
     is_taked = models.BooleanField(
         _('Oferta tomada'),
         default=False,
-        help_text=_(
-            'Indica si esta oferta ya fue tomada por un usuario.  <br /> Este campo es solo para uso de '
-            'actualización de una oferta cuando ya ha habido un acuerdo por ella. '
-            'Si se selecciona, no aparecerá en los resultados '
-            'de búsquedas. <br /> Des-seleccionéla en lugar de eliminar la oferta'
-        ),
     )
+
+    is_paid = models.BooleanField(
+        _('Oferta promovida'),
+        default=False,
+    )
+
+    objects = StudiesOffertManager()
 
     def __str__(self):
         return "{}".format(self.ad_title)
@@ -558,6 +569,9 @@ class StudiesOffert(models.Model):
 
     def get_price(self):
         return self.studies_value
+
+    class Meta:
+        ordering = ['-is_paid', '-pub_date', ]
 
 
 def create_study_offer_slug(instance, new_slug=None):
