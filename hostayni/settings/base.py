@@ -1,5 +1,3 @@
-<<<<<<< HEAD
-=======
 """
 Django settings for cnvss project.
 
@@ -393,4 +391,4 @@ send_mail(
     fail_silently=False)
 """
 
->>>>>>> a9c35c920d59be462795f5e569e38a1866e7b947
+

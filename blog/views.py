@@ -1,5 +1,3 @@
-<<<<<<< HEAD
-=======
 from django.shortcuts import render, get_object_or_404, redirect, render_to_response
 from django.utils import timezone
 from django.core.mail import send_mail
@@ -355,8 +353,3 @@ class ArticleDraftListView(LoginRequiredMixin, UserProfileDataMixin, ListView):
         return Article.objects.filter(published_date__isnull=True).order_by('created_date')
 
 
-
-
-
-
->>>>>>> a9c35c920d59be462795f5e569e38a1866e7b947

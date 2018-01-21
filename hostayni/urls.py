@@ -1,5 +1,3 @@
-<<<<<<< HEAD
-=======
 """hostayni URL Configuration
 
 The `urlpatterns` list routes URLs to views. For more information please see:
@@ -138,4 +136,4 @@ if settings.DEBUG:
         url(r'^__debug__/', include(debug_toolbar.urls)),
     ] + urlpatterns
 
->>>>>>> a9c35c920d59be462795f5e569e38a1866e7b947
+
