@@ -285,20 +285,18 @@ class LodgingOffer(models.Model):
         verbose_name='Descripción adicional'
     )
 
+    # Este campo sera grabado solo una vez cuando se cree el articulo
     pub_date = models.DateTimeField(
-        auto_now_add=True,
+        auto_now=False, auto_now_add=True
+        # related_name="lodgingoffers"
     )
+
+    # Cada vez que se grabe en la base de datos se actualice el campo updated
+    updated = models.DateTimeField(auto_now=True, auto_now_add=False)
 
     is_taked = models.BooleanField(
         _('Oferta tomada'),
         default=False,
-
-        # help_text=_(
-        #    'Indica si esta oferta ya fue tomada por un usuario.  <br /> Este campo es solo para uso de '
-        #    'actualización de una oferta cuando ya ha habido un acuerdo por ella. '
-        #    'Si se selecciona, no aparecerá en los resultados '
-        #    'de búsquedas. <br /> Des-seleccionéla en lugar de eliminar la oferta'
-        #),
     )
 
     is_paid = models.BooleanField(
@@ -322,7 +320,7 @@ class LodgingOffer(models.Model):
         return self.room_value
 
     class Meta:
-        ordering = ['-pub_date']
+        ordering = ['-pub_date', '-updated', ]
 
 
 def create_slug(instance, new_slug=None):
@@ -539,10 +537,14 @@ class StudiesOffert(models.Model):
         help_text = 'Esta imagen acompañará tu oferta en los resultados de búsquedas'
     )
 
+    # Este campo sera grabado solo una vez cuando se cree el articulo
     pub_date = models.DateTimeField(
-        auto_now=True,
+        auto_now=False, auto_now_add=True
         # related_name="lodgingoffers"
     )
+
+    # Cada vez que se grabe en la base de datos se actualice el campo updated
+    updated = models.DateTimeField(auto_now=True, auto_now_add=False)
 
     is_taked = models.BooleanField(
         _('Oferta tomada'),
@@ -571,7 +573,7 @@ class StudiesOffert(models.Model):
         return self.studies_value
 
     class Meta:
-        ordering = ['-is_paid', '-pub_date', ]
+        ordering = ['-pub_date', '-updated', ]
 
 
 def create_study_offer_slug(instance, new_slug=None):
