@@ -1,0 +1,469 @@
+<<<<<<< HEAD
+=======
+{% extends "layout.html" %}
+
+
+{% load staticfiles %}
+
+{% block title_tag %}Bienvenidos a {{ block.super }}{% endblock %}
+
+{% block body_content %}
+
+<!-- Columna del logo, mapa, filtro -->
+<div class="search_ele">
+  <form class="form_search" method="GET" action="">
+      <input type="text" name="q" placeholder="Título o autor o contenido o categoría" value="{{request.GET.q}}"/>
+  </form>
+</div>
+<section>
+<!-- <div class="search-column">
+    <form class="form_search" method="GET" action="">
+        <input class="input_search" type="text" name="q" placeholder="Título o autor o contenido o categoría" value="{{request.GET.q}}"/>
+        <p>Presiona Enter para buscar</p>
+    </form>
+</div> -->
+</section>
+<!-- End Columna del logo, mapa, filtro -->
+
+<!-- Contenido principal articulos -->
+
+<main>
+
+  {% for article in article_list %}
+
+    <!-- fecha de hoy {{ today }}-->
+    <!-- la clase full-width es para las ofertas que ocupan las dos columnas -->
+    {% if article.category.title == 'INNOVACIÓN' %}
+    <article class="innovate full-width">
+        {% comment %} {{ article.get_absolute_url }} {%endcomment%}
+        {% comment %} Si el articulo tiene draft entonces es borrador {%endcomment%}
+        {% comment %} Si el articulo tiene una fecha de ublicacion mayor a la actual today  es futuro articulo {%endcomment%}
+
+        {% if article.draft %}<h3> Hostayni Staff Only Draft</h3>{% endif %} {% if article.publish > today %}<h3>Hostayni Staff Only: Futuro articulo</h3>{% endif %}
+        <a href="{% url 'articles:detail' slug=article.slug %}">
+        <div class="img-title-cont">
+            <!-- la imagen de las publicaciones debe ser una imagen de background para poder modificar el
+            contenedor independientemente del tamaño de la imagen -->
+            {% if article.image %}
+            <div class="img" style="background: url('{{ article.image.url }}') no-repeat center; background-size:cover;"></div>
+            {% endif %}
+            <div class="title-cont">
+                <h3>{{ article.title }}</h3>
+            </div>
+        </div>
+        </a>
+        <div class="post-info">
+            <!-- Contenido del articulo -->
+            <div class="first_part_postinfo">
+              <div class="description">{{ article.content|linebreaks|truncatechars:420 }}</div>
+              <!-- Este es el ícono que muestra el tipo de oferta, el color de la etiqueda depende de
+              la clase que tenga el artículo, en este caso es innovate-->
+              <div class="post-type"><i>{{ article.category.title }}</i></div>
+            </div>
+
+            <div class="second_part_postinfo">
+              <div class="article-author">
+                {% if article.author.first_name %}
+                <p> {{ article.author.first_name }} {{ article.author.last_name }}</p>
+                {% endif %}
+
+                {% if article.author.get_enterprise_name %}
+                <p> {{ article.author.get_enterprise_name }}</p>
+                {% endif %}
+              </div>
+
+              <div class="article-date">{{ article.publish }}</div>
+            </div>
+
+            <!-- Calificaciones -->
+            {% comment %}
+            <div class="review">
+                <p class="cost"><span>$ </span>147.000</p>
+                <div class="stars">
+                    <!-- Dentro de esta etiqueta se pondrán las estrellas, estas son de muestra-->
+                    <img src="{% static 'img/stars.svg' %}" alt="4.5 estrellas">
+                    <div class="average">
+                        <span>546</span>
+                        <span>Valoraciones</span>
+                    </div>
+                </div>
+            </div>
+            {% endcomment %}
+            <!-- //Calificaciones -->
+        </div>
+    </article>
+    {% endif  %}
+
+    {% if article.category.title == 'SOSTENIBILIDAD' %}
+    <article class="social full-width" >
+        {% if article.draft %}<h3> Hostayni Staff Only Draft</h3>{% endif %} {% if article.publish > today %}<h3>Hostayni Staff Only: Futuro articulo</h3>{% endif %}
+        <a href="{% url 'articles:detail' slug=article.slug %}">
+        <div class="img-title-cont">
+            <!-- la imagen de las publicaciones debe ser una imagen de background para poder modificar el contenedor independientemente del tamaño de la imagen -->
+             {% if article.image %}
+            <div class="img" style="background: url('{{ article.image.url }}') no-repeat center; background-size:cover;"></div>
+             {% endif %}
+            <div class="title-cont">
+                <h3{{ article.title }}</h3>
+            </div>
+        </div>
+        </a>
+
+        <div class="post-info">
+            <!-- Este es el ícono que muestra el tipo de oferta, el color de la etiqueda depende de la clase que tenga el artículo, en este caso es innovate-->
+            <div class="first_part_postinfo">
+              <div class="description">{{ article.content|linebreaks|truncatechars:420 }}</div>
+              <div class="post-type"><i>{{ article.category.title }}</i></div>
+            </div>
+
+            <div class="second_part_postinfo" />
+              <div class="article-author">
+              {% if article.author.first_name %}
+              <p>{{ article.author.first_name }} {{ article.author.last_name }}</p>
+               {% endif %}
+               {% if article.author.get_enterprise_name %}
+               <p>Autor: {{ article.author.get_enterprise_name }}</p>
+               {% endif %}
+             </div>
+
+             <div class="article-date">{{ article.publish }}</div>
+            </div>
+
+            <!-- Calificaciones -->
+            {% comment %}
+            <div class="review">
+                <p class="cost"><span>$ </span>147.000</p>
+                <div class="stars">
+                    <!-- Dentro de esta etiqueta se pondrán las estrellas, estas son de muestra-->
+                    <img src="{% static 'img/stars.svg' %}" alt="4.5 estrellas">
+                    <div class="average">
+                        <span>546</span>
+                        <span>Valoraciones</span>
+                    </div>
+                </div>
+            </div>
+            <!-- //Calificaciones -->
+            {% endcomment %}
+        </div>
+
+    </article>
+    {% endif  %}
+
+    {% if article.category.title == 'ALOJAMIENTO'  %}
+    <article class="host full-width">
+         {% if article.draft %}<h3> Hostayni Staff Only Draft</h3>{% endif %} {% if article.publish > today %}<h3>Hostayni Staff Only: Futuro articulo</h3>{% endif %}
+        <a href="{% url 'articles:detail' slug=article.slug %}">
+        <div class="img-title-cont">
+            <!-- la imagen de las publicaciones debe ser una imagen de background para poder modificar el contenedor independientemente del tamaño de la imagen -->
+             {% if article.image %}
+               <div class="img" style="background: url('{{ article.image.url }}') no-repeat center; background-size:cover;"></div>
+             {% endif %}
+            <div class="title-cont">
+                <h3>{{ article.title }}</h3>
+            </div>
+        </div>
+        </a>
+
+        <div class="post-info">
+            <!-- Este es el ícono que muestra el tipo de oferta, el color de la etiqueda depende de la clase que tenga el artículo, en este caso es innovate-->
+            <div class="first_part_postinfo">
+              <div class="description">{{ article.content|linebreaks|truncatechars:420 }}</div>
+              <!-- Este es el ícono que muestra el tipo de oferta, el color de la etiqueda depende de
+              la clase que tenga el artículo, en este caso es innovate-->
+              <div class="post-type"><i>{{ article.category.title }}</i></div>
+            </div>
+
+            <div class="second_part_postinfo">
+              <div class="article-author">
+                {% if article.author.first_name %}
+                <p>{{ article.author.first_name }} {{ article.author.last_name }}</p>
+                {% endif %}
+
+                {% if article.author.get_enterprise_name %}
+                <p>Autor: {{ article.author.get_enterprise_name }}</p>
+                {% endif %}
+              </div>
+
+              <div class="article-date">{{ article.publish }}</div>
+            </div>
+
+            <!-- Calificaciones -->
+            {% comment %}
+            <div class="review">
+                <p class="cost"><span>$ </span>147.000</p>
+                <div class="stars">
+                    <!-- Dentro de esta etiqueta se pondrán las estrellas, estas son de muestra-->
+                    <img src="{% static 'img/stars.svg' %}" alt="4.5 estrellas">
+                    <div class="average">
+                        <span>546</span>
+                        <span>Valoraciones</span>
+                    </div>
+                </div>
+            </div>
+            <!-- //Calificaciones -->
+            {% endcomment %}
+        </div>
+    </article>
+    {% endif  %}
+
+    {% if article.category.title == 'EDUCACIÓN'  %}
+    <article class="learn full-width">
+        {% if article.draft %}<h3> Hostayni Staff Only Draft</h3>{% endif %} {% if article.publish > today %}<h3>Hostayni Staff Only: Futuro articulo</h3>{% endif %}
+        <a href="{% url 'articles:detail' slug=article.slug %}">
+        <div class="img-title-cont">
+            <!-- la imagen de las publicaciones debe ser una imagen de background para poder modificar el contenedor independientemente del tamaño de la imagen -->
+            {% if article.image %}
+            <div class="img" style="background: url('{{ article.image.url }}') no-repeat center; background-size:cover;"></div>
+            {% endif %}
+            <div class="title-cont">
+                <h3>{{ article.title }}</h3>
+            </div>
+        </div>
+        </a>
+
+        <div class="post-info">
+            <!-- Este es el ícono que muestra el tipo de oferta, el color de la etiqueda depende de la clase que tenga el artículo, en este caso es innovate-->
+            <div class="first_part_postinfo">
+              <div class="description">{{ article.content|linebreaks|truncatechars:420 }}</div>
+              <!-- Este es el ícono que muestra el tipo de oferta, el color de la etiqueda depende de
+              la clase que tenga el artículo, en este caso es innovate-->
+              <div class="post-type"><i>{{ article.category.title }}</i></div>
+            </div>
+
+            <div class="second_part_postinfo">
+              <div class="article-author">
+                {% if article.author.first_name %}
+                <p>{{ article.author.first_name }} {{ article.author.last_name }}</p>
+                {% endif %}
+
+                {% if article.author.get_enterprise_name %}
+                <p> {{ article.author.get_enterprise_name }}</p>
+                {% endif %}
+              </div>
+
+              <div class="article-date">{{ article.publish }}</div>
+            </div>
+
+            <!-- Calificaciones -->
+            {% comment %}
+            <div class="review">
+                <!-- El precio puede o no aparecer de acuerdo al post -->
+                <p class="cost"><span>$ </span>147.000</p>
+                <div class="stars">
+                    <!-- Dentro de esta etiqueta se pondrán las estrellas, estas son de muestra-->
+                    <img src="{% static 'img/stars.svg' %}" alt="4.5 estrellas">
+                    <div class="average">
+                        <span>546</span>
+                        <span>Valoraciones</span>
+                    </div>
+                </div>
+            </div>
+            {% endcomment %}
+            <!-- //Calificaciones -->
+        </div>
+    </article>
+    {% endif  %}
+
+    {% if article.category.title == 'ENTRETENIMIENTO' %}
+    <article class="enjoy full-width">
+        {% if article.draft %}<h3> Hostayni Staff Only Draft</h3>{% endif %} {% if article.publish > today %}<h3>Hostayni Staff Only: Futuro articulo</h3>{% endif %}
+        <a href="{% url 'articles:detail' slug=article.slug %}">
+        <div class="img-title-cont">
+            <!-- la imagen de las publicaciones debe ser una imagen de background para poder modificar el contenedor independientemente del tamaño de la imagen -->
+             {% if article.image %}
+            <div class="img" style="background: url('{{ article.image.url }}') no-repeat center; background-size:cover;"></div>
+             {% endif %}
+            <div class="title-cont">
+                <h3{{ article.title }}</h3>
+            </div>
+        </div>
+        </a>
+
+        <div class="post-info">
+            <!-- Este es el ícono que muestra el tipo de oferta, el color de la etiqueda depende de la clase que tenga el artículo, en este caso es innovate-->
+            <div class="first_part_postinfo">
+              <div class="description">{{ article.content|linebreaks|truncatechars:420 }}</div>
+              <!-- Este es el ícono que muestra el tipo de oferta, el color de la etiqueda depende de
+              la clase que tenga el artículo, en este caso es innovate-->
+              <div class="post-type"><i>{{ article.category.title }}</i></div>
+            </div>
+
+            <div class="second_part_postinfo">
+              <div class="article-author">
+                {% if article.author.first_name %}
+                <p>{{ article.author.first_name }} {{ article.author.last_name }}</p>
+                {% endif %}
+
+                {% if article.author.get_enterprise_name %}
+                <p>Autor: {{ article.author.get_enterprise_name }}</p>
+                {% endif %}
+              </div>
+
+              <div class="article-date">{{ article.publish }}</div>
+            </div>
+
+            <!-- Calificaciones -->
+            {% comment %}
+            <div class="review">
+                <p class="cost"><span>$ </span>147.000</p>
+                <div class="stars">
+                    <!-- Dentro de esta etiqueta se pondrán las estrellas, estas son de muestra-->
+                    <img src="{% static 'img/stars.svg' %}" alt="4.5 estrellas">
+                    <div class="average">
+                        <span>546</span>
+                        <span>Valoraciones</span>
+                    </div>
+                </div>
+            </div>
+            {% endcomment %}
+            <!-- //Calificaciones -->
+        </div>
+    </article>
+    {% endif  %}
+
+    {% if article.category.title == 'AMIGOS'  %}
+    <article class="friends full-width">
+         {% if article.draft %}<h3> Hostayni Staff Only Draft</h3>{% endif %} {% if article.publish > today %}<h3>Hostayni Staff Only: Futuro articulo</h3>{% endif %}
+        <a href="{% url 'articles:detail' slug=article.slug %}">
+        <div class="img-title-cont">
+            <!-- la imagen de las publicaciones debe ser una imagen de background para poder modificar el contenedor independientemente del tamaño de la imagen -->
+             {% if article.image %}
+               <div class="img" style="background: url('{{ article.image.url }}') no-repeat center; background-size:cover;"></div>
+             {% endif %}
+            <div class="title-cont">
+                <h3>{{ article.title }}</h3>
+            </div>
+        </div>
+        </a>
+
+        <div class="post-info">
+            <!-- Este es el ícono que muestra el tipo de oferta, el color de la etiqueda depende de la clase que tenga el artículo, en este caso es innovate-->
+            <div class="first_part_postinfo">
+              <div class="description">{{ article.content|linebreaks|truncatechars:420 }}</div>
+              <!-- Este es el ícono que muestra el tipo de oferta, el color de la etiqueda depende de
+              la clase que tenga el artículo, en este caso es innovate-->
+              <div class="post-type"><i>{{ article.category.title }}</i></div>
+            </div>
+
+            <div class="second_part_postinfo">
+              <div class="article-author">
+                {% if article.author.first_name %}
+                <p>{{ article.author.first_name }} {{ article.author.last_name }}</p>
+                {% endif %}
+
+                {% if article.author.get_enterprise_name %}
+                <p>Autor: {{ article.author.get_enterprise_name }}</p>
+                {% endif %}
+              </div>
+
+              <div class="article-date">{{ article.publish }}</div>
+            </div>
+
+            <!-- Calificaciones -->
+            {% comment %}
+            <div class="review">
+                <p class="cost"><span>$ </span>147.000</p>
+                <div class="stars">
+                    <!-- Dentro de esta etiqueta se pondrán las estrellas, estas son de muestra-->
+                    <img src="{% static 'img/stars.svg' %}" alt="4.5 estrellas">
+                    <div class="average">
+                        <span>546</span>
+                        <span>Valoraciones</span>
+                    </div>
+                </div>
+            </div>
+            {% endcomment %}
+            <!-- //Calificaciones -->
+        </div>
+    </article>
+    {% endif  %}
+    {% if article.category.title == 'VIDA DIARIA'  %}
+    <article class="life full-width">
+        {% if article.draft %}<h3> Hostayni Staff Only Draft</h3>{% endif %} {% if article.publish > today %}<h3>Hostayni Staff Only: Futuro articulo</h3>{% endif %}
+        <a href="{% url 'articles:detail' slug=article.slug %}">
+        <div class="img-title-cont">
+            <!-- la imagen de las publicaciones debe ser una imagen de background para poder modificar el contenedor independientemente del tamaño de la imagen -->
+            {% if article.image %}
+            <div class="img" style="background: url('{{ article.image.url }}') no-repeat center; background-size:cover;"></div>
+            {% endif %}
+            <div class="title-cont">
+                <h3>{{ article.title }}</h3>
+            </div>
+        </div>
+        </a>
+
+        <div class="post-info">
+            <!-- Este es el ícono que muestra el tipo de oferta, el color de la etiqueda depende de la clase que tenga el artículo, en este caso es innovate-->
+            <div class="first_part_postinfo">
+              <div class="description">{{ article.content|linebreaks|truncatechars:420 }}</div>
+              <!-- Este es el ícono que muestra el tipo de oferta, el color de la etiqueda depende de
+              la clase que tenga el artículo, en este caso es innovate-->
+              <div class="post-type"><i>{{ article.category.title }}</i></div>
+            </div>
+
+            <div class="second_part_postinfo">
+              <div class="article-author">
+                {% if article.author.first_name %}
+                <p>{{ article.author.first_name }} {{ article.author.last_name }}</p>
+                {% endif %}
+
+                {% if article.author.get_enterprise_name %}
+                <p>Autor: {{ article.author.get_enterprise_name }}</p>
+                {% endif %}
+              </div>
+
+              <div class="article-date">{{ article.publish }}</div>
+            </div>
+
+            <!-- Calificaciones -->
+            {% comment %}
+            <div class="review">
+                <!-- El precio puede o no aparecer de acuerdo al post -->
+                <p class="cost"><span>$ </span>147.000</p>
+                <div class="stars">
+                    <!-- Dentro de esta etiqueta se pondrán las estrellas, estas son de muestra-->
+                    <img src="{% static 'img/stars.svg' %}" alt="4.5 estrellas">
+                    <div class="average">
+                        <span>546</span>
+                        <span>Valoraciones</span>
+                    </div>
+                </div>
+            </div>
+            <!-- //Calificaciones -->
+            {% endcomment %}
+        </div>
+    </article>
+    {% endif  %}
+
+    {% endfor %}
+
+    </main>
+
+
+
+    <!-- Pagination con CBV ListView    -->
+    {% include "pagination.html" with page=page_obj %}
+
+    <!-- Pagination with Function based view
+    <div class="pagination">
+        <span class="step-links">
+            {% if article_list.has_previous %}
+                <a href="?{{ page_request_var }}={{ article_list.previous_page_number }}{% if request.GET.q %}&q={{ request.GET.q }}{% endif %}">previous</a>
+            {% endif %}
+
+            <span class="current">
+                Page {{ article_list.number }} of {{ article_list.paginator.num_pages }}.
+            </span>
+
+            {% if article_list.has_next %}
+                <a href="?{{ page_request_var }}={{ article_list.next_page_number }}{% if request.GET.q %}&q={{ request.GET.q }}{% endif %}">next</a>
+            {% endif %}
+        </span>
+    </div>
+    -->
+
+
+<!-- //Contenido principal (posts) -->
+
+{% endblock %}
+>>>>>>> a9c35c920d59be462795f5e569e38a1866e7b947

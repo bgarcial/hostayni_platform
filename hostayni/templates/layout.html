@@ -1,0 +1,797 @@
+<<<<<<< HEAD
+=======
+{% load staticfiles %}
+{% load bootstrap3 %}
+{% bootstrap_css %}
+{% bootstrap_javascript %}
+<html lang="es">
+{% block head %}
+<head>
+    <title>{% block title_tag %}HOSTAYNI{% endblock %}</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="shortcut icon" href="{% static 'img/favicons/favicon.ico' %}" type="image/x-icon">
+    {% comment %} Jeronimo's static files  {% endcomment %}
+    <link rel="stylesheet" media="screen and (min-width:0px) and (max-width:767px)" href="{% static 'css/mainLow.css' %}">
+    <link rel="stylesheet" media="screen and (min-width:767px) and (max-width:1160px)" href="{% static 'css/mainMedium.css' %}">
+    <!-- <link rel="stylesheet" media="screen and (min-width:1150px) and (max-width: 1250px)" href="{% static 'css/mainHigh.css' %}"> -->
+    <link rel="stylesheet" media="screen and (min-width:1160px)" href="{% static 'css/mainHigh.css' %}">
+    <!-- <link rel="stylesheet" media="screen and (min-width:900px) and (max-width:1600px)" href="hostayni_platform/hostayni/assets/css/main.css"> -->
+    <!-- <link rel="stylesheet" href="{% static 'css/main.css' %}"> -->
+    <!-- <link rel="stylesheet" href="css/main.css"> -->
+      <!-- Bootstrap CSS
+    <link href="{% static 'css/bootstrap.min.css' %}"> -->
+    <script src="https://code.jquery.com/jquery-3.2.1.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
+    <script type="text/javascript" src="{% static 'js/main.js' %}"></script>
+
+    <style>
+        /* CSS styles to top green messages*/
+        .alert-top-message {
+            margin-bottom: 0px;
+            border-radius: 0px;
+            text-align: center;
+            background-color: #DBDBDB;
+            /*background-color: #dbd902;*/
+            display: none;
+        }
+        .alert-top-message h3{
+            margin: 0 auto;
+        }
+
+        {% block style %}
+            /*css styles to user email appear in social.*/
+            .red-color {
+              color: red;
+            }
+            .grey-color {
+              color: #ccc;
+            }
+            .media-focus{
+                background-color: rgba(255, 255, 0, 0.22);
+            }
+        {% endblock style %}
+    </style>
+</head>
+{% endblock %}
+<!--   class="grey-background" Orignal Jerome Design -->
+<body>
+    {% comment %}
+    <div class="alert  alert-top-message alert-dismissible"  role="alert">
+        <!-- Boton para cerrar el alert  -->
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+        </button>
+        <!-- End Boton para cerrar el alert -->
+        <div class="container">
+            <h3>Hello there</h3>
+        </div>
+    </div>
+    {% endcomment %}
+
+    <div id="fb-root"></div>
+    <script>(function(d, s, id) {
+          var js, fjs = d.getElementsByTagName(s)[0];
+          if (d.getElementById(id)) return;
+          js = d.createElement(s); js.id = id;
+          js.src = "//connect.facebook.net/en_GB/sdk.js#xfbml=1&version=v2.10";
+          fjs.parentNode.insertBefore(js, fjs);
+    }(document, 'script', 'facebook-jssdk'));
+    </script>
+
+    {% comment %}Disqus plugin comment{% endcomment %}
+    <script>
+        /**
+        *  RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
+        *  LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables*/
+        /*
+        var disqus_config = function () {
+        this.page.url = PAGE_URL;  // Replace PAGE_URL with your page's canonical URL variable
+        this.page.identifier = PAGE_IDENTIFIER; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+        };
+        */
+        (function() { // DON'T EDIT BELOW THIS LINE
+        var d = document, s = d.createElement('script');
+        s.src = 'https://hostayni.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+        })();
+    </script>
+    <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+
+{% comment %}end Disqus plugin comment{% endcomment %}
+
+    {% comment %}end Disqus plugin comment{% endcomment %}
+
+    <div class="wrapper">
+        <!-- Botones de registro e inicio de sesión -->
+        <header>
+          <!-- Icon for the logo -->
+          <div class="logo_container">
+            <img class="logo_img" src="{% static 'img/Logo-slogan-lg.png' %}" alt="Logo Hostayni - Haz del mundo tu hogar" />
+            <img class="logo_img_low" src="{% static 'img/Logo-slogan-short.png' %}" alt="Logo Hostayni - Haz del mundo tu hogar low" />
+          </div>
+            {% block top_logo %}
+            {% endblock %}
+
+            <!-- Icons for offers -->
+            <div class="icons">
+              <div class="pic_icon">
+                <a href="{% url 'host:hostingoffer-search' %}"><img src="{% static 'img/icons/Alojamiento.svg' %}" title="Ofertas de alojamiento" alt=""></a>
+              </div>
+              <div class="pic_icon">
+                <a href="{% url 'host:studyoffer-search' %}"><img src="{% static 'img/icons/Educacion.svg' %}" title="Ofertas de educación" alt=""></a>
+              </div>
+              <div class="pic_icon">
+                <a href="#"><img src="{% static 'img/icons/Emprendimiento.svg' %}" alt="" title="Próximamente"></a>
+              </div>
+              <div class="pic_icon">
+                <a href="#"><img src="{% static 'img/icons/VidaDiaria.svg' %}" alt="" title="Próximamente"></a>
+              </div>
+              <div class="pic_icon">
+                <a href="#"><img src="{% static 'img/icons/Ayni.svg' %}" alt="" title="Próximamente"></a>
+              </div>
+              <!-- <div class="pic_icon">
+                <a href="#"><img src="{% static 'img/icons/social-grey.svg' %}" alt="" title="Próximamente"></a>
+              </div> -->
+            </div>
+
+            {% if request.user.is_authenticated %}
+                {% if userprofile %}
+                    <div class="profile-options">
+                        {% comment %} Begin settings drowdown {% endcomment %}
+
+                        <div class="name-options-cont">
+                            <div class="name">
+                            {% if userprofile.user.user_type == "P" %}
+                                <p>{{ userprofile.user.email }} - {{ userprofile.user.first_name }}</p>
+                            {% else %}
+                                <p>{{ userprofile.user.email }} - {{ userprofile.user.enterprise_name }}</p>
+                            {% endif %}
+                            </div>
+                            <div class="options">
+                                Mi Ayni
+                                <img src="{% static 'img/icons/gear.svg' %}" alt="">
+                                <div class="drop-down">
+                                    <ul>
+                                        <li><a href="{% url 'accounts:preferences' userprofile.user.slug %}" >
+                    Configuración</a></li>
+                                        <li><a href="{% url 'accounts:profile' userprofile.user.slug %}">Mis roles de usuario</a></li>
+                                        <li class="line"></li>
+                                        <p><strong>Contenidos</strong></p>
+                                        <li><a href="{% url 'articles:create' %}">Crear Artículo</a></li>
+                                        <li><a href="{% url 'articles:list' userprofile.user.slug %}">Mis artículos</a></li>
+                                        <li class="line"></li>
+                                        <p><strong>Social</strong></p>
+                                        <li><a href="{% url 'post:list' %}">Mi Red Social</a></li>
+                                        <li class="line"></li>
+                                        <p><strong>Anfitrión</strong></p>
+                                        {% if userprofile.user.is_hosting_host %}
+                                          <li><a href="{% url 'host:hosting-host' %}">Crear oferta de alojamiento</a></li>
+                                          <li><a href="{% url 'host:list' userprofile.user.slug %}">Mis ofertas de alojamiento</a></li>
+                                        {% endif %}
+                                        {% if userprofile.user.is_study_host %}
+                                          <li><a href="{% url 'host:study-host' %}">Crear oferta de educación</a></li>
+                                             <li><a href="{% url 'host:studiesofferlist' userprofile.user.slug %}">Mis ofertas de educación</a></li>
+                                        {% endif %}
+                                        <li class="line"></li>
+                                        <p><strong>Búsquedas</strong></p>
+                                        <li><a href="{% url 'host:hostingoffer-search' %}">Ofertas de alojamiento</a></li>
+                                        <li><a href="{% url 'host:studyoffer-search' %}">Ofertas de educación</a></li>
+
+                                        <li><a href="{% url 'accounts:logout' %}">Salir</a></li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="img">
+                            {% if userprofile.user.avatar %}
+                                <a href="{% url 'accounts:detail' userprofile.user.email %}">
+                                    <img src="{{ userprofile.user.avatar.url }}" width="100" height="100" class="img-responsive">
+                                </a>
+                            {% else %}
+                                <a href="{% url 'accounts:detail' userprofile.user.email %}">
+                                    <img src="{% static 'img/default_profile_pic.png' %}" class="img-responsive">
+                                </a>
+                            {% endif %}
+                            <!-- Imagen de perfil -->
+                           {% comment %} <img src="{{ object.image_url|default_if_none:'#' }}" alt="">{% endcomment %}
+                        </div>
+                    </div>
+
+                    {% comment %}
+                        Search posts bar
+                        {% include "posts/search_form.html" %}
+                    {% endcomment %}
+
+
+                {% endif %}
+                {% else %}
+                    <div class="registration">
+                        <!-- <a href="{% url 'accounts:signup' %}">Registrarse</a><a href="{% url 'login' %}">Iniciar sesión</a> -->
+                        <a class="button_a" href="{% url 'accounts:signup' %}"><input type="button" class="button_home a" value="Registrarse"></a>
+                        <a class="button_a" href="{% url 'login' %}"><input type="button" class="button_home a" value="Iniciar sesión"></a>
+                    </div>
+            {% endif %}
+        </header>
+
+
+        <div class="container">
+            {% if messages %}
+                {% for message in messages %}
+                <div class='alert {% if "success" in message.tags %}alert-success{% elif "warning" in message.tags%}alert-
+                warning{% elif "error" in message.tags %}alert-danger{% endif %} alert-dismissible' role='alert'>
+                    <!-- Boton para cerrar el alert-->
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                     <!--End Boton para cerrar el alert
+                         Haciendo uso del Django messages framework-->
+                        {% if "safe" in message.tags %}{{ message|safe }}{%else%}{{ message }}{% endif %}
+                </div>
+                {% endfor %}
+            {% endif %}
+        </div>
+        {% block body_content %}
+
+
+        {% endblock body_content %}
+
+
+
+
+    </div>
+
+    <!-- Optional JavaScript, is more below too.. before of footer -->
+   <script  type="text/javascript" src="{% static 'js/bootstrap.min.js' %}"></script>
+
+    <!-- Reply Modal to reply to some post. -->
+    {% include "reply-modal.html" %}
+    <!-- jQuery (necessary for Bootstrap's JavaScript plugins)-->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+
+    <script>
+         /*https://stackoverflow.com/questions/901115/how-can-i-get-query-string-values-in-javascript/901144#901144
+          * JQuery Search https://www.udemy.com/tweetme-django/learn/v4/t/lecture/6134670?start=0
+          *
+          * Search bar to many strings
+          */
+         function getParameterByName(name, url) {
+            if (!url) url = window.location.href;
+            name = name.replace(/[\[\]]/g, "\\$&");
+            var regex = new RegExp("[?&]" + name + "(=([^&#]*)|&|#|$)"),
+            results = regex.exec(url);
+            if (!results) return null;
+            if (!results[2]) return '';
+            return decodeURIComponent(results[2].replace(/\+/g, " "));
+         }
+
+         function loadPostContainer(postContainerID, fetchOneId) {
+             //console.log("working yeah niche");
+            var query = getParameterByName('q')
+            var postList = [];
+            var nextPostUrl;
+            // console.log(query)
+
+
+            // POniendo el listado de posts. Desde asi se puede poner
+            // en cualquier parte de la app
+
+            var postContainer;
+            // console.log(postContainerID)
+
+            // Si llega el parametro post-container (desde la llamada en post-list.html)
+            if (postContainerID){
+                // Le adicionamoe el # de identificador para que se rendericen aca los posts
+                postContainer = $("#" + postContainerID)
+            } else {
+                // ponemos el contenedor tal cual como se llama para adjuntar / mostrar los posts inicialmente
+                postContainer = $("#post-container")
+            }
+
+            var initialURL = postContainer.attr("data-url") || "/api/post/";
+            //console.log(initialURL)
+
+
+
+             // Like Post https://www.udemy.com/tweetme-django/learn/v4/t/lecture/6134742?start=0
+             $(document.body).on("click", ".post-like", function (e) {
+                 e.preventDefault()
+                 var this_= $(this)
+                 var postId = this_.attr("data-id")
+                 // Url debe ir con / al final
+                 var likedUrl = '/api/post/' + postId + "/like/"
+                 // this_.text("Liked")
+                 $.ajax({
+                     method : "GET",
+                     url : likedUrl,
+                     success: function (data) {
+                         // Este .liked viene de la respuesta retornada de LikeToggleApiView
+                         // que contiene la clave del objeto al que se le dio Like, entonces
+                         // pone el link como liked si es un post al que ya le di like
+                         if (data.liked){
+                             this_.text("Liked")
+
+                         } else {
+                             this_.text("Unliked")
+                         }
+                     },
+                     error: function (data) {
+                         console.log("error")
+                         console.log(data)
+                     }
+
+                 })
+
+
+             })
+
+
+
+             // Reply a post with form a bootstrap modal
+             $(document.body).on("click", ".post-reply", function(e){
+                e.preventDefault()
+                 var this_ = $(this)
+                 // Capturamos el id del post al que vamos a hacer reply
+                 var parentId = this_.attr("data-id")
+
+                 // Capturamos el user al que vamos a hacer reply
+                 var email = this_.attr("data-user")
+
+                 // Capturamos el contenido al que le haremos reply
+                 //var content = this_.attr("data-content")
+                 var content = this_.parent().parent().find(".content").text()
+
+                 $("#replyModal").modal({})
+                 // Efectuando el reply, se toma el id del post al que vamos a hacer reply
+                 $("#replyModal textarea").after("<input type='hidden' value='" + parentId + "' name='parent_id' />")
+                 $("#replyModal textarea").after("<input type='hidden' value='" + true + "' name='reply' />")
+
+                  $("#replyModal textarea").val("@" + email + " ")
+
+                 // Poniendo el titulo al cual le queremos responder
+                  $("#replyModal #replyModalLabel").text("Reply to " + content)
+
+                  $("#replyModal").on("shown.bs.modal", function () {
+                      // console.log(hide)
+                      // Paea hacer focus sobre el placeholder
+                      //$('textarea#postReplyArea').focus()
+                      $('textarea').focus()
+
+                  })
+             })
+
+
+
+             // Repost with JQuery https://www.udemy.com/tweetme-django/learn/v4/t/lecture/6134726?start=0
+             $(document.body).on("click", ".repostBtn", function(e){
+                e.preventDefault()
+                console.log("clicked")
+                var url = "/api" + $(this).attr("href")
+
+                $.ajax({
+                    method:"GET",
+                    url: url,
+                    success: function (data) {
+                        console.log(data)
+                        // if email is in the API path .. let's ignore
+                        if (initialURL == "/api/post/"){
+                            attachPost(data, true, true)
+                            updateHashLinks()
+                        }
+                    },
+                    error: function(data){
+                        console.log("error")
+                        console.log(data)
+                    }
+                })
+             })
+
+
+
+             // HashTags Parsing, que se ponga con href
+             // cada que se ponga un post con #sdsd
+
+             // Tambien User Parsing que se ponga con href cada
+             // que se ponga un @user/email en este caso
+             function updateHashLinks() {
+                $(".content").each(function(data){
+                // Expresion regular para el hashtag
+                    var hashtagRegex = /(^|\s)#([\w\d-]+)/g
+                    var emailRegex = /(^|\s)@([@.\w\d-]+)/g
+                    var currentHtml = $(this).html()
+                    var newText;
+
+                    // Creando el URL /tags/#hashtag y parseandola a html
+                    newText = currentHtml.replace(hashtagRegex, "$1<a href='/tags/$2/'>#$2</a>")
+                    //newText = currentHtml.replace(hashtagRegex, "$1<a href='/tags/$2/'>#$2</a>")
+
+                    // Creando el URL /accounts/profiles/@email y parseandola a html
+                    // inclyendo @ en link
+                    newText = newText.replace(emailRegex, "$1 @<a href='/accounts/profiles/$2/'>$2</a>")
+                 //newText = newText.replace(usernameRegex, "$1 @<a href='/$2/'>$2</a>")
+
+
+                    $(this).html(newText)
+                    // create hashtag
+                })
+             }
+
+
+
+             // Attaching posts with JQuery, refactoring attachPost
+             // https://www.udemy.com/tweetme-django/learn/v4/t/lecture/6139520?start=0
+             // con postValue accedemos a los atributos del modelo Post en Django
+             // por ejemplo postValue.content es el contenido de un post en base de datos
+             // PostgreSQL
+             // Esta funcion dara el formato de visualizacion para los posts, los reposts y los reply
+             //  { if request.user == userprofile.user %} poner borrar
+             function formatPost(postValue){
+
+
+
+                 // declaramos la variable preContent para que se vaya dentro del ambito de la funcion
+                 // formatPost y sea usada en el formato para un repost,como precontenido de un repost
+                 // Y la variable container en donde ira el post o repost con los estilos css y html
+                 var preContent;
+                 var container;
+                 var postContent;
+                 var isReply = postValue.reply;
+
+                 // para tener los replys a un post
+                 var replyId = postValue.id
+                 if(postValue.parent){
+                     replyId = postValue.parent.id
+                 }
+
+                 var openingContainerDiv = "<div class=\"media\">"
+                 if(postValue.id == fetchOneId){
+                    openingContainerDiv = "<div class=\"media media-focus\">"
+                     // un timeout para que se ponga de un color un reply post
+                     // y se resalten las rspuestas cuando vamos al detalle de un post con
+                     // hilo o naveguemos entre replys de un post
+                    setTimeout(function () {
+                        $('.media-focus').css("background-color", '#fff')
+
+                    }, 2000)
+                 }
+
+                 // Si el post tiene un valor parent (un post padre) y no es una respuesta
+                 if (postValue.parent && !isReply){
+                     // There is a repost
+                     postValue = postValue.parent
+                     // Ponemos el estilo de repost en gris con el usuario quien hizo el repost y la fecha
+                    preContent  = "<span class='grey-color'>Repost via " + postValue.user.email + " on " + postValue.date_display +
+                         "</span><br/>"
+
+                 // Sino y si tiene un valor parent y es una respuesta, es un reply
+                 } else if(postValue.parent && isReply) {
+                    //postValue = postValue.parent
+                     // Ponemos el estilo de reply en gris con el usuario quien hizo el reply y la fecha
+                    preContent  = "<span class='grey-color'>Reply to @" + postValue.parent.user.email +
+                         "</span><br/>"
+                 }
+
+                 // Para que aparezca a un usuario Unlike si  ya le dio Like a un post
+                 var verb = 'Like'
+                 // .did_like viene del campo de PostModelSerializer did_like y su metodo
+                 // y con la variable verb se pone la respectiva palabra segun sea el caso
+                 // en el render del post o repost
+                 if(postValue.did_like){
+                     verb = 'Unlike'
+                 }
+
+                // Separamos el formato del post en un container que son los estilos css
+                 // y en el contenido del post, por eso estas dos variables arriba declaradas postContent y container
+                 // POst original
+                 postContent = "<span class='content'>" + postValue.content + "</span><br/> via " + "<a href='" + postValue.user.url + "'>" + postValue.user.email +
+                     "</a> | " + postValue.date_display + " | " + "<a href='/post/" + postValue.id +"'>View</a> | " +
+                     "<a class='repostBtn' href='/post/" + postValue.id + "/repost/'>Repost</a>" + " | <a href='#' " +
+                     "class='post-like' data-id='"+ postValue.id + "'>" + verb + " (" + postValue.likes + ")</a>"
+                    + " | <a href='#' " + "class='post-reply' data-user='" + postValue.user.email + "'  data-id='"+ replyId + "'>Reply</a>"
+
+                 // { if request.user == userprofile.user %} poner borrar
+
+                // Si el post es un repost, que le de formato de repost y adjunte el contenido orignal postContent para
+                 // indicar de donde salio este repost
+                if(preContent){
+                    container = openingContainerDiv + "<div class=\"media-body\">" + preContent + postContent + "</div></div><br/></hr>"
+                    //container = openingContainerDiv + "<div class=\"media-body\">" + preContent + tweetContent + "</div></div><hr/>"
+                    // Si no es un repost, es un fresh post ponga el contenido postContent del post dsd
+                } else {
+                    container = openingContainerDiv + "<div class=\"media-body\">" + postContent + "</div></div><br/></hr>"
+                    //container = openingContainerDiv + "<div class=\"media-body\">" + tweetContent + "</div></div><hr/>"
+                }
+
+                 return container
+             }
+
+
+
+             // attach posts once time created in the page below
+             // deploying posts and your detail url
+             // Also manage display reposts here
+             function attachPost(postValue, prepend, repost){
+
+
+                 postFormatedHtml = formatPost(postValue)
+
+                     /*
+                     // fresh post
+                     postFormatedHtml = "<div class=\"media\"><div class=\"media-body\">" + postContent + "<br/> via " +
+                         "<a href='" + postUser.url + "'>" + postUser.email + "</a> | " + dateDisplay + " | " +
+                         "<a href='/post/" + postValue.id +"'>View</a> | " + "<a class='repostBtn' href='/post/" +
+                         postValue.id + "/repost/'>Repost</a>" + " | <a href='#' class='post-like' data-id="+
+                         postValue.id + ">" + verb + " (" + postValue.likes + ")</a></div></div><hr/><br/><hr/>"
+
+                 } */
+
+                 if (prepend == true){
+                    postContainer.prepend(postFormatedHtml)
+                 } else {
+                    postContainer.append(postFormatedHtml)
+                 }
+             }
+
+
+             // manage reposts too
+             function parsePosts() {
+                 if (postList == 0) {
+                     postContainer.text("No posts currently found")
+                 } else {
+                     // post exists, parse & display them
+                     $.each(postList, function (key, value) {
+                         //console.log(key)
+                         //console.log(value.user)
+                         //console.log(value.content)
+                         var postKey = key;
+
+                         // about of repost
+                         if (value.parent){
+                             attachPost(value, false, true)
+                         } else {
+                             attachPost(value)
+                         }
+                     })
+                 }
+             }
+
+
+
+             // JQuery the form https://www.udemy.com/tweetme-django/learn/v4/t/lecture/6134672?start=0
+             //Consume los posts de un usuario y/o a quien sigo
+             function fetchPosts(url){
+                 console.log("fetching")
+                 var fetchUrl;
+                 if(!url){
+                     fetchUrl = initialURL
+                 } else {
+                     fetchUrl = url
+                 }
+                 $.ajax({
+                     // url: "{% url 'post-api:list' %}", // /api/post por defecto toma localhost:8000 el puerto por el uqe corre el server actual
+                     url: fetchUrl,
+                     data: {
+                         "q": query
+                     },
+                     method: "GET",
+                     success: function (data) {
+                         // console.log("the data are")
+                         // muestra los primeros 10 posts acorde
+                         // a la paginacion en el PostListView
+                         // console.log(data)
+                         postList =  data.results
+                         // para cuando se acaben el loadmore no hay mas posts
+                         if(data.next){
+                             nextPostUrl = data.next
+                         } else {
+                             $("#loadmore").css("display", "none")
+                         }
+                         parsePosts()
+                         // llamamos a lo del hasgtag
+                         updateHashLinks()
+                     },
+                     error: function(data){
+                         console.log("error")
+                         console.log(data)
+                     }
+                 })
+             }
+
+
+             //Consume el detalle de un post
+             function fetchSingle(fetchOneId){
+                 // Urls siempre terminar con /
+                 var fetchDetailUrl = '/api/post/' + fetchOneId + '/'
+                 $.ajax({
+                     // url: "{% url 'post-api:list' %}", // /api/post por defecto toma localhost:8000 el puerto por el uqe corre el server actual
+                     url: fetchDetailUrl,
+                     method: "GET",
+                     success: function (data) {
+
+                         // console.log(data)
+                         postList =  data.results
+                         parsePosts()
+                         updateHashLinks()
+                         /*
+                         console.log("the data are")
+                         // muestra los primeros 10 posts acorde
+                         // a la paginacion en el PostListView
+                         console.log(data)
+                         postList =  data.results
+                         // para cuando se acaben el loadmore no hay mas posts
+                         if(data.next){
+                             nextPostUrl = data.next
+                         } else {
+                             $("#loadmore").css("display", "none")
+                         }
+                         parsePosts()
+                         // llamamos a lo del hasgtag
+                         updateHashLinks()
+                         */
+                     },
+                     error: function(data){
+                         console.log("error")
+                         console.log(data)
+                     }
+                 })
+             }
+
+             if(fetchOneId){
+                fetchSingle(fetchOneId)
+             } else {
+                 fetchPosts()
+             }
+
+
+
+             // Cargar mas posts con el evento click
+             $("#loadmore").click(function(event){
+                 event.preventDefault()
+                 if (nextPostUrl){
+                     fetchPosts(nextPostUrl)
+                 }
+                 // load more items
+             })
+
+             $(".post-form").submit(function(event){
+                 event.preventDefault()
+
+                 var this_ = $(this)
+                 console.log(event)
+                 console.log(this_.serialize())
+                 var formData = this_.serialize()
+                 // AJAX API CreateView https://www.udemy.com/tweetme-django/learn/v4/t/lecture/6134674?start=0
+                 $.ajax({
+                     // url: "{% url 'post-api:list' %}", // /api/post por defecto toma localhost:8000 el puerto por el uqe corre el server actual
+                     url: "/api/post/create/",
+                     data: formData,
+                     method: "POST",
+                     success: function (data) {
+                         this_.find("input[type=text], textarea").val("")
+                         attachPost(data, true)
+
+                         // llamamos a lo del hasgtag
+                         updateHashLinks();
+                         $("#replyModal").modal("hide")
+
+                         //console.log(data)
+                         //fetchPosts() //funcion que pone los posts o se los trae para tener los ultimos
+                         // postList =  data
+                         // parsePosts()
+                     },
+                     error: function(data){
+                         console.log("error")
+                         console.log(data.statusText)
+                         console.log(data.status)
+                     }
+                 })
+             })
+         }
+    </script>
+
+
+    {% block script %}{% endblock script %}
+    {% comment %} Auto search JQuery
+        https://www.udemy.com/tweetme-django/learn/v4/t/lecture/6134684?start=0
+    {% endcomment %}
+    <script>
+        $(document).ready(function(){
+            var typingTimer;
+            var doneInterval=800; // in ms
+            // captura el teclado en el form de busqueda
+            var searchInput = $("#navbar-search-form input[type=text]")
+            var searchQuery;
+
+            searchInput.keyup(function(event){
+                //console.log(event.key)
+                searchQuery = $(this).val()
+                //console.log(searchQuery)
+                clearTimeout(typingTimer)
+                typingTimer = setTimeout(doneSearchTyping, doneInterval)
+            })
+
+            searchInput.keydown(function(event){
+                // console.log(event.key)
+                clearTimeout(typingTimer)
+            })
+
+            function doneSearchTyping(){
+                if(searchQuery){
+                    // do search
+                    // var url = '/post/search/?q=' + searchQuery
+                    // debe quedar /post/search porque /post es la raiz de mi
+                    // aplicacion de posts
+                    var url = '/post/search/?q=' + searchQuery
+                    document.location.href = url;
+                }
+            }
+        })
+    </script>
+
+    <script  type="text/javascript" src="{% static 'js/bootstrap.min.js' %}"></script>
+      <!--  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script> -->
+
+
+
+    <footer>
+        <div class="main-cont">
+            <div class="content">
+                <div class="logo">
+                    <img src="{% static 'img/footer-logo.png' %}" alt="">
+                </div>
+                <div class="quienes-somos">
+                  <p>Hostayni es un nuevo espacio para promover ciudades globales, haciéndolas más competitivas, fomentando la interculturalidad, la academia, el emprendimiento y la responsabilidad social. HOSTAYNI reúne en un mismo lugar las mejores experiencias para una estadía enriquecedora en la ciudad de Medellín.</p>
+                </div>
+                <div class="links-servicios">
+                  <div class="link-each">
+                    <a href="{% url 'host:hostingoffer-search' %}">Alojamiento</a>
+                  </div>
+                  <div class="link-each">
+                    <a href="{% url 'host:studyoffer-search' %}">Educación</a>
+                  </div>
+                  <div class="link-each">
+                    <a href="#">Emprendimiento</a>
+                  </div>
+                  <div class="link-each">
+                    <a href="#">Vida diaria</a>
+                  </div>
+                  <div class="link-each">
+                    <a href="#">Ayni</a>
+                  </div>
+                </div>
+                <div class="terminos-contactenos">
+                  <div class="terminos-each">
+                    <a href="{% url 'terms-and-conditions' %}">Términos y condiciones</a>
+                  </div>
+                  <div class="terminos-each">
+                    <a href="{% url 'privacy-policy' %}">Política de privacidad</a>
+                  </div>
+                  <div class="terminos-each">
+                    <a href="{% url 'contact' %}">Contáctenos</a>
+                  </div>
+                </div>
+                <!-- <div class="links">
+                    <a href="{% url 'who-we-are' %}">Quiénes somos</a>
+                    <a href="{% url 'terms-and-conditions' %}">Términos y condiciones</a>
+                    <a href="{% url 'privacy-policy' %}">Política de privacidad</a>
+                    <a href="{% url 'contact' %}">Contáctenos</a>
+                </div> -->
+            </div>
+            <div class="legal">
+                <p>{% now 'Y' %} &copy; HOSTAYNI S.A.S. Todos los derechos reservados.</p>
+            </div>
+        </div>
+	</footer>
+
+
+        <!--
+        <p align="center">{% now 'Y' %} &copy; HOSTAYNI S.A.S. Todos los derechos reservados.
+          <br />
+          <a href="{% url 'who-we-are' %}">Quiénes Somos</a> | <a href="{% url 'terms-and-conditions' %}">Términos y Condiciones</a> | <a href="{% url 'privacy-policy' %}">Política de Privacidad</a> | <a href="{% url 'contact' %}">Contáctenos</a>
+      </p>
+        <br/>
+
+    </footer>-->
+</body>
+</html>
+>>>>>>> a9c35c920d59be462795f5e569e38a1866e7b947
