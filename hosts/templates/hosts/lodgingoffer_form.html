@@ -64,12 +64,12 @@
           {% else %}
               <div class="formgroup">
                   {% bootstrap_field form.lodging_offer_type_org %}
+                  {% bootstrap_field form.stars %}
               </div>
           {% endif %}
 
 
           <div class="formgroup">
-              {% bootstrap_field form.stars %}
               {% bootstrap_field form.check_in %}
               {% bootstrap_field form.check_out %}
               {% bootstrap_field form.offered_services %}

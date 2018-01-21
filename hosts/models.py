@@ -119,6 +119,7 @@ class LodgingOffer(models.Model):
         (HOUSE_OR_PRIV_APT, "Casa o apartamento privado"),
     )
 
+    EMPTY = ' '
     ONE_STAR = '1 estrella'
     TWO_STARS = '2 estrellas'
     THREE_STARS = '3 estrellas'
@@ -126,6 +127,7 @@ class LodgingOffer(models.Model):
     FIVE_STARS = '5 estrellas'
 
     STARS_NUMBER_CHOICES = (
+        (EMPTY, " "),
         (ONE_STAR, "1 estrella"),
         (TWO_STARS, "2 estrellas"),
         (THREE_STARS, "3 estrellas"),
@@ -198,6 +200,8 @@ class LodgingOffer(models.Model):
         max_length=255,
         choices=STARS_NUMBER_CHOICES,
         verbose_name='Número de estrellas',
+        null=True,
+        blank=True
     )
     '''
     available_dates = models.DateField(
