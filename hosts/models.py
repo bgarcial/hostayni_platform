@@ -334,6 +334,15 @@ class LodgingOffer(models.Model):
     class Meta:
         ordering = ['-is_paid', '-pub_date', '-updated', ]
 
+    def save(self, *args, **kwargs):
+        super(LodgingOffer, self).save(*args, **kwargs)
+
+        if self.photo:
+            LodgingOfferImage.objects.create(
+                lodging_offer=self,
+                image=self.photo
+            )
+
 
 def create_slug(instance, new_slug=None):
     slug = slugify(instance.ad_title)
@@ -586,6 +595,15 @@ class StudiesOffert(models.Model):
 
     class Meta:
         ordering = ['-is_paid', '-pub_date', '-updated', ]
+
+    def save(self, *args, **kwargs):
+        super(StudiesOffert, self).save(*args, **kwargs)
+
+        if self.photo:
+            StudyOfferImage.objects.create(
+                study_offer=self,
+                image=self.photo
+            )
 
 
 def create_study_offer_slug(instance, new_slug=None):
