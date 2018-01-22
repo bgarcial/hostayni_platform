@@ -151,11 +151,6 @@ class LodgingOfferSearch(FormView):
         qs_paid = LodgingOffer.objects.paid()
         context['offers_paid'] = qs_paid
 
-<<<<<<< HEAD
-
-
-=======
->>>>>>> development
         if form.is_valid():
             cd = form.cleaned_data
             # The load_all() method loads all related LodgingOffer objects
