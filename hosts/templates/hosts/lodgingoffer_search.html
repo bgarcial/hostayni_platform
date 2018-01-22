@@ -29,6 +29,7 @@
         {{ form.query }}
     </div> <br />
   </form>
+</div>
 
 {% if "query" in request.GET %}<br />
     <div class="main">
@@ -52,6 +53,9 @@
             <small>{{ lodgingoffer.pub_date }}</small>
             <div class="post-info">
                 <div class="post-type"><i>ALOJAMIENTO</i></div><br/>
+                {% if lodgingoffer.is_paid %}
+                <div class="post-type"><i>PROMOVIDA</i></div><br/>
+                {% endif %}
                 <strong>Tipo de habitación ofrecida:</strong> {{ lodgingoffer.room_type_offered }}<br/>
                 <strong>Número de huéspedes en habitación:</strong> {{ lodgingoffer.number_guest_room_type }}
 
@@ -63,12 +67,14 @@
                 {% endif %}
                 <div class="description">{{ lodgingoffer.additional_description|linebreaks|truncatechars:420 }}</div>
               <hr/>
+            </div>
         {% endwith %}
         {% empty %}
+        </article>
         <p>No existen resultados para tu búsqueda de "{{ cd.query }}".</p>
     {% endfor %}
-            </div>
-</article>
+
+
 
 {% else %}
     {% for po in offers_paid %}
@@ -126,7 +132,12 @@
        </div>
    </article>
 {% endfor %}
+<<<<<<< HEAD
 {% endif %}
 {% endblock %}
 </div>
 
+=======
+    {% endif %}
+{% endblock %}
+>>>>>>> development

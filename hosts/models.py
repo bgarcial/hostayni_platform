@@ -1,4 +1,7 @@
 from __future__ import unicode_literals
+
+import os
+
 from django.db import models
 
 from host_information.models import (
@@ -28,8 +31,6 @@ from django.core.files import File
 from pathlib import Path  # python 3.6+ only!
 
 
-def get_images_search_path(instance, filename):
-    return '/'.join(['lodging_offer_images', instance.slug, filename])
 
 
 class LodgingOfferManager(models.Manager):
@@ -42,10 +43,8 @@ class LodgingOfferManager(models.Manager):
         return super(LodgingOfferManager, self).filter(is_paid=True).filter(pub_date__lte=timezone.now())
 
 
-'''
 def get_lodging_image_search_path(instance, filename):
     return '/'.join(['lodging_offer_images', instance.slug, filename])
-'''
 
 
 class LodgingOffer(models.Model):
@@ -83,18 +82,23 @@ class LodgingOffer(models.Model):
         (TEN_GUESTS, "Para 10 huéspedes"),
     )
 
+    EMPTY = ' '
     STUDENT_RESIDENCE = 'Residencia estudiantil'
     ACCOMODATION_WITH_LOCAL_FAMILY = 'Acomodación con familia local'
     HOUSE_APT_SHARE_VISITORS = 'Casa o apartamento para compartir con otros huéspedes'
     HOUSE_OR_PRIV_APT = 'Casa o apartamento privado'
 
     LODGING_OFFER_TYPE_CHOICES = (
+        (EMPTY, " "),
         (STUDENT_RESIDENCE, "Residencia estudiantil"),
         (ACCOMODATION_WITH_LOCAL_FAMILY, "Acomodación con familia local"),
         (HOUSE_APT_SHARE_VISITORS, "Casa o apartamento para compartir con otros huéspedes"),
         (HOUSE_OR_PRIV_APT, "Casa o apartamento privado"),
     )
 
+    # LODGING_OFFER_TYPE_EMPTY = [('', '-------')] +
+
+    EMPTY = ' '
     HOTEL = 'Hotel'
     HOSTEL = 'Hostal'
     STUDENT_RESIDENCE = 'Residencia estudiantil'
@@ -103,6 +107,7 @@ class LodgingOffer(models.Model):
     HOUSE_OR_PRIV_APT = 'Casa o apartamento privado'
 
     LODGING_OFFER_TYPE_ORG_CHOICES = (
+        (EMPTY, " "),
         (HOTEL, "Hotel"),
         (HOSTEL, "Hostal"),
         (STUDENT_RESIDENCE, "Residencia estudiantil"),
@@ -111,6 +116,7 @@ class LodgingOffer(models.Model):
         (HOUSE_OR_PRIV_APT, "Casa o apartamento privado"),
     )
 
+    EMPTY = ' '
     ONE_STAR = '1 estrella'
     TWO_STARS = '2 estrellas'
     THREE_STARS = '3 estrellas'
@@ -118,6 +124,7 @@ class LodgingOffer(models.Model):
     FIVE_STARS = '5 estrellas'
 
     STARS_NUMBER_CHOICES = (
+        (EMPTY, " "),
         (ONE_STAR, "1 estrella"),
         (TWO_STARS, "2 estrellas"),
         (THREE_STARS, "3 estrellas"),
@@ -174,18 +181,24 @@ class LodgingOffer(models.Model):
         max_length=255,
         choices=LODGING_OFFER_TYPE_ORG_CHOICES,
         verbose_name='Tipo de oferta de alojamiento',
+        null=True,
+        blank=True
     )
 
     lodging_offer_type = models.CharField(
         max_length=255,
         choices=LODGING_OFFER_TYPE_CHOICES,
         verbose_name='Tipo de oferta de alojamiento',
+        null=True,
+        blank=True
     )
 
     stars = models.CharField(
         max_length=255,
         choices=STARS_NUMBER_CHOICES,
         verbose_name='Número de estrellas',
+        null=True,
+        blank=True
     )
     '''
     available_dates = models.DateField(
@@ -266,8 +279,7 @@ class LodgingOffer(models.Model):
     )
 
     photo = models.ImageField(
-        upload_to=get_images_search_path,
-        # upload_to='lodging_offer_images',
+        upload_to=get_lodging_image_search_path,
         blank=False,
         verbose_name='Fotografía',
         null=False,
@@ -282,13 +294,19 @@ class LodgingOffer(models.Model):
         verbose_name='Descripción adicional'
     )
 
+    # Este campo sera grabado solo una vez cuando se cree el articulo
     pub_date = models.DateTimeField(
-        auto_now_add=True,
+        auto_now=False, auto_now_add=True
+        # related_name="lodgingoffers"
     )
+
+    # Cada vez que se grabe en la base de datos se actualice el campo updated
+    updated = models.DateTimeField(auto_now=True, auto_now_add=False)
 
     is_taked = models.BooleanField(
         _('Oferta tomada'),
         default=False,
+
 
         # help_text=_(
         #    'Indica si esta oferta ya fue tomada por un usuario.  <br /> Este campo es solo para uso de '
@@ -322,7 +340,17 @@ class LodgingOffer(models.Model):
         return self.room_value
 
     class Meta:
-        ordering = ['-pub_date']
+        ordering = ['-is_paid', '-pub_date', '-updated', ]
+
+    def save(self, *args, **kwargs):
+        super(LodgingOffer, self).save(*args, **kwargs)
+
+        if self.photo:
+            LodgingOfferImage.objects.create(
+                lodging_offer=self,
+                image=self.photo
+            )
+
 
 
 def create_slug(instance, new_slug=None):
@@ -400,6 +428,16 @@ class LodgingOfferImage(models.Model):
 
 def get_image_search_path(instance, filename):
     return '/'.join(['educational_offer_images', instance.slug, filename])
+
+
+class StudiesOffertManager(models.Manager):
+
+    def active(self, *args, **kwargs):
+        return super(StudiesOffertManager, self).filter(is_taked=False).filter(is_paid=False).filter(
+            pub_date__lte=timezone.now())
+
+    def paid(self, *args, **kwargs):
+        return super(StudiesOffertManager, self).filter(is_paid=True).filter(pub_date__lte=timezone.now())
 
 
 class StudiesOffert(models.Model):
@@ -527,21 +565,26 @@ class StudiesOffert(models.Model):
         help_text='Esta imagen acompañará tu oferta en los resultados de búsquedas'
     )
 
+    # Este campo sera grabado solo una vez cuando se cree el articulo
     pub_date = models.DateTimeField(
-        auto_now=True,
+        auto_now=False, auto_now_add=True
         # related_name="lodgingoffers"
     )
+
+    # Cada vez que se grabe en la base de datos se actualice el campo updated
+    updated = models.DateTimeField(auto_now=True, auto_now_add=False)
 
     is_taked = models.BooleanField(
         _('Oferta tomada'),
         default=False,
-        help_text=_(
-            'Indica si esta oferta ya fue tomada por un usuario.  <br /> Este campo es solo para uso de '
-            'actualización de una oferta cuando ya ha habido un acuerdo por ella. '
-            'Si se selecciona, no aparecerá en los resultados '
-            'de búsquedas. <br /> Des-seleccionéla en lugar de eliminar la oferta'
-        ),
     )
+
+    is_paid = models.BooleanField(
+        _('Oferta promovida'),
+        default=False,
+    )
+
+    objects = StudiesOffertManager()
 
     def __str__(self):
         return "{}".format(self.ad_title)
@@ -556,6 +599,18 @@ class StudiesOffert(models.Model):
 
     def get_price(self):
         return self.studies_value
+
+    class Meta:
+        ordering = ['-is_paid', '-pub_date', '-updated', ]
+
+    def save(self, *args, **kwargs):
+        super(StudiesOffert, self).save(*args, **kwargs)
+
+        if self.photo:
+            StudyOfferImage.objects.create(
+                study_offer=self,
+                image=self.photo
+            )
 
 
 def create_study_offer_slug(instance, new_slug=None):

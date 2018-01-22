@@ -10,6 +10,11 @@ class StudiesOffertForm(forms.ModelForm):
     #user = self.request.user
     ad = "Oferta de estudios"
     #scholarships = forms.ModelForm(queryset=Scholarship.objects.filter(created_by__username=user))
+    offer_taked = ("\n"
+                   " Indica si esta oferta ya fue tomada por un usuario.Este campo es solo para uso de \n"
+                   " actualización de una oferta cuando ya ha habido un acuerdo por ella. "
+                   " Si se selecciona, no aparecerá en los resultados de búsquedas. \n "
+                   "Des-seleccionéla en lugar de eliminar la oferta ")
 
     class Meta:
         model = StudiesOffert

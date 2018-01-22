@@ -83,6 +83,14 @@ class StudiesOffertSearch(FormView):
 
         form = StudiesOffertSearchForm(self.request.GET or None)
 
+        qs = StudiesOffert.objects.active()
+        context['offer_list'] = qs
+
+        qs_paid = StudiesOffert.objects.paid()
+        context['offers_paid'] = qs_paid
+
+
+
         # When the form is submitted, we instantiate it with the submitted GET
         # data and we check that the given data is valid. If the form is
         # valid, we use the we use SearchQuerySet to perform a search for
@@ -125,10 +133,6 @@ class LodgingOfferSearch(FormView):
         form = LodgingOfferSearchForm(self.request.GET or None)
         return self.render_to_response(self.get_context_data(form=form))
 
-    def get_queryset(self):
-        qs = LodgingOffer.objects.active()
-        return qs
-
     def get_context_data(self, **kwargs):
         context = super(LodgingOfferSearch, self).get_context_data(**kwargs)
         user = self.request.user
@@ -147,8 +151,11 @@ class LodgingOfferSearch(FormView):
         qs_paid = LodgingOffer.objects.paid()
         context['offers_paid'] = qs_paid
 
+<<<<<<< HEAD
 
 
+=======
+>>>>>>> development
         if form.is_valid():
             cd = form.cleaned_data
             # The load_all() method loads all related LodgingOffer objects
@@ -218,7 +225,6 @@ def lodging_offers_by_user(request, email):
 class HostingOfferCreateView(SuccessMessageMixin, LoginRequiredMixin, UserProfileDataMixin, CreateView):
     model = LodgingOffer
     form_class = LodgingOfferForm
-    #success_url = reverse_lazy("articles:article_list")
     success_message = "Tu oferta de alojamiento creada con éxito. " \
                       "A continuación agrega más imágenes para generar " \
                       "mayor interés en los usuarios"
@@ -228,7 +234,6 @@ class HostingOfferCreateView(SuccessMessageMixin, LoginRequiredMixin, UserProfil
         form.instance.created_by = self.request.user
         form.instance.pub_date = timezone.now()
         form.save()
-        # success_message = "Oferta de estudio creada con éxito"
         return super(HostingOfferCreateView, self).form_valid(form)
 
 

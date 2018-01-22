@@ -1,9 +1,13 @@
 from django.contrib import admin
 
 from django.contrib import admin
-from .models import LodgingOffer, StudiesOffert, StudyOfferImage
+from .models import LodgingOffer, StudiesOffert, StudyOfferImage, LodgingOfferImage
     #StudiesTypeOffered, StudiesOffertList, ,
 
+
+@admin.register(LodgingOfferImage)
+class StudyOfferImageAdmin(admin.ModelAdmin):
+    list_display = ['__str__', 'lodging_offer', 'image']
 
 @admin.register(StudyOfferImage)
 class StudyOfferImageAdmin(admin.ModelAdmin):
@@ -19,8 +23,8 @@ class LodgingOfferAdmin(admin.ModelAdmin):
 
 @admin.register(StudiesOffert)
 class StudiesOffertAdmin(admin.ModelAdmin):
-    list_display = ('id', 'is_taked', 'ad_title', 'slug', 'tag_list',)
-    list_editable = ('is_taked',)
+    list_display = ('id', 'is_taked', 'is_paid', 'ad_title', 'slug', 'tag_list',)
+    list_editable = ('is_taked', 'is_paid')
 
     def get_queryset(self, request):
         return super(StudiesOffertAdmin, self).get_queryset(request).prefetch_related('knowledge_topics')
