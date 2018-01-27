@@ -39,21 +39,27 @@ p {
     color: #706f6f; }
 
 header {
-  height: 101px;
+  height: 60px;
   display: flex;
   flex-flow: row wrap;
   box-shadow: 0 0 1px 1px rgba(20,23,28,.1), 0 3px 1px 0 rgba(20,23,28,.1);
   width: 100%;
+  position: fixed;
+  top: 0;
+  background-color: #ffffff;
+  z-index: 2;
+  justify-content: space-between;
   /*justify-content: space-evenly;*/
   }
   header .registration {
     display: flex;
     flex-flow: row wrap;
-    width: 28%;
-    margin: 0 0 0 0;
-    height: 100%;
-    justify-content: center; }
-    header .registration a:hover {
+    width: 14%;
+    max-width: 30%;
+    margin: 14px 0 0 0;
+    height: 100%; }
+
+    header .registration .button_home:hover {
       background-color: #d6d6d6; }
 
   header .profile-options {
@@ -62,7 +68,8 @@ header {
     height: 100%;
     margin: 5px 0px 0 0px;
     width: 26%;
-    justify-content: flex-end; }
+    justify-content: flex-end;
+    display: none;}
 
 
     header .profile-options .img {
@@ -126,8 +133,121 @@ header {
             border-bottom: 2px solid #d6d6d6;
             margin: 7px 0; }
 
+
+/* Drop down menu registro iniciar sesión */
+
+header .registration .registration_low{
+  height: 100%;
+  width: 30%;
+  z-index: 3;
+  justify-content: space-between;
+}
+
+header .registration .registration_low img {
+  width: auto;
+  height: 50%;
+  cursor: pointer;
+  z-index: 3;
+  justify-content: space-between;}
+
+header .registration .registration_low .drop-down {
+  display: none;
+  position: relative;
+  top: 0;
+  right: 98px;
+  width: 102px;
+  height: auto;
+  padding: 13px;
+  border: 1px solid #d6d6d6;
+  background-color: #fff;
+  z-index: 3;}
+
+header .registration .registration_low .drop-down ul li a {
+    color: #706f6f;
+    font-size: 0.9em;
+    z-index: 3;
+    margin-bottom: 0px; }
+
+header .registration .registration_low .drop-down li:hover{
+  background-color: #d6d6d6;
+}
+
+header .registration .registration_low .drop-down ul .line {
+    border-bottom: 2px solid #d6d6d6;
+    margin: 7px 0;
+  z-index: 3; }
+
+  header .registration .registration_low:hover .drop-down {
+    display: block;
+}
+
+header .profile-options-low {
+  display: flex;
+  flex-flow: row wrap;
+  width: 19%;
+  height: 100%;
+  max-width: 30%;
+  min-width: 10%;
+  margin: 0 0 0 0;
+  justify-content: start;}
+
+
+  header .profile-options-low .img-low {
+    display: flex;
+    flex-flow: row wrap;
+    -webkit-border-radius: 10px;
+    -moz-border-radius: 10px;
+    -ms-border-radius: 10px;
+    border-radius: 10px;
+    width: 50px;
+    height: auto;
+    margin: 7% 0;
+    max-height: 52px;
+  }
+    header .profile-options-low .img-low img {
+      display: inline-block;
+      width: inherit;
+      height: auto;
+      cursor: pointer; }
+
+    header .profile-options-low{
+      width: 60px;
+      margin: 0 0 0 0; }
+      header .profile-options-low p {
+        font-size: 0.9em; }
+      header .profile-options-low img {
+        width: 15px;
+        height: 15px;
+        cursor: pointer; }
+
+      header .profile-options-low .drop-down-low {
+        display: none;
+        position: relative;
+        top: 0;
+        right: 55px;
+        width: 170px;
+        height: auto;
+        padding: 13px;
+        border: 1px solid #d6d6d6;
+        background-color: #fff; }
+        header .profile-options-low .drop-down-low ul li a {
+          color: #706f6f;
+          font-size: 0.9em; }
+        header .profile-options-low .drop-down-low ul .line {
+          border-bottom: 2px solid #d6d6d6;
+          margin: 7px 0; }
+
+          .profile-options-low:hover .drop-down-low {
+              display: block;
+          }
+
+/*header .profile-options-low .drop-down-low ul{
+  width: 20%;
+}*/
+
 .button_a{
   width: 50%;
+  display: none;
 }
 
 .button_home{
@@ -142,9 +262,9 @@ header {
   border-radius: 5px;
   font-family: 'Source Sans Pro', sans-serif;
   width: 85%;
-  height: 30%;
-  margin-top: 65px;
-  margin-left: 20px;
+  height: 57%;
+  margin-top: 6%;
+  margin-left: 1%;
 }
 
 main {
@@ -159,49 +279,52 @@ main {
 .logo_container{
   display: flex;
   flex-flow: row wrap;
-  height: 99px;
-  max-width: 30%;
-  padding-right: 0.9rem;
-  padding-left: 2.0rem;
-  margin-top: 22px;
-  margin-right: 8px;
+  padding-right: 0.1%;
+  padding-left: 2%;
+  margin-top: 0.5%;
+  margin-right: 0.5%;
+  width: 21%;
 }
 
 .logo_img{
-  width: 90%;
-  height: 55%;
+  width: auto;
+  height: 85%;
   display: none;
 }
 
 .logo_img_low{
-  width: 100%;
-  height: 66%;
+  width: auto;
+  height: 100%;
 }
 
 .icons{
   display: flex;
   flex-flow: row wrap;
-  width: 40%;
-  margin-left: 1.0%;
-  margin-right: 1.0%;
+  width: 59%;
   justify-content: center;
-  margin-top: 46px;
-  margin-bottom: 20px;
+  /*margin-top: 46px;
+  margin-bottom: 20px;*/
 }
 
 .pic_icon{
   padding: 0;
-  flex: 0 0 15%;
+  flex: 0 0 6%;
   margin: 1px;
   align-items: center;
-  margin-left: 3px;
-  margin-right: 3px;
+  margin: 4.5% 4px 0px 4px;
+  /*margin-left: 3px;
+  margin-right: 3px;*/
+}
+
+.icons .pic_icon img{
+  height: 68%;
 }
 
 .search_ele{
   width: 100%;
-  margin-top: 30px;
-  margin-bottom: 30px;
+  margin: 114px 0px 50px 0px;
+  /*margin-top: 30px;
+  margin-bottom: 30px;*/
   justify-content: center;
   text-align: center;
 }
@@ -445,7 +568,7 @@ article {
     }
 
 footer {
-  margin-top: 50px; }
+/*margin-top: 50px;*/ }
   footer .main-cont {
     background: url("../img/background-text.jpg");
     background-repeat: repeat;
@@ -549,7 +672,7 @@ footer {
 
     .main-article{
       width: 82%;
-      margin: 47px 17px 0px 27px;
+      margin: 90px 17px 0px 27px;
     }
 
     .search-column {
@@ -557,7 +680,7 @@ footer {
       width: 30%;
       float: right;
       padding-left: 10px;
-      margin: 51px 2px 10px 10px;
+      margin: 90px 2px 10px 10px;
       display: none;
     }
 
@@ -640,10 +763,10 @@ footer {
               font-weight: 400; }
 
               .blog-body .text-cont {
-                max-width: 650px;
-                margin: 25px 10px 40px 20px; }
+                max-width: 100%;
+                margin: 25px 0px 39px 0px; }
                 .blog-body .text-cont .side-icon {
-                  display: inline-block;
+                  display: none;
                   width: 38px;
                   height: 38px;
                   margin-right: 5px;
@@ -651,7 +774,7 @@ footer {
                   vertical-align: top; }
                 .blog-body .text-cont .main-text {
                   display: inline-block;
-                  width: 607px;
+                  width: 100%;
                   margin-right: -4px; }
 
 .title-article{
@@ -668,7 +791,17 @@ footer {
 .img-cont{
   display: flex;
   flex-flow: row wrap;
-  width: 27%;
+  width: 15%;
+}
+
+.img-cont img{
+  width: 100%;
+  height: auto;
+}
+
+.img-cont a{
+  width: 100%;
+  height: auto;
 }
 
 .name-review-author{
@@ -677,7 +810,9 @@ footer {
   vertical-align: top;
   color: #4c4c4c;
   width: 60%;
+  margin-left: 13px;
   margin-top: 8px;
+  font-size: 11px;
   text-decoration: none;
   font-family: "Source Sans Pro", sans-serif;
 }
@@ -692,4 +827,142 @@ footer {
   flex-flow: wrap;
   margin-top: 11px;
   width: 100%;
+}
+
+.date{
+  margin-top: 10px;
+}
+
+.date span {
+  color: #777777;
+  font-size: 11px;
+  font-family: "Source Sans Pro", sans-serif;
+}
+
+/* Search offers */
+
+.ofert-icon img{
+  width: 10%;
+  height: auto;
+}
+
+/* Design elements for text containers for privacy and politics, terms and conditions */
+
+.container-main-info{
+  margin: 120px 100px 20px 100px;
+}
+
+.container-main-title{
+  text-align: center;
+  margin: 100px 40px 42px 40px;
+  font-size: 10px;
+}
+
+.container-main-title h2{
+  font-size: 21px;
+}
+
+/* Design elements for login and sign up */
+
+.form-cont{
+  display: none;
+  flex-flow: row wrap;
+  margin: 70px 0px 0px 0px;
+  height: 62%;
+}
+
+.form-cont-low{
+  display: flex;
+  flex-flow: row wrap;
+  margin: 61px 0px 0px 0px;
+  height: 68%;
+}
+
+.main-login{
+  width: 100%;
+  margin-top: 25%;
+  margin-left: 16%;
+  margin-right: 16%;
+  height: 86%;
+}
+
+.portrait{
+  width: 50%;
+  height: 60%;
+  margin-top: 10%;
+  display: none;
+}
+
+.img-cont-login{
+  display: inline-block;
+  vertical-align: top;
+  -webkit-border-radius: 10px;
+  -moz-border-radius: 10px;
+  -ms-border-radius: 10px;
+  border-radius: 10px;
+  overflow: hidden;
+  width: 100%;
+  height: 100%;
+  margin-right: 5px;
+}
+
+.form-login{
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    margin: auto;
+    background-color: #FFFFFF;
+    padding-top: 0px;
+    height: 67%;
+}
+
+.login-container{
+  margin: 20px;
+}
+
+input[type="text"] .form-control{
+  margin: 0px 0px;
+}
+
+.submit-button-cont{
+  justify-content: center;
+  margin-left: 23%;
+}
+
+.login-container .form-group label{
+  width: 100%;
+  text-align: center;
+}
+
+.login-container .form-group input[type="text"]{
+  width: 100%;
+  margin: 0px 0px;
+}
+
+.main-login .form-login .login-container .submit-button-cont a{
+  width: auto;
+  font-size: 12px;
+}
+
+
+
+/*Formulario contactenos*/
+
+.container-contactenos{
+  margin: 132px 50px 110px 50px
+}
+
+.container-button-submit:hover{
+  background-color: #d6d6d6;
+}
+
+.container-contactenos .container-contact-info .form-group .form-control{
+  margin: 0px 0px;
+  width: 100%;
+  text-align: left;
+}
+
+.submit-button-contactenos .container-button-submit{
+  justify-content: flex-end;
+  margin-left: 60%;
+  display: block;
+  float: right;
 }

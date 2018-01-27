@@ -43,30 +43,38 @@ p {
     color: #706f6f; }
 
 header {
-  height: 150px;
+  height: 60px;
   display: flex;
   flex-flow: row wrap;
   box-shadow: 0 0 1px 1px rgba(20,23,28,.1), 0 3px 1px 0 rgba(20,23,28,.1);
   width: 100%;
-  justify-content: space-evenly;
+  position: fixed;
+  top: 0;
+  background-color: #ffffff;
+  z-index: 2;
+  justify-content: space-between;
   }
   header .registration {
     display: flex;
     flex-flow: row wrap;
-    width: 28%;
+    width: 25%;
+    max-width: 30%;
+    min-width: 20%
     margin: 0 0 0 0;
     height: 100%;
-    justify-content: center; }
-    header .registration a:hover {
+    justify-content: space-between; }
+
+  header .registration .button_home:hover {
       background-color: #d6d6d6; }
 
   header .profile-options {
     display: flex;
     flex-flow: row wrap;
-    height: 100%;
-    margin: 0 0 0 -13px;
     width: 26%;
-    justify-content: flex-end; }
+    max-width: 30%;
+    min-width: 20%;
+    height: 100%;
+    margin: 0 0 0 0;}
 
 
     header .profile-options .img {
@@ -78,8 +86,7 @@ header {
       border-radius: 10px;
       width: 50px;
       height: auto;
-      float: right;
-      margin-top: 15%;
+      margin-top: 1%;
     }
       header .profile-options .img img {
         display: inline-block;
@@ -91,8 +98,8 @@ header {
       flex-flow: row wrap;
       height: auto;
       width: 70%;
-      margin: 20% 0 0 0;
-      justify-content: flex-end; }
+      margin: 5% 0 0 0;
+      justify-content: center; }
 
       header .profile-options .name-options-cont .name {
         color: #706f6f;
@@ -114,7 +121,7 @@ header {
           display: none;
           position: relative;
           top: 0;
-          right: 180px;
+          right: 127px;
           width: 170px;
           height: auto;
           padding: 13px;
@@ -126,6 +133,18 @@ header {
           header .profile-options .name-options-cont .options .drop-down ul .line {
             border-bottom: 2px solid #d6d6d6;
             margin: 7px 0; }
+
+          header .icons .pic_icon img:hover{
+            background-color: #d6d6d6;
+          }
+
+.profile-options-low{
+  display: none;
+}
+
+.registration_low{
+  display: none;
+}
 
 .button_a{
   width: 50%;
@@ -143,15 +162,16 @@ header {
   border-radius: 5px;
   font-family: 'Source Sans Pro', sans-serif;
   width: 85%;
-  height: 30%;
-  margin-top: 65px;
-  margin-left: 20px;
+  height: 57%;
+  margin-top: 6%;
+  margin-left: 1%;
 }
 
 main {
   display: flex;
   flex-flow: row wrap;
   width: 90%;
+  height: auto;
   margin: 50px;
   justify-content: center;
  }
@@ -160,16 +180,18 @@ main {
 .logo_container{
   display: flex;
   flex-flow: row wrap;
-  height: 80%;
-  max-width: 40%;
-  padding-right: 0.9rem;
-  padding-left: 3.0rem;
-  margin-top: 45px;
+  padding-right: 0.1%;
+  padding-left: 2%;
+  margin-top: 0.5%;
+  margin-bottom: 0.5%;
+  width: 21%;
 }
 
 .logo_img{
-  width: 90%;
-  height: 55%;
+  /*max-width: 100%;*/
+  /*max-height: 100%;*/
+  width: auto;
+  height: 100%;
 }
 
 .logo_img_low{
@@ -182,27 +204,31 @@ main {
   display: flex;
   flex-flow: row wrap;
   width: 41%;
+  max-height: 56px;
   margin-left: 2.5%;
   margin-right: 2%;
   justify-content: center;
-  margin-top: 50px;
-  margin-bottom: 20px;
+  /*margin-top: 50px;
+  margin-bottom: 20px;*/
 }
 
 
 .pic_icon{
   padding: 0;
-  flex: 0 0 12%;
+  flex: 0 0 8%;
   margin: 1px;
   align-items: center;
-  margin-left: 5px;
-  margin-right: 5px;
-  margin-top: 10px;
+  margin: 1%;
+  max-height: 56px;
+}
+
+.icons .pic_icon img{
+  height: 100%;
 }
 
 .search_ele{
   width: 90%;
-  margin: 50px;
+  margin: 114px 50px 50px 50px;
   justify-content: center;
   text-align: center;
 }
@@ -212,7 +238,7 @@ main {
   justify-content: center;
 }
 
-input[type="text"]{
+.form-search-articles{
   display: block;
   -webkit-border-radius: 10px;
   -moz-border-radius: 10px;
@@ -448,12 +474,14 @@ article {
     }
 
 footer {
-  margin-top: 50px; }
+/*margin-top: 50px;*/ }
   footer .main-cont {
     background: url("../img/background-text.jpg");
     background-repeat: repeat;
     padding: 20px 10px;
-    height: 200px; }
+  /*height: 200px;*/
+    height: 29%; }
+
     footer .main-cont .content {
       display: flex;
       flex-flow: row wrap;
@@ -539,7 +567,7 @@ footer {
 
 .main-article{
   width: 60%;
-  margin: 47px 39px 0px 55px;
+  margin: 90px 39px 0px 55px;
 }
 
 .search-column {
@@ -548,7 +576,7 @@ footer {
   flex-flow: row wrap;
   width: 30%;
   padding-left: 10px;
-  margin: 51px 2px 10px 10px;
+  margin: 90px 2px 10px 10px;
 }
 
 .post-column{
@@ -648,4 +676,110 @@ footer {
 
 .search-column-low{
   display: none;
+}
+
+/* Search offers */
+
+.ofert-icon img{
+  width: 10%;
+  height: auto;
+}
+
+
+/* Design elements for text containers for privacy and politics, terms and conditions */
+
+.container-main-info{
+  margin: 120px 100px 20px 100px;
+}
+
+.container-main-title{
+  text-align: center;
+  margin: 100px 100px 20px 100px;
+}
+
+/* Design elements for login and sign up */
+
+.form-cont{
+  display: flex;
+  flex-flow: row wrap;
+  margin: 70px 60px 20px 60px;
+  height: 62%;
+}
+
+.form-cont-low{
+  display: none;
+}
+
+.main-login{
+  width: 35%;
+  margin-top: 7%;
+  margin-left: 3%;
+  margin-right: 6%;
+  height: 76%;
+}
+
+.portrait{
+  width: 50%;
+  height: 60%;
+  margin-top: 8%;
+}
+
+.img-cont-login{
+  display: inline-block;
+  vertical-align: top;
+  -webkit-border-radius: 10px;
+  -moz-border-radius: 10px;
+  -ms-border-radius: 10px;
+  border-radius: 10px;
+  overflow: hidden;
+  width: 100%;
+  height: 100%;
+  margin-right: 5px;
+}
+
+.form-login{
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    margin: auto;
+    background-color: #FFFFFF;
+    padding-top: 0px;
+    height: 76%;
+}
+
+.login-container{
+  margin: 20px;
+}
+
+.submit-button-cont{
+  justify-content: flex-end;
+  margin-left: 60%;
+  display: block;
+  float: right;
+  width: 41%;
+}
+
+.main-login .form-login .login-container .submit-button-cont a{
+  width: auto;
+  font-size: 12px;
+}
+
+.container-button-login{
+  margin-top: 8%;
+}
+
+/*Formulario contactenos*/
+
+.container-contactenos{
+  margin: 132px 100px 141px 100px
+}
+
+
+.container-button-submit:hover{
+  background-color: #d6d6d6;
+}
+
+.submit-button-contactenos .container-button-submit{
+  justify-content: flex-end;
+  margin-left: 60%;
+  display: block;
+  float: right;
 }

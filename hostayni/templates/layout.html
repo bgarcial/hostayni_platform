@@ -135,6 +135,47 @@
 
             {% if request.user.is_authenticated %}
                 {% if userprofile %}
+                    <div class="profile-options-low">
+                      <div class="img-low">
+                          {% if userprofile.user.avatar %}
+                                  <img src="{{ userprofile.user.avatar.url }}" width="100" height="100" class="img-responsive">
+                          {% else %}
+                                  <img src="{% static 'img/default_profile_pic.png' %}" class="img-responsive">
+                          {% endif %}
+                          <!-- Imagen de perfil -->
+                         {% comment %} <img src="{{ object.image_url|default_if_none:'#' }}" alt="">{% endcomment %}
+                      </div>
+                      <div class="drop-down-low">
+                          <ul>
+                              <li><a href="{% url 'accounts:preferences' userprofile.user.slug %}" >
+          Configuración</a></li>
+                              <li><a href="{% url 'accounts:profile' userprofile.user.slug %}">Mis roles de usuario</a></li>
+                              <li class="line"></li>
+                              <p><strong>Contenidos</strong></p>
+                              <li><a href="{% url 'articles:create' %}">Crear Artículo</a></li>
+                              <li><a href="{% url 'articles:list' userprofile.user.slug %}">Mis artículos</a></li>
+                              <li class="line"></li>
+                              <p><strong>Social</strong></p>
+                              <li><a href="{% url 'post:list' %}">Mi Red Social</a></li>
+                              <li class="line"></li>
+                              <p><strong>Anfitrión</strong></p>
+                              {% if userprofile.user.is_hosting_host %}
+                                <li><a href="{% url 'host:hosting-host' %}">Crear oferta de alojamiento</a></li>
+                                <li><a href="{% url 'host:list' userprofile.user.slug %}">Mis ofertas de alojamiento</a></li>
+                              {% endif %}
+                              {% if userprofile.user.is_study_host %}
+                                <li><a href="{% url 'host:study-host' %}">Crear oferta de educación</a></li>
+                                   <li><a href="{% url 'host:studiesofferlist' userprofile.user.slug %}">Mis ofertas de educación</a></li>
+                              {% endif %}
+                              <li class="line"></li>
+                              <p><strong>Búsquedas</strong></p>
+                              <li><a href="{% url 'host:hostingoffer-search' %}">Ofertas de alojamiento</a></li>
+                              <li><a href="{% url 'host:studyoffer-search' %}">Ofertas de educación</a></li>
+
+                              <li><a href="{% url 'accounts:logout' %}">Salir</a></li>
+                          </ul>
+                      </div>
+                    </div>
                     <div class="profile-options">
                         {% comment %} Begin settings drowdown {% endcomment %}
 
@@ -208,6 +249,16 @@
                         <!-- <a href="{% url 'accounts:signup' %}">Registrarse</a><a href="{% url 'login' %}">Iniciar sesión</a> -->
                         <a class="button_a" href="{% url 'accounts:signup' %}"><input type="button" class="button_home a" value="Registrarse"></a>
                         <a class="button_a" href="{% url 'login' %}"><input type="button" class="button_home a" value="Iniciar sesión"></a>
+                        <!-- Hack Para Desplegar el Menú activando un checkbox -->
+                        <div class="registration_low">
+                              <img src="{% static 'img/icons/gear.svg' %}" alt="">
+                              <div class="drop-down">
+                                  <ul>
+                                      <li><a href="{% url 'accounts:signup' %}" >Registrarse</a></li>
+                                      <li><a href="{% url 'login' %}">Iniciar Sesión</a></li>
+                                  </ul>
+                              </div>
+                        </div>
                     </div>
             {% endif %}
         </header>

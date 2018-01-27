@@ -1,9 +1,6 @@
 {% extends 'layout.html' %}
 {% load staticfiles %}
 {% block title_tag %}Lodging Offert Search | {{ block.super }}{% endblock %}
-{% block top_logo %}
-{% include "top-logo.html" %}
-{% endblock %}
 {% block body_content %}
 
 
@@ -30,7 +27,7 @@
     <div class="formgroup">
       <span></span>
         {{ form.query }}
-    </div> 
+    </div>
   </form>
 </div>
   {% if "query" in request.GET %}<br />

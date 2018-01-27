@@ -1,9 +1,6 @@
 {% extends 'layout.html' %}
 {% load staticfiles %}
 {% block title_tag %}Studies Offert Search | {{ block.super }}{% endblock %}
-{% block top_logo %}
-{% include "top-logo.html" %}
-{% endblock %}
 {% block body_content %}
 
 <div class="offert-form">
@@ -27,7 +24,7 @@
     <div class="formgroup">
       <span></span>
         {{ form.query }}
-    </div> 
+    </div>
   </form>
 </div>
   {% if "query" in request.GET %}<br />
@@ -86,10 +83,10 @@
   <table>
     <tbody>
       <tr>
-        <th>Study Offer Title</th>    
-        <th>Institution</th>    
-        <th>Knowledge Topics</th>    
-        <th>Location</th>    
+        <th>Study Offer Title</th>
+        <th>Institution</th>
+        <th>Knowledge Topics</th>
+        <th>Location</th>
       </tr>
       {% for result in results %}
           {% with studyoffer=result.object %}
@@ -102,13 +99,10 @@
         {% endwith %}
         {% empty %}
           <p>There are no results for your query.</p>
-      {% endfor %}   
+      {% endfor %}
     </tbody>
   </table>
   {% endcomment %}
   {% endif %}
 </div>
 {% endblock %}
-
-
-
