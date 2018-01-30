@@ -699,6 +699,8 @@ footer {
 
 /* Design elements for login and sign up */
 
+/* login */
+
 .form-cont{
   display: flex;
   flex-flow: row wrap;
@@ -766,6 +768,74 @@ footer {
   margin-top: 8%;
 }
 
+/* sign up */
+
+.portrait-signup{
+  width: 50%;
+  height: 60%;
+  margin-top: 10%;
+}
+
+.img-cont-signup{
+  display: inline-block;
+  vertical-align: top;
+  -webkit-border-radius: 10px;
+  -moz-border-radius: 10px;
+  -ms-border-radius: 10px;
+  border-radius: 10px;
+  overflow: hidden;
+  width: 100%;
+  height: 100%;
+  margin-right: 5px;
+}
+
+.form-cont-signup{
+  display: flex;
+  flex-flow: row wrap;
+  margin: 0px 60px 34px 60px;
+  height: 73%;
+}
+
+.form-cont-signup-low{
+  display: none;
+  flex-flow: row wrap;
+  margin: 61px 0px 0px 0px;
+  height: 68%;
+}
+
+.main-signup{
+  width: 35%;
+  margin-top: 7%;
+  margin-left: 3%;
+  margin-right: 6%;
+  height: 82%;
+}
+
+.form-signup{
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+  margin: 0 0 0 0;
+  background-color: #FFFFFF;
+  padding-top: 0px;
+  height: 95%;
+}
+
+.signup-container{
+  margin: 3% 10% 10% 10%;
+  display: inline-block;
+}
+
+.signup-title{
+  margin: 10px 0 0 0;
+}
+
+.submit-button-cont-signup{
+  justify-content: flex-end;
+  margin-left: 60%;
+  display: block;
+  float: right;
+  width: 41%;
+}
+
 /*Formulario contactenos*/
 
 .container-contactenos{
@@ -782,4 +852,104 @@ footer {
   margin-left: 60%;
   display: block;
   float: right;
+}
+
+/* User configuration account */
+
+.icon-picture img{
+  width: 10%;
+  height: auto;
+}
+
+.icon-picture{
+  margin: 0px 0 0 0;
+}
+
+.offert-form{
+  margin: 7% 5% 0 5%;
+  width: 89%;
+  height: auto;
+}
+
+.config-container{
+  display: inline-flex;
+  width: 97%;
+  height: auto;
+}
+
+/* Accordion for mobile */
+
+.config-container-low{
+  display: none;
+}
+
+/*.accordion{
+    background-color: #eee;
+    color: #444;
+    cursor: pointer;
+    padding: 18px;
+    width: 100%;
+    text-align: left;
+    border: none;
+    outline: none;
+    transition: 0.4s;
+}
+
+.active, .accordion:hover {
+    background-color: #ccc;
+}
+
+.panel{
+    padding: 0 18px;
+    background-color: white;
+    display: none;
+    overflow: hidden;
+}*/
+
+/* Tabs Verticales */
+
+.tabConfiguracion {
+    float: left;
+    border: 1px solid #ccc;
+    background-color: #f1f1f1;
+    width: 32%;
+    height: auto;
+}
+
+.tabConfiguracion button {
+    display: block;
+    background-color: inherit;
+    color: black;
+    padding: 22px 16px;
+    width: 100%;
+    border: none;
+    outline: none;
+    text-align: left;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.tabConfiguracion button:hover {
+    background-color: #ddd;
+}
+
+.tabConfiguracion button.active {
+    background-color: #ccc;
+}
+
+.tabcontent {
+    float: left;
+    padding: 30px 30px;
+    border: 1px solid #ccc;
+    width: 74%;
+    border-left: none;
+    height: auto;
+}
+
+.submit-button-config{
+  justify-content: flex-end;
+  margin: 19px 0 19px 59%;
+  display: block;
+  float: right;
+  width: 14%;
 }

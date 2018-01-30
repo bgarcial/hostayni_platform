@@ -697,6 +697,8 @@ footer {
 
 /* Design elements for login and sign up */
 
+/* login */
+
 .form-cont{
   display: none;
   flex-flow: row wrap;
@@ -780,6 +782,85 @@ input[type="text"] .form-control{
   font-size: 12px;
 }
 
+/* sign up */
+
+.form-cont-signup{
+  display: none;
+  flex-flow: row wrap;
+  margin: 0px 60px 34px 60px;
+  height: 73%;
+}
+
+.form-cont-signup-low{
+  display: flex;
+  flex-flow: row wrap;
+  margin: -9px 0px 0px 0px;
+  height: 77%;
+}
+
+.signup-container .legal{
+  font-size: 12px;
+}
+
+.portrait-signup{
+  width: 50%;
+  height: 60%;
+  margin-top: 10%;
+}
+
+.img-cont-signup{
+  display: inline-block;
+  vertical-align: top;
+  -webkit-border-radius: 10px;
+  -moz-border-radius: 10px;
+  -ms-border-radius: 10px;
+  border-radius: 10px;
+  overflow: hidden;
+  width: 100%;
+  height: 100%;
+  margin-right: 5px;
+}
+
+.main-signup{
+  width: 100%;
+  margin-top: 8%;
+  margin-left: 29%;
+  margin-right: 29%;
+  height: 76%;
+}
+
+.form-signup{
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+  margin: 0 0 0 0;
+  background-color: #FFFFFF;
+  padding-top: 0px;
+  height: 95%;
+}
+
+.signup-container{
+  margin: 3% 10% 10% 10%;
+  display: inline-block;
+  text-align: center;
+}
+
+.signup-title{
+  margin: 10px 0 0 0;
+}
+
+.signup-title p{
+  font-size: 19px;
+}
+
+.submit-button-cont-signup{
+  display: block;
+  width: 100%;
+  justify-content: center;
+}
+
+.form-control{
+  text-align: center;
+}
+
 /*Formulario contactenos*/
 
 .container-contactenos{
@@ -802,4 +883,116 @@ input[type="text"] .form-control{
   margin-left: 60%;
   display: block;
   float: right;
+}
+
+/* User configuration account */
+
+.icon-picture img{
+  width: 10%;
+  height: auto;
+}
+
+.icon-picture{
+  margin: 0px 0 0 0;
+}
+
+.offert-form{
+  margin: 12% 5% 0 5%;
+  width: 89%;
+  height: auto;
+}
+
+.config-container{
+  display: none;
+  width: 97%;
+  height: auto;
+}
+
+/* Accordion for mobile */
+
+.config-container-low{
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+.accordion{
+    background-color: #eee;
+    color: #444;
+    cursor: pointer;
+    padding: 18px;
+    width: 100%;
+    text-align: left;
+    border: none;
+    outline: none;
+    transition: 0.4s;
+}
+
+.active, .accordion:hover {
+    background-color: #ccc;
+}
+
+.panel{
+    padding: 0 18px;
+    background-color: white;
+    display: none;
+    overflow: hidden;
+}
+
+.control-label{
+  width: 100%;
+  text-align: center;
+}
+
+.form-group input[type="text"] {
+  width: 100%;
+  margin: 0 0;
+}
+
+/* Tabs Verticales */
+
+.tabConfiguracion {
+    float: left;
+    border: 1px solid #ccc;
+    background-color: #f1f1f1;
+    width: 32%;
+    height: auto;
+}
+
+.tabConfiguracion button {
+    display: block;
+    background-color: inherit;
+    color: black;
+    padding: 22px 16px;
+    width: 100%;
+    border: none;
+    outline: none;
+    text-align: left;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.tabConfiguracion button:hover {
+    background-color: #ddd;
+}
+
+.tabConfiguracion button.active {
+    background-color: #ccc;
+}
+
+.tabcontent {
+    float: left;
+    padding: 30px 30px;
+    border: 1px solid #ccc;
+    width: 74%;
+    border-left: none;
+    height: auto;
+}
+
+.submit-button-config{
+  justify-content: flex-end;
+  margin: 19px 0 19px 59%;
+  display: block;
+  float: right;
+  width: 14%;
 }
