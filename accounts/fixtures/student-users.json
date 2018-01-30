@@ -1,0 +1,27 @@
+[{
+	"model": "accounts.studentprofile",
+	"pk": 1,
+	"fields": {
+		"user": 3,
+		"slug": "christiandiazleon@gmail.com",
+		"origin_education_school": "",
+		"current_education_school": "",
+		"extra_occupation": "",
+		"educational_titles": "",
+		"complete_studies_school": "",
+		"knowledge_topics_choice": ""
+	}
+}, {
+	"model": "accounts.studentprofile",
+	"pk": 2,
+	"fields": {
+		"user": 8,
+		"slug": "juanjaimearroyaver@gmail.com",
+		"origin_education_school": "",
+		"current_education_school": "",
+		"extra_occupation": "",
+		"educational_titles": "",
+		"complete_studies_school": "",
+		"knowledge_topics_choice": ""
+	}
+}]

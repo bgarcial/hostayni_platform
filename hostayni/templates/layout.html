@@ -200,9 +200,6 @@
                                         <li><a href="{% url 'articles:create' %}">Crear Artículo</a></li>
                                         <li><a href="{% url 'articles:list' userprofile.user.slug %}">Mis artículos</a></li>
                                         <li class="line"></li>
-                                        <p><strong>Social</strong></p>
-                                        <li><a href="{% url 'post:list' %}">Mi Red Social</a></li>
-                                        <li class="line"></li>
                                         <p><strong>Anfitrión</strong></p>
                                         {% if userprofile.user.is_hosting_host %}
                                           <li><a href="{% url 'host:hosting-host' %}">Crear oferta de alojamiento</a></li>
@@ -322,7 +319,7 @@
             // console.log(query)
 
 
-            // POniendo el listado de posts. Desde asi se puede poner
+            // Poniendo el listado de posts. Desde asi se puede poner
             // en cualquier parte de la app
 
             var postContainer;
@@ -843,3 +840,4 @@
     </footer>-->
 </body>
 </html>
+

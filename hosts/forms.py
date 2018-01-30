@@ -1,5 +1,5 @@
 from django import forms
-from .models import LodgingOffer, StudiesOffert, LodgingOfferImage, UploadStudyOffer
+from .models import LodgingOffer, StudiesOffert, LodgingOfferImage, StudyOfferImage
 from django_countries.widgets import CountrySelectWidget
 from django.forms import inlineformset_factory
 
@@ -10,6 +10,11 @@ class StudiesOffertForm(forms.ModelForm):
     #user = self.request.user
     ad = "Oferta de estudios"
     #scholarships = forms.ModelForm(queryset=Scholarship.objects.filter(created_by__username=user))
+    offer_taked = ("\n"
+                   " Indica si esta oferta ya fue tomada por un usuario.Este campo es solo para uso de \n"
+                   " actualización de una oferta cuando ya ha habido un acuerdo por ella. "
+                   " Si se selecciona, no aparecerá en los resultados de búsquedas. \n "
+                   "Des-seleccionéla en lugar de eliminar la oferta ")
 
     class Meta:
         model = StudiesOffert
@@ -22,7 +27,7 @@ class StudiesOffertForm(forms.ModelForm):
 
 class StudyOfferImagesUploadForm(forms.ModelForm):
     class Meta:
-        model = UploadStudyOffer
+        model = StudyOfferImage
         fields = ('image',)
 
 
@@ -45,7 +50,7 @@ class LodgingOfferForm(forms.ModelForm):
         model = LodgingOffer
         fields = ('ad_title', 'country', 'city', 'address', 'lodging_offer_type' , 'lodging_offer_type_org', 'stars',
                   'check_in', 'check_out', 'offered_services', 'featured_amenities', 'room_type_offered',
-                'number_guest_room_type', 'image', 'bed_type', 'bathroom', 'room_information', 'room_value',
+                'number_guest_room_type', 'photo', 'bed_type', 'bathroom', 'room_information', 'room_value',
                     'additional_description', 'is_taked')
 
 

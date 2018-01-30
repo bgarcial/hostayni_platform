@@ -3,7 +3,7 @@ from .base import *
 import dj_database_url
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
 DATABASES = {
     'default': {
@@ -11,7 +11,7 @@ DATABASES = {
         'NAME': get_env_variable('DATABASE_NAME'),
         'USER': get_env_variable('DATABASE_USER'),
         'PASSWORD': get_env_variable('DATABASE_PASSWORD'),
-        'HOST': 'ec2-23-21-85-76.compute-1.amazonaws.com',
+        'HOST': 'ec2-107-20-204-179.compute-1.amazonaws.com',
         'PORT': '5432',
     }
 }

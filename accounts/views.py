@@ -28,7 +28,7 @@ from .forms import (
 
 from .models import (
         StudentProfile, ProfessorProfile,
-        ExecutiveProfile, User, UserProfile, EmailConfirmed
+        ExecutiveProfile, User, UserProfile
         )
 
 from hosts.models import LodgingOffer
@@ -213,6 +213,7 @@ class LogoutView(SuccessMessageMixin, generic.RedirectView):
         return super().get(request, *args, **kwargs)
 
 
+# No se esta utilizando
 class SignUpView(SuccessMessageMixin, generic.CreateView):
     # llamando al mensaje en donde estara el link de activación
     form_class = UserCreateForm
@@ -224,8 +225,8 @@ class SignUpView(SuccessMessageMixin, generic.CreateView):
 
 SHA1_RE = re.compile('^[a-f0-9]{40}$')
 
-from django.contrib.auth import authenticate
 
+# No utilizada de momento
 def activation_view(request, activation_key):
     # print(SHA1_RE.search(activation_key))
     if SHA1_RE.search(activation_key):
@@ -319,7 +320,7 @@ def activate(request, uidb64, token):
     if user is not None and account_activation_token.check_token(user, token):
         user.is_active = True
         user.save()
-        #login(request, user)
+        # login(request, user)
         # return redirect('home')
         messages.success(request,
                          "Has confirmado tu correo de forma exitosa. Ya puedes iniciar sesión")
@@ -336,6 +337,7 @@ class ContactOwnOfferView(View):
 
     # Debe recibir el request de quien contacta, el pk de la oferta por la cual contacta y el
     # email de la persona a contactar
+
     def get(self, request, email, pk, *args, **kwargs):
         #Capturamos el email del usuario al que queremos contactar (dueño de la oferta)
         user_to_contact = get_object_or_404(User, email__iexact=email)

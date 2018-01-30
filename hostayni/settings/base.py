@@ -59,6 +59,8 @@ INSTALLED_APPS = [
     'easy_thumbnails',
     # 'languages_plus',
     'haystack',
+    # 'mail_panel',
+    # https://github.com/scuml/django-mail-panel
     'phonenumber_field',
     'rest_framework',
     # 'smart_selects',
@@ -355,6 +357,13 @@ EMAIL_USE_TLS = True
 
 SITE_URL = 'http://www.hostayni.com'
 
+INTERNAL_IPS = ['127.0.0.1', '::1', '0.0.0.0']
+
+'''
+DEBUG_TOOLBAR_CONFIG = {
+    'SHOW_TOOLBAR_CALLBACK': lambda x: True,
+}
+'''
 
 '''
 if DEBUG:
@@ -381,4 +390,5 @@ send_mail(
     to_email_list, # must be a list
     fail_silently=False)
 """
+
 

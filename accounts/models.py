@@ -596,7 +596,7 @@ class UserProfile(models.Model):
     def get_absolute_url(self):
         return reverse_lazy('accounts:detail', kwargs={"email": self.user.email})
 
-
+'''
 class EmailConfirmed(models.Model):
     user = models.OneToOneField(settings.AUTH_USER_MODEL,)
     # El hash de activar el usuario
@@ -625,7 +625,7 @@ class EmailConfirmed(models.Model):
     def email_user(self, subject, message, from_email=None, **kwargs):
         send_mail(subject, message, from_email, [self.user.email], kwargs)
 
-
+'''
 
 
 
@@ -958,14 +958,13 @@ class HostingHostProfile(models.Model):
         blank=True
     )
 
-<<<<<<< HEAD
-=======
+
     additional_description = models.TextField(
         null=False,
         blank=False
     )
 
->>>>>>> development
+
     class Meta:
         verbose_name_plural = 'Usuarios con perfil de anfitriones de hospedaje'
 

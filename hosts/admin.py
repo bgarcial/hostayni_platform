@@ -1,26 +1,30 @@
 from django.contrib import admin
 
 from django.contrib import admin
-from .models import LodgingOffer, StudiesOffert, UploadStudyOffer
+from .models import LodgingOffer, StudiesOffert, StudyOfferImage, LodgingOfferImage
     #StudiesTypeOffered, StudiesOffertList, ,
 
 
-@admin.register(UploadStudyOffer)
-class UploadStudyOfferAdmin(admin.ModelAdmin):
-    list_display = ['__str__', 'study_offer', 'order', 'start_date', 'end_date', 'active', 'featured', 'image']
-    list_editable = ['order', 'active', 'featured']
+@admin.register(LodgingOfferImage)
+class StudyOfferImageAdmin(admin.ModelAdmin):
+    list_display = ['__str__', 'lodging_offer', 'image']
+
+@admin.register(StudyOfferImage)
+class StudyOfferImageAdmin(admin.ModelAdmin):
+    list_display = ['__str__', 'study_offer', 'image']
+    # list_editable = ['order', 'active', 'featured']
 
 @admin.register(LodgingOffer)
 class LodgingOfferAdmin(admin.ModelAdmin):
-    list_display = ('id', 'ad_title', 'is_taked', 'room_type_offered', 'number_guest_room_type',
+    list_display = ('id', 'ad_title', 'is_taked', 'is_paid', 'room_type_offered', 'number_guest_room_type',
                      'room_value', 'additional_description', 'slug')
 
-    list_editable = ('is_taked',)
+    list_editable = ('is_taked', 'is_paid')
 
 @admin.register(StudiesOffert)
 class StudiesOffertAdmin(admin.ModelAdmin):
-    list_display = ('id', 'is_taked', 'ad_title', 'slug', 'tag_list',)
-    list_editable = ('is_taked',)
+    list_display = ('id', 'is_taked', 'is_paid', 'ad_title', 'slug', 'tag_list',)
+    list_editable = ('is_taked', 'is_paid')
 
     def get_queryset(self, request):
         return super(StudiesOffertAdmin, self).get_queryset(request).prefetch_related('knowledge_topics')
