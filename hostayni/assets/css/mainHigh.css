@@ -1196,3 +1196,136 @@ footer {
 .col-md-3{
   width: 95%;
 }
+
+/* Lodging Search */
+
+.container-lodging-search{
+  margin: 2% 27% 0 27%;
+  justify-content: space-between;
+}
+
+.banner-lodging-search{
+  width: 100%;
+}
+
+.banner-lodging-search img{
+  width: 100%;
+  height: auto;
+  margin-top: 4%;
+}
+
+.head-lodging-search{
+  display: inline-flex;
+  height: 41px;
+  width: 100%;
+}
+
+.formgroup-lodging-search{
+  display: block;
+  -webkit-border-radius: 10px;
+  -moz-border-radius: 10px;
+  -ms-border-radius: 10px;
+  border-radius: 10px;
+  padding: 5px 10px;
+  color: #4c4c4c;
+  border: 1px solid #d6d6d6;
+  width: 100%;
+  text-align: center;
+  /*margin: 0px 25%;*/
+  margin-bottom: 8px;
+}
+
+.stayhost{
+  width: 100%;
+}
+
+.ofert-icon-lodging{
+  width: 20%;
+  margin-left: 6px;
+}
+
+.formgroup-lodging-search #id_query{
+  width: 100%;
+}
+
+.results-lodging-container{
+  margin: 3% 12%;
+}
+
+.item-result-lodging{
+  width: 100%;
+  margin: 20px 17px 0 17px;
+  border-width: 1px;
+  box-shadow: 0 0 1px 1px rgba(20,23,28,.1), 0 3px 1px 0 rgba(20,23,28,.1);
+  display: inline-flex;
+}
+
+.img-item-container{
+  width: auto;
+  height: 200px;
+  margin: 5px;
+}
+
+.img-item-search{
+  margin: 5px;
+}
+
+.img-item-search img{
+  width: auto;
+  height: 95%;
+}
+
+.info-item-lodging{
+  width: 70%;
+  height: auto;
+  margin-left: 1%;
+}
+
+.info-item-lodging-firstpart{
+  display: inline-flex;
+  width: 100%;
+}
+
+.title-item-lodging{
+  width: 80%;
+}
+
+.price-item-lodging{
+  width: 50%;
+  font-size: 21px;
+  text-align: right;
+  margin: 13px 20px;
+}
+
+.location-item-lodging{
+  width: 100%;
+  font-size: 15px;
+}
+
+.info-item-lodging-lastpart{
+  display: inline-flex;
+  width: 100%;
+  height: auto;
+  margin-top: 1%;
+}
+
+.description-item-lodging{
+  width: 50%;
+}
+
+.mainfeatures-item-lodging{
+  display: inline-flex;
+  width: 50%;
+  margin-top: 4%;
+  justify-content: flex-end;
+}
+
+.imp-feat-II{
+  width: 30%;
+  text-align: center;
+}
+
+.imp-feat-II img{
+  width: 32px;
+  height: 32px;
+}
