@@ -230,7 +230,7 @@ main {
 
 .search_ele{
   width: 90%;
-  margin: 114px 50px 50px 50px;
+  margin: 54px 50px 50px 50px;
   justify-content: center;
   text-align: center;
 }
@@ -1245,6 +1245,10 @@ footer {
 }
 
 .formgroup-lodging-search #id_query{
+  width: 100%;
+}
+
+.formgroup-lodging-search .input_search{
   width: 100%;
 }
 

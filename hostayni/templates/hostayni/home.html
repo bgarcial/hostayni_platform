@@ -7,12 +7,18 @@
 
 {% block body_content %}
 
+<div class="banner-lodging-search">
+  <img src="{% static 'img/Slider-3.png' %}" alt="">
+</div>
+
 <!-- Columna del logo, mapa, filtro -->
-<div class="search_ele">
+<!-- <div class="search_ele">
   <form class="form_search" method="GET" action="">
       <input class="form-search-articles" type="text" name="q" placeholder="Título o autor o contenido o categoría" value="{{request.GET.q}}"/>
   </form>
-</div>
+</div> -->
+
+
 <section>
 <!-- <div class="search-column">
     <form class="form_search" method="GET" action="">
@@ -20,6 +26,26 @@
         <p>Presiona Enter para buscar</p>
     </form>
 </div> -->
+
+<div class="container-lodging-search">
+  <form class="stayhost" action="." method="get">
+    <div class="head-lodging-search">
+      <div class="formgroup-lodging-search">
+          <input class="input_search" type="text" name="q" placeholder="Título o autor o contenido o categoría" value="{{request.GET.q}}"/>
+      </div>
+      <div class="ofert-icon-lodging">
+        <input type="image" src="{% static 'img/icons/search.svg' %}" alt="Submit" width="32" height="32">
+        <!-- <img src="{% static 'img/icons/search.svg' %}" alt="" width="32" height="32"> -->
+      </div>
+      <!-- <div class="submit-button-cont-lodging">
+        <div>
+          <input type="image" src="{% static 'img/icons/ok.png' %}" alt="Submit" width="48" height="48">
+          <input type="submit" value="Buscar" class="submit-button">
+        </div>
+      </div> -->
+    </div>
+    </form>
+</div>
 </section>
 <!-- End Columna del logo, mapa, filtro -->
 
@@ -464,4 +490,3 @@
 <!-- //Contenido principal (posts) -->
 
 {% endblock %}
-
