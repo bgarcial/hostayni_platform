@@ -4,9 +4,6 @@
 {% bootstrap_css %}
 {% bootstrap_javascript %}
 {% block title_tag %}Editar Imágenes de {{ study_offer.ad_title }} | {{ block.super }}{% endblock %}
-{% block top_logo %}
-{% include "top-logo.html" %}
-{% endblock %}
 {% block body_content %}
 <h1>Editar Imágenes de {{ study_offer.ad_title }}</h1>
 <a href="{% url 'host:studyoffertdetail' slug=study_offer.slug %}">Regresar a oferta</a>

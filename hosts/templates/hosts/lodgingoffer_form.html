@@ -2,9 +2,6 @@
 {% load staticfiles %}
 {% load bootstrap3 %}
 {% block title_tag %}Lodging Offert | {{ block.super }}{% endblock %}
-{% block top_logo %}
-{% include "top-logo.html" %}
-{% endblock %}
 {% block body_content %}
 
 
@@ -100,7 +97,7 @@
                 {{ form.offer_taked }}
             {% endif %}
 
-        
+
       </div>
 
         <div class="submit-button-cont">
@@ -110,8 +107,8 @@
             </div>
         </div>
 
-        
+
     </form>
-    
+
 </div>
 {% endblock %}

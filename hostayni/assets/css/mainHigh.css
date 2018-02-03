@@ -13,7 +13,7 @@
 /*Rádio de las puntas*/
 
 
-/* Header, footer and home */
+/* HEADER, FOOTER AND HOME */
 
 * {
   padding: 0;
@@ -83,7 +83,8 @@ header {
       -webkit-border-radius: 10px;
       -moz-border-radius: 10px;
       -ms-border-radius: 10px;
-      border-radius: 10px;
+      /*border-radius: 10px;*/
+      border-radius: 10%;
       width: 50px;
       height: auto;
       margin-top: 1%;
@@ -92,7 +93,8 @@ header {
         display: inline-block;
         width: inherit;
         height: auto;
-        cursor: pointer; }
+        cursor: pointer;
+        border-radius: 10%; }
     header .profile-options .name-options-cont {
       display: flex;
       flex-flow: row wrap;
@@ -558,7 +560,7 @@ footer {
       margin-top: 5px;
     }
 
-/* Elements for detail article */
+/* ELEMENTS FOR DETAIL ARTICLE */
 
 .article-container{
   display: flex;
@@ -678,7 +680,7 @@ footer {
   display: none;
 }
 
-/* Search offers */
+/* SEARCH OFFERS */
 
 .ofert-icon img{
   width: 10%;
@@ -686,7 +688,7 @@ footer {
 }
 
 
-/* Design elements for text containers for privacy and politics, terms and conditions */
+/* DESIGN ELEMENTS FOR TEXT CONTAINERS FOR PRIVACY AND POLITICS, TERMS AND CONDITIONS */
 
 .container-main-info{
   margin: 120px 100px 20px 100px;
@@ -697,7 +699,7 @@ footer {
   margin: 100px 100px 20px 100px;
 }
 
-/* Design elements for login and sign up */
+/* DESIGN ELEMENTS FOR LOGIN AND SIGN UP */
 
 /* login */
 
@@ -754,9 +756,10 @@ footer {
 .submit-button-cont{
   justify-content: flex-end;
   margin-left: 60%;
+  margin-bottom: 2%;
   display: block;
   float: right;
-  width: 41%;
+  width: 22%;
 }
 
 .main-login .form-login .login-container .submit-button-cont a{
@@ -836,7 +839,7 @@ footer {
   width: 41%;
 }
 
-/*Formulario contactenos*/
+/* FORMULARIO CONTACTENOS */
 
 .container-contactenos{
   margin: 132px 100px 141px 100px
@@ -854,7 +857,7 @@ footer {
   float: right;
 }
 
-/* User configuration account */
+/* USER CONFIGURATION ACCOUNT */
 
 .icon-picture img{
   width: 10%;
@@ -866,8 +869,8 @@ footer {
 }
 
 .offert-form{
-  margin: 7% 5% 0 5%;
-  width: 89%;
+  margin: 9% 11% 0 11%;
+  width: 74%;
   height: auto;
 }
 
@@ -952,4 +955,244 @@ footer {
   display: block;
   float: right;
   width: 14%;
+}
+
+
+/* MY ARTICLES */
+
+.container-myarticles{
+  width: 90%;
+  margin: 10% 5% 8.5% 5%;
+  height: auto;
+}
+
+.panel-myarticles{
+  /*box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);*/
+  box-shadow: 0 0 1px 1px rgba(20,23,28,.1), 0 3px 1px 0 rgba(20,23,28,.1);
+}
+
+/* MY LODGING OFFERS*/
+
+.panel-lodging{
+  /*box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);*/
+  box-shadow: 0 0 1px 1px rgba(20,23,28,.1), 0 3px 1px 0 rgba(20,23,28,.1);
+}
+
+.container-lodging{
+  width: 90%;
+  margin: 15% 5% 15.5% 5%;
+  height: auto;
+}
+
+/* DETAIL LODGING OFFER */
+
+.title-cont-lodging{
+  margin: 0 0 0 0;
+  width: 100%;
+  text-align: center;
+  font-family: "Source Sans Pro", sans-serif;
+}
+
+.acomodacion-lodging{
+  width: 100%;
+  text-align: left;
+  margin: 0 0 0 25%;
+  font-family: "Source Sans Pro", sans-serif;
+}
+
+.details-alojamiento{
+  width: 72%;
+  height: auto;
+}
+
+.important-features{
+  display: inline-flex;
+  flex-flow: row;
+  width: 100%;
+  justify-content: space-between;
+  box-shadow: 0 0 1px 1px rgba(20,23,28,.1), 0 3px 1px 0 rgba(20,23,28,.1);
+  padding: 11px 0px 0 15px;
+}
+
+.imp-feat-I{
+  width: 30%
+}
+
+.imp-feat-I img{
+  width: 32px;
+  height: 32px;
+}
+
+.lodging-location-title{
+  width: 100%;
+  margin: 0 0 4% 25%;
+  display: inline-flex;
+}
+
+.lodging-location{
+  width: 60%;
+  font-size: 13px;
+  margin-top: 7px;
+}
+
+.lodging-price{
+  width: 40%;
+  font-size: 20px;
+}
+
+.servicios-ofrecidos-container{
+  box-shadow: 0 0 1px 1px rgba(20,23,28,.1), 0 3px 1px 0 rgba(20,23,28,.1);
+  padding: 2px 15px;
+  margin-top: 13px;
+}
+
+.comodidades-destacadas-container{
+  box-shadow: 0 0 1px 1px rgba(20,23,28,.1), 0 3px 1px 0 rgba(20,23,28,.1);
+  padding: 2px 15px;
+  margin-top: 13px;
+}
+
+.comodidades-destacadas-lodging{
+  margin: 1px 0 8px 0;
+}
+
+.comodidades-destacadas-lodging img{
+  width: 32px;
+  height: 32px;
+  margin: 0 0 0 1px;
+}
+
+.descripcion-container{
+  box-shadow: 0 0 1px 1px rgba(20,23,28,.1), 0 3px 1px 0 rgba(20,23,28,.1);
+  padding: 2px 15px;
+  margin-top: 13px;
+  margin-bottom: 16px;
+}
+
+#disqus_thread{
+  margin-bottom: 26px;
+}
+
+.servicios-ofrecidos-lodging{
+  margin: 1px 0 8px 0;
+}
+
+.servicios-ofrecidos-lodging img{
+  width: 32px;
+  height: 32px;
+  margin: 0 0 0 1px;
+}
+
+.caract-cuarto-container{
+  box-shadow: 0 0 1px 1px rgba(20,23,28,.1), 0 3px 1px 0 rgba(20,23,28,.1);
+  padding: 2px 15px;
+  margin-top: 13px;
+  margin-bottom: 16px;
+}
+
+.caract-cuarto-lodging{
+  margin: 1px 0 8px 0;
+}
+
+.caract-cuarto-lodging img{
+  width: 32px;
+  height: 32px;
+  margin: 0 0 0 1px;
+}
+
+.detail-lodging-container{
+  display: flex;
+  flex-flow: row wrap;
+}
+
+.main-detail-lodging{
+  width: 60%;
+  margin: 21px 39px 0px 55px;
+}
+
+.add-images-container{
+  width: 8%;
+  height: auto;
+  margin: 1% 3% 0 0;
+}
+
+.main-content-lodging{
+  font-size: 12px;
+  text-align: center;
+}
+
+.post-body-lodging{
+  width: auto;
+  height: 20%;
+}
+
+.search-column-lodging {
+  /*width: 330px;*/
+  display: flex;
+  flex-flow: row wrap;
+  width: 30%;
+  padding-left: 10px;
+  margin: 90px 2px 10px 10px;
+}
+
+.icon-lodging{
+  margin: 0 0 15px 0;
+}
+
+.img-cont-lodging img{
+  width: 38%;
+  height: auto;
+  border-radius: 10%;
+}
+
+.search-column-lodging .post-column-lodging .info-lodging .icon-lodging img{
+  width: 32px;
+  height: 32px;
+}
+
+.post-column-lodging{
+  display: flex;
+  flex-flow: row wrap;
+}
+
+.name-review-cont-lodging{
+  margin-top: 5px;
+}
+
+.date-lodging-publish{
+  margin-top: 5px;
+}
+
+.container{
+  width: 100%;
+  padding: 0;
+}
+
+.carousel {
+  overflow: hidden;
+  max-width: 100%;
+  height: 65%;
+  margin-top: 4%;
+  background-position: center center;
+  background-repeat: no-repeat;
+}
+
+/* Load and edit images lodging offer */
+
+.container-lodging-pics{
+  margin: 9% 5% 0 5%;
+}
+
+.lodging-img-container{
+  display: inline-flex;
+  justify-content: space-between;
+}
+
+.row-lodging{
+  width: 30%;
+  height: auto;
+}
+
+.col-md-3{
+  width: 95%;
 }

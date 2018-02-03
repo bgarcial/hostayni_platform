@@ -11,6 +11,9 @@
 /*Padding para los inputs de texto*/
 /*Fondo de textura gris*/
 /*Rádio de las puntas*/
+
+/* HEADER, FOOTER AND HOME */
+
 * {
   padding: 0;
   margin: 0;
@@ -88,7 +91,8 @@ header {
         display: inline-block;
         width: inherit;
         height: auto;
-        cursor: pointer; }
+        cursor: pointer;
+        border-radius: 10%; }
     header .profile-options .name-options-cont {
       display: flex;
       flex-flow: row wrap;
@@ -663,7 +667,7 @@ footer {
     }
 
 
-    /* Elements for detail article */
+    /* ELEMENTS FOR DETAIL ARTICLE */
 
     .article-container{
       display: flex;
@@ -839,14 +843,14 @@ footer {
   font-family: "Source Sans Pro", sans-serif;
 }
 
-/* Search offers */
+/* SEARCH OFFERS */
 
 .ofert-icon img{
   width: 10%;
   height: auto;
 }
 
-/* Design elements for text containers for privacy and politics, terms and conditions */
+/* DESIGN ELEMENTS FOR TEXT CONTAINERS FOR PRIVACY AND POLITICS, TERMS AND CONDITIONS */
 
 .container-main-info{
   margin: 120px 100px 20px 100px;
@@ -862,7 +866,7 @@ footer {
   font-size: 21px;
 }
 
-/* Design elements for login and sign up */
+/* DESIGN ELEMENTS FOR LOGIN AND SIGN UP */
 
 /* login */
 
@@ -927,6 +931,7 @@ input[type="text"] .form-control{
 .submit-button-cont{
   justify-content: center;
   margin-left: 23%;
+  margin-bottom: 2%;
 }
 
 .login-container .form-group label{
@@ -1025,7 +1030,7 @@ input[type="text"] .form-control{
 
 
 
-/*Formulario contactenos*/
+/* FORMULARIO CONTACTENOS */
 
 .container-contactenos{
   margin: 132px 50px 110px 50px
@@ -1048,7 +1053,7 @@ input[type="text"] .form-control{
   float: right;
 }
 
-/* User configuration account */
+/* USER CONFIGURATION ACCOUNT */
 
 .icon-picture img{
   width: 10%;
@@ -1060,10 +1065,11 @@ input[type="text"] .form-control{
 }
 
 .offert-form{
-  margin: 20% 5% 0 5%;
-  width: 89%;
+  margin: 20% 11% 0 11%;
+  width: 74%;
   height: auto;
 }
+
 
 .config-container{
   display: none;
@@ -1158,4 +1164,222 @@ input[type="text"] .form-control{
   display: block;
   float: right;
   width: 14%;
+}
+
+/* MY ARTICLES */
+
+.container-myarticles{
+  width: 90%;
+  margin: 25% 5% 13% 5%;
+  height: auto;
+}
+
+.panel-myarticles{
+  box-shadow: 0 0 1px 1px rgba(20,23,28,.1), 0 3px 1px 0 rgba(20,23,28,.1);
+}
+
+/* MY LODGING OFFERS*/
+
+.panel-lodging{
+  /*box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);*/
+  box-shadow: 0 0 1px 1px rgba(20,23,28,.1), 0 3px 1px 0 rgba(20,23,28,.1);
+}
+
+.container-lodging{
+  width: 90%;
+  margin: 46% 5% 38% 5%;
+  height: auto;
+}
+
+/* DETAIL LODGING OFFER */
+
+.title-cont-lodging{
+  margin: 0 0 0 0;
+  width: 100%;
+  text-align: center;
+  font-family: "Source Sans Pro", sans-serif;
+}
+
+.acomodacion-lodging{
+  width: 100%;
+  text-align: left;
+  margin: 0 0 0 25%;
+  font-family: "Source Sans Pro", sans-serif;
+}
+
+.details-alojamiento{
+  width: 72%;
+  height: auto;
+}
+
+.important-features{
+  display: inline-flex;
+  flex-flow: row;
+  width: 100%;
+  justify-content: space-between;
+  box-shadow: 0 0 1px 1px rgba(20,23,28,.1), 0 3px 1px 0 rgba(20,23,28,.1);
+  padding: 11px 0px 0 15px;
+}
+
+.imp-feat-I{
+  width: 30%
+}
+
+.imp-feat-I img{
+  width: 32px;
+  height: 32px;
+}
+
+.lodging-location-title{
+  width: 100%;
+  margin: 0 0 4% 25%;
+  display: inline-flex;
+}
+
+.lodging-location{
+  width: 60%;
+  font-size: 13px;
+  margin-top: 7px;
+}
+
+.lodging-price{
+  width: 40%;
+  font-size: 20px;
+}
+
+.servicios-ofrecidos-container{
+  box-shadow: 0 0 1px 1px rgba(20,23,28,.1), 0 3px 1px 0 rgba(20,23,28,.1);
+  padding: 2px 15px;
+  margin-top: 13px;
+}
+
+.comodidades-destacadas-container{
+  box-shadow: 0 0 1px 1px rgba(20,23,28,.1), 0 3px 1px 0 rgba(20,23,28,.1);
+  padding: 2px 15px;
+  margin-top: 13px;
+}
+
+.comodidades-destacadas-lodging{
+  margin: 1px 0 8px 0;
+}
+
+.comodidades-destacadas-lodging img{
+  width: 32px;
+  height: 32px;
+  margin: 0 0 0 1px;
+}
+
+.descripcion-container{
+  box-shadow: 0 0 1px 1px rgba(20,23,28,.1), 0 3px 1px 0 rgba(20,23,28,.1);
+  padding: 2px 15px;
+  margin-top: 13px;
+  margin-bottom: 16px;
+}
+
+#disqus_thread{
+  margin-bottom: 26px;
+}
+
+.servicios-ofrecidos-lodging{
+  margin: 1px 0 8px 0;
+}
+
+.servicios-ofrecidos-lodging img{
+  width: 32px;
+  height: 32px;
+  margin: 0 0 0 1px;
+}
+
+.caract-cuarto-container{
+  box-shadow: 0 0 1px 1px rgba(20,23,28,.1), 0 3px 1px 0 rgba(20,23,28,.1);
+  padding: 2px 15px;
+  margin-top: 13px;
+  margin-bottom: 16px;
+}
+
+.caract-cuarto-lodging{
+  margin: 1px 0 8px 0;
+}
+
+.caract-cuarto-lodging img{
+  width: 32px;
+  height: 32px;
+  margin: 0 0 0 1px;
+}
+
+.detail-lodging-container{
+  display: flex;
+  flex-flow: row wrap;
+}
+
+.main-detail-lodging{
+  width: 60%;
+  margin: 21px 39px 0px 55px;
+}
+
+.add-images-container{
+  width: 8%;
+  height: auto;
+  margin: 1% 3% 0 0;
+}
+
+.main-content-lodging{
+  font-size: 12px;
+  text-align: center;
+}
+
+.post-body-lodging{
+  width: auto;
+  height: 20%;
+}
+
+.search-column-lodging {
+  /*width: 330px;*/
+  display: flex;
+  flex-flow: row wrap;
+  width: 30%;
+  padding-left: 10px;
+  margin: 90px 2px 10px 10px;
+}
+
+.icon-lodging{
+  margin: 0 0 15px 0;
+}
+
+.img-cont-lodging img{
+  width: 38%;
+  height: auto;
+  border-radius: 10%;
+}
+
+.search-column-lodging .post-column-lodging .info-lodging .icon-lodging img{
+  width: 32px;
+  height: 32px;
+}
+
+.post-column-lodging{
+  display: flex;
+  flex-flow: row wrap;
+}
+
+.name-review-cont-lodging{
+  margin-top: 5px;
+}
+
+.date-lodging-publish{
+  margin-top: 5px;
+}
+
+.container{
+  width: 100%;
+  padding: 0;
+}
+
+.carousel {
+  overflow: hidden;
+  max-width: 100%;
+  height: 65%;
+  margin-top: 4%;
+  background-position: center center;
+  background-repeat: no-repeat;
 }

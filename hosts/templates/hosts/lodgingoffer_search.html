@@ -103,8 +103,8 @@
            <div class="description">{{ po.additional_description|linebreaks|truncatechars:420 }}</div>
        </div>
    </article>
-{% endfor %}
-    {% for offers in offer_list %}
+  {% endfor %}
+  {% for offers in offer_list %}
    <article class="host full-width" >
        <a href="{% url 'host:detail' offers.slug %}">
            <div class="img-title-cont">
@@ -134,12 +134,6 @@
 
 {% endif %}
 
-{% endblock %}
-
-{% endblock %}
-
-{% endblock %}
 </div>
 
-    {% endif %}
 {% endblock %}
