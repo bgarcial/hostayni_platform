@@ -5,37 +5,41 @@
 {% bootstrap_javascript %}
 {% block title_tag %}Editar Imágenes de {{ study_offer.ad_title }} | {{ block.super }}{% endblock %}
 {% block body_content %}
-<h1>Editar Imágenes de {{ study_offer.ad_title }}</h1>
-<a href="{% url 'host:studyoffertdetail' slug=study_offer.slug %}">Regresar a oferta</a>
-<hr/>
-<h2>Imágenes Disponibles</h2>
-{% for upload in uploads %}
-    <div class="row">
-      <div class="col-sm-6 col-md-4">
-        <div class="thumbnail">
-          <img src="{{ upload.image.url }}" class="img-responsive" alt=""/>
-          <div class="caption">
-            <a href="{% url 'host:edit-study-offer-image' pk=upload.pk %}" class="glyphicon glyphicon-pencil"></a>
-              &nbsp;&nbsp;&nbsp;&nbsp;| &nbsp;&nbsp;&nbsp;&nbsp;
-            <a href="{% url 'host:delete_upload_study_offer_image' id=upload.id %}" class="glyphicon glyphicon-trash"></a>
+<div class="container-lodging-pics">
+  <h2>Imágenes de {{ study_offer.ad_title }}</h2>
+  <a href="{% url 'host:studyoffertdetail' slug=study_offer.slug %}">Regresar a oferta</a>
+  <hr/>
+  <div class="lodging-img-container">
+  {% for upload in uploads %}
+      <div class="row-lodging">
+        <div class="col-sm-4 col-md-3">
+          <div class="thumbnail">
+            <img src="{{ upload.image.url }}" class="img-responsive" alt=""/>
+            <div class="caption">
+              <a href="{% url 'host:edit-study-offer-image' pk=upload.pk %}" class="glyphicon glyphicon-pencil"></a>
+                &nbsp;&nbsp;&nbsp;&nbsp;| &nbsp;&nbsp;&nbsp;&nbsp;
+              <a href="{% url 'host:delete_upload_study_offer_image' id=upload.id %}" class="glyphicon glyphicon-trash"></a>
+            </div>
           </div>
         </div>
       </div>
-    </div>
-{% endfor %}
-<hr/>
-<h2>Subir una nueva imagen</h2>
-<form role="form" action="" method="POST" enctype="multipart/form-data">
-    {% csrf_token %}
-    {%bootstrap_form form %}
+  {% endfor %}
+  </div>
+  <hr/>
+  <h3>Subir una nueva imagen</h3>
+  <form role="form" action="" method="POST" enctype="multipart/form-data">
+      {% csrf_token %}
+      {%bootstrap_form form %}
 
-    <div class="submit-button-cont">
-        <div>
-          <input type="image" src="{% static 'img/icons/ok.png' %}" alt="Submit" width="48" height="48">
-          <input type="submit" value="Agregar imágen" class="submit-button">
-        </div>
-    </div>
+      <div class="submit-button-cont">
+          <div>
+            <input type="image" src="{% static 'img/icons/ok.png' %}" alt="Submit" width="48" height="48">
+            <input type="submit" value="Agregar imágen" class="submit-button">
+          </div>
+      </div>
 
-</form>
-<a href="{% url 'host:studyoffertdetail' slug=study_offer.slug %}">Regresar a oferta</a>
+  </form>
+  <a href="{% url 'host:studyoffertdetail' slug=study_offer.slug %}">Regresar a oferta</a>
+
+</div>
 {% endblock %}
