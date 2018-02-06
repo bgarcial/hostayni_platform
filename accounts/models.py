@@ -90,6 +90,7 @@ class UserManager(BaseUserManager):
 def get_image_path(instance, filename):
     return os.path.join('userprofile-pictures', str(instance.email), filename)
 
+
 class User(AbstractBaseUser, PermissionsMixin):
 
     MALE = 'M'

@@ -31,6 +31,7 @@ class CustomUserAdmin(UserAdmin):
                     'country_current_residence',
                     'city_current_residence',
                     'speak_languages',
+                    'entertainment_activities',
                     #'email',
                     'phone_number',
                     'address',

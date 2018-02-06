@@ -15,6 +15,7 @@ from django.contrib.auth.decorators import login_required
 from django.shortcuts import redirect, render, Http404, HttpResponseRedirect, get_object_or_404
 from django.contrib.auth.mixins import LoginRequiredMixin
 
+from host_information.models import SpeakLanguages
 from hostayni.mixins import UserProfileDataMixin
 from django.contrib import messages
 
@@ -55,7 +56,7 @@ class UserDetailView(UserProfileDataMixin, generic.DetailView):
 
     # POdria hacer un UserDetailAPIVIew como PostDetailView con permission_classes = [permissions.AllowAny]
 
-    template_name = 'accounts/user_detail2.html'
+    template_name = 'accounts/user_detail.html'
     queryset = User.objects.all()
 
     def get_object(self):
@@ -64,12 +65,21 @@ class UserDetailView(UserProfileDataMixin, generic.DetailView):
                     email__iexact=self.kwargs.get("email")
                     )
 
-    def get_context_data(self, *args, **kwargs):
-        context = super(UserDetailView, self).get_context_data(*args, **kwargs)
+    def get_context_data(self, **kwargs):
+        context = super(UserDetailView, self).get_context_data(**kwargs)
         user = self.request.user
         following = UserProfile.objects.is_following(self.request.user, self.get_object())
         context['following'] = following
         context['recommended'] = UserProfile.objects.recommended(self.request.user)
+
+        speaklanguages = User.objects.get(email=self.kwargs.get('email'))
+        speak_languages_query = speaklanguages.speak_languages.all()
+        context['speak_languages'] = speak_languages_query
+
+        entertainmentactivities = User.objects.get(email=self.kwargs.get('email'))
+        entertainment_activities_query = entertainmentactivities.entertainment_activities.all()
+        context['entertainment_activities'] = entertainment_activities_query
+
         return context
 
 
@@ -174,6 +184,7 @@ class AccountSettingsUpdateView(SuccessMessageMixin, LoginRequiredMixin, UserPro
         return reverse("accounts:preferences",
                        kwargs={'slug': self.kwargs['slug']})
 
+    """
     def get_context_data(self, **kwargs):
         context = super(AccountSettingsUpdateView, self).get_context_data(**kwargs)
 
@@ -181,7 +192,7 @@ class AccountSettingsUpdateView(SuccessMessageMixin, LoginRequiredMixin, UserPro
         user_preferences = User.objects.get(slug=self.kwargs.get('slug'))
         context['user_preferences'] = user_preferences
         return context
-
+    """
 
     def get_object(self, queryset=None):
         """ Hook to ensure object is owned by request.user. """
@@ -189,6 +200,18 @@ class AccountSettingsUpdateView(SuccessMessageMixin, LoginRequiredMixin, UserPro
         if not obj.id == self.request.user.id:
             raise Http404
         return obj
+
+    def form_valid(self, form):
+        form.save()
+        # messages.success(self.request, "Successfully created")
+        print("Se almaceno?")
+        return super(AccountSettingsUpdateView, self).form_valid(form)
+
+    def form_invalid(self, form):
+        print("form is invalid")
+        return HttpResponse("form is invalid.. this is just an HttpResponse object")
+
+
 
 
 def logout_view(request):
