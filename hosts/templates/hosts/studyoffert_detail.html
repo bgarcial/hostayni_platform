@@ -5,214 +5,182 @@
 {% bootstrap_css %}
 {% bootstrap_javascript %}
 {% block title_tag %}{{ lodgingofferdetail.ad_title }} | {{ block.super }}{% endblock %}
-{% block top_logo %}
-{% include "top-logo.html" %}
-{% endblock %}
 {% block body_content %}
 
-<!-- Columna a la derecha -->
 
-<!-- //Columna a la derecha -->
+<div class="container">
+  <div id="myCarousel" class="carousel slide" data-ride="carousel">
+    <!-- Indicators -->
+    <ol class="carousel-indicators">
+      {% for upload in uploads %}
+      <li data-target="#carousel-example-generic" data-slide-to="{{ forloop.counter }}"{% if forloop.first %}class="active"{% endif %}>
+      </li>
+      {% endfor %}
+    </ol>
 
-<!-- Contenido principal (ofertas) -->
-<main>
-    <div class="title-cont">
-        <h1>{{ studyofferdetail.ad_title }}</h1>
-    </div> <br/>
-    <div class="post-body">
-    <!-- Carousel cfe container-fluid lo hace a un lado -->
-        <div class="container-fluid" style="margin-top: -19px; margin-bottom: 19px;padding: 0px;">
-            <div id="carousel-example-generic" class="carousel slide" data-ride="carousel">
-              <!-- Indicators -->
-              <ol class="carousel-indicators">
-                {% for upload in uploads %}
-                <li data-target="#carousel-example-generic" data-slide-to="{{ forloop.counter }}"{% if forloop.first %}class="active"{% endif %}>
-                </li>
-                {% endfor %}
-              </ol>
+    <!-- Wrapper for slides -->
+    <div class="carousel-inner">
+      {% for upload in uploads %}
+          <div class="item {% if forloop.first %}active{% endif %}">
+            <img src="{{ upload.image.url }}" width="auto" height="auto"  alt="">
+          </div>
+      {% endfor %}
+    </div>
 
-              <!-- Wrapper for slides -->
-              <div class="carousel-inner" role="listbox">
-                {% for upload in uploads %}
-                    <div class="item {% if forloop.first %}active{% endif %}">
-                      <img src="{{ upload.image.url }}" width="1000" height="1000" alt="">
-                      <div class="carousel-caption">
-                          <div class="title-cont">
+    <!-- Left and right controls -->
+    <a class="left carousel-control" href="#myCarousel" data-slide="prev">
+      <span class="glyphicon glyphicon-chevron-left"></span>
+      <span class="sr-only">Previous</span>
+    </a>
+    <a class="right carousel-control" href="#myCarousel" data-slide="next">
+      <span class="glyphicon glyphicon-chevron-right"></span>
+      <span class="sr-only">Next</span>
+    </a>
+  </div>
+</div>
 
-                          </div>
-                      </div>
-                    </div>
-                {% endfor %}
-              </div>
-              <!-- Controls -->
-              <a class="left carousel-control" href="#carousel-example-generic" role="button" data-slide="prev">
-                <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
-                <span class="sr-only">Previous</span>
-              </a>
-              <a class="right carousel-control" href="#carousel-example-generic" role="button" data-slide="next">
-                <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
-                <span class="sr-only">Next</span>
-              </a>
-            </div>
+<div class="detail-study-container">
+  <main class="main-detail-study">
+    <div class="acomodacion-study">
+      <h4>{{ studyofferdetail.studies_type_offered }}</h2>
+    </div>
+    <div class="title-cont-study">
+      <h1>{{ studyofferdetail.ad_title }}</h1>
+    </div>
+    <div class="study-location-title">
+      <div class="study-location">
+        <span>{{ studyofferdetail.address }}, {{ studyofferdetail.city }} - {{ studyofferdetail.country }}</span>
+      </div>
+      <div class="study-price">
+        <span>$ {{ studyofferdetail.studies_value }} COP </span>
+      </div>
+    </div>
+
+    <div class="add-images-container">
+        {% if studyofferdetail.created_by_id == userprofile.user.id %}
+        <div class="main-content-study">
+              <a href="{% url 'host:edit_study_offer_uploads' slug=studyofferdetail.slug %}">
+              <img src="{% static 'img/icons/photo.svg' %}" alt=""> Agregar/Editar </a>
         </div>
-        {% comment %}
-        <div class="title-cont">
-            <h1>{{ studyofferdetail.ad_title }}</h1>
+        <p><a class='glyphicon glyphicon-pencil' href = "{% url 'host:edit-study-offer' slug=studyofferdetail.slug %}"></a>
+  &nbsp;&nbsp;&nbsp;&nbsp;| &nbsp;&nbsp;&nbsp;&nbsp;
+<a class='glyphicon glyphicon-trash' href = "{% url 'host:delete-study-offer' slug=studyofferdetail.slug %}"></a></p>
+        {% endif %}
+    </div>
+
+    <div class="details-studio">
+        <div class="important-features-study">
+          <div class="imp-feat-study-I">
+            <img src="{% static 'img/icons/diary-button.svg' %}" alt="">
+            <p> Duracion {{ studyofferdetail.duration }} </p>
+          </div>
+          <div class="imp-feat-study-I">
+            <img src="{% static 'img/icons/diary-button.svg' %}" alt="">
+            <p> Modalidad {{ studyofferdetail.modality }} </p>
+          </div>
+          <div class="imp-feat-study-I">
+            <img src="{% static 'img/icons/diary-button.svg' %}" alt="">
+            <p> Intensidad {{ studyofferdetail.maximum_quota }} </p>
+          </div>
         </div>
-        {% endcomment %}
-        <div class="post-type learn">
-            <i class="learn">EDUCACIÓN</i>
-            {% if studyofferdetail.created_by_id == userprofile.user.id %}
-            <br/><br/>
-            <div class="main-content hosting">
-                <div class="cont amenities">
-                    <div>
-                        <a href="{% url 'host:edit_study_offer_uploads' slug=studyofferdetail.slug %}">
-                            <img src="{% static 'img/icons/photo.svg' %}" alt=""> Agregar / Editar imagenes
-                        </a>
-                    </div>
-                </div>
+        <div class="cont amenities">
+          <div class="servicios-ofrecidos-container"/>
+            <h3>Detalles de la oferta</h3>
+            <div class="servicios-ofrecidos-study">
+                <img src="{% static 'img/icons/diary-button.svg' %}" alt="">
+                <span> {{ studyofferdetail.academic_mobility_programs }} </span>
             </div>
-            <br/><br/>
-            <p><a class='glyphicon glyphicon-pencil' href = "{% url 'host:edit-study-offer' slug=studyofferdetail.slug %}"></a>
-      &nbsp;&nbsp;&nbsp;&nbsp;| &nbsp;&nbsp;&nbsp;&nbsp;
-   <a class='glyphicon glyphicon-trash' href = "{% url 'host:delete-study-offer' slug=studyofferdetail.slug %}"></a></p>
-            {% endif %}
-        </div>
-        <div class="search-column">
-            <div class="post-column">
-                <div class="info">
-                   <div class="icon">
-                        <img src="{% static 'img/icons/info.svg' %}" alt="">
-                        <span>Información</span>
-                   </div>
-                    <div class="autor">
-                        <p class="title">Autor</p>
-                        <div class="profile">
-                            <div class="img-cont">
-                                {% if studyofferdetail.created_by.avatar %}
-                                <a href="#">
-                                <img src="{{ studyofferdetail.created_by.avatar.url }}" alt="" class="img-responsive">
-                                </a>
-                                {% else %}
-                                       <img src="{% static 'img/default_profile_pic.png' %}" class="img-responsive">
-                                {% endif %}
-                            </div>
-                            <div class="name-review-cont">
-                                {% comment %} A quien corresponda {% endcomment %}
-                                <a href="#">
-                                    <span>{{ studyofferdetail.created_by.get_long_name }}</span>
-                                    <span>{{ studyofferdetail.created_by.get_enterprise_name }} (@{{ studyofferdetail.created_by.email }})</span>
-                                </a>
-                                {% comment %}
-                                <img src="{% static 'img/stars.svg' %}" alt="">
-
-                                <div class="average">
-                                    <span>546</span>
-                                    <span>valoraciones</span>
-                                </div>
-                                {% endcomment %}
-                            </div>
-                        </div>
-                    </div>
-                    <div class="date">
-                        <p class="title">Fecha de creación</p>
-                        <span>{{ studyofferdetail.pub_date }}</span>
-                    </div>
-
-                    {% if studyofferdetail.created_by_id != userprofile.user.id %}
-                    <div class="contact">
-                        <a class="contact-button" href="
-                        {% url 'host:contact_study_owner_offer' study_offer_owner_full_name=study_offer_owner_full_name study_offer_owner_email=study_offer_owner_email user_interested_full_name=user_interested_full_name user_interested_email=user_interested_email study_offer_title=study_offer_title url_offer=url_offer %}">
-                            <img src="{% static 'img/icons/social-lines.svg' %}" alt="">
-                            <span>Aplicar</span>
-                        </a>
-                        <h4 align="justify">Al hacer clic en <strong>Aplicar</strong>, se enviará una notificación de correo electrónico
-                        al dueño de la oferta y al usuario interesado en ella.</h4>
-                    </div>
-                    {% endif %}
-                     <div class="main-content hosting">
-                        <div class="cont amenities">
-                            <h2>Valor</h2>
-                            <div>
-                                <img src="{% static 'img/icons/diary-button.svg' %}" alt="">
-                                <span>{{ studyofferdetail.studies_value }}</span>
-                            </div>
-                        </div>
-                     </div>
-
-                    {% comment %}
-                    <div class="review">
-                        <p class="title">Calificación de la oferta</p>
-                        <img src="{% static 'img/stars.svg' %}" alt="">
-                        <div class="average">
-                            <span>546</span>
-                            <span>valoraciones</span>
-                        </div>
-                    </div>
-                     {% endcomment %}
-
-                </div>
-
+          </div>
+          <div class="descripcion-container">
+            <h3>Descripción Adicional</h3>
+            <div class="container">
+                <span><p align="justify">{{ studyofferdetail.additional_description }}</p></span>
             </div>
+          </div>
+
+        <div class="lodging-mapa">
+            {% comment %}
+            <div class="map-cont">
+                <iframe src="https://www.google.com/maps/embed?pb=!1m10!1m8!1m3!1d1983.0517024099001!2d-75.56337732682343!3d6.25010353077667!3m2!1i1024!2i768!4f13.1!5e0!3m2!1ses!2sco!4v1501007278560" frameborder="0" style="border:0" allowfullscreen></iframe>
+            </div>
+            {% endcomment %}
         </div>
 
-        <div class="main-content hosting">
-            <div class="cont type">
-                <h2>{{ studyofferdetail.studies_type_offered }}</h2>
-
-            </div>
-            <div class="cont amenities">
-                <h2>Áreas de conocimiento</h2>
-                <div>
-                    <img src="{% static 'img/icons/diary-button.svg' %}" alt="">
-                    <span>{{ studyofferdetail.knowledge_topics.all|join:", " }}</span>
-                </div>
-                <h2>Duración</h2>
-                <div>
-                    <img src="{% static 'img/icons/diary-button.svg' %}" alt="">
-                    <span>{{ studyofferdetail.duration }}</span>
-                </div>
-                <h2>Modalidad</h2>
-                <div>
-                    <img src="{% static 'img/icons/diary-button.svg' %}" alt="">
-                    <span>{{ studyofferdetail.modality }}</span>
-                </div>
-
-                <h2>Programas de movilidad académica</h2>
-                <div>
-                    <img src="{% static 'img/icons/diary-button.svg' %}" alt="">
-                    <span>{{ studyofferdetail.academic_mobility_programs }}</span>
-                </div>
-
-                <h2>Cupo de estudiantes para esta oferta</h2>
-                <div>
-                    <img src="{% static 'img/icons/diary-button.svg' %}" alt="">
-                    <span>{{ studyofferdetail.maximum_quota }}</span>
-                </div>
-            </div>
-            <div class="cont location">
-                <h2>Ubicación</h2>
-                <span>{{ studyofferdetail.address }}, {{ studyofferdetail.city }} - {{ studyofferdetail.country }}</span>
-                {% comment %}
-                <div class="map-cont">
-                    <iframe src="https://www.google.com/maps/embed?pb=!1m10!1m8!1m3!1d1983.0517024099001!2d-75.56337732682343!3d6.25010353077667!3m2!1i1024!2i768!4f13.1!5e0!3m2!1ses!2sco!4v1501007278560" frameborder="0" style="border:0" allowfullscreen></iframe>
-                </div>
-                {% endcomment %}
-            </div>
-        </div>
-        <br/>
-        <p align="justify">{{ studyofferdetail.additional_description }}</p>
         <div id="disqus_thread"></div>
-</main>
+    </div>
+
+  </main>
+
+  <!-- Search column -->
+  <div class="search-column-study">
+      <div class="post-column-study">
+          <div class="info-study">
+             <div class="icon-study">
+                  <img src="{% static 'img/icons/info.svg' %}" alt="">
+                  <span>Información</span>
+             </div>
+              <div class="autor-study">
+                  <div class="profile-study">
+                      <div class="img-cont-study">
+                          {% if studyofferdetail.created_by.avatar %}
+                          <a href="{% url 'accounts:detail' userprofile.user.email %}">
+                              <img src="{{ studyofferdetail.created_by.avatar.url }}" alt="" class="img-responsive">
+                          </a>
+                          {% else %}
+                               <a href="{% url 'accounts:detail' userprofile.user.email %}">
+                                 <img src="{% static 'img/default_profile_pic.png' %}" class="img-responsive">
+                               </a>
+                          {% endif %}
+                      </div>
+                      <div class="name-review-cont-study">
+                          {% comment %} A quien corresponda {% endcomment %}
+                           <a href="{% url 'accounts:detail' userprofile.user.email %}">
+                              <span>{{ studyofferdetail.created_by.get_long_name }}</span>
+                              <span>{{ studyofferdetail.created_by.get_enterprise_name }} (@{{ studyofferdetail.created_by.email }})</span>
+                          </a>
+                          {% comment %}
+                          <img src="{% static 'img/stars.svg' %}" alt="">
+
+                          <div class="average">
+                              <span>546</span>
+                              <span>valoraciones</span>
+                          </div>
+                          {% endcomment %}
+                      </div>
+                  </div>
+              </div>
+              <div class="date-study-publish">
+                  <span>{{ studyofferdetail.pub_date }}</span>
+              </div>
+
+              {% if studyofferdetail.created_by_id != userprofile.user.id %}
+              <div class="contact">
+                  <a class="contact-button" href="
+                  {% url 'host:contact_study_owner_offer' study_offer_owner_full_name=study_offer_owner_full_name study_offer_owner_email=study_offer_owner_email user_interested_full_name=user_interested_full_name user_interested_email=user_interested_email study_offer_title=study_offer_title url_offer=url_offer %}">
+                      <img src="{% static 'img/icons/social-lines.svg' %}" alt="">
+                      <span>Aplicar</span>
+                  </a>
+                  <h4 align="justify">Al hacer clic en <strong>Aplicar</strong>, se enviará una notificación de correo electrónico
+                  al dueño de la oferta y al usuario interesado en ella.</h4>
+              </div>
+              {% endif %}
+
+              {% comment %}
+              <div class="review">
+                  <p class="title">Calificación de la oferta</p>
+                  <img src="{% static 'img/stars.svg' %}" alt="">
+                  <div class="average">
+                      <span>546</span>
+                      <span>valoraciones</span>
+                  </div>
+              </div>
+               {% endcomment %}
+          </div>
+
+      </div>
+  </div>
+</div>
+
+
 <script id="dsq-count-scr" src="//hostayni.disqus.com/count.js" async></script>
-
-
-
-
 {% endblock %}
-
-
-
-
-

@@ -3,166 +3,201 @@
 {% block title_tag %}Studies Offert Search | {{ block.super }}{% endblock %}
 {% block body_content %}
 
-<div class="offert-form">
-  <form class="stayhost" action="." method="get">
-    <div class="head">
-      <div class="ofert-icon">
-        <img src="{% static 'img/icons/search.svg' %}" alt="">
-        <div class="title">
-          <h2>EDUCACIÓN</h2>
-          <span>Buscar</span>
-        </div>
-      </div>
-      <div class="submit-button-cont">
-        <div>
-          <input type="image" src="{% static 'img/icons/ok.png' %}" alt="Submit" width="48" height="48">
-          <input type="submit" value="Buscar" class="submit-button">
-        </div>
-      </div>
-    </div>
+<div class="banner-lodging-search">
+  <img src="{% static 'img/Banner-Educación.png' %}" alt="">
+</div>
 
-    <div class="formgroup">
-      <span></span>
-        {{ form.query }}
+<div class="container-lodging-search">
+  <form class="stayhost" action="." method="get">
+    <div class="head-lodging-search">
+      <div class="formgroup-lodging-search">
+          {{ form.query }}
+      </div>
+      <div class="ofert-icon-lodging">
+        <input type="image" src="{% static 'img/icons/search.svg' %}" alt="Submit" width="32" height="32">
+      </div>
     </div>
   </form>
 </div>
+
+<div class="results-lodging-container">
   {% if "query" in request.GET %}<br />
-      <div class="main">
+      <div class="info-results-query">
           <p><h3>Ofertas educativas que contengan: "{{ cd.query }}"</h3></p>
           <span>Encontrados cerca de {{ total_results }} resultado{{ total_results|pluralize }}</span>
       </div>
       <br /><br />
       {% for result in results %}
-        {% with studyoffer=result.object %}
-          <article class="learn full-width" >
-            <a href="{% url 'host:studyoffertdetail' studyoffer.slug %}">
-                <div class="img-title-cont">
-                    {% if studyoffer.photo %}
-                    <div class="img" style="background: url('{{ studyoffer.photo.url }}') no-repeat center; background-size:cover;"></div>
-                    {% endif %}
-                    <div class="title-cont">
-                        <h3>{{ studyoffer.ad_title }}</h3>
+          {% with studyoffer=result.object %}
+          <div class="item-result-lodging" >
+            <div class="img-item-container">
+              <a href="{% url 'host:studyoffertdetail' studyoffer.slug %}">
+                  <div class="img-item-search">
+                      {% if studyoffer.photo %}
+                           <img src="{{ studyoffer.photo.url }}" width="auto" height="100%" alt="">
+                           <!-- <div class="img-item" style="background: url('{{ offers.photo.url }}') no-repeat center; background-size:cover;"></div> -->
+                       {% endif %}
+                   </div>
+              </a>
+            </div>
+            <div class="info-item-lodging">
+              <div class="info-item-lodging-firstpart">
+                <div class="title-item-lodging">
+                    <h3>{{ studyoffer.ad_title }}</h3>
+                </div>
+                <div class="price-item-lodging">
+                  <p> $ {{ studyoffer.studies_value }} COP </p>
+                </div>
+             </div>
+             <div clas="location-item-lodging">
+               <p> {{ studyoffer.address }}, {{ studyoffer.city }} - {{ studyoffer.country }} </p>
+             </div>
+              <div class="info-item-lodging-lastpart">
+                <div class="description-item-lodging">
+                  <p> {{ studyoffer.additional_description|linebreaks|truncatechars:420 }} </p>
+                </div>
+                <div class="mainfeatures-item-lodging">
+                  <div class="imp-feat-II">
+                    <img src="{% static 'img/icons/diary-button.svg' %}" alt="">
+                    <p> Duración {{ studyoffer.duration }} </p>
+                   </div>
+                   <div class="imp-feat-II">
+                     <img src="{% static 'img/icons/diary-button.svg' %}" alt="">
+                     <p> Modalidad {{ studyoffer.modality }} </p>
+                    </div>
+                    <div class="imp-feat-II">
+                      <img src="{% static 'img/icons/diary-button.svg' %}" alt="">
+                      <p> Cupo {{ studyoffer.maximum_quota }} </p>
                     </div>
                 </div>
-            </a>
-            <small>{{ studyoffer.pub_date }}</small>
-            <div class="post-info">
-                <div class="post-type"><i>EDUCACIÓN</i></div><br/>
-                {% if studyoffer.is_paid %}
-                <div class="post-type"><i>PROMOVIDA</i></div><br/>
-                {% endif %}
-                <strong>Organización:</strong> {{ studyoffer.created_by.get_enterprise_name }}, {{ studyoffer.institute_character }}<br/>
-                <strong>Áreas de conocimiento:</strong> {{ studyoffer.knowledge_topics.all|join:", " }}<br/>
-                <strong>Ubicación:</strong> {{ studyoffer.city }}, {{ studyoffer.country }}<br/>
-                <div class="description">{{ studyoffer.additional_description|linebreaks|truncatechars:420 }}</div>
-              <hr/>
+                  {% comment %}
+                  {% if lodgingoffer.created_by.first_name %}
+                      <p>Publicada por: {{ studyoffer.created_by.get_long_name }}</p>
+                  {% endif %}
+                  {% if lodgingoffer.created_by.get_enterprise_name %}
+                      <p>Publicada por: {{ studyoffer.created_by.get_enterprise_name }}</p>
+                  {% endif %}
+                  {% endcomment %}
+              </div>
             </div>
-
-        {% endwith %}
-        {% empty %}
-        <p>No existen resultados para tu búsqueda de "{{ cd.query }}".</p>
+            {% endwith %}
+            {% empty %}
+            <p>No existen resultados para tu búsqueda de "{{ cd.query }}".</p>
+          </div>
       {% endfor %}
 
-            </article>
   {% else %}
-      <!-- Show educational paid offers -->
       {% for po in offers_paid %}
-       <article class="learn full-width" >
-           <a href="{% url 'host:studyoffertdetail' po.slug %}">
-               <div class="img-title-cont">
-                   {% if po.photo %}
-                        <div class="img" style="background: url('{{ po.photo.url }}') no-repeat center; background-size:cover;"></div>
-                    {% endif %}
-                    <div class="title-cont">
-                        <h3>{{ po.ad_title }}</h3>
-                    </div>
-                </div>
-           </a>
-           <small>{{ po.pub_date }}</small>
-           <div class="post-info">
-               <div class="post-type"><i>EDUCACIÓN</i></div><br/>
-               <div class="post-type"><i>PROMOVIDA</i></div><br/>
-               <strong>Organización:</strong> {{ po.created_by.get_enterprise_name }}, {{ po.institute_character }}<br/>
-               <strong>Número de huéspedes en habitación:</strong> {{ po.number_guest_room_type }}
-               <strong>Áreas de conocimiento:</strong> {{ po.knowledge_topics.all|join:", " }}<br/>
-                <strong>Ubicación:</strong> {{ po.city }}, {{ po.country }}<br/>
-               <div class="description">{{ po.additional_description|linebreaks|truncatechars:420 }}</div>
-           </div>
-       </article>
-{% endfor %}
-{% for offers in offer_list %}
-    <article class="learn full-width" >
-       <a href="{% url 'host:studyoffertdetail' offers.slug %}">
-       <div class="img-title-cont">
-           {% if offers.photo %}
-                <div class="img" style="background: url('{{ offers.photo.url }}') no-repeat center; background-size:cover;"></div>
-            {% endif %}
-            <div class="title-cont">
-                <h3>{{ offers.ad_title }}</h3>
-            </div>
+      <div class="item-result-lodging" >
+        <div class="img-item-container">
+          <a href="{% url 'host:studyoffertdetail' po.slug %}">
+              <div class="img-item-search">
+                  {% if po.photo %}
+                       <img src="{{ po.photo.url }}" width="auto" height="100%" alt="">
+                       <!-- <div class="img-item" style="background: url('{{ offers.photo.url }}') no-repeat center; background-size:cover;"></div> -->
+                   {% endif %}
+               </div>
+          </a>
         </div>
-       </a>
-       <small>{{ offers.pub_date }}</small>
-       <div class="post-info">
-           <div class="post-type"><i>EDUCACIÓN</i></div><br/>
-           <strong>Organización:</strong> {{ offers.created_by.get_enterprise_name }}, {{ offers.institute_character }}<br/>
-           <strong>Número de huéspedes en habitación:</strong> {{ offers.number_guest_room_type }}
-           <strong>Áreas de conocimiento:</strong> {{ offers.knowledge_topics.all|join:", " }}<br/>
-            <strong>Ubicación:</strong> {{ offers.city }}, {{ offers.country }}<br/>
-           <div class="description">{{ offers.additional_description|linebreaks|truncatechars:420 }}</div>
+        <div class="info-item-lodging">
+          <div class="info-item-lodging-firstpart">
+            <div class="title-item-lodging">
+                <h3>{{ po.ad_title }}</h3>
+            </div>
+            <div class="price-item-lodging">
+              <p> $ {{ po.studies_value }} COP </p>
+            </div>
+         </div>
+         <div clas="location-item-lodging">
+           <p> {{ po.address }}, {{ po.city }} - {{ po.country }} </p>
+         </div>
+          <div class="info-item-lodging-lastpart">
+            <div class="description-item-lodging">
+              <p> {{ po.additional_description|linebreaks|truncatechars:420 }} </p>
+            </div>
+            <div class="mainfeatures-item-lodging">
+              <div class="imp-feat-II">
+                <img src="{% static 'img/icons/diary-button.svg' %}" alt="">
+                <p> Duración {{ po.duration }} </p>
+               </div>
+               <div class="imp-feat-II">
+                 <img src="{% static 'img/icons/diary-button.svg' %}" alt="">
+                 <p> Modalidad {{ po.modality }} </p>
+                </div>
+                <div class="imp-feat-II">
+                  <img src="{% static 'img/icons/diary-button.svg' %}" alt="">
+                  <p> Cupo {{ po.maximum_quota }} </p>
+                </div>
+            </div>
+              {% comment %}
+              {% if po.created_by.first_name %}
+                  <p>Publicada por: {{ po.created_by.get_long_name }}</p>
+              {% endif %}
+              {% if po.created_by.get_enterprise_name %}
+                  <p>Publicada por: {{ po.created_by.get_enterprise_name }}</p>
+              {% endif %}
+              {% endcomment %}
+          </div>
+        </div>
+      </div>
+    {% endfor %}
+    {% for offers in offer_list %}
+     <div class="item-result-lodging" >
+       <div class="img-item-container">
+         <a href="{% url 'host:studyoffertdetail' offers.slug %}">
+             <div class="img-item-search">
+                 {% if offers.photo %}
+                      <img src="{{ offers.photo.url }}" width="auto" height="100%" alt="">
+                      <!-- <div class="img-item" style="background: url('{{ offers.photo.url }}') no-repeat center; background-size:cover;"></div> -->
+                  {% endif %}
+              </div>
+         </a>
        </div>
-   </article>
-{% endfor %}
-
-  {% comment %}
-  <table>
-    <tbody>
-      <tr>
-        <th>Study Offer Title</th>
-        <th>Institution</th>
-        <th>Knowledge Topics</th>
-        <th>Location</th>
-      </tr>
-      {% for result in results %}
-          {% with studyoffer=result.object %}
-        <tr>
-          <td><a href="{% url 'host:studyoffertdetail' studyoffer.slug %}">{{ studyoffer.ad_title }}</a></td>
-          <td>{{ studyoffer.created_by.first_name }}, {{ studyoffer.institute_character }}</td>
-          <td>{{ studyoffer.knowledge_topics.all|join:", " }}</td>
-          <td>{{ studyoffer.city }}, {{ studyoffer.country }}</td>
-        </tr>
-        {% endwith %}
-        {% empty %}
-          <p>There are no results for your query.</p>
-      {% endfor %}
-    </tbody>
-  </table>
-  {% endcomment %}
-  {% comment %}
-  <table>
-    <tbody>
-      <tr>
-        <th>Study Offer Title</th>
-        <th>Institution</th>
-        <th>Knowledge Topics</th>
-        <th>Location</th>
-      </tr>
-      {% for result in results %}
-          {% with studyoffer=result.object %}
-        <tr>
-          <td><a href="{% url 'host:studyoffertdetail' studyoffer.slug %}">{{ studyoffer.ad_title }}</a></td>
-          <td>{{ studyoffer.created_by.first_name }}, {{ studyoffer.institute_character }}</td>
-          <td>{{ studyoffer.knowledge_topics.all|join:", " }}</td>
-          <td>{{ studyoffer.city }}, {{ studyoffer.country }}</td>
-        </tr>
-        {% endwith %}
-        {% empty %}
-          <p>There are no results for your query.</p>
-      {% endfor %}
-    </tbody>
-  </table>
-  {% endcomment %}
+       <div class="info-item-lodging">
+         <div class="info-item-lodging-firstpart">
+           <div class="title-item-lodging">
+               <h3>{{ offers.ad_title }}</h3>
+           </div>
+           <div class="price-item-lodging">
+             <p> $ {{ offers.studies_value }} COP </p>
+           </div>
+        </div>
+        <div clas="location-item-lodging">
+          <p> {{ offers.address }}, {{ offers.city }} - {{ offers.country }} </p>
+        </div>
+         <div class="info-item-lodging-lastpart">
+           <div class="description-item-lodging">
+             <p> {{ offers.additional_description|linebreaks|truncatechars:420 }} </p>
+           </div>
+           <div class="mainfeatures-item-lodging">
+             <div class="imp-feat-II">
+               <img src="{% static 'img/icons/diary-button.svg' %}" alt="">
+               <p> Duración {{ offers.duration }} </p>
+              </div>
+              <div class="imp-feat-II">
+                <img src="{% static 'img/icons/diary-button.svg' %}" alt="">
+                <p> Modalidad {{ offers.modality }} </p>
+               </div>
+               <div class="imp-feat-II">
+                 <img src="{% static 'img/icons/diary-button.svg' %}" alt="">
+                 <p> Cupo {{ offers.maximum_quota }} </p>
+               </div>
+           </div>
+             {% comment %}
+             {% if offers.created_by.first_name %}
+                 <p>Publicada por: {{ offers.created_by.get_long_name }}</p>
+             {% endif %}
+             {% if offers.created_by.get_enterprise_name %}
+                 <p>Publicada por: {{ offers.created_by.get_enterprise_name }}</p>
+             {% endif %}
+             {% endcomment %}
+         </div>
+       </div>
+     </div>
+  {% endfor %}
 
   {% endif %}
+
+</div>
+
 {% endblock %}
