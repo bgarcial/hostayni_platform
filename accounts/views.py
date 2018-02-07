@@ -201,12 +201,19 @@ class AccountSettingsUpdateView(SuccessMessageMixin, LoginRequiredMixin, UserPro
             raise Http404
         return obj
 
+
     def form_valid(self, form):
+        #import ipdb
+        #form.save(commit=False)
+        # print (self.request.date_of_birth)
+        # ipdb.
         form.save()
+        #ipdb.set_trace()
         # messages.success(self.request, "Successfully created")
         print("Se almaceno?")
         return super(AccountSettingsUpdateView, self).form_valid(form)
 
+    
     def form_invalid(self, form):
         print("form is invalid")
         return HttpResponse("form is invalid.. this is just an HttpResponse object")

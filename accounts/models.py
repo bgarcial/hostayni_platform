@@ -307,7 +307,6 @@ class User(AbstractBaseUser, PermissionsMixin):
         help_text='Mantenga presionado "Control" (o "Command" en un Mac), y haga click en las opciones que desea selecionar.',
     )
 
-
     is_staff = models.BooleanField(
         _('staff status'),
         default=False,
