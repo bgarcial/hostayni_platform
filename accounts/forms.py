@@ -110,14 +110,24 @@ class StudentProfileForm(forms.ModelForm):
 
 class ProfessorProfileForm(forms.ModelForm):
     title = "Detalles del Profesor"
+
+    """
     occupation = forms.MultipleChoiceField(
         required=False,
         label='Ocupación',
         widget=CheckboxSelectMultiple(),
         choices=ProfessorProfile.OCCUPATION_CHOICES
     )
-    research_groups = forms.CharField(label='Grupos de Investigación', widget=forms.Textarea)
-    autorship_publications = forms.CharField(label='Publicaciones', widget=forms.Textarea)
+    """
+
+    occupation = forms.ChoiceField(choices=[(x, x) for x in ['Catedrático', 'Investigador', 'Directivo Institucional',]])
+
+    research_groups = forms.CharField(required=False,
+                                      label='Grupos de Investigación',
+                                      widget=forms.Textarea)
+    autorship_publications = forms.CharField(required=False,
+                                             label='Publicaciones',
+                                             widget=forms.Textarea)
 
     class Meta:
         model = ProfessorProfile

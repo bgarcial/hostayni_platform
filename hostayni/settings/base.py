@@ -51,7 +51,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
 
     # Third party apps
-    'debug_toolbar',
+    #'debug_toolbar',
     'bootstrap3',
     'django_countries',
     'django_extensions',
@@ -86,7 +86,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
-    'debug_toolbar.middleware.DebugToolbarMiddleware',
+    # 'debug_toolbar.middleware.DebugToolbarMiddleware',
 ]
 
 ROOT_URLCONF = 'hostayni.urls'
@@ -198,13 +198,11 @@ STATIC_URL = '/assets/'
 # hostayni/assets folder we just created.
 # BASE_DIR is the root directory
 
-#STATICFILES_DIRS = (
-#    os.path.join(BASE_DIR, "assets"),
-#)
-
 STATICFILES_DIRS = (
     os.path.join(BASE_DIR, "assets"),
 )
+
+
 
 # https://www.udemy.com/tweetme-django/learn/v4/t/lecture/6134596?start=0 statc serve files
 # Usually is a CDN or another server to manage static files
@@ -213,10 +211,10 @@ STATICFILES_DIRS = (
 # STATIC_ROOT = os.path.join(BASE_DIR, "assets") NO VA EN el s3 tampoco
 
 # Static root para servir archivos estaticos locales de paquetes/apps instalados en el proyecto
-STATIC_ROOT = os.path.join(os.path.dirname(BASE_DIR), "static_cdn", "static_root")
+#STATIC_ROOT = os.path.join(os.path.dirname(BASE_DIR), "static_cdn", "static_root")
 
-MEDIA_URL = '/media/'
-MEDIA_ROOT = os.path.join(os.path.dirname(BASE_DIR), "static_cdn", "media_root")
+#MEDIA_URL = '/media/'
+#MEDIA_ROOT = os.path.join(os.path.dirname(BASE_DIR), "static_cdn", "media_root")
 #---------------------------To S3 END -------------------------------------------------------------
 
 
@@ -250,16 +248,16 @@ AWS_S3_CUSTOM_DOMAIN = 's3-sa-east-1.amazonaws.com/%s' % AWS_STORAGE_BUCKET_NAME
 
 #---- To S3 -----
 STATICFILES_LOCATION = 'assets'
-#STATICFILES_STORAGE = 'custom_storages.StaticStorage'
+STATICFILES_STORAGE = 'custom_storages.StaticStorage'
 
-# STATIC_URL = "https://%s/%s/" % (AWS_S3_CUSTOM_DOMAIN, STATICFILES_LOCATION)
+STATIC_URL = "https://%s/%s/" % (AWS_S3_CUSTOM_DOMAIN, STATICFILES_LOCATION)
 #---- To S3 end -----
 
 MEDIAFILES_LOCATION = 'media'
 
 
 # -- To S3
-# MEDIA_URL = "https://%s/%s/" % (AWS_S3_CUSTOM_DOMAIN, MEDIAFILES_LOCATION)
+MEDIA_URL = "https://%s/%s/" % (AWS_S3_CUSTOM_DOMAIN, MEDIAFILES_LOCATION)
 # To S3 end
 
 DEFAULT_FILE_STORAGE = 'custom_storages.MediaStorage'

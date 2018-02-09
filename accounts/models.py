@@ -688,28 +688,40 @@ class StudentProfile(models.Model):
     )
 
     origin_education_school = models.CharField(
-        _("Institución de educación de origen"), max_length=128
+        _("Institución de educación de origen"), max_length=128,
+        blank=True,
+        null=True,
     )
 
     current_education_school = models.CharField(
-        _("Institución educativa en la cual está vinculado en su actual lugar residencia"), max_length=128
+        _("Institución educativa en la cual está vinculado en su actual lugar residencia"), max_length=128,
+        blank=True,
+        null=True,
     )
 
     extra_occupation = models.CharField(
-        _("Ocupación Extra"), max_length=128
+        _("Ocupación Extra"), max_length=128,
+        blank=True,
+        null=True,
     )
 
     educational_titles = models.CharField(
         max_length=255,
-        verbose_name='Titulos Educativos'
+        verbose_name='Titulos Educativos',
+        blank=True,
+        null=True,
     )
 
     complete_studies_school = models.CharField(
-        _("Institución en donde completó sus estudios anteriores"), max_length=255
+        _("Institución en donde completó sus estudios anteriores"), max_length=255,
+        blank=True,
+        null=True,
     )
 
     knowledge_topics_choice = models.CharField(
-        _("Áreas de conocimiento de su elección"), max_length=255
+        _("Áreas de conocimiento de su elección"), max_length=255,
+        blank=True,
+        null=True,
     )
 
     class Meta:
@@ -742,37 +754,53 @@ class ProfessorProfile(models.Model):
 
     occupation = models.CharField(
         max_length=255,
-        blank=False,
+        blank=True,
+        null=True,
     )
 
     origin_education_school = models.CharField(
-        _("Institución de educación de origen"), max_length=128
+        _("Institución de educación de origen"), max_length=128,
+        blank=True,
+        null=True,
     )
 
     current_education_school = models.CharField(
-        _("Institución educativa en la cual está vinculado en su actual lugar residencia"), max_length=128
+        _("Institución educativa en la cual está vinculado en su actual lugar residencia"),
+        max_length=128,
+        blank=True,
+        null=True,
     )
 
     educational_titles = models.CharField(
         max_length=255,
-        verbose_name='Títulos educativos'
+        verbose_name='Títulos educativos',
+        blank=True,
+        null=True,
     )
 
     complete_studies_school = models.CharField(
-        _("Institución en donde terminó sus estudios anteriores"), max_length=255
+        _("Institución en donde terminó sus estudios anteriores"), max_length=255,
+        blank=True,
+        null=True,
     )
 
     knowledge_topics_choice = models.CharField(
-        _("Areas de conocimiento de su elección"), max_length=255
+        _("Areas de conocimiento de su elección"), max_length=255,
+        blank=True,
+        null=True,
     )
 
     research_groups = models.CharField(
-        _("Grupos de Investigación a los que pertenece"), max_length=255
+        _("Grupos de Investigación a los que pertenece"), max_length=255,
+        blank=True,
+
     )
 
 
     autorship_publications = models.CharField(
-        _("Publications of its authorship"), max_length=255
+        _("Publications of its authorship"), max_length=255,
+        blank=True,
+
     )
 
 
@@ -805,12 +833,15 @@ class ExecutiveProfile(models.Model):
 
     enterprise_name = models.CharField(
         max_length=255,
-        blank=False,
+        blank=True,
+        null=True,
         verbose_name='Compañía con la cual esta vinculado',
     )
 
     innovation_topics_choice = models.CharField(
-        _("Areas de innovación de su elección"), max_length=255
+        _("Areas de innovación de su elección"), max_length=255,
+        blank=True,
+        null=True,
     )
 
     '''
@@ -822,10 +853,14 @@ class ExecutiveProfile(models.Model):
     educational_titles = models.CharField(
         max_length=255,
         verbose_name='Títulos educativos',
+        blank=True,
+        null=True,
     )
 
     complete_studies_school = models.CharField(
-        _("Institución en donde terminó sus estudios anteriores"), max_length=255
+        _("Institución en donde terminó sus estudios anteriores"), max_length=255,
+        blank=True,
+        null=True,
     )
 
     class Meta:
