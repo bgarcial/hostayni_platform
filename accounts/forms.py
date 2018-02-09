@@ -5,7 +5,10 @@ from django import forms
 from .models import (StudentProfile, ProfessorProfile, ExecutiveProfile,
                     StudyHostProfile,)
 
+from django.conf import settings
+
 from django_countries.widgets import CountrySelectWidget
+from django.forms import DateTimeField, DateField
 
 User = get_user_model()
 
@@ -58,12 +61,10 @@ class UserCreateForm(UserCreationForm):
 
 
 
-class DateInput(forms.DateInput):
-    input_type = 'date'
-
 
 class UserUpdateForm(forms.ModelForm):
     # biography = forms.CharField(widget=forms.Textarea)
+    #date_of_birth = DateField(input_formats=settings.DATE_INPUT_FORMATS)
 
     class Meta:
         widgets = {
@@ -72,10 +73,20 @@ class UserUpdateForm(forms.ModelForm):
             'country_current_residence': CountrySelectWidget(),
             # I can customize these https://github.com/SmileyChris/
             # django-countries#countryselectwidget
-             'date_of_birth': DateInput(), #datepicker
-             'creation_date': DateInput(), #datepicker
+            """
+            'date_of_birth': forms.DateInput(format=('%d-%m-%Y',),
+                                             attrs={'class':'myDateClass',
+                                            'placeholder':'Select a date'}), #datepicker
+                                            """
+            'creation_date': forms.DateInput(format=('%d-%m-%Y'),
+                                             attrs={'class':'myDateClass',
+                                            'placeholder':'Select a date'}), #datepicker
             #'date_of_birth': forms.DateInput(attrs={'class':'datepicker'})
         }
+
+
+
+
 
         fields = ("first_name", "last_name", "gender", "enterprise_name",
         "country_of_origin", "city_of_origin", "country_current_residence",

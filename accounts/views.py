@@ -213,11 +213,11 @@ class AccountSettingsUpdateView(SuccessMessageMixin, LoginRequiredMixin, UserPro
         print("Se almaceno?")
         return super(AccountSettingsUpdateView, self).form_valid(form)
 
-    
+    """
     def form_invalid(self, form):
         print("form is invalid")
         return HttpResponse("form is invalid.. this is just an HttpResponse object")
-
+    """
 
 
 
