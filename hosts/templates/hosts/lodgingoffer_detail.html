@@ -72,7 +72,11 @@
 <div class="detail-lodging-container">
 <main class="main-detail-lodging">
     <div class="acomodacion-lodging">
-        <h4>{{ lodgingofferdetail.lodging_offer_type }}</h4>
+        {% if lodgingofferdetail.created_by.user_type == "O" %}
+            <h4>{{ lodgingofferdetail.lodging_offer_type_org }}</h4>
+        {% else %}
+            <h4>{{ lodgingofferdetail.lodging_offer_type }}</h4>
+        {% endif %}
     </div>
     <div class="title-cont-lodging">
         <h1>{{ lodgingofferdetail.ad_title }}</h1>
@@ -203,9 +207,13 @@
                     <div class="name-review-cont-lodging">
                         {% comment %} A quien corresponda {% endcomment %}
                          <a href="{% url 'accounts:detail' userprofile.user.email %}">
-                            <span>{{ lodgingofferdetail.created_by.get_long_name }}</span>
-                            <span>{{ lodgingofferdetail.created_by.get_enterprise_name }} (@{{ lodgingofferdetail.created_by.email }})</span>
-                        </a>
+                            {% if lodgingofferdetail.created_by.user_type == "O" %}
+                                <span>{{ lodgingofferdetail.created_by.get_enterprise_name }} (@{{ lodgingofferdetail.created_by.email }})</span>
+                            {% else %}
+                                <span><span>{{ lodgingofferdetail.created_by.get_long_name }}</span> (@{{ lodgingofferdetail.created_by.email }})</span>
+                            {% endif %}
+                         </a>
+
                         {% comment %}
                         <img src="{% static 'img/stars.svg' %}" alt="">
 
