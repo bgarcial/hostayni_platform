@@ -147,6 +147,7 @@ class LodgingOfferSearch(FormView):
         qs = LodgingOffer.objects.active()
         context['offer_list'] = qs
 
+
         qs_paid = LodgingOffer.objects.paid()
         context['offers_paid'] = qs_paid
 

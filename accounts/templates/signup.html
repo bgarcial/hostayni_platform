@@ -9,15 +9,22 @@
 {% endblock script %}
 
 {% block body_content %}
-<div class="form-cont">
-    <div class="main">
-        <a href="/" class="logo-cont">
-            <img src="{% static 'img/Logo-slogan-lg.png' %}">
-        </a>
-        <form method="POST">
+
+<h1> Esto pasa todos los dias </h1>
+
+<!-- sign up wide -->
+
+<div class="form-cont-signup">
+    <div class="main-signup">
+        <form class="form-signup" method="POST">
+          <div class="signup-container">
             {% csrf_token %}
-            <h3>Unete a HOSTAYNI, es gratis.</h3>
+            <div class="signup-title">
+              <h3>Unete a HOSTAYNI, es gratis.</h3>
+            </div>
+
             {% bootstrap_form form %}
+
             {% comment %}
             {% for field in form %}
             <p>
@@ -32,20 +39,22 @@
             </p>
             {% endfor %}
             {% endcomment %}
+
             <p class="legal" align="justify">Al dar clic en registrarse, autoriza
                  <a href="#" data-toggle="modal" data-target="#largeModal2">
                 el tratamiento de sus datos</a> y
             <a href="#" data-toggle="modal" data-target="#largeModal">términos y condiciones</a></p>
           <!-- Agregué estos dos divs para poder alinear el boton a la derecha -->
-          <div class="submit-button-cont">
+          <div class="submit-button-cont-signup">
             <div>
               <input type="image" src="{% static 'img/icons/ok.png' %}" alt="Submit" width="48" height="48">
               <input type="submit" value="Registrarse" class="submit-button">
             </div>
           </div>
+        </div>
 
         </form>
-    <!-- Terms and conditions modal -->
+        <!-- Terms and conditions modal -->
         <div class="modal fade" id="largeModal2" tabindex="-1" role="dialog" aria-labelledby="largeModal" aria-hidden="true">
           <div class="modal-dialog modal-lg">
             <div class="modal-content">
@@ -402,9 +411,410 @@
         </div>
         <!-- End Terms and conditions modal -->
     </div>
-    <div class="portrait">
-        <div class="img-cont" style="background: url('{{ image.0  }}') no-repeat center; background-size:cover;"></div>
+    <div class="portrait-signup">
+        <div class="img-cont-signup" style="background: url('{{ image.0  }}') no-repeat center; background-size:cover;"></div>
         <span>{{ image.1  }}</span>
+    </div>
+</div>
+
+<!-- sign up low -->
+
+<div style="background: url('{{ image.0  }}') no-repeat center; background-size:cover;" class="form-cont-signup-low">
+    <div class="main-signup">
+        <form class="form-signup" method="POST">
+          <div class="signup-container">
+            {% csrf_token %}
+            <div class="signup-title">
+              <p>Unete a HOSTAYNI, es gratis.</p>
+            </div>
+
+            {% bootstrap_form form %}
+
+            {% comment %}
+            {% for field in form %}
+            <p>
+                {{ field.label_tag }}<br>
+                {{ field }}
+                {% if field.help_text %}
+                  <small style="display: none">{{ field.help_text }}</small>
+                {% endif %}
+                {% for error in field.errors %}
+                  <p style="color: red">{{ error }}</p>
+                {% endfor %}
+            </p>
+            {% endfor %}
+            {% endcomment %}
+
+            <p class="legal" align="justify">Al dar clic en registrarse, autoriza
+                 <a href="#" data-toggle="modal" data-target="#largeModal2">
+                el tratamiento de sus datos</a> y
+            <a href="#" data-toggle="modal" data-target="#largeModal">términos y condiciones</a></p>
+          <!-- Agregué estos dos divs para poder alinear el boton a la derecha -->
+          <div class="submit-button-cont-signup">
+            <div>
+              <input type="image" src="{% static 'img/icons/ok.png' %}" alt="Submit" width="48" height="48">
+              <input type="submit" value="Registrarse" class="submit-button">
+            </div>
+          </div>
+        </div>
+
+        </form>
+        <!-- Terms and conditions modal -->
+        <div class="modal fade" id="largeModal2" tabindex="-1" role="dialog" aria-labelledby="largeModal" aria-hidden="true">
+          <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+              <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h2 class="modal-title" id="myModalLabel2">AUTORIZACIÓN PARA EL TRATAMIENTO DE DATOS PERSONALES POR PARTE DE HOSTAYNI</h2>
+              </div>
+              <div class="modal-body">
+                  <p align="justify">
+                      <strong>HOSTAYNI</strong> le informa que sus datos personales serán almacenados, en nuestras bases
+                      de datos, y tratados para mantener una comunicación permanente y eficaz con usted con el fin de dar
+                      publicidad y envío de información comercial sobre servicios que preste Hostayni o sus aliados a
+                      través de la plataforma, y para realizar encuestas sobre las preferencias y gustos propios.
+                      <br/><br/>
+                      Estos servicios se refieren principalmente a alojamiento, información turística, información de
+                      negocios, eventos, actividades culturales, programas educativos, voluntariados y asesorías empresariales.
+
+                      <br /><br/>
+                      Autoriza a HOSTAYNI a transmitir mis datos personales a sus terceros aliados que presten cualquiera
+                      de los servicios anteriormente descritos. Puede verificar finalidades específicas en el capítulo V de
+                      la Política de Tratamiento de datos personales de HOSTAYNI.
+                      <br/><br/>
+
+                      Puede consultar nuestra política visitando la página web de <a href="www.hostayni.com/">www.hostayni.com</a> <br/>
+
+                      <br/>Si usted desea conocer, corregir, actualizar, rectificar o suprimir los datos que nos ha suministrado,
+                      o revocar la presente autorización, puede revisar el capítulo VII de la Política y conocer el procedimiento
+                      detallado, o si lo prefiere escríbanos un correo electrónico a xxxxxxxxxx@hostayni.com  indicándonos su solicitud,
+                      o comuníquese al teléfono (57 4) XXXXXXX.
+
+                      <br /><br/>Conociendo lo anterior, manifiesto mi autorización expresa, previa y voluntaria para el tratamiento de mis datos
+                      por parte de HOSTAYNI.
+                  </p>
+              </div>
+              <div class="modal-footer">
+                  <div class="submit-button-cont">
+                    <div>
+                      <input type="image" src="{% static 'img/icons/ok.png' %}" alt="Submit" width="48" height="48">
+                      <input type="submit" data-dismiss="modal" value="He leído la política de tratamiento de datos " class="submit-button">
+                    </div>
+                  </div>
+                <!--<button type="button" class="btn btn-primary" data-dismiss="modal">He leído los términos y condiciones</button>
+                 <button type="button" class="btn btn-primary">Save changes</button> -->
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- End Terms and conditions modal -->
+        <!-- Terms and conditions modal -->
+        <div class="modal fade" id="largeModal" tabindex="-1" role="dialog" aria-labelledby="largeModal" aria-hidden="true">
+          <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+              <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h2 class="modal-title" id="myModalLabel">TÉRMINOS Y CONDICIONES</h2>
+              </div>
+              <div class="modal-body">
+                  <p align="justify">
+                      <strong>Hostayni S.A.S.</strong> es una sociedad por acciones simplificada constituida
+                      en Colombia y domiciliada en la ciudad de Medellín, que se encarga de promocionar
+                      prestación de servicios de terceros a través de su plataforma web, app y otros medios.<br />
+                      <br />
+                      Éstos servicios se refieren principalmente pero no se limitan a:
+                      alojamiento, entretenimiento, programas educativos, voluntariados,
+                      programas sociales y culturales, acompañamiento al turista.
+                  </p> <br />
+                  <h4>ALCANCE</h4>
+                  <p align="justify">
+                      Los presentes términos y condiciones están sujetos a cambios en cualquier momento y
+                      aplican para todos los servicios promocionados prestados a través terceros en la
+                      plataforma web, app y demás medios disponibles.
+                      <br /><br />Al registrarse y hacer uso (incluyendo simplemente navegar sin registro) de la
+                      plataforma web, app y demás medios disponibles, usted acepta los presentes términos
+                      y condiciones y confirma que los ha leído y entendido en su totalidad acogiéndose a las
+                      condiciones aquí informadas.
+                  </p> <br />
+                  <h4>DEFINICIONES</h4>
+                  <p align="justify">
+
+                    <ul class="list-group">
+                        <li class="list-group-item"><strong>"Hostayni"</strong> o <strong>Hostayni.com”:</strong>
+                                  <br />Hostayni S.A.S. sociedad por acciones simplificada domiciliada en Medellín, Colombia
+                                  y constituida bajo las leyes de ese país.</li>
+
+                        <li class="list-group-item"><strong>Plataforma</strong> <br />
+                              se refiere a la página web, app y demás medios dispuestos, creados, actualizados y
+                                  controlados por Hostayni dónde está disponible el servicio.</li>
+
+                        <li class="list-group-item"><strong>Servicio</strong> <br />
+                                      hace referencia a los servicios de reservas a través de la plataforma y al
+                          canal de comunicación que facilita Hostayni entre los usuarios y los terceros que los
+                          promocionan a través de la plataforma.
+                        </li>
+                        <li class="list-group-item"><strong>Tercero</strong> <br />
+                                      Persona natural o jurídica diferente de Hostayni, que promociona y/o
+                          publicita sus servicios a través de la plataforma. El tercero tiene una personalidad
+                          jurídica diferente a Hostayni S.A.S. por lo tanto, responde directamente ante los
+                          usuarios por los servicios que promociona a través de la plataforma.</li>
+
+                        <li class="list-group-item"><strong>Usuario</strong> <br />
+                          persona natural o jurídica, que se registra y navega en la plataforma suministrando
+                          sus datos personales para el uso del servicio prestado por Hostayni.
+                        </li>
+                    </ul>
+                  </p><br/>
+
+                  <h4>PRIVACIDAD Y TRATAMIENTO DE DATOS PERSONALES</h4>
+                  <p align="justify">
+                      Para Hostayni es de vital importancia respetar los derechos de los titulares de los
+                      datos personales suministrados a través de la plataforma. Por lo tanto, dispone de
+                      una serie de recursos humanos, técnicos y tecnológicos idóneos para la protección.</p>
+
+                  <p align="justify">Hostayni trata y usa los datos personales de los usuarios y terceros que lo han
+                      autorizado previamente. Lo anterior, conforme a la Ley Estatutaria 1581 de 2012
+                      y sus decretos reglamentarios en la República de Colombia.
+                      Consulte la política de privacidad y tratamiento de datos personales de Hostayni.</p>
+
+                  <p align="justify">
+                      Siempre en el texto de autorización para el tratamiento de datos, Hostayni informa
+                      al usuario o tercero las finalidades para las cuales recolecta los datos personales,
+                      los derechos que tiene el titular de los datos como: actualizarlos, corregirlos,
+                      rectificarlos o suprimirlos, y a través de cuales canales de comunicación puede ejercer
+                      tales derechos.
+                  </p>
+                  <br/>
+
+                  <h4>CONDUCTAS INAPROPIADAS- PROHIBICIONES PARA LOS USUARIOS</h4>
+                  <p align="justify">
+                      Los contenidos de la plataforma son de propiedad de Hostayni y los terceros que
+                      promocionan sus servicios en ésta. Por lo tanto, los usuarios no podrán transferir,
+                      distribuir, modificar, copiar, transmitir, mostrar, realizar, reproducir, publicar,
+                      otorgar licencia, crear trabajos derivados, vender o revender cualquier información,
+                      software, producto o servicio obtenido de la plataforma o a través de la plataforma.
+                      <br/>
+                      Sólo podrán reproducir o copiar información en la medida de lo necesario para el
+                      disfrute del servicio adquirido.</p>
+
+                  <p align="justify">
+                      El usuario acepta a través de estos términos y condiciones no hacer o ejecutar los
+                      siguientes actos: </p>
+
+                      <ul class="list-group">
+                        <li class="list-group-item">Publicar o subir a la plataforma contenido falso o fraudulento.</li>
+
+                        <li class="list-group-item">Publicar contenido pornográfico, inmoral, ofensivo, racista o
+                            discriminatorio. </li>
+
+                        <li class="list-group-item">
+                            Usar la plataforma para crear contenido que contenga virus o software
+                            malintencionado que pueda afectar el uso de la plataforma o que pueda
+                            dañar computadoras de los usuarios.
+                        </li>
+                        <li class="list-group-item">
+                        Publicar o subir material que no sea de su propiedad y violente derechos de autor. </li>
+
+                        <li class="list-group-item">
+                          Ejecutar maniobras con el objetivo de recolectar datos personales de usuarios sin
+                            su respectiva autorización.
+                        </li>
+                        <li class="list-group-item">
+                            Ejecutar conductas que constituyan delitos o sean violatorias de las leyes.
+                        </li>
+                        <li class="list-group-item">
+                            Violar las restricciones de cualquier encabezado de exclusión de robots de la
+                            plataforma, evitar o evadir otras medidas de seguridad utilizadas para impedir
+                            o limitar el acceso a la plataforma.
+                        </li>
+                        <li class="list-group-item">
+                            Acceder, controlar o copiar el contenido o la información de la plataforma usando
+                            un robot, spider, scraper u otro medio automatizado o cualquier proceso manual
+                            para ningún propósito, sin nuestro permiso expreso por escrito.
+                        </li>
+                        <li class="list-group-item">
+                            Usar los diferentes medios de comunicación de la plataforma
+                            (como chat, mensajería no instantánea, comentarios y publicaciones) con fines
+                            fraudulentos o que vayan en contra de la Ley o que se configuren como delito.
+                        </li>
+                        <br /><br />
+                            Hostayni se reserva el derecho a revisar todos los comentarios y publicaciones
+                            de contenidos, comentarios, publicidad, servicios, etc. que se realicen a través
+                            de la plataforma. Si considera que el contenido que ha revisado encuadra en alguno
+                            de los actos anteriormente señalados, Hostayni podrá eliminar ese contenido sin
+                            necesidad de notificar o pedir autorización alguna.
+                    </ul>
+                  <br/>
+                  <h4>RESPONSABILIDAD</h4>
+                  <p align="justify">
+                      Todos los servicios de reservas, alojamiento, entretenimiento, programas educativos,
+                      voluntariados, programas sociales y culturales, asesorías empresariales,
+                      acompañamiento al turista son acuerdos perfeccionados entre el usuario de la plataforma
+                      y los terceros que promocionan sus servicios en la plataforma.
+                      <br/> <br/>
+                      Hostayni no es responsable de la exactitud, calidad, integridad, fiabilidad o
+                      credibilidad del contenido aportado por los usuarios y los terceros que promocionan
+                      sus servicios en la plataforma. Si bien a través de la plataforma con los comentarios y
+                      puntuaciones otorgadas por los usuarios pueden aparecer calificaciones sobre alojamientos,
+                      hoteles, hostales y otros servicios promocionados, Hostayni no recomienda ni interfiere con
+                      la decisión de compra o adquisición de servicios de los usuarios.
+
+                      <br/> <br/>
+                      Hostayni no es responsable por errores técnicos o humanos que se puedan presentar en
+                      la promoción de los servicios, siempre y cuando no sean atribuibles a mal
+                      funcionamiento de la plataforma o sean causados por errores en ésta.
+                      El responsable en éstos casos es el tercero que promociona sus servicios a través de
+                      la plataforma y quien debe asumir las consecuencias legales, comerciales y las demás
+                      que se generen de su relación contractual con el usuario.
+                      <br/> <br/>
+                      A través de la plataforma no se realiza ningún pago o transacción financiera para la
+                      adquisición de productos y/o servicios por parte de los usuarios.
+                      Los pagos se efectúan en la página web o sitios dispuestos para ello por el tercero que
+                      promociona su servicio a través de Hostayni, sitio al cual se direcciona el usuario.
+                      Por lo anterior, el contrato o relación contractual por la adquisición de servicios se
+                      celebra directamente entre el usuario y el tercero que promociona a través de la plataforma,
+                      razón por la cual Hostayni no tiene ninguna responsabilidad en cuanto a la prestación del
+                      servicio adquirido o los daños y perjuicios causados o que se pudieren llegar a causar por
+                      algún incumplimiento o circunstancia generada por el tercero que se promociona a través de
+                      la plataforma.
+                      <br/> <br/>
+                      A través de la plataforma se activan hipervínculos a otros sitios web administrados por
+                      personas distintas a Hostayni. Tales hipervínculos solo se proporcionan como referencia.
+                      Hostayni no controla esos sitios web y no es responsable por los contenidos,
+                      la privacidad u otras prácticas de tales sitios web. El usuario es quien debe tomar o no
+                      las medidas de precaución para asegurarse de que cualquier vínculo que seleccione o
+                      software que descargue sea desde la plataforma o desde cualquier otro sitio web esté
+                      libre de elementos como virus, gusanos, troyanos, defectos u otros elementos de
+                      naturaleza destructiva. La inclusión por parte de Hostayni de hipervínculos a tales
+                      sitios web no implica la aprobación del material que estos contienen, ni tampoco implica
+                      una asociación con sus administradores.
+                      <br/><br/>
+                      La información que recibe la plataforma de los terceros que promocionan sus servicios
+                      a través de ésta no se actualiza en tiempo real por imposibilidad técnica.
+                      Por lo tanto, el usuario podrá encontrar un servicio promocionado con unas condiciones
+                      establecidas en la plataforma diferentes a las condiciones que pueda encontrar en
+                      otros sitios web dispuestos por el tercero o que también promocionen y sirvan de canal
+                      de comunicación entre usuarios y el tercero. De acuerdo a lo anterior, Hostayni no
+                      garantiza que los precios y tarifas que se promocionen a través de su plataforma,
+                      sean los mismos que se exhiban al momento de direccionar el usuario a la página web del
+                      tercero dónde deba realizar la transacción o pago.
+                      <br /><br />
+                      Los terceros que promocionan sus servicios a través de la plataforma son contratistas
+                      independientes y no son agentes o empleados de Hostayni. Por lo anterior, Hostayni no
+                      es responsable de los actos, errores, omisiones, declaraciones, garantías, faltas o
+                      negligencias de cualquiera de los terceros, ni tampoco es responsable de cualquier daño
+                      personal, deceso, daños a la propiedad u otros daños o gastos que de allí pudieran
+                      resultar. Hostayni no tiene responsabilidad y no proporcionará ningún reembolso por
+                      cualquier caso de demora, cancelación, sobreventa, huelga, casos de fuerza mayor u
+                      otras causas que excedan su control directo; asimismo no asume ninguna responsabilidad
+                      por cualquier gasto adicional, omisión, demora, redireccionamiento u acto del gobierno o
+                      de una autoridad.
+                      <br/><br/>
+                      Toda conversación o comunicación a través de cualquier medio dispuesto en la plataforma
+                      o cualquier medio que sea ajeno a ésta entre el usuario y el tercero, se constituye en
+                      una relación estrictamente entre éstos. Por lo tanto, Hostayni no se hace responsable
+                      por los acuerdos o compromisos y obligaciones que adquieran cada uno
+                      (usuarios y terceros) a través de esas comunicaciones que intercambien.
+                  </p>
+                  <br/>
+                  <h4>PROPIEDAD INTELECTUAL</h4>
+                  <p align="justify">
+                    El software a que se usa en la plataforma y que está disponible para servir como canal
+                      de comunicación entre los usuarios y terceros que se promocionan es propiedad de Hostayni.
+                      Ésta propiedad incluye todos los derechos de propiedad intelectual (también el copyright)
+                      sobre el software y todas las marcas, símbolos y signos distintivos que sean dispuestos
+                      por Hostayni en la plataforma, por lo tanto, ningún usuario o tercero podrá usarlos,
+                      modificarlos, reproducirlos, comercializarlos sin una autorización escrita previa de
+                      Hostayni.
+                      <br/><br/>
+                      Al subir fotos u otras imágenes y enviar comentarios a la plataforma el usuario o tercero
+                      que se promociona a través de Hostayni certifica, garantiza y confirma que no vulnera
+                      derechos de propiedad intelectual de otros y que tiene posesión efectiva del copyright
+                      de la foto o imagen y que está de acuerdo con que Hostayni utilice la foto o imagen en
+                      la plataforma, aplicaciones (apps), materiales publicitarios y sitios o dispositivos de
+                      los que disponga para prestar el servicio (online y offline), así como en cualquier
+                      publicación que Hostayni considere apropiada. <br/><br/>
+                      El usuario o tercero garantiza a Hostayni un derecho no-exclusivo, universal,
+                      irrevocable, incondicional y permanente, así como la licencia para utilizar,
+                      reproducir, mostrar, hacer reproducir, distribuir, sublicenciar, comunicar y
+                      facilitar las fotos e imágenes en la forma que Hostayni considere apropiada.
+                      <br/><br/>
+                      Al subir estas fotos e imágenes, la persona que las sube acepta la responsabilidad
+                      legal y moral sobre todas y cada una de las reclamaciones legales realizadas por un
+                      tercero u otro usuario a raíz del uso y publicación de las fotos e imágenes por
+                      parte de Hostayni.
+                      <br/><br/>
+                      Hostayni no posee ni avala de forma alguna las fotos e imágenes que se suben.
+                      La veracidad, validez y derecho de uso de todas las fotos e imágenes la asumirá
+                      la persona que ha subido la foto, y nunca será responsabilidad de Hostayni que
+                      niega cualquier responsabilidad u obligación sobre las fotografías publicadas.
+                      <br/><br/>
+                      La persona que ha subido las fotos garantiza que las fotos e imágenes no contienen
+                      ningún virus, troyano o archivos infectados, así como ningún material pornográfico,
+                      ilegal, obsceno, ofensivo, censurable o inapropiado, y que no infringe los derechos
+                      (de propiedad intelectual, de copyright o de privacidad) de terceros.
+                      Cualquier foto e imagen que no cumpla con los requisitos mencionados no será
+                      publicada y/o puede ser eliminada por Hostayni en cualquier momento y sin previo aviso.
+                  </p>
+                  <br/>
+                  <h4>COMUNICACIONES</h4>
+                  <p align="justify">
+                    Con la aceptación de los presentes términos y condiciones el usuario o tercero que promociona
+                      sus servicios a través de la plataforma aceptan recibir comunicaciones de Hostayni a través
+                      del correo electrónico registrado y a través de otros dispositivos como números de teléfonos
+                      móviles y notificaciones a través de la app y otros medios de los que disponga Hostayni para
+                      la prestación del servicio.
+                      <br/><br/>
+                      Cualquier comunicación entre el usuario de la plataforma y el tercero que promociona sus
+                      servicios a través de ésta que se desarrolle o ejecute directamente en la plataforma,
+                      sitio web del tercero u otro canal de comunicación, es una comunicación exclusivamente
+                      entre usuario y tercero. Por lo tanto, Hostayni queda exento de cualquier responsabilidad
+                      por estas comunicaciones de las cuales no tiene control ni es parte activa sea como emisor
+                      o receptor de mensajes.
+                      <br/><br/>
+                      <hr/>
+                      Tanto el usuario como tercero podrán comunicarse oficialmente con Hostayni a través del
+                      correo contacto@hostayni.com o podrán usar el botón de contáctenos que se dispone en la
+                      parte [inferior, derecha, izquierda o superior] del home o página de inicio de la página
+                      web. Si lo prefiere puede comunicarse al número telefónico (574) XXX XX XX.
+                  </p>
+
+                  <br/>
+                  <h4>JURISDICCION Y LEY APLICABLE</h4>
+                  <p align="justify">
+                    Los presentes términos y condiciones se regirán e interpretarán según las leyes de la
+                      república de Colombia. Hostayni por ser una sociedad por acciones simplificada
+                      constituida bajo las leyes colombianas toda controversia que surja en virtud a la
+                      prestación del servicio a través de la plataforma se dirimirá ante la jurisdicción
+                      ordinaria de la ciudad de Medellín, Colombia.
+                      <br/><br>
+                      En caso de que alguna de las disposiciones de éstos términos y condiciones resulte
+                      inválida por disposición legal o judicial, el usuario de la plataforma o tercero
+                      que promociona sus servicios a través de la plataforma seguirá vinculado al
+                      resto de disposiciones de los términos y condiciones, y la que resulte invalida
+                      parcialmente se aplicará hasta los límites que la ley lo permita o de acuerdo a
+                      la interpretación y alcance de la decisión judicial en el caso concreto.
+                  </p>
+
+
+
+
+
+              </div>
+              <div class="modal-footer">
+                  <div class="submit-button-cont">
+                    <div>
+                      <input type="image" src="{% static 'img/icons/ok.png' %}" alt="Submit" width="48" height="48">
+                      <input type="submit" data-dismiss="modal" value="He leído los términos y condiciones " class="submit-button">
+                    </div>
+                  </div>
+                <!--<button type="button" class="btn btn-primary" data-dismiss="modal">He leído los términos y condiciones</button>
+                 <button type="button" class="btn btn-primary">Save changes</button> -->
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- End Terms and conditions modal -->
     </div>
 </div>
 {% endblock %}

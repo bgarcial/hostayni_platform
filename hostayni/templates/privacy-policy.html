@@ -2,14 +2,13 @@
 {% load bootstrap3 %}
 {% load staticfiles %}
 {% block title_tag %}Quienes somos | {{ block.super }}{% endblock %}
-{% block top_logo %}
-{% include "top-logo.html" %}
-{% endblock %}
 {% block body_content %}
 
+<div class="container-main-title">
+  <h2>POLÍTICAS Y PROCEDIMIENTOS PARA PROTECCIÓN DE LOS DATOS PERSONALES</h2>
+</div>
+<div class="container-main-info">
 <p align="center">
-    <h2>POLÍTICAS Y PROCEDIMIENTOS PARA PROTECCIÓN DE LOS DATOS PERSONALES</h2>
-    <br/><br/>
     <h4>I. MARCO LEGAL (República de Colombia)</h4>
 </p>
 <p align="justify">
@@ -391,5 +390,7 @@ En desarrollo del principio de seguridad establecido en la normatividad vigente,
 
 <h4>XII. VIGENCIA DE LAS POLÍTICAS</h4><br/>
 <br /><br />
+
+</div>
 
 {% endblock %}

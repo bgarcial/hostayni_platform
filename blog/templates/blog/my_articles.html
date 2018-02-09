@@ -1,13 +1,11 @@
 {% extends 'layout.html' %}
 {% load bootstrap3 %}
 {% block title_tag %}Articles created | {{ block.super }}{% endblock %}
-{% block top_logo %}
-{% include "top-logo.html" %}
-{% endblock %}
 
 {% block body_content %}
-<div class="container">
- <div class="panel panel-default">
+
+<div class="container-myarticles">
+ <div class="panel-myarticles panel-default">
  <!-- Default panel contents -->
   <div class="panel-heading">Mis Artículos
       &nbsp;&nbsp;&nbsp;&nbsp;| &nbsp;&nbsp;&nbsp;&nbsp;
@@ -37,4 +35,3 @@
  </div>
 </div>
 {% endblock %}
-

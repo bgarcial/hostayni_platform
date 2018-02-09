@@ -4,10 +4,6 @@
 
 {% block title_tag %}Mi cuenta en {{ block.super }}{% endblock %}
 
-{% block top_logo %}
-{% include "top-logo.html" %}
-{% endblock %}
-
 
 
 {% block body_content %}
@@ -15,47 +11,128 @@
     <form enctype="multipart/form-data" method="POST">
         {% csrf_token %}
         <div class="head">
-            <div class="ofert-icon">
+            <div class="icon-picture">
                 <img src="{% static 'img/icons/gear.svg' %}" alt="">
                 <div class="title">
                     <h2>Configuración de mi cuenta</h2>
-                    <span>Detalles de usuario</span>
                 </div>
             </div>
-            <div class="submit-button-cont">
+            <div class="submit-button-config">
                 <div>
                   <input type="image" src="{% static 'img/icons/ok.png' %}" alt="Submit" width="48" height="48">
                   <input type="submit" value="Guardar" class="submit-button">
                 </div>
             </div>
         </div>
-        {% if user.user_type == 'O' %}
-            {% bootstrap_form form exclude="first_name,last_name,gender,biography,date_of_birth,speak_languages,country_of_origin,city_of_origin,city_current_residence,entertainment_activities,is_student,is_professor,is_executive,is_study_host,is_hosting_host" %}
 
-            <p><strong>Mis roles de usuario</strong></p>
-            {% bootstrap_field form.is_study_host %}
-            {% bootstrap_field form.is_hosting_host %}
+        <!-- Buttons accordeon type - TABS -->
+        <div class="config-container">
+          <div class="tabConfiguracion">
+            <button type="button" class="tablinks" onclick="openCity(event, 'usuario')">Detalles de usuario</button>
+            <button type="button" class="tablinks" onclick="openCity(event, 'perfil')">Perfil</button>
+            <button type="button" class="tablinks" onclick="openCity(event, 'localizacion')">Localización</button>
+            <button type="button" class="tablinks" onclick="openCity(event, 'roles')">Roles</button>
+          </div>
 
-            {% comment %}
-            {% bootstrap_field form.enterprise_name %}
+        <!-- Development of each TAB Buttons accordeon type  -->
+
+            <!-- TAB Detalles de Usuario -->
+          <div id="usuario" class="tabcontent">
+            {% if user.user_type == 'P' %}
+                {% bootstrap_field form.first_name %}
+                {% bootstrap_field form.last_name %}
+                {% bootstrap_field form.gender %}
+                {% bootstrap_field form.date_of_birth %}
+                {% bootstrap_field form.speak_languages %}
+                {% bootstrap_field form.entertainment_activities %}
+            {% elif user.user_type == 'O' %}
+                {% bootstrap_field form.enterprise_name %}
+                {% bootstrap_field form.creation_date %}
+            {% endif %}
+          </div>
+
+            <!-- TAB Perfil -->
+          <div id="perfil" class="tabcontent">
+            {% if user.user_type == 'P' %}
+                {% bootstrap_field form.biography %}
+            {% elif user.user_type == 'O' %}
+                {% bootstrap_field form.description %}
+            {% endif %}
+                <!-- Avatar es indistinto del usuario -->
+                {% bootstrap_field form.avatar %}
+          </div>
+
+            <!-- TAB LOcalizacion -->
+          <div id="localizacion" class="tabcontent">
             {% bootstrap_field form.country_of_origin %}
             {% bootstrap_field form.city_of_origin %}
-            {% bootstrap_field form.country_current_residence %}
-            {% bootstrap_field form.city_current_residence %}
             {% bootstrap_field form.phone_number %}
             {% bootstrap_field form.address %}
-            {% bootstrap_field form.bio %}
-            {% bootstrap_field form.avatar %}
-            {% bootstrap_field form.date_of_birth %}
-            {% bootstrap_field form.is_study_host %}
+              {% if user.user_type == 'P' %}
+                  {% bootstrap_field form.city_current_residence %}
+              {% endif %}
+          </div>
+
+        <!-- TAB ROLES -->
+          <div id="roles" class="tabcontent">
+          <!-- Los dos tipos de usuario (persona y organizacion) pueden ser
+           anfitriones de alojamiento-->
             {% bootstrap_field form.is_hosting_host %}
+            {% if user.user_type == 'P' %}
+                {% bootstrap_field form.is_student %}
+                {% bootstrap_field form.is_professor %}
+                {% bootstrap_field form.is_executive %}
+            {% else %}
+                {% bootstrap_field form.is_study_host %}
+            {% endif %}
+
+
+          </div>
+        </div>
+
+
+            <!-- Accordion application -->
+
+            {% comment %}
+                Aqui lo de los divs de button sobra, si los borro sigue funcionando,
+                pero lo que sucede es que quiero con la clase config-container-low
+                la cual tiene css media query responsive, asignarle un nuevo tamano
+                de despliegue cuando se redimensione el navegador, pero
+                no se como hacerlo.
+
+                Es decir estabamos volviendo a citar los campos con bootstrap aca y por eso
+                lo de los dos strings en el request.POST y por eso no llegaba o llegaban vacios
+                que es el error que tenia.
+
+                Pero ...
+                Como podemos decirle que cuando se redimensione el browser, renderize esos mismos
+                campos en otro tamano y otro orden, si no los replico o vuelvo a referenciar?
             {% endcomment %}
+            <div class="config-container-low">
+              <button type="button" class="accordion">Detalles de usuario</button>
+              <div class="panel">
+                  fff
+              </div>
 
-        {% else %}
-            {% bootstrap_form form exclude="enterprise_name,is_study_host,description,creation_date" %}
-        {% endif %}
+              <button type="button" class="accordion">Perfil</button>
+              <div class="panel">
 
-        <div class="submit-button-cont">
+              </div>
+
+              <button type="button" class="accordion">Localización</button>
+              <div class="panel">
+
+              </div>
+
+              <button type="button" class="accordion">Roles</button>
+              <div class="panel">
+
+              </div>
+            </div>
+
+
+
+        <div class="submit-button-config">
             <div>
               <input type="image" src="{% static 'img/icons/ok.png' %}" alt="Submit" width="48" height="48">
               <input type="submit" value="Guardar" class="submit-button">
@@ -63,5 +140,64 @@
         </div>
     </form>
 </div>
+
+
+
+<!-- Accordion behavior -->
+<script>
+
+var acc = document.getElementsByClassName("accordion");
+var i;
+
+for (i = 0; i < acc.length; i++) {
+    acc[i].addEventListener("click", function() {
+        /* Toggle between adding and removing the "active" class,
+        to highlight the button that controls the panel */
+        this.classList.toggle("active");
+
+        /* Toggle between hiding and showing the active panel */
+        var panel = this.nextElementSibling;
+        if (panel.style.display === "block") {
+            panel.style.display = "none";
+        } else {
+            panel.style.display = "block";
+        }
+    });
+}
+
+</script>
+
+<script>
+
+window.onload = function() {
+  tabcontent = document.getElementsByClassName("tabcontent");
+  //tabcontent[0].style.display = "";
+  for (i = 1; i < tabcontent.length; i++) {
+      tabcontent[i].style.display = "none";
+  }
+};
+
+function openCity(evt, cityName) {
+    // Declare all variables
+    var i, tabcontent, tablinks;
+
+    // Get all elements with class="tabcontent" and hide them
+    tabcontent = document.getElementsByClassName("tabcontent");
+    for (i = 0; i < tabcontent.length; i++) {
+        tabcontent[i].style.display = "none";
+    }
+
+    // Get all elements with class="tablinks" and remove the class "active"
+    tablinks = document.getElementsByClassName("tablinks");
+    for (i = 0; i < tablinks.length; i++) {
+        tablinks[i].className = tablinks[i].className.replace(" active", "");
+    }
+
+    // Show the current tab, and add an "active" class to the link that opened the tab
+    document.getElementById(cityName).style.display = "block";
+    evt.currentTarget.className += " active";
+}
+
+</script>
 
 {% endblock %}

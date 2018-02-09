@@ -34,9 +34,8 @@ def get_env_variable(var_name):
         error_msg = "Set the %s environment variable" % var_name
         raise ImproperlyConfigured(error_msg)
 
+
 SECRET_KEY = get_env_variable('SECRET_KEY')
-
-
 
 ALLOWED_HOSTS = []
 
@@ -161,6 +160,10 @@ USE_L10N = True
 
 USE_TZ = True
 
+#DATE_INPUT_FORMATS = ['%Y-%m-%d',      # '2006-10-25'
+# '%m/%d/%Y',      # '10/25/2006'
+# '%m/%d/%y']
+
 REST_FRAMEWORK = {
     # Use Django's standard `django.contrib.auth` permissions,
     # or allow read-only access for unauthenticated users.
@@ -188,11 +191,17 @@ REST_FRAMEWORK = {
 STATIC_URL = '/assets/'
 
 
+#---------------------------To S3 -------------------------------------------------------------
 # To tell Django to look for static files in the cnvss/assets directory
 # that we just created. With this configuration, Django will look for
 # static files in a folder named assets/ inside each app and into the
-# cnvss/assets folder we just created.
+# hostayni/assets folder we just created.
 # BASE_DIR is the root directory
+
+#STATICFILES_DIRS = (
+#    os.path.join(BASE_DIR, "assets"),
+#)
+
 STATICFILES_DIRS = (
     os.path.join(BASE_DIR, "assets"),
 )
@@ -201,7 +210,14 @@ STATICFILES_DIRS = (
 # Usually is a CDN or another server to manage static files
 # /webapps/cnvss/assets/
 # collectstatic va a static root directory y si no al static
-# STATIC_ROOT = os.path.join(BASE_DIR, "assets")
+# STATIC_ROOT = os.path.join(BASE_DIR, "assets") NO VA EN el s3 tampoco
+
+# Static root para servir archivos estaticos locales de paquetes/apps instalados en el proyecto
+STATIC_ROOT = os.path.join(os.path.dirname(BASE_DIR), "static_cdn", "static_root")
+
+MEDIA_URL = '/media/'
+MEDIA_ROOT = os.path.join(os.path.dirname(BASE_DIR), "static_cdn", "media_root")
+#---------------------------To S3 END -------------------------------------------------------------
 
 
 FIXTURE_DIRS = (
@@ -231,14 +247,20 @@ AWS_S3_CUSTOM_DOMAIN = 's3-sa-east-1.amazonaws.com/%s' % AWS_STORAGE_BUCKET_NAME
 #MEDIA_URL = "https://%s/" % AWS_S3_CUSTOM_DOMAIN
 #MEDIA_ROOT = 'avatars/'
 # For media files to S3
-STATICFILES_LOCATION = 'assets'
-STATICFILES_STORAGE = 'custom_storages.StaticStorage'
 
-STATIC_URL = "https://%s/%s/" % (AWS_S3_CUSTOM_DOMAIN, STATICFILES_LOCATION)
+#---- To S3 -----
+STATICFILES_LOCATION = 'assets'
+#STATICFILES_STORAGE = 'custom_storages.StaticStorage'
+
+# STATIC_URL = "https://%s/%s/" % (AWS_S3_CUSTOM_DOMAIN, STATICFILES_LOCATION)
+#---- To S3 end -----
 
 MEDIAFILES_LOCATION = 'media'
 
-MEDIA_URL = "https://%s/%s/" % (AWS_S3_CUSTOM_DOMAIN, MEDIAFILES_LOCATION)
+
+# -- To S3
+# MEDIA_URL = "https://%s/%s/" % (AWS_S3_CUSTOM_DOMAIN, MEDIAFILES_LOCATION)
+# To S3 end
 
 DEFAULT_FILE_STORAGE = 'custom_storages.MediaStorage'
 
@@ -371,4 +393,5 @@ send_mail(
     to_email_list, # must be a list
     fail_silently=False)
 """
+
 

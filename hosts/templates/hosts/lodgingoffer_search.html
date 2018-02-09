@@ -1,138 +1,211 @@
 {% extends 'layout.html' %}
 {% load staticfiles %}
 {% block title_tag %}Lodging Offert Search | {{ block.super }}{% endblock %}
-{% block top_logo %}
-{% include "top-logo.html" %}
-{% endblock %}
 {% block body_content %}
 
-
-<div class="offert-form">
+<div class="banner-lodging-search">
+  <img src="{% static 'img/Banner-Alojamiento.png' %}" alt="">
+</div>
+<div class="container-lodging-search">
   <form class="stayhost" action="." method="get">
-    <div class="head">
-      <div class="ofert-icon">
-        <img src="{% static 'img/icons/search.svg' %}" alt="">
-        <div class="title">
-          <h2>ALOJAMIENTO</h2>
-          <span>Buscar</span>
-        </div>
+    <div class="head-lodging-search">
+      <div class="formgroup-lodging-search">
+          {{ form.query }}
       </div>
-      <div class="submit-button-cont">
+      <div class="ofert-icon-lodging">
+        <input type="image" src="{% static 'img/icons/search.svg' %}" alt="Submit" width="32" height="32">
+        <!-- <img src="{% static 'img/icons/search.svg' %}" alt="" width="32" height="32"> -->
+      </div>
+      <!-- <div class="submit-button-cont-lodging">
         <div>
           <input type="image" src="{% static 'img/icons/ok.png' %}" alt="Submit" width="48" height="48">
           <input type="submit" value="Buscar" class="submit-button">
         </div>
-      </div>
+      </div> -->
     </div>
-    <div class="formgroup">
-      <span></span>
-        {{ form.query }}
-    </div> <br />
-  </form>
+    </form>
 </div>
 
+
+<div class="results-lodging-container">
+
 {% if "query" in request.GET %}<br />
-    <div class="main">
+    <div class="info-results-query">
         <p><h3>Ofertas de alojamiento que contengan: "{{ cd.query }}"</h3></p>
         <span>Encontrados cerca de {{ total_results }} resultado{{ total_results|pluralize }}</span>
     </div>
     <br /><br />
     {% for result in results %}
         {% with lodgingoffer=result.object %}
-        <article class="host full-width" >
+        <div class="item-result-lodging" >
+          <div class="img-item-container">
             <a href="{% url 'host:detail' lodgingoffer.slug %}">
-                <div class="img-title-cont">
+                <div class="img-item-search">
                     {% if lodgingoffer.photo %}
-                    <div class="img" style="background: url('{{ lodgingoffer.photo.url }}') no-repeat center; background-size:cover;"></div>
-                    {% endif %}
-                    <div class="title-cont">
-                        <h3>{{ lodgingoffer.ad_title }}</h3>
-                    </div>
-                </div>
+                         <img src="{{ lodgingoffer.photo.url }}" width="auto" height="100%" alt="">
+                         <!-- <div class="img-item" style="background: url('{{ offers.photo.url }}') no-repeat center; background-size:cover;"></div> -->
+                     {% endif %}
+                 </div>
             </a>
-            <small>{{ lodgingoffer.pub_date }}</small>
-            <div class="post-info">
-                <div class="post-type"><i>ALOJAMIENTO</i></div><br/>
-                {% if lodgingoffer.is_paid %}
-                <div class="post-type"><i>PROMOVIDA</i></div><br/>
-                {% endif %}
-                <strong>Tipo de habitación ofrecida:</strong> {{ lodgingoffer.room_type_offered }}<br/>
-                <strong>Número de huéspedes en habitación:</strong> {{ lodgingoffer.number_guest_room_type }}
-
+          </div>
+          <div class="info-item-lodging">
+            <div class="info-item-lodging-firstpart">
+              <div class="title-item-lodging">
+                  <h3>{{ lodgingoffer.ad_title }}</h3>
+              </div>
+              <div class="price-item-lodging">
+                <p> $ {{ lodgingoffer.room_value }} COP </p>
+              </div>
+           </div>
+           <div clas="location-item-lodging">
+             <p> {{ lodgingoffer.address }}, {{ lodgingoffer.city }} - {{ lodgingoffer.country }} </p>
+           </div>
+            <div class="info-item-lodging-lastpart">
+              <div class="description-item-lodging">
+                <p> {{ lodgingoffer.additional_description|linebreaks|truncatechars:420 }} </p>
+              </div>
+              <div class="mainfeatures-item-lodging">
+                <div class="imp-feat-II">
+                  <img src="{% static 'img/icons/diary-button.svg' %}" alt="">
+                  <p> {{ lodgingoffer.number_guest_room_type }} </p>
+                 </div>
+                 <div class="imp-feat-II">
+                   <img src="{% static 'img/icons/diary-button.svg' %}" alt="">
+                   <p> {{ lodgingoffer.room_type_offered }} </p>
+                  </div>
+                  <div class="imp-feat-II">
+                    <img src="{% static 'img/icons/diary-button.svg' %}" alt="">
+                    <p> {{ lodgingoffer.bathroom }} </p>
+                  </div>
+              </div>
+                {% comment %}
                 {% if lodgingoffer.created_by.first_name %}
-                <p>Publicada por: {{ lodgingoffer.created_by.get_long_name }}</p>
+                    <p>Publicada por: {{ lodgingoffer.created_by.get_long_name }}</p>
                 {% endif %}
                 {% if lodgingoffer.created_by.get_enterprise_name %}
-                <p>Publicada por: {{ lodgingoffer.created_by.get_enterprise_name }}</p>
+                    <p>Publicada por: {{ lodgingoffer.created_by.get_enterprise_name }}</p>
                 {% endif %}
-                <div class="description">{{ lodgingoffer.additional_description|linebreaks|truncatechars:420 }}</div>
-              <hr/>
+                {% endcomment %}
             </div>
-        {% endwith %}
-        {% empty %}
-        </article>
-        <p>No existen resultados para tu búsqueda de "{{ cd.query }}".</p>
+          </div>
+          {% endwith %}
+          {% empty %}
+          <p>No existen resultados para tu búsqueda de "{{ cd.query }}".</p>
+        </div>
     {% endfor %}
 
-
-
 {% else %}
-
     {% for po in offers_paid %}
-   <article class="host full-width" >
-       <a href="{% url 'host:detail' po.slug %}">
-           <div class="img-title-cont">
-               {% if po.photo %}
-                    <div class="img" style="background: url('{{ po.photo.url }}') no-repeat center; background-size:cover;"></div>
-                {% endif %}
-                <div class="title-cont">
-                    <h3>{{ po.ad_title }}</h3>
-                </div>
-            </div>
-       </a>
-       <small>{{ po.pub_date }}</small>
-       <div class="post-info">
-           <div class="post-type"><i>ALOJAMIENTO</i></div><br/>
-           <div class="post-type"><i>PROMOVIDA</i></div><br/>
-           <strong>Tipo de habitación ofrecida:</strong> {{ po.room_type_offered }}<br/>
-           <strong>Número de huéspedes en habitación:</strong> {{ po.number_guest_room_type }}
-           {% if po.created_by.first_name %}
-               <p>Publicada por: {{ po.created_by.get_long_name }}</p>
-           {% endif %}
-           {% if po.created_by.get_enterprise_name %}
-               <p>Publicada por: {{ po.created_by.get_enterprise_name }}</p>
-           {% endif %}
-           <div class="description">{{ po.additional_description|linebreaks|truncatechars:420 }}</div>
+    <div class="item-result-lodging" >
+      <div class="img-item-container">
+        <a href="{% url 'host:detail' po.slug %}">
+            <div class="img-item-search">
+                {% if po.photo %}
+                     <img src="{{ po.photo.url }}" width="auto" height="100%" alt="">
+                     <!-- <div class="img-item" style="background: url('{{ offers.photo.url }}') no-repeat center; background-size:cover;"></div> -->
+                 {% endif %}
+             </div>
+        </a>
+      </div>
+      <div class="info-item-lodging">
+        <div class="info-item-lodging-firstpart">
+          <div class="title-item-lodging">
+              <h3>{{ po.ad_title }}</h3>
+          </div>
+          <div class="price-item-lodging">
+            <p> $ {{ po.room_value }} COP </p>
+          </div>
        </div>
-   </article>
-{% endfor %}
-
-    {% for offers in offer_list %}
-   <article class="host full-width" >
+       <div clas="location-item-lodging">
+         <p> {{ po.address }}, {{ po.city }} - {{ po.country }} </p>
+       </div>
+        <div class="info-item-lodging-lastpart">
+          <div class="description-item-lodging">
+            <p> {{ po.additional_description|linebreaks|truncatechars:420 }} </p>
+          </div>
+          <div class="mainfeatures-item-lodging">
+            <div class="imp-feat-II">
+              <img src="{% static 'img/icons/diary-button.svg' %}" alt="">
+              <p> {{ po.number_guest_room_type }} </p>
+             </div>
+             <div class="imp-feat-II">
+               <img src="{% static 'img/icons/diary-button.svg' %}" alt="">
+               <p> {{ po.room_type_offered }} </p>
+              </div>
+              <div class="imp-feat-II">
+                <img src="{% static 'img/icons/diary-button.svg' %}" alt="">
+                <p> {{ po.bathroom }} </p>
+              </div>
+          </div>
+            {% comment %}
+            {% if po.created_by.first_name %}
+                <p>Publicada por: {{ po.created_by.get_long_name }}</p>
+            {% endif %}
+            {% if po.created_by.get_enterprise_name %}
+                <p>Publicada por: {{ po.created_by.get_enterprise_name }}</p>
+            {% endif %}
+            {% endcomment %}
+        </div>
+      </div>
+    </div>
+  {% endfor %}
+  {% for offers in offer_list %}
+   <div class="item-result-lodging" >
+     <div class="img-item-container">
        <a href="{% url 'host:detail' offers.slug %}">
-           <div class="img-title-cont">
+           <div class="img-item-search">
                {% if offers.photo %}
-                    <div class="img" style="background: url('{{ offers.photo.url }}') no-repeat center; background-size:cover;"></div>
+                    <img src="{{ offers.photo.url }}" width="auto" height="100%" alt="">
+                    <!-- <div class="img-item" style="background: url('{{ offers.photo.url }}') no-repeat center; background-size:cover;"></div> -->
                 {% endif %}
-                <div class="title-cont">
-                    <h3>{{ offers.ad_title }}</h3>
-                </div>
             </div>
        </a>
-       <small>{{ offers.pub_date }}</small>
-       <div class="post-info">
-           <div class="post-type"><i>ALOJAMIENTO</i></div><br/>
-           <strong>Tipo de habitación ofrecida:</strong> {{ offers.room_type_offered }}<br/>
-           <strong>Número de huéspedes en habitación:</strong> {{ offers.number_guest_room_type }}
+     </div>
+     <div class="info-item-lodging">
+       <div class="info-item-lodging-firstpart">
+         <div class="title-item-lodging">
+             <h3>{{ offers.ad_title }}</h3>
+         </div>
+         <div class="price-item-lodging">
+           <p> $ {{ offers.room_value }} COP </p>
+         </div>
+      </div>
+      <div clas="location-item-lodging">
+        <p> {{ offers.address }}, {{ offers.city }} - {{ offers.country }} </p>
+      </div>
+       <div class="info-item-lodging-lastpart">
+         <div class="description-item-lodging">
+           <p> {{ offers.additional_description|linebreaks|truncatechars:420 }} </p>
+         </div>
+         <div class="mainfeatures-item-lodging">
+           <div class="imp-feat-II">
+             <img src="{% static 'img/icons/diary-button.svg' %}" alt="">
+             <p> {{ offers.number_guest_room_type }} </p>
+            </div>
+            <div class="imp-feat-II">
+              <img src="{% static 'img/icons/diary-button.svg' %}" alt="">
+              <p> {{ offers.room_type_offered }} </p>
+             </div>
+             <div class="imp-feat-II">
+               <img src="{% static 'img/icons/diary-button.svg' %}" alt="">
+               <p> {{ offers.bathroom }} </p>
+             </div>
+         </div>
+           {% comment %}
            {% if offers.created_by.first_name %}
                <p>Publicada por: {{ offers.created_by.get_long_name }}</p>
            {% endif %}
            {% if offers.created_by.get_enterprise_name %}
                <p>Publicada por: {{ offers.created_by.get_enterprise_name }}</p>
            {% endif %}
-           <div class="description">{{ offers.additional_description|linebreaks|truncatechars:420 }}</div>
+           {% endcomment %}
        </div>
-   </article>
+     </div>
+   </div>
 {% endfor %}
-    {% endif %}
+
+{% endif %}
+
+</div>
+
 {% endblock %}

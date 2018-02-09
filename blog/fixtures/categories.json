@@ -30,8 +30,8 @@
 	"model": "blog.category",
 	"pk": 5,
 	"fields": {
-		"title": "AMIGOS",
-		"description": "AMIGOS"
+		"title": "AYNI",
+		"description": "AYNI"
 	}
 }, {
 	"model": "blog.category",

@@ -90,6 +90,7 @@ class UserManager(BaseUserManager):
 def get_image_path(instance, filename):
     return os.path.join('userprofile-pictures', str(instance.email), filename)
 
+
 class User(AbstractBaseUser, PermissionsMixin):
 
     MALE = 'M'
@@ -305,7 +306,6 @@ class User(AbstractBaseUser, PermissionsMixin):
         verbose_name='Actividades de entretenimiento',
         help_text='Mantenga presionado "Control" (o "Command" en un Mac), y haga click en las opciones que desea selecionar.',
     )
-
 
     is_staff = models.BooleanField(
         _('staff status'),

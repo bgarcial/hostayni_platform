@@ -1,3 +1,5 @@
+<<<<<<< HEAD
+=======
 @charset "UTF-8";
 @import url("https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,300i,400,400i,600,600i");
 @import url("https://fonts.googleapis.com/css?family=Montserrat:300,400,500,600,700");
@@ -186,7 +188,8 @@ header {
 
 main {
   display: inline-block;
-  width: 930px; }
+  width: 930px;
+  }
 
 .search-column {
   /*width: 330px;*/
@@ -572,6 +575,7 @@ article {
     margin-left: 10px;
     margin-top: 10px;
     width: 51%;
+    background-color: red;
   }
 
   article .article-author{
@@ -1999,3 +2003,4 @@ footer {
         footer .main-cont .content .legal p {
           color: #706f6f;
           font-size: 0.8em; }
+>>>>>>> a9c35c920d59be462795f5e569e38a1866e7b947

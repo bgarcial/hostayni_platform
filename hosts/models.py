@@ -36,7 +36,8 @@ from pathlib import Path  # python 3.6+ only!
 class LodgingOfferManager(models.Manager):
 
     def active(self, *args, **kwargs):
-        return super(LodgingOfferManager, self).filter(is_taked=False).filter(is_paid=False).filter(pub_date__lte=timezone.now())
+        return super(LodgingOfferManager, self).filter(is_taked=False).filter(is_paid=False).filter(
+            pub_date__lte=timezone.now())
 
     def paid(self, *args, **kwargs):
         return super(LodgingOfferManager, self).filter(is_paid=True).filter(pub_date__lte=timezone.now())
@@ -44,9 +45,6 @@ class LodgingOfferManager(models.Manager):
 
 def get_lodging_image_search_path(instance, filename):
     return '/'.join(['lodging_offer_images', instance.slug, filename])
-
-
-
 
 
 class LodgingOffer(models.Model):
@@ -70,7 +68,6 @@ class LodgingOffer(models.Model):
     EIGHT_GUESTS = 'Para 8 huéspedes'
     NINE_GUESTS = 'Para 9 huéspedes'
     TEN_GUESTS = 'Para 10 huéspedes'
-
 
     NUMBER_GUESS_ROOM_TYPE_CHOICES = (
         (ONE_GUEST, "Para 1 huésped"),
@@ -169,7 +166,7 @@ class LodgingOffer(models.Model):
 
     city = models.CharField(
         max_length=255,
-        blank = False,
+        blank=False,
         verbose_name='Ciudad'
     )
     # Can I use later this package https://github.com/coderholic/django-cities
@@ -210,7 +207,7 @@ class LodgingOffer(models.Model):
         verbose_name='Available dates',
         help_text="Days in which is possible bookings",
     )
-    
+
     BIRTH_YEAR_CHOICES = ('1980', '1981', '1982')
 
     birth_year = models.DateField(
@@ -309,12 +306,22 @@ class LodgingOffer(models.Model):
     is_taked = models.BooleanField(
         _('Oferta tomada'),
         default=False,
+
+
+        # help_text=_(
+        #    'Indica si esta oferta ya fue tomada por un usuario.  <br /> Este campo es solo para uso de '
+        #    'actualización de una oferta cuando ya ha habido un acuerdo por ella. '
+        #    'Si se selecciona, no aparecerá en los resultados '
+        #    'de búsquedas. <br /> Des-seleccionéla en lugar de eliminar la oferta'
+        # ),
     )
 
     is_paid = models.BooleanField(
         _('Oferta promovida'),
         default=False,
     )
+
+
 
     objects = LodgingOfferManager()
 
@@ -325,6 +332,7 @@ class LodgingOffer(models.Model):
     def get_absolute_url(self):
         return u'/host/lodging-offer/%d' % self.id
     '''
+
     def get_absolute_url(self):
         return reverse('host:detail', kwargs={'slug': self.slug})
 
@@ -342,6 +350,7 @@ class LodgingOffer(models.Model):
                 lodging_offer=self,
                 image=self.photo
             )
+
 
 
 def create_slug(instance, new_slug=None):
@@ -367,13 +376,13 @@ pre_save.connect(pre_save_lodging_offer_receiver, sender=LodgingOffer)
 def get_image_filename(instance, filename):
     # title = instance.lodging_offer.ad_title
     # slug = slugify(title)
-    #return "lodging_offer_images/%s/%s" % (slug, filename)
+    # return "lodging_offer_images/%s/%s" % (slug, filename)
     return '/'.join(['lodging_offer_images', instance.lodging_offer.slug, filename])
 
 
 class LodgingOfferImage(models.Model):
     lodging_offer = models.ForeignKey(LodgingOffer, related_name='lodgingofferimage')
-    image = models.ImageField(upload_to=get_image_filename, verbose_name='Imagen',)
+    image = models.ImageField(upload_to=get_image_filename, verbose_name='Imagen', )
 
     '''
     def save(self, *args, **kwargs):
@@ -432,7 +441,6 @@ class StudiesOffertManager(models.Manager):
 
 
 class StudiesOffert(models.Model):
-
     ACADEMIC_SEMESTER = 'Semestre académico'
     RESEARCH = 'Investigación'
     ROTATIONS_OR_PRACTICES = 'Rotaciones o prácticas'
@@ -468,7 +476,6 @@ class StudiesOffert(models.Model):
     VIRTUAL = 'Virtual'
     ON_SITE = 'Presencial'
 
-
     MODALITY_CHOICES = (
         (VIRTUAL, "Virtual"),
         (ON_SITE, "Presencial"),
@@ -493,7 +500,7 @@ class StudiesOffert(models.Model):
 
     city = models.CharField(
         max_length=255,
-        blank = False,
+        blank=False,
         verbose_name='Ciudad'
     )
     # Can I use later this package https://github.com/coderholic/django-cities
@@ -555,7 +562,7 @@ class StudiesOffert(models.Model):
         blank=False,
         verbose_name='Fotografía',
         null=False,
-        help_text = 'Esta imagen acompañará tu oferta en los resultados de búsquedas'
+        help_text='Esta imagen acompañará tu oferta en los resultados de búsquedas'
     )
 
     # Este campo sera grabado solo una vez cuando se cree el articulo
@@ -634,23 +641,22 @@ def get_image_path(instance, filename):
 
 
 class StudyOfferImage(models.Model):
-
     # puedo poner headere text and small text
     study_offer = models.ForeignKey(StudiesOffert, related_name='uploadsstudyoffer')
     # image = ThumbnailerImageField(upload_to=get_image_path, resize_source=CROP_SETTINGS)
 
     image = models.ImageField(upload_to=get_image_path, verbose_name='Seleccionar imagen')
+
     # images folder per object
 
     def __str__(self):
         return self.study_offer.ad_title
 
-
     '''
     def get_image_url(self):
         return "%s/%s/%s" %(settings.MEDIA_URL, self.study_offer.slug, self.image)
 
-    
+
     def save(self, *args, **kwargs):
         super(UploadStudyOffer, self).save(*args, **kwargs)
         # We first check to make sure an image exists

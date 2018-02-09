@@ -333,7 +333,7 @@ class ArticleDeleteView(SuccessMessageMixin, LoginRequiredMixin, UserProfileData
         context['article'] = article
         return context
     '''
-    
+
     def get_object(self, queryset=None):
         """ Hook to ensure object is owned by request.user. """
         obj = super(ArticleDeleteView, self).get_object()
@@ -351,22 +351,5 @@ class ArticleDraftListView(LoginRequiredMixin, UserProfileDataMixin, ListView):
 
     def get_queryset(self):
         return Article.objects.filter(published_date__isnull=True).order_by('created_date')
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 

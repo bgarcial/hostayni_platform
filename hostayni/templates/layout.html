@@ -10,9 +10,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="shortcut icon" href="{% static 'img/favicons/favicon.ico' %}" type="image/x-icon">
     {% comment %} Jeronimo's static files  {% endcomment %}
-    <link rel="stylesheet" media="screen and (min-width:0px) and (max-width:360px)" href="{% static 'css/mainLow.css' %}">
-    <link rel="stylesheet" media="screen and (min-width:360px) and (max-width:899px)" href="{% static 'css/mainMedium.css' %}">
-    <link rel="stylesheet" media="screen and (min-width:900px) and (max-width:1600px)" href="{% static 'css/main.css' %}">
+    <link rel="stylesheet" media="screen and (min-width:0px) and (max-width:767px)" href="{% static 'css/mainLow.css' %}">
+    <link rel="stylesheet" media="screen and (min-width:767px) and (max-width:1160px)" href="{% static 'css/mainMedium.css' %}">
+    <!-- <link rel="stylesheet" media="screen and (min-width:1150px) and (max-width: 1250px)" href="{% static 'css/mainHigh.css' %}"> -->
+    <link rel="stylesheet" media="screen and (min-width:1160px)" href="{% static 'css/mainHigh.css' %}">
     <!-- <link rel="stylesheet" media="screen and (min-width:900px) and (max-width:1600px)" href="hostayni_platform/hostayni/assets/css/main.css"> -->
     <!-- <link rel="stylesheet" href="{% static 'css/main.css' %}"> -->
     <!-- <link rel="stylesheet" href="css/main.css"> -->
@@ -102,26 +103,80 @@
     <div class="wrapper">
         <!-- Botones de registro e inicio de sesión -->
         <header>
+          <!-- Icon for the logo -->
+          <div class="logo_container">
+            <img class="logo_img" src="{% static 'img/Logo-slogan-lg.png' %}" alt="Logo Hostayni - Haz del mundo tu hogar" />
+            <img class="logo_img_low" src="{% static 'img/Logo-slogan-short.png' %}" alt="Logo Hostayni - Haz del mundo tu hogar low" />
+          </div>
             {% block top_logo %}
             {% endblock %}
 
+            <!-- Icons for offers -->
+            <div class="icons">
+              <div class="pic_icon">
+                <a href="{% url 'host:hostingoffer-search' %}"><img src="{% static 'img/icons/Alojamiento.svg' %}" title="Ofertas de alojamiento" alt=""></a>
+              </div>
+              <div class="pic_icon">
+                <a href="{% url 'host:studyoffer-search' %}"><img src="{% static 'img/icons/Educacion.svg' %}" title="Ofertas de educación" alt=""></a>
+              </div>
+              <div class="pic_icon">
+                <a href="#"><img src="{% static 'img/icons/Emprendimiento.svg' %}" alt="" title="Próximamente"></a>
+              </div>
+              <div class="pic_icon">
+                <a href="#"><img src="{% static 'img/icons/VidaDiaria.svg' %}" alt="" title="Próximamente"></a>
+              </div>
+              <div class="pic_icon">
+                <a href="#"><img src="{% static 'img/icons/Ayni.svg' %}" alt="" title="Próximamente"></a>
+              </div>
+              <!-- <div class="pic_icon">
+                <a href="#"><img src="{% static 'img/icons/social-grey.svg' %}" alt="" title="Próximamente"></a>
+              </div> -->
+            </div>
+
             {% if request.user.is_authenticated %}
                 {% if userprofile %}
-                    <div class="profile-options">
-                        <div class="img">
-                            {% if userprofile.user.avatar %}
-                                <a href="{% url 'accounts:detail' userprofile.user.email %}">
-                                    <img src="{{ userprofile.user.avatar.url }}" width="100" height="100" class="img-responsive">
-                                </a>
-                            {% else %}
-                                <a href="{% url 'accounts:detail' userprofile.user.email %}">
-                                    <img src="{% static 'img/default_profile_pic.png' %}" class="img-responsive">
-                                </a>
-                            {% endif %}
-                            <!-- Imagen de perfil -->
-                           {% comment %} <img src="{{ object.image_url|default_if_none:'#' }}" alt="">{% endcomment %}
-                        </div>
+                    <div class="profile-options-low">
+                      <div class="img-low">
+                          {% if userprofile.user.avatar %}
+                                  <img src="{{ userprofile.user.avatar.url }}" width="100" height="100" class="img-responsive">
+                          {% else %}
+                                  <img src="{% static 'img/default_profile_pic.png' %}" class="img-responsive">
+                          {% endif %}
+                          <!-- Imagen de perfil -->
+                         {% comment %} <img src="{{ object.image_url|default_if_none:'#' }}" alt="">{% endcomment %}
+                      </div>
+                      <div class="drop-down-low">
+                          <ul>
+                              <li><a href="{% url 'accounts:preferences' userprofile.user.slug %}" >
+          Configuración</a></li>
+                              <li><a href="{% url 'accounts:profile' userprofile.user.slug %}">Mis roles de usuario</a></li>
+                              <li class="line"></li>
+                              <p><strong>Contenidos</strong></p>
+                              <li><a href="{% url 'articles:create' %}">Crear Artículo</a></li>
+                              <li><a href="{% url 'articles:list' userprofile.user.slug %}">Mis artículos</a></li>
+                              <li class="line"></li>
+                              <p><strong>Social</strong></p>
+                              <li><a href="{% url 'post:list' %}">Mi Red Social</a></li>
+                              <li class="line"></li>
+                              <p><strong>Anfitrión</strong></p>
+                              {% if userprofile.user.is_hosting_host %}
+                                <li><a href="{% url 'host:hosting-host' %}">Crear oferta de alojamiento</a></li>
+                                <li><a href="{% url 'host:list' userprofile.user.slug %}">Mis ofertas de alojamiento</a></li>
+                              {% endif %}
+                              {% if userprofile.user.is_study_host %}
+                                <li><a href="{% url 'host:study-host' %}">Crear oferta de educación</a></li>
+                                   <li><a href="{% url 'host:studiesofferlist' userprofile.user.slug %}">Mis ofertas de educación</a></li>
+                              {% endif %}
+                              <li class="line"></li>
+                              <p><strong>Búsquedas</strong></p>
+                              <li><a href="{% url 'host:hostingoffer-search' %}">Ofertas de alojamiento</a></li>
+                              <li><a href="{% url 'host:studyoffer-search' %}">Ofertas de educación</a></li>
 
+                              <li><a href="{% url 'accounts:logout' %}">Salir</a></li>
+                          </ul>
+                      </div>
+                    </div>
+                    <div class="profile-options">
                         {% comment %} Begin settings drowdown {% endcomment %}
 
                         <div class="name-options-cont">
@@ -164,6 +219,19 @@
                                 </div>
                             </div>
                         </div>
+                        <div class="img">
+                            {% if userprofile.user.avatar %}
+                                <a href="{% url 'accounts:detail' userprofile.user.email %}">
+                                    <img src="{{ userprofile.user.avatar.url }}" width="100" height="100" class="img-responsive">
+                                </a>
+                            {% else %}
+                                <a href="{% url 'accounts:detail' userprofile.user.email %}">
+                                    <img src="{% static 'img/default_profile_pic.png' %}" class="img-responsive">
+                                </a>
+                            {% endif %}
+                            <!-- Imagen de perfil -->
+                           {% comment %} <img src="{{ object.image_url|default_if_none:'#' }}" alt="">{% endcomment %}
+                        </div>
                     </div>
 
                     {% comment %}
@@ -175,7 +243,19 @@
                 {% endif %}
                 {% else %}
                     <div class="registration">
-                        <a href="{% url 'who-we-are' %}">Quiénes somos</a><a href="{% url 'accounts:signup' %}">Registrarse</a><a href="{% url 'login' %}">Iniciar sesión</a>
+                        <!-- <a href="{% url 'accounts:signup' %}">Registrarse</a><a href="{% url 'login' %}">Iniciar sesión</a> -->
+                        <a class="button_a" href="{% url 'accounts:signup' %}"><input type="button" class="button_home a" value="Registrarse"></a>
+                        <a class="button_a" href="{% url 'login' %}"><input type="button" class="button_home a" value="Iniciar sesión"></a>
+                        <!-- Hack Para Desplegar el Menú activando un checkbox -->
+                        <div class="registration_low">
+                              <img src="{% static 'img/icons/gear.svg' %}" alt="">
+                              <div class="drop-down">
+                                  <ul>
+                                      <li><a href="{% url 'accounts:signup' %}" >Registrarse</a></li>
+                                      <li><a href="{% url 'login' %}">Iniciar Sesión</a></li>
+                                  </ul>
+                              </div>
+                        </div>
                     </div>
             {% endif %}
         </header>
@@ -239,7 +319,7 @@
             // console.log(query)
 
 
-            // POniendo el listado de posts. Desde asi se puede poner
+            // Poniendo el listado de posts. Desde asi se puede poner
             // en cualquier parte de la app
 
             var postContainer;
@@ -705,16 +785,46 @@
                 <div class="logo">
                     <img src="{% static 'img/footer-logo.png' %}" alt="">
                 </div>
-                <div class="links">
+                <div class="quienes-somos">
+                  <p>Hostayni es un nuevo espacio para promover ciudades globales, haciéndolas más competitivas, fomentando la interculturalidad, la academia, el emprendimiento y la responsabilidad social. HOSTAYNI reúne en un mismo lugar las mejores experiencias para una estadía enriquecedora en la ciudad de Medellín.</p>
+                </div>
+                <div class="links-servicios">
+                  <div class="link-each">
+                    <a href="{% url 'host:hostingoffer-search' %}">Alojamiento</a>
+                  </div>
+                  <div class="link-each">
+                    <a href="{% url 'host:studyoffer-search' %}">Educación</a>
+                  </div>
+                  <div class="link-each">
+                    <a href="#">Emprendimiento</a>
+                  </div>
+                  <div class="link-each">
+                    <a href="#">Vida diaria</a>
+                  </div>
+                  <div class="link-each">
+                    <a href="#">Ayni</a>
+                  </div>
+                </div>
+                <div class="terminos-contactenos">
+                  <div class="terminos-each">
+                    <a href="{% url 'terms-and-conditions' %}">Términos y condiciones</a>
+                  </div>
+                  <div class="terminos-each">
+                    <a href="{% url 'privacy-policy' %}">Política de privacidad</a>
+                  </div>
+                  <div class="terminos-each">
+                    <a href="{% url 'contact' %}">Contáctenos</a>
+                  </div>
+                </div>
+                <!-- <div class="links">
                     <a href="{% url 'who-we-are' %}">Quiénes somos</a>
                     <a href="{% url 'terms-and-conditions' %}">Términos y condiciones</a>
                     <a href="{% url 'privacy-policy' %}">Política de privacidad</a>
                     <a href="{% url 'contact' %}">Contáctenos</a>
-
-                </div>
-                <div class="legal">
-                    <p>{% now 'Y' %} &copy; HOSTAYNI S.A.S. Todos los derechos reservados.</p>
-                </div>
+                </div> -->
+            </div>
+            <div class="legal">
+                <p>{% now 'Y' %} &copy; HOSTAYNI S.A.S. Todos los derechos reservados.</p>
             </div>
         </div>
 	</footer>
@@ -730,3 +840,4 @@
     </footer>-->
 </body>
 </html>
+
