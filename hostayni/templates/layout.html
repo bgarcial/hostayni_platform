@@ -105,8 +105,10 @@
         <header>
           <!-- Icon for the logo -->
           <div class="logo_container">
-            <img class="logo_img" src="{% static 'img/Logo-slogan-lg.png' %}" alt="Logo Hostayni - Haz del mundo tu hogar" />
-            <img class="logo_img_low" src="{% static 'img/Logo-slogan-short.png' %}" alt="Logo Hostayni - Haz del mundo tu hogar low" />
+            <a href="{% url 'articles:article_list' %}">
+                <img class="logo_img" src="{% static 'img/Logo-slogan-lg.png' %}" alt="Logo Hostayni - Haz del mundo tu hogar" />
+                <img class="logo_img_low" src="{% static 'img/Logo-slogan-short.png' %}" alt="Logo Hostayni - Haz del mundo tu hogar low" />
+            </a>
           </div>
             {% block top_logo %}
             {% endblock %}
