@@ -42,8 +42,8 @@ class LodgingOfferForm(forms.ModelForm):
 
     class Meta:
         widgets = {
-            'check_in': DateInput(),
-            'check_out': DateInput(),
+            # 'check_in': DateInput(),
+            # 'check_out': DateInput(),
             #'check_out': forms.DateInput(attrs={'class':'datepicker'}),
             'country': CountrySelectWidget(),
         }
