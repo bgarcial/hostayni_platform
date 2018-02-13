@@ -2,6 +2,8 @@ from django.shortcuts import render, get_object_or_404, redirect, render_to_resp
 from django.utils import timezone
 from django.core.mail import send_mail
 
+from hostayni.models import Slider
+
 from blog.models import Article, Category
 from blog.forms import ArticleForm
 from django.urls import reverse_lazy
@@ -147,8 +149,10 @@ class ArticleListView(UserProfileDataMixin, ListView):
         #categories = Category.objects.all()
         #cat = Category.objects.get(pk=)
         #context['categories'] = categories
+        sliders = Slider.objects.all()
         today = timezone.now().date()
         context['today'] = today
+        context['sliders'] = sliders
         return context
 
 
