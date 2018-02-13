@@ -10,6 +10,8 @@ from django.conf import settings
 from django_countries.widgets import CountrySelectWidget
 from django.forms import DateTimeField, DateField
 
+from bootstrap_datepicker.widgets import DatePicker
+
 User = get_user_model()
 
 class CustomUserChangeForm(UserChangeForm):
@@ -59,13 +61,12 @@ class UserCreateForm(UserCreationForm):
 
     '''
 
-
+class DateInput(DatePicker):
+    def __init__(self):
+        DatePicker.__init__(self,format="%Y-%m-%d")
 
 
 class UserUpdateForm(forms.ModelForm):
-    # biography = forms.CharField(widget=forms.Textarea)
-    #date_of_birth = DateField(input_formats=settings.DATE_INPUT_FORMATS)
-
     class Meta:
         widgets = {
             # 'gender':forms.RadioSelect,
@@ -73,15 +74,10 @@ class UserUpdateForm(forms.ModelForm):
             'country_current_residence': CountrySelectWidget(),
             # I can customize these https://github.com/SmileyChris/
             # django-countries#countryselectwidget
-            """
-            'date_of_birth': forms.DateInput(format=('%d-%m-%Y',),
-                                             attrs={'class':'myDateClass',
-                                            'placeholder':'Select a date'}), #datepicker
-                                            """
-            'creation_date': forms.DateInput(format=('%d-%m-%Y'),
-                                             attrs={'class':'myDateClass',
-                                            'placeholder':'Select a date'}), #datepicker
-            #'date_of_birth': forms.DateInput(attrs={'class':'datepicker'})
+
+            #'date_of_birth': DateInput(),  # datepicker
+            #'creation_date': DateInput(), # datepicker
+
         }
 
 

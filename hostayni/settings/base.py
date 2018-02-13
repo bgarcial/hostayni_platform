@@ -53,6 +53,7 @@ INSTALLED_APPS = [
     # Third party apps
     #'debug_toolbar',
     'bootstrap3',
+    'bootstrap_datepicker',
     'django_countries',
     'django_extensions',
     'easy_thumbnails',

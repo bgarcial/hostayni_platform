@@ -72,7 +72,7 @@
             <div class="img" style="background: url('{{ article.image.url }}') no-repeat center; background-size:cover;"></div>
             {% endif %}
             <div class="title-cont">
-                <h3>{{ article.title }}</h3>
+                <h3>{{ article.title |slice:":45" }}</h3>
             </div>
         </div>
         </a>
@@ -125,10 +125,10 @@
         <div class="img-title-cont">
             <!-- la imagen de las publicaciones debe ser una imagen de background para poder modificar el contenedor independientemente del tamaño de la imagen -->
              {% if article.image %}
-            <div class="img" style="background: url('{{ article.image.url }}') no-repeat center; background-size:cover;"></div>
+                <div class="img" style="background: url('{{ article.image.url }}') no-repeat center; background-size:cover;"></div>
              {% endif %}
             <div class="title-cont">
-                <h3{{ article.title }}</h3>
+                <h3>{{ article.title |slice:":45" }}</h3>
             </div>
         </div>
         </a>
@@ -183,7 +183,7 @@
                <div class="img" style="background: url('{{ article.image.url }}') no-repeat center; background-size:cover;"></div>
              {% endif %}
             <div class="title-cont">
-                <h3>{{ article.title }}</h3>
+                <h3>{{ article.title |slice:":45" }}</h3>
             </div>
         </div>
         </a>
@@ -240,7 +240,7 @@
             <div class="img" style="background: url('{{ article.image.url }}') no-repeat center; background-size:cover;"></div>
             {% endif %}
             <div class="title-cont">
-                <h3>{{ article.title }}</h3>
+                <h3>{{ article.title |slice:":45" }}</h3>
             </div>
         </div>
         </a>
@@ -298,7 +298,7 @@
             <div class="img" style="background: url('{{ article.image.url }}') no-repeat center; background-size:cover;"></div>
              {% endif %}
             <div class="title-cont">
-                <h3{{ article.title }}</h3>
+                <h3>{{ article.title |slice:":45" }}</h3>
             </div>
         </div>
         </a>
@@ -355,7 +355,7 @@
                <div class="img" style="background: url('{{ article.image.url }}') no-repeat center; background-size:cover;"></div>
              {% endif %}
             <div class="title-cont">
-                <h3>{{ article.title }}</h3>
+                <h3>{{ article.title |slice:":45" }}</h3>
             </div>
         </div>
         </a>
@@ -411,7 +411,7 @@
             <div class="img" style="background: url('{{ article.image.url }}') no-repeat center; background-size:cover;"></div>
             {% endif %}
             <div class="title-cont">
-                <h3>{{ article.title }}</h3>
+                <h3>{{ article.title |slice:":45" }}</h3>
             </div>
         </div>
         </a>
