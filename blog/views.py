@@ -149,7 +149,7 @@ class ArticleListView(UserProfileDataMixin, ListView):
         #categories = Category.objects.all()
         #cat = Category.objects.get(pk=)
         #context['categories'] = categories
-        sliders = Slider.objects.all()
+        sliders = Slider.objects.all_featured()
         today = timezone.now().date()
         context['today'] = today
         context['sliders'] = sliders

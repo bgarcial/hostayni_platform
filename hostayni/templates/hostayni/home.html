@@ -33,13 +33,16 @@
         <div class="carousel-inner" role="listbox">
             {% for slider in sliders %}
             <div class="item {% if forloop.first %}active{% endif %}">
-              <img src="{{ slider.get_image_url }}" alt="...">
+                <!-- There is some link in the slider? -->
+                {% if slider.url_link %}<a href="{{slider.url_link}}">{% endif %}
+                    <img src="{{ slider.get_image_url }}" alt="...">
+                {% if slider.url_link %}</a>{% endif %}
               <div class="carousel-caption">
                   {% if slider.header_text %}
-                    <h1>{{ slider.header_text }}</h1>
+                    <h1>{{ slider.header_text|safe }}</h1>
                   {% endif %}
                   {% if slider.text %}
-                    <p>{{ slider.text }}</p>
+                    <p>{{ slider.text|safe }}</p>
                   {% endif %}
               </div>
             </div>
