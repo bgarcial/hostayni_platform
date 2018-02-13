@@ -36,13 +36,14 @@
                 <!-- There is some link in the slider? -->
                 {% if slider.url_link %}<a href="{{ slider.url_link }}" target="_blank">{% endif %}
                     <img src="{{ slider.get_image_url }}" alt="...">
-                {% if slider.url_link %}</a>{% endif %}
+
               <div class="carousel-caption">
                   {% if slider.header_text %}
                       <div class="title-cont">
                         <h1>{{ slider.header_text|safe }}</h1>
                       </div>
                   {% endif %}
+                    {% if slider.url_link %}</a>{% endif %}
                   {% if slider.text %}
                     <p>{{ slider.text|safe }}</p>
                   {% endif %}
