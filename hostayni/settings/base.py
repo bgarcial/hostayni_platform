@@ -76,6 +76,7 @@ INSTALLED_APPS = [
     'host_information.apps.HostInformationConfig',
     'hosts.apps.HostsConfig',
     'posts.apps.PostsConfig',
+    'hostayni',
 
 ]
 
