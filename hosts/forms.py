@@ -1,10 +1,9 @@
 from django import forms
 from .models import LodgingOffer, StudiesOffert, LodgingOfferImage, StudyOfferImage
 from django_countries.widgets import CountrySelectWidget
-from django.forms import inlineformset_factory
+from bootstrap_datepicker.widgets import DatePicker
 
-class DateInput(forms.DateInput):
-    input_type = 'date'
+
 
 class StudiesOffertForm(forms.ModelForm):
     #user = self.request.user
@@ -31,6 +30,15 @@ class StudyOfferImagesUploadForm(forms.ModelForm):
         fields = ('image',)
 
 
+class DateInput(DatePicker):
+    def __init__(self):
+        DatePicker.__init__(self,format="%Y-%m-%d")
+    def build_attrs(self, attrs, extra_attrs=None, **kwargs):
+        attrs = dict(self.attrs, **kwargs)
+        if extra_attrs:
+            attrs.update(extra_attrs)
+        return attrs
+
 class LodgingOfferForm(forms.ModelForm):
     title = "Crear oferta de alojamiento"
     offer_taked = ("\n" 
@@ -38,13 +46,11 @@ class LodgingOfferForm(forms.ModelForm):
      " actualización de una oferta cuando ya ha habido un acuerdo por ella. "
      " Si se selecciona, no aparecerá en los resultados de búsquedas. \n "
      "Des-seleccionéla en lugar de eliminar la oferta ")
-    # birth_year = forms.DateField(widget=forms.SelectDateWidget(years=LodgingOffer.BIRTH_YEAR_CHOICES))
 
     class Meta:
         widgets = {
-            #'check_in': DateInput(),
-            #'check_out': DateInput(),
-            #'check_out': forms.DateInput(attrs={'class':'datepicker'}),
+            'check_in': DateInput(),
+            'check_out': DateInput(),
             'country': CountrySelectWidget(),
         }
         model = LodgingOffer

@@ -1,9 +1,10 @@
 {% extends 'layout.html' %}
+{% load bootstrap3 %}
+{% load staticfiles %}
+
 {% block extrahead %}   {# Extra Resources Start #}
    {{ form.media }}        {# Form required JS and CSS #}
 {% endblock %}          {# Extra Resources End #}
-{% load bootstrap3 %}
-{% load staticfiles %}
 
 {% block title_tag %}Mi cuenta en {{ block.super }}{% endblock %}
 
@@ -48,6 +49,7 @@
                 {% bootstrap_field form.last_name %}
                 {% bootstrap_field form.gender %}
                 {% bootstrap_field form.date_of_birth %}
+                {% bootstrap_field form.creation_date %}
                 {% bootstrap_field form.speak_languages %}
                 {% bootstrap_field form.entertainment_activities %}
             {% elif user.user_type == 'O' %}

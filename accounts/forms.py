@@ -8,7 +8,7 @@ from .models import (StudentProfile, ProfessorProfile, ExecutiveProfile,
 from django.conf import settings
 
 from django_countries.widgets import CountrySelectWidget
-from django.forms import DateTimeField, DateField
+
 
 from bootstrap_datepicker.widgets import DatePicker
 
