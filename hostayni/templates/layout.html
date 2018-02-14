@@ -1,7 +1,11 @@
 {% load staticfiles %}
 {% load bootstrap3 %}
 {% bootstrap_css %}
+
 {% bootstrap_javascript %}
+{% block extrahead %} {# Embeds Extra Resources #}
+{% endblock %}        {# Ends Extra Resources #}
+
 <html lang="es">
 {% block head %}
 <head>
@@ -19,7 +23,6 @@
     <!-- <link rel="stylesheet" href="css/main.css"> -->
       <!-- Bootstrap CSS
     <link href="{% static 'css/bootstrap.min.css' %}"> -->
-    <script src="https://code.jquery.com/jquery-3.2.1.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
     <script type="text/javascript" src="{% static 'js/main.js' %}"></script>
 
     <style>
@@ -295,7 +298,6 @@
     <!-- Reply Modal to reply to some post. -->
     {% include "reply-modal.html" %}
     <!-- jQuery (necessary for Bootstrap's JavaScript plugins)-->
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
 
     <script>
          /*https://stackoverflow.com/questions/901115/how-can-i-get-query-string-values-in-javascript/901144#901144

@@ -1,4 +1,7 @@
 {% extends 'layout.html' %}
+{% block extrahead %}   {# Extra Resources Start #}
+   {{ form.media }}        {# Form required JS and CSS #}
+{% endblock %}          {# Extra Resources End #}
 {% load bootstrap3 %}
 {% load staticfiles %}
 
@@ -7,6 +10,8 @@
 
 
 {% block body_content %}
+
+
 <div class="offert-form">
     <form enctype="multipart/form-data" method="POST">
         {% csrf_token %}
