@@ -4,6 +4,13 @@
 {% block title_tag %}Lodging Offert | {{ block.super }}{% endblock %}
 {% block body_content %}
 
+    <script>
+        $('.input-daterange input').each(function() {
+    $(this).datepicker('clearDates');
+});
+    </script>
+
+
 {% block extrahead %}   {# Extra Resources Start #}
    {{ form.media }}        {# Form required JS and CSS #}
 {% endblock %}

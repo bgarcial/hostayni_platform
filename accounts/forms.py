@@ -79,6 +79,7 @@ class UserUpdateForm(forms.ModelForm):
         model = get_user_model()
 
 
+
 class StudentProfileForm(forms.ModelForm):
     title = "Detalles del estudiante"
 

@@ -39,31 +39,30 @@
 
               <div class="carousel-caption">
                   {% if slider.header_text %}
-                      <div class="title-cont">
-                        <h1>{{ slider.header_text|safe }}</h1>
-                      </div>
+                    <div class="title-cont">
+                    <h1>{{ slider.header_text|safe }}</h1>
+              </div>
                   {% endif %}
-                    {% if slider.url_link %}</a>{% endif %}
+                  {% if slider.url_link %}</a>{% endif %}
                   {% if slider.text %}
                     <p>{{ slider.text|safe }}</p>
                   {% endif %}
-              </div>
             </div>
-        {% endfor %}
         </div>
+            {% endfor %}
+    </div>
 
-      <!-- Controls -->
-      <a class="left carousel-control" href="#carousel-example-generic" role="button" data-slide="prev">
-        <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
-        <span class="sr-only">Previous</span>
-      </a>
-      <a class="right carousel-control" href="#carousel-example-generic" role="button" data-slide="next">
+    <!-- Controls -->
+    <a class="left carousel-control" href="#carousel-example-generic" role="button" data-slide="prev">
+    <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
+    <span class="sr-only">Previous</span>
+    </a>
+    <a class="right carousel-control" href="#carousel-example-generic" role="button" data-slide="next">
         <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
         <span class="sr-only">Next</span>
-      </a>
-    </div>
-   <!-- </div> -->
+    </a>
 </div>
+   <!-- </div> -->
 {% endif %}
 
 
@@ -82,7 +81,7 @@
         <p>Presiona Enter para buscar</p>
     </form>
 </div> -->
-
+<br/>
 <div class="container-lodging-search">
   <form class="stayhost" action="." method="get">
     <div class="head-lodging-search">

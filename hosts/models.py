@@ -25,14 +25,8 @@ from PIL import Image
 from easy_thumbnails.fields import ThumbnailerImageField
 from django.utils import timezone
 
+
 # Resizing the image offers
-from io import BytesIO
-from django.core.files import File
-from pathlib import Path  # python 3.6+ only!
-
-
-
-
 class LodgingOfferManager(models.Manager):
 
     def active(self, *args, **kwargs):
@@ -66,8 +60,7 @@ class LodgingOffer(models.Model):
     SIX_GUESTS = 'Para 6 huéspedes'
     SEVEN_GUESTS = 'Para 7 huéspedes'
     EIGHT_GUESTS = 'Para 8 huéspedes'
-    NINE_GUESTS = 'Para 9 huéspedes'
-    TEN_GUESTS = 'Para 10 huéspedes'
+
 
     NUMBER_GUESS_ROOM_TYPE_CHOICES = (
         (ONE_GUEST, "Para 1 huésped"),
@@ -78,8 +71,6 @@ class LodgingOffer(models.Model):
         (SIX_GUESTS, "Para 6 huéspedes"),
         (SEVEN_GUESTS, "Para 7 huéspedes"),
         (EIGHT_GUESTS, "Para 8 huéspedes"),
-        (NINE_GUESTS, "Para 9 huéspedes"),
-        (TEN_GUESTS, "Para 10 huéspedes"),
     )
 
     EMPTY = ' '

@@ -20,19 +20,12 @@ class ArticleManager(models.Manager):
     def active(self, *args, **kwargs):
         return super(ArticleManager, self).filter(draft=False).filter(publish__lte=timezone.now())
 
+
 # Controlando como son subidas las im[agenes con
 # el id del post se crea una carpeta y se guarda con su nombre de earhcivo
 # puede ser instance.user o cualquier atributo que sea, usarlo apra los nombre sde archivos y fotografias
 def upload_location(instance, filename):
-    filebase, extension = filename.split(".")
-    # return "%s/%s/%s.%s" % ('article_images', instance.id, instance.id, extension)
-    # article_images/id_article/id_article.extension
-
-    #return "%s/%s/%s/" %('article_images', instance.id, filename)
-    # article_images/id_article.extension
-
-    return "%s/%s" % (instance.id, filename)
-
+    return '/'.join(['articles_images', instance.slug, filename])
 
 class Category(models.Model):
     title = models.CharField(_('Titulo'), max_length=50,)

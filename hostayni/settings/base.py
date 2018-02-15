@@ -73,10 +73,12 @@ INSTALLED_APPS = [
     'accounts.apps.AccountsConfig',
     'blog.apps.BlogConfig',
     'hashtags.apps.HashtagsConfig',
+    'hostayni',
     'host_information.apps.HostInformationConfig',
     'hosts.apps.HostsConfig',
     'posts.apps.PostsConfig',
-    'hostayni',
+    'carousel_offers.apps.CarouselOffersConfig',
+
 
 ]
 
