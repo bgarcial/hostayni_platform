@@ -216,7 +216,6 @@ class User(AbstractBaseUser, PermissionsMixin):
         blank=True,
         null=True,
         verbose_name='Fotografía de perfil',
-        #default= "userprofile-pics/default_profile_pic.png"
     )
 
     date_joined = models.DateTimeField(default=timezone.now)

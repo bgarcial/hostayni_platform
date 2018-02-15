@@ -3,9 +3,53 @@
 {% block title_tag %}Studies Offert Search | {{ block.super }}{% endblock %}
 {% block body_content %}
 
-<div class="banner-lodging-search">
-  <img src="{% static 'img/Banner-Educacion.png' %}" alt="">
+{% if sliders %}
+<div class="container" style="margin-top: -19px;margin-bottom: 19px;">
+   <!-- <div class="col-sm-8 col-sm-offset-4"> -->
+    <div id="carousel-example-generic" class="carousel slide" data-ride="carousel">
+        <!-- Indicators -->
+      <ol class="carousel-indicators">
+          {% for slider in sliders %}
+            <li data-target="#carousel-example-generic" data-slide-to="{{ forloop.counter }}"{% if forloop.first %}class="active"{% endif %}></li>
+           {% endfor %}
+      </ol>
+
+        <!-- Wrapper for slides -->
+        <div class="carousel-inner" role="listbox">
+            {% for slider in sliders %}
+            <div class="item {% if forloop.first %}active{% endif %}">
+                <!-- There is some link in the slider? -->
+                {% if slider.url_link %}<a href="{{ slider.url_link }}" target="_blank">{% endif %}
+                    <img src="{{ slider.get_image_url }}" alt="...">
+
+              <div class="carousel-caption">
+                  {% if slider.header_text %}
+                    <div class="title-cont">
+                    <h1>{{ slider.header_text|safe }}</h1>
+              </div>
+                  {% endif %}
+                  {% if slider.url_link %}</a>{% endif %}
+                  {% if slider.text %}
+                    <p>{{ slider.text|safe }}</p>
+                  {% endif %}
+            </div>
+        </div>
+            {% endfor %}
+    </div>
+
+    <!-- Controls -->
+    <a class="left carousel-control" href="#carousel-example-generic" role="button" data-slide="prev">
+    <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
+    <span class="sr-only">Previous</span>
+    </a>
+    <a class="right carousel-control" href="#carousel-example-generic" role="button" data-slide="next">
+        <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
+        <span class="sr-only">Next</span>
+    </a>
 </div>
+   <!-- </div> -->
+{% endif %}
+    <br/><br/>
 
 <div class="container-lodging-search">
   <form class="stayhost" action="." method="get">

@@ -73,10 +73,12 @@ INSTALLED_APPS = [
     'accounts.apps.AccountsConfig',
     'blog.apps.BlogConfig',
     'hashtags.apps.HashtagsConfig',
+    'hostayni',
     'host_information.apps.HostInformationConfig',
     'hosts.apps.HostsConfig',
     'posts.apps.PostsConfig',
-    'hostayni',
+    'carousel_offers.apps.CarouselOffersConfig',
+
 
 ]
 
@@ -295,7 +297,7 @@ BOOTSTRAP3 = {
     'javascript_in_head': False,
 
     # Include jQuery with Bootstrap JavaScript (affects django-bootstrap3 template tags)
-    'include_jquery': True,
+    'include_jquery': False,
 
     # Label class to use in horizontal forms
     'horizontal_label_class': 'col-md-3',

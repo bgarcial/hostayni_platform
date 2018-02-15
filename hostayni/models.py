@@ -29,6 +29,7 @@ class SliderManager(models.Manager):
         except:
             return None
 
+
 def slider_upload(instance, filename):
     return "images/marketing/slider/%s" %(filename)
     # return "images/marketing/slider/%s/%s" %(instance.id, filename)

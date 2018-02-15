@@ -41,6 +41,7 @@ from django.contrib.sites.shortcuts import get_current_site
 from django.template.loader import render_to_string
 from django.core.mail import EmailMessage
 from django.core.mail import send_mail
+from carousel_offers.models import LodgingOfferCarousel, EducationalOfferSlider
 
 # Create your views here.
 
@@ -67,6 +68,7 @@ class StudiesOffertViewSet(viewsets.ModelViewSet):
     queryset = StudiesOffert.objects.all()
     serializer_class = StudiesOffertSerializer
 
+
 class StudiesOffertSearch(FormView):
     template_name = 'hosts/studiesoffert_search.html'
     form_class = StudiesOffertSearchForm
@@ -88,6 +90,9 @@ class StudiesOffertSearch(FormView):
 
         qs_paid = StudiesOffert.objects.paid()
         context['offers_paid'] = qs_paid
+
+        sliders = EducationalOfferSlider.objects.all_featured()
+        context['sliders'] = sliders
 
 
 
@@ -147,9 +152,11 @@ class LodgingOfferSearch(FormView):
         qs = LodgingOffer.objects.active()
         context['offer_list'] = qs
 
-
         qs_paid = LodgingOffer.objects.paid()
         context['offers_paid'] = qs_paid
+
+        sliders = LodgingOfferCarousel.objects.all_featured()
+        context['sliders'] = sliders
 
         if form.is_valid():
             cd = form.cleaned_data

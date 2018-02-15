@@ -4,23 +4,17 @@
 {% block title_tag %}Lodging Offert | {{ block.super }}{% endblock %}
 {% block body_content %}
 
+    <script>
+        $('.input-daterange input').each(function() {
+    $(this).datepicker('clearDates');
+});
+    </script>
 
 
-{% comment %}
-<script>
-  $(function() {
-    $( ".datepicker" ).datepicker({
-      changeMonth: true,
-      changeYear: true,
-      yearRange: "1900:2050",
-      altField: "#alternate",
-      altFormat: "DD, d MM, yy"
-      // You can put more options here.
+{% block extrahead %}   {# Extra Resources Start #}
+   {{ form.media }}        {# Form required JS and CSS #}
+{% endblock %}
 
-    });
-  });
-</script>
-{% endcomment %}
 <div class="offert-form">
     <h1>
       {% if not form.instance.pk %}

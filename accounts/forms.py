@@ -8,11 +8,12 @@ from .models import (StudentProfile, ProfessorProfile, ExecutiveProfile,
 from django.conf import settings
 
 from django_countries.widgets import CountrySelectWidget
-from django.forms import DateTimeField, DateField
+
 
 from bootstrap_datepicker.widgets import DatePicker
 
 User = get_user_model()
+
 
 class CustomUserChangeForm(UserChangeForm):
     class Meta(UserChangeForm.Meta):
@@ -35,38 +36,26 @@ class UserCreateForm(UserCreationForm):
         fields = ("email", "password1", "password2", "user_type",)
         model = get_user_model()
 
-
     def __init__(self, *args, **kwargs):
         super(UserCreateForm, self).__init__(*args, **kwargs)
         self.fields["email"].label = ""
         self.fields["password1"].label = ""
         self.fields["password2"].label = ""
         self.fields["user_type"].label = ""
-        # self.fields["terms_and_conditions"].label = ""
-        #email = forms.CharField(widget=forms.Textarea, label='')
 
-    '''
-    def clean_password2(self):
-        password1 = self.cleaned_data.get('password1')
-        password2 = self.cleaned_data.get('password2')
-        if password1 != password2:
-            raise forms.ValidationError("Las contraseñas deben coincidir")
-        return password2
-
-    def clean_email(self):
-        email = self.cleaned_data.get('email')
-        if User.objects.filter(email__icontains=email).exists():
-            raise forms.ValidationError("Este correo ya esta registrado")
-        return email
-
-    '''
 
 class DateInput(DatePicker):
     def __init__(self):
         DatePicker.__init__(self,format="%Y-%m-%d")
+    def build_attrs(self, attrs, extra_attrs=None, **kwargs):
+        attrs = dict(self.attrs, **kwargs)
+        if extra_attrs:
+            attrs.update(extra_attrs)
+        return attrs
 
 
 class UserUpdateForm(forms.ModelForm):
+
     class Meta:
         widgets = {
             # 'gender':forms.RadioSelect,
@@ -75,14 +64,10 @@ class UserUpdateForm(forms.ModelForm):
             # I can customize these https://github.com/SmileyChris/
             # django-countries#countryselectwidget
 
-            #'date_of_birth': DateInput(),  # datepicker
-            #'creation_date': DateInput(), # datepicker
+            'date_of_birth': DateInput(),  # datepicker
+            'creation_date': DateInput(), # datepicker
 
         }
-
-
-
-
 
         fields = ("first_name", "last_name", "gender", "enterprise_name",
         "country_of_origin", "city_of_origin", "country_current_residence",
@@ -92,6 +77,7 @@ class UserUpdateForm(forms.ModelForm):
         "is_executive", "is_study_host", "is_hosting_host",)
 
         model = get_user_model()
+
 
 
 class StudentProfileForm(forms.ModelForm):
