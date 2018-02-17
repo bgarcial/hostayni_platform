@@ -4,6 +4,7 @@ from django.utils import timezone
 from django.conf import settings
 from django.template.defaultfilters import slugify
 from django.db.models.signals import pre_save
+from django.core.urlresolvers import reverse
 
 
 class SliderQueryset(models.query.QuerySet):
@@ -83,6 +84,9 @@ class Slider(models.Model):
 
     def get_image_url(self):
         return "%s%s" %(settings.MEDIA_URL, self.image)
+
+    def get_absolute_url(self):
+        return reverse('articles:article_list')
 
 
 def create_slug(instance, new_slug=None):

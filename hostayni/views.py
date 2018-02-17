@@ -31,8 +31,8 @@ class HomeSliderCreateView(SuccessMessageMixin, LoginRequiredMixin, UserProfileD
     form_class = HomeSliderForm
     success_message = "La imagen ha sido adicionada al carrusel de la página de inicio"
 
-    def get_success_url(self):
-        return reverse("carousels:home-slider",)
+    #def get_success_url(self):
+    #    return reverse("carousels:home-slider",)
 
     def form_valid(self, form):
         form.save(commit=False)

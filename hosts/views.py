@@ -96,7 +96,6 @@ class StudiesOffertSearch(FormView):
         context['sliders'] = sliders
 
 
-
         # When the form is submitted, we instantiate it with the submitted GET
         # data and we check that the given data is valid. If the form is
         # valid, we use the we use SearchQuerySet to perform a search for
