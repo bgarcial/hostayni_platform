@@ -204,8 +204,8 @@ STATIC_URL = '/assets/'
 
 STATICFILES_DIRS = [
     os.path.join(BASE_DIR, "assets"),
-    #os.path.join(BASE_DIR, 'node_modules'),
-    os.path.join(BASE_DIR, 'bower_components')
+    # os.path.join(BASE_DIR, 'node_modules'),
+    # os.path.join(BASE_DIR, 'bower_components')
 ]
 
 STATICFILES_FINDERS = [

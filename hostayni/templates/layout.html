@@ -165,10 +165,14 @@ s.setAttribute('data-timestamp', +new Date());
                               <p><strong>Búsquedas</strong></p>
                               <li><a href="{% url 'host:hostingoffer-search' %}">Ofertas de alojamiento</a></li>
                               <li><a href="{% url 'host:studyoffer-search' %}">Ofertas de educación</a></li>
-                              <li class="line"></li>
-                              <p><strong>Carrusel de imágenes</strong></p>
-                              <li><a href="{% url 'carousels:home-slider' %}">Carrusel de inicio</a></li>
-                              <li class="line"></li>
+                              {% if userprofile.user.is_superuser %}
+                                  <li class="line"></li>
+                                  <p><strong>Carrusel de imágenes</strong></p>
+                                  <li><a href="{% url 'carousels:home-slider' %}">Agregar en el inicio</a></li>
+                                  <li><a href="{% url 'carousels:lodging-offers-slider' %}">Agregar en ofertas de alojamiento</a></li>
+                                  <li><a href="{% url 'carousels:educational-offers-slider' %}">Agregar en ofertas de educación</a></li>
+                                  <li class="line"></li>
+                              {% endif %}
                               <li><a href="{% url 'accounts:logout' %}">Salir</a></li>
                           </ul>
                       </div>
@@ -210,7 +214,6 @@ s.setAttribute('data-timestamp', +new Date());
                                         <p><strong>Búsquedas</strong></p>
                                         <li><a href="{% url 'host:hostingoffer-search' %}">Ofertas de alojamiento</a></li>
                                         <li><a href="{% url 'host:studyoffer-search' %}">Ofertas de educación</a></li>
-
 
                                          {% if userprofile.user.is_superuser %}
                                              <li class="line"></li>
