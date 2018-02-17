@@ -1,0 +1,61 @@
+{% extends 'layout.html' %}
+{% load staticfiles %}
+{% load bootstrap3 %}
+{% block title_tag %}Home Slider | {{ block.super }}{% endblock %}
+{% block body_content %}
+
+{% block extrahead %}   {# Extra Resources Start #}
+   {{ form.media }}        {# Form required JS and CSS #}
+{% endblock %}
+    <script type="text/javascript">
+        $(function () {
+            $('#_pickers').datepicker({
+                inline: true,
+                sideBySide: true,
+                autoclose: true,
+                format: 'yyyy-mm-dd',
+                todayHighlight: true
+            });
+        });
+        $(function () {
+            $('#end_date').datepicker({
+                inline: true,
+                sideBySide: true,
+                autoclose: true,
+                format: 'yyyy-mm-dd',
+                todayHighlight: true,
+                useCurrent: true,
+
+            });
+
+        });
+    </script>
+    <div class="offert-form">
+        <form class="stayhost" enctype="multipart/form-data" method="post">
+            {% csrf_token %}
+            <div class="col margin-right">
+                <div class="formgroup">
+                    {% bootstrap_field form.title %}
+                    {% bootstrap_field form.image %}
+                    {% bootstrap_field form.order %}
+                    {% bootstrap_field form.url_link %}
+                    {% bootstrap_field form.header_text %}
+                    {% bootstrap_field form.text %}
+                    {% bootstrap_field form.active %}
+                    {% bootstrap_field form.featured %}
+                    {% bootstrap_field form.start_date %}
+                    {% bootstrap_field form.end_date %}
+                </div>
+            </div>
+            <div class="submit-button-cont">
+            <div>
+              <input type="image" src="{% static 'img/icons/ok.png' %}" alt="Submit" width="48" height="48">
+              <input type="submit" value="Guardar" class="submit-button">
+            </div>
+        </div>
+
+        </form>
+
+    </div>
+
+{% endblock %}

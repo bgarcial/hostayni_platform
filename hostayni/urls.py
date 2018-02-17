@@ -59,6 +59,8 @@ urlpatterns = [
     # ----------------------------------------------------------------------------------------
 
 
+    url(r'^carousel-marketing/', include('carousel_offers.urls', namespace='carousels')),
+
 
     # ----- Nuevo ------#
     url(r'^tags/(?P<hashtag>.*)/$', HashTagView.as_view(), name='hashtag'),

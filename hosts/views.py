@@ -63,6 +63,7 @@ class LodgingOfferViewSet(viewsets.ModelViewSet):
     def dispatch(self, request, *args, **kwargs):
         return super(LodgingOfferViewSet, self).dispatch(request, *args, **kwargs)
     """
+
 class StudiesOffertViewSet(viewsets.ModelViewSet):
     # lookup_field = 'name'
     queryset = StudiesOffert.objects.all()
