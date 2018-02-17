@@ -202,10 +202,16 @@ STATIC_URL = '/assets/'
 # hostayni/assets folder we just created.
 # BASE_DIR is the root directory
 
-STATICFILES_DIRS = (
+STATICFILES_DIRS = [
     os.path.join(BASE_DIR, "assets"),
-)
+    #os.path.join(BASE_DIR, 'node_modules'),
+    os.path.join(BASE_DIR, 'bower_components')
+]
 
+STATICFILES_FINDERS = [
+    'django.contrib.staticfiles.finders.FileSystemFinder',
+    'django.contrib.staticfiles.finders.AppDirectoriesFinder',
+]
 
 
 # https://www.udemy.com/tweetme-django/learn/v4/t/lecture/6134596?start=0 statc serve files
@@ -297,7 +303,7 @@ BOOTSTRAP3 = {
     'javascript_in_head': False,
 
     # Include jQuery with Bootstrap JavaScript (affects django-bootstrap3 template tags)
-    'include_jquery': False,
+    'include_jquery': True,
 
     # Label class to use in horizontal forms
     'horizontal_label_class': 'col-md-3',

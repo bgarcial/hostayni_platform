@@ -11,7 +11,6 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="shortcut icon" href="{% static 'img/favicons/favicon.ico' %}" type="image/x-icon">
-    {% comment %} Jeronimo's static files  {% endcomment %}
     <link rel="stylesheet" media="screen and (min-width:0px) and (max-width:767px)" href="{% static 'css/mainLow.css' %}">
     <link rel="stylesheet" media="screen and (min-width:767px) and (max-width:1160px)" href="{% static 'css/mainMedium.css' %}">
     <!-- <link rel="stylesheet" media="screen and (min-width:1150px) and (max-width: 1250px)" href="{% static 'css/mainHigh.css' %}"> -->
@@ -23,6 +22,7 @@
     <link href="{% static 'css/bootstrap.min.css' %}"> -->
     <script src="https://code.jquery.com/jquery-3.2.1.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
     <script type="text/javascript" src="{% static 'js/main.js' %}"></script>
+
     {% block extrahead %} {# Embeds Extra Resources #}
     {% endblock %}        {# Ends Extra Resources #}
     <style>
@@ -54,21 +54,8 @@
     </style>
 </head>
 {% endblock %}
-<!--   class="grey-background" Orignal Jerome Design -->
-<body>
-    {% comment %}
-    <div class="alert  alert-top-message alert-dismissible"  role="alert">
-        <!-- Boton para cerrar el alert  -->
-        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-            <span aria-hidden="true">&times;</span>
-        </button>
-        <!-- End Boton para cerrar el alert -->
-        <div class="container">
-            <h3>Hello there</h3>
-        </div>
-    </div>
-    {% endcomment %}
 
+<body>
     <div id="fb-root"></div>
     <script>(function(d, s, id) {
           var js, fjs = d.getElementsByTagName(s)[0];
@@ -80,28 +67,30 @@
     </script>
 
     {% comment %}Disqus plugin comment{% endcomment %}
-    <script>
-        /**
-        *  RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
-        *  LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables*/
-        /*
-        var disqus_config = function () {
-        this.page.url = PAGE_URL;  // Replace PAGE_URL with your page's canonical URL variable
-        this.page.identifier = PAGE_IDENTIFIER; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
-        };
-        */
-        (function() { // DON'T EDIT BELOW THIS LINE
-        var d = document, s = d.createElement('script');
-        s.src = 'https://hostayni.disqus.com/embed.js';
-        s.setAttribute('data-timestamp', +new Date());
-        (d.head || d.body).appendChild(s);
-        })();
-    </script>
-    <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+
+<script>
+
+/**
+*  RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
+*  LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables*/
+/*
+var disqus_config = function () {
+this.page.url = PAGE_URL;  // Replace PAGE_URL with your page's canonical URL variable
+this.page.identifier = PAGE_IDENTIFIER; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+};
+*/
+(function() { // DON'T EDIT BELOW THIS LINE
+var d = document, s = d.createElement('script');
+s.src = 'https://hostayni.disqus.com/embed.js';
+s.setAttribute('data-timestamp', +new Date());
+(d.head || d.body).appendChild(s);
+})();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+
 
 {% comment %}end Disqus plugin comment{% endcomment %}
 
-    {% comment %}end Disqus plugin comment{% endcomment %}
 
     <div class="wrapper">
         <!-- Botones de registro e inicio de sesión -->
@@ -177,7 +166,10 @@
                               <p><strong>Búsquedas</strong></p>
                               <li><a href="{% url 'host:hostingoffer-search' %}">Ofertas de alojamiento</a></li>
                               <li><a href="{% url 'host:studyoffer-search' %}">Ofertas de educación</a></li>
-
+                              <li class="line"></li>
+                              <p><strong>Carrusel de imágenes</strong></p>
+                              <li><a href="{% url 'carousels:home-slider' %}">Carrusel de inicio</a></li>
+                              <li class="line"></li>
                               <li><a href="{% url 'accounts:logout' %}">Salir</a></li>
                           </ul>
                       </div>
@@ -219,6 +211,17 @@
                                         <p><strong>Búsquedas</strong></p>
                                         <li><a href="{% url 'host:hostingoffer-search' %}">Ofertas de alojamiento</a></li>
                                         <li><a href="{% url 'host:studyoffer-search' %}">Ofertas de educación</a></li>
+
+
+                                         {% if userprofile.user.is_superuser %}
+                                             <li class="line"></li>
+                                            <p><strong>Carrusel de imágenes</strong></p>
+                                            <li><a href="{% url 'carousels:home-slider' %}">Agregar en el inicio</a></li>
+                                            <li><a href="{% url 'carousels:lodging-offers-slider' %}">Agregar en ofertas de alojamiento</a></li>
+                                            <li><a href="{% url 'carousels:educational-offers-slider' %}">Agregar en ofertas de educación</a></li>
+                                            <li class="line"></li>
+                                         {% endif %}
+
 
                                         <li><a href="{% url 'accounts:logout' %}">Salir</a></li>
                                     </ul>
@@ -295,6 +298,8 @@
 
     <!-- Optional JavaScript, is more below too.. before of footer -->
    <script  type="text/javascript" src="{% static 'js/bootstrap.min.js' %}"></script>
+   <!-- <script type="text/javascript" src="{% static 'moment/min/moment-with-locales.js' %}"></script>
+    <script type="text/javascript" src="{% static 'eonasdan-bootstrap-datetimepicker/build/js/bootstrap-datetimepicker.min.js' %}"></script> -->
 
     <!-- Reply Modal to reply to some post. -->
     {% include "reply-modal.html" %}
@@ -779,7 +784,6 @@
         })
     </script>
 
-    <script  type="text/javascript" src="{% static 'js/bootstrap.min.js' %}"></script>
       <!--  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script> -->
 
 

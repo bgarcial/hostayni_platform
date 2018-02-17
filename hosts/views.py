@@ -63,6 +63,7 @@ class LodgingOfferViewSet(viewsets.ModelViewSet):
     def dispatch(self, request, *args, **kwargs):
         return super(LodgingOfferViewSet, self).dispatch(request, *args, **kwargs)
     """
+
 class StudiesOffertViewSet(viewsets.ModelViewSet):
     # lookup_field = 'name'
     queryset = StudiesOffert.objects.all()
@@ -93,7 +94,6 @@ class StudiesOffertSearch(FormView):
 
         sliders = EducationalOfferSlider.objects.all_featured()
         context['sliders'] = sliders
-
 
 
         # When the form is submitted, we instantiate it with the submitted GET

@@ -4,10 +4,29 @@
 {% block title_tag %}Lodging Offert | {{ block.super }}{% endblock %}
 {% block body_content %}
 
-    <script>
-        $('.input-daterange input').each(function() {
-    $(this).datepicker('clearDates');
-});
+
+    <script type="text/javascript">
+        $(function () {
+            $('#check_out').datepicker({
+                inline: true,
+                sideBySide: true,
+                autoclose: true,
+                format: 'yyyy-mm-dd',
+                todayHighlight: true
+            });
+        });
+        $(function () {
+            $('#_pickers').datepicker({
+                inline: true,
+                sideBySide: true,
+                autoclose: true,
+                format: 'yyyy-mm-dd',
+                todayHighlight: true,
+                useCurrent: true,
+
+            });
+
+        });
     </script>
 
 
