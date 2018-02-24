@@ -33,11 +33,12 @@ class UserCreateForm(UserCreationForm):
             'user_type':forms.RadioSelect(),
         }
 
-        fields = ("email", "password1", "password2", "user_type",)
+        fields = ("username", "email", "password1", "password2", "user_type",)
         model = get_user_model()
 
     def __init__(self, *args, **kwargs):
         super(UserCreateForm, self).__init__(*args, **kwargs)
+        self.fields["username"].label = ""
         self.fields["email"].label = ""
         self.fields["password1"].label = ""
         self.fields["password2"].label = ""
@@ -77,7 +78,6 @@ class UserUpdateForm(forms.ModelForm):
         "is_executive", "is_study_host", "is_hosting_host",)
 
         model = get_user_model()
-
 
 
 class StudentProfileForm(forms.ModelForm):

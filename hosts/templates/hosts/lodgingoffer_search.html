@@ -182,7 +182,7 @@
                 <img src="{% static 'img/icons/diary-button.svg' %}" alt="">
                 <p> {{ po.bathroom }} </p>
               </div>
-          </div>
+          </div>dd
             {% comment %}
             {% if po.created_by.first_name %}
                 <p>Publicada por: {{ po.created_by.get_long_name }}</p>
@@ -221,7 +221,15 @@
       </div>
        <div class="info-item-lodging-lastpart">
          <div class="description-item-lodging">
-           <p> {{ offers.additional_description|linebreaks|truncatechars:420 }} </p>
+
+             <a href="{% url 'accounts:detail' userprofile.user.email %}">
+                {% if lodgingofferdetail.created_by.user_type == "O" %}
+                    <span>{{ offers.created_by.get_enterprise_name }} <br/>
+                {% else %}
+                    <span>{{ offers.created_by.get_long_name }}<br/>
+                {% endif %}
+             </a>
+           <!-- <p> {{ offers.additional_description|linebreaks|truncatechars:420 }} </p> -->
          </div>
          <div class="mainfeatures-item-lodging">
            <div class="imp-feat-II">

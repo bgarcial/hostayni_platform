@@ -61,14 +61,13 @@ class LodgingOfferForm(forms.ModelForm):
         model = LodgingOffer
         fields = ('ad_title', 'country', 'city', 'address', 'lodging_offer_type' , 'lodging_offer_type_org', 'stars',
                   'check_in', 'check_out', 'offered_services', 'featured_amenities', 'room_type_offered',
-                'number_guest_room_type', 'photo', 'bed_type', 'bathroom', 'room_information', 'room_value',
+                'number_guest_room_type', 'photo', 'bed_type', 'room_information', 'room_value',
                     'additional_description', 'is_taked')
 
     def __init__(self, *args, **kwargs):
         super(LodgingOfferForm, self).__init__(*args, **kwargs)
         #self.fields['check_in'].widget.attrs['class'] = 'input-group input-daterange'
         #self.fields['check_out'].widget.attrs['class'] = 'input-group input-daterange'
-
 
 
 class LodgingOfferImagesForm(forms.ModelForm):

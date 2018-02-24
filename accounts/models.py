@@ -128,7 +128,7 @@ class User(AbstractBaseUser, PermissionsMixin):
         validators=[RegexValidator(r'^[\w.@+-]+$', _('Enter a valid email address.'), 'invalid')
         ])
 
-    username = models.CharField(_('username'), max_length=30, null=True,
+    username = models.CharField(_('username'), max_length=30, unique=True,
             help_text=_('Required. 30 characters or fewer. Letters, digits and ''@/./+/-/_ only.'),
         validators=[RegexValidator(r'^[\w.@+-]+$', _('Enter a valid username.'), 'invalid')
         ])

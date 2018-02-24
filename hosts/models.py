@@ -134,11 +134,6 @@ class LodgingOffer(models.Model):
     PRIVATE_BATHROOM = 'Baño privado'
     SHARED_BATHROOM = 'Baño compartido'
 
-    BATHROOM_CHOICES = (
-        (PRIVATE_BATHROOM, "Baño privado"),
-        (SHARED_BATHROOM, "Baño compartido"),
-    )
-
     created_by = models.ForeignKey(
         settings.AUTH_USER_MODEL,
         on_delete=models.CASCADE
@@ -256,11 +251,13 @@ class LodgingOffer(models.Model):
         verbose_name='Tipo de cama',
     )
 
+    '''
     bathroom = models.CharField(
         max_length=20,
         choices=BATHROOM_CHOICES,
         verbose_name='Baño',
     )
+    '''
 
     room_information = models.ManyToManyField(
         RoomInformation,

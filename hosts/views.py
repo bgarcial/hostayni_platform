@@ -41,7 +41,7 @@ from django.contrib.sites.shortcuts import get_current_site
 from django.template.loader import render_to_string
 from django.core.mail import EmailMessage
 from django.core.mail import send_mail
-from carousel_offers.models import LodgingOfferCarousel, EducationalOfferSlider
+from carousel_offers.models import LodgingOfferCarousel, EducationalOfferCarousel
 
 # Create your views here.
 
@@ -63,6 +63,7 @@ class LodgingOfferViewSet(viewsets.ModelViewSet):
     def dispatch(self, request, *args, **kwargs):
         return super(LodgingOfferViewSet, self).dispatch(request, *args, **kwargs)
     """
+
 
 class StudiesOffertViewSet(viewsets.ModelViewSet):
     # lookup_field = 'name'
@@ -92,7 +93,7 @@ class StudiesOffertSearch(FormView):
         qs_paid = StudiesOffert.objects.paid()
         context['offers_paid'] = qs_paid
 
-        sliders = EducationalOfferSlider.objects.all_featured()
+        sliders = EducationalOfferCarousel.objects.all_featured()
         context['sliders'] = sliders
 
 
