@@ -55,6 +55,7 @@ class UserManager(BaseUserManager):
         if not email:
             raise ValueError("Users must have an email address")
 
+
         # If the users don't have a user or display name
         # I set as display_name the username they've provided.
         # If some reason signup some user without display_name, this will be
@@ -330,8 +331,8 @@ class User(AbstractBaseUser, PermissionsMixin):
 
     # List of fields that will be sent when create the superuser in addition to
     # username and password
-    # REQUIRED_FIELDS = ["display_name", "username"]
-    # REQUIRED_FIELDS = ["display_name",]
+    # REQUIRED_FIELDS = ["username", "email"]
+    REQUIRED_FIELDS = ["username"]
 
     class Meta:
         db_table = 'auth_user'

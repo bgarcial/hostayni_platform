@@ -13,48 +13,15 @@ from django.views.generic.base import TemplateView
 from django.views.generic import TemplateView, CreateView, UpdateView
 
 from .mixins import UserProfileDataMixin
-from .forms import ContactForm, HomeSliderForm
+from .forms import ContactForm
 from django.template.loader import get_template
 from django.core.mail import EmailMessage
 from django.template import Context
 from django.contrib import messages
 from django.core.urlresolvers import reverse
-from .models import Slider
-from django.utils import timezone
-from django.http import Http404
 
 User = get_user_model()
 
-
-class HomeSliderCreateView(SuccessMessageMixin, LoginRequiredMixin, UserProfileDataMixin, CreateView):
-    model = Slider
-    form_class = HomeSliderForm
-    success_message = "La imagen ha sido adicionada al carrusel de la página de inicio"
-
-    #def get_success_url(self):
-    #    return reverse("carousels:home-slider",)
-
-    def form_valid(self, form):
-        form.save(commit=False)
-        form.instance.user = self.request.user
-        form.instance.timestamp = timezone.now()
-        form.save()
-        return super(HomeSliderCreateView, self).form_valid(form)
-
-
-class HomeSliderUpdateView(LoginRequiredMixin, SuccessMessageMixin, UserProfileDataMixin, UpdateView):
-    form_class = HomeSliderForm
-    model = Slider
-    success_message = "Imagen actualizada"
-
-    # Permiso para que solo el dueño pueda editarla
-    def get_object(self, queryset=None):
-        """ Hook to ensure object is owned by request.user. """
-        obj = super(HomeSliderUpdateView, self).get_object()
-        # print(obj.user)
-        if not obj.user == self.request.user:
-            raise Http404
-        return obj
 
 class SearchView(UserProfileDataMixin, TemplateView):
 

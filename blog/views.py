@@ -2,7 +2,7 @@ from django.shortcuts import render, get_object_or_404, redirect, render_to_resp
 from django.utils import timezone
 from django.core.mail import send_mail
 
-from hostayni.models import Slider
+from carousel_offers.models import HomeCarousel
 
 from blog.models import Article, Category
 from blog.forms import ArticleForm
@@ -149,7 +149,7 @@ class ArticleListView(UserProfileDataMixin, ListView):
         #categories = Category.objects.all()
         #cat = Category.objects.get(pk=)
         #context['categories'] = categories
-        sliders = Slider.objects.all_featured()
+        sliders = HomeCarousel.objects.all_featured()
         today = timezone.now().date()
         context['today'] = today
         context['sliders'] = sliders

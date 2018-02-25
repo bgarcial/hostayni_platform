@@ -24,7 +24,7 @@ from .views import WhoWeArePageView, TermsAndConditions, PrivacyPolicy, contact
 
 from accounts.views import activation_view, activate
 
-from hosts.views import LodgingOfferViewSet,StudiesOffertViewSet
+from hosts.views import LodgingOfferViewSet, StudiesOffertViewSet
 
 from rest_framework import routers
 
