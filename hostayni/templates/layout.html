@@ -132,9 +132,13 @@ s.setAttribute('data-timestamp', +new Date());
                     <div class="profile-options-low">
                       <div class="img-low">
                           {% if userprofile.user.avatar %}
+                               <a href="{% url 'accounts:detail' userprofile.user.slug %}">
                                   <img src="{{ userprofile.user.avatar.url }}" width="100" height="100" class="img-responsive">
+                               </a>
                           {% else %}
+                              <a href="{% url 'accounts:detail' userprofile.user.slug %}">
                                   <img src="{% static 'img/default_profile_pic.png' %}" class="img-responsive">
+                              </a>
                           {% endif %}
                           <!-- Imagen de perfil -->
                          {% comment %} <img src="{{ object.image_url|default_if_none:'#' }}" alt="">{% endcomment %}
@@ -232,11 +236,11 @@ s.setAttribute('data-timestamp', +new Date());
                         </div>
                         <div class="img">
                             {% if userprofile.user.avatar %}
-                                <a href="{% url 'accounts:detail' userprofile.user.email %}">
+                                <a href="{% url 'accounts:detail' userprofile.user.slug %}">
                                     <img src="{{ userprofile.user.avatar.url }}" width="100" height="100" class="img-responsive">
                                 </a>
                             {% else %}
-                                <a href="{% url 'accounts:detail' userprofile.user.email %}">
+                                <a href="{% url 'accounts:detail' userprofile.user.slug %}">
                                     <img src="{% static 'img/default_profile_pic.png' %}" class="img-responsive">
                                 </a>
                             {% endif %}
@@ -455,7 +459,8 @@ s.setAttribute('data-timestamp', +new Date());
                 $(".content").each(function(data){
                 // Expresion regular para el hashtag
                     var hashtagRegex = /(^|\s)#([\w\d-]+)/g
-                    var emailRegex = /(^|\s)@([@.\w\d-]+)/g
+                    //var emailRegex = /(^|\s)@([@.\w\d-]+)/g
+                    var emailRegex = /(^|\s)@([\w\d-]+)/g
                     var currentHtml = $(this).html()
                     var newText;
 
@@ -518,14 +523,14 @@ s.setAttribute('data-timestamp', +new Date());
                      // There is a repost
                      postValue = postValue.parent
                      // Ponemos el estilo de repost en gris con el usuario quien hizo el repost y la fecha
-                    preContent  = "<span class='grey-color'>Repost via " + postValue.user.email + " on " + postValue.date_display +
+                    preContent  = "<span class='grey-color'>Repost via " + postValue.user.username + " on " + postValue.date_display +
                          "</span><br/>"
 
                  // Sino y si tiene un valor parent y es una respuesta, es un reply
                  } else if(postValue.parent && isReply) {
                     //postValue = postValue.parent
                      // Ponemos el estilo de reply en gris con el usuario quien hizo el reply y la fecha
-                    preContent  = "<span class='grey-color'>Reply to @" + postValue.parent.user.email +
+                    preContent  = "<span class='grey-color'>Reply to @" + postValue.parent.user.username +
                          "</span><br/>"
                  }
 
@@ -541,11 +546,11 @@ s.setAttribute('data-timestamp', +new Date());
                 // Separamos el formato del post en un container que son los estilos css
                  // y en el contenido del post, por eso estas dos variables arriba declaradas postContent y container
                  // POst original
-                 postContent = "<span class='content'>" + postValue.content + "</span><br/> via " + "<a href='" + postValue.user.url + "'>" + postValue.user.email +
+                 postContent = "<span class='content'>" + postValue.content + "</span><br/> via " + "<a href='" + postValue.user.url + "'>" + postValue.user.username +
                      "</a> | " + postValue.date_display + " | " + "<a href='/post/" + postValue.id +"'>View</a> | " +
                      "<a class='repostBtn' href='/post/" + postValue.id + "/repost/'>Repost</a>" + " | <a href='#' " +
                      "class='post-like' data-id='"+ postValue.id + "'>" + verb + " (" + postValue.likes + ")</a>"
-                    + " | <a href='#' " + "class='post-reply' data-user='" + postValue.user.email + "'  data-id='"+ replyId + "'>Reply</a>"
+                    + " | <a href='#' " + "class='post-reply' data-user='" + postValue.user.username + "'  data-id='"+ replyId + "'>Reply</a>"
 
                  // { if request.user == userprofile.user %} poner borrar
 

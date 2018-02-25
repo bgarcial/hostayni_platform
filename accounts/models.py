@@ -89,7 +89,7 @@ class UserManager(BaseUserManager):
 
 
 def get_image_path(instance, filename):
-    return os.path.join('userprofile-pictures', str(instance.email), filename)
+    return os.path.join('userprofile-pictures', str(instance.username), filename)
 
 
 class User(AbstractBaseUser, PermissionsMixin):
@@ -124,15 +124,17 @@ class User(AbstractBaseUser, PermissionsMixin):
         (ENTERPRISE, "Organización"),
     )
 
+    username = models.CharField(_('username'), max_length=30, primary_key=True,
+                                # help_text=_('Required. 30 characters or fewer. Letters, digits and ''@/./+/-/_ only.'),
+                                validators=[RegexValidator(r'^[\w.@+-]+$', _('Enter a valid username.'), 'invalid')
+                                            ])
+
     email = models.EmailField(unique=True, null=True, verbose_name='correo electrónico',
             # help_text=_('Required. Letters, digits and ''@/./+/-/_ only.'),
         validators=[RegexValidator(r'^[\w.@+-]+$', _('Enter a valid email address.'), 'invalid')
         ])
 
-    username = models.CharField(_('username'), max_length=30, unique=True,
-            help_text=_('Required. 30 characters or fewer. Letters, digits and ''@/./+/-/_ only.'),
-        validators=[RegexValidator(r'^[\w.@+-]+$', _('Enter a valid username.'), 'invalid')
-        ])
+
 
     slug = models.SlugField(
         # unique=True,
@@ -332,14 +334,14 @@ class User(AbstractBaseUser, PermissionsMixin):
     # List of fields that will be sent when create the superuser in addition to
     # username and password
     # REQUIRED_FIELDS = ["username", "email"]
-    REQUIRED_FIELDS = ["username"]
+    # REQUIRED_FIELDS = ["email"]
 
     class Meta:
         db_table = 'auth_user'
         verbose_name_plural = 'Usuarios en la plataforma'
 
     def __str__(self):
-        return "@{}".format(self.email)
+        return "@{}".format(self.username)
 
     def set_avatar(self):
         _avatar = self.avatar
@@ -433,22 +435,22 @@ class User(AbstractBaseUser, PermissionsMixin):
         if self.is_student and getattr(self, 'studentprofile', None) is None:
             StudentProfile.objects.create(
                 user=self,
-                slug=self.email
+                slug=self.username
             )
         if self.is_professor and getattr(self, 'professorprofile', None) is None:
             ProfessorProfile.objects.create(
                 user=self,
-                slug=self.email
+                slug=self.username
             )
         if self.is_executive and getattr(self, 'executiveprofile', None) is None:
             ExecutiveProfile.objects.create(
                 user=self,
-                slug=self.email
+                slug=self.username
             )
         if self.is_study_host and getattr(self, 'studyhostprofile', None) is None:
             StudyHostProfile.objects.create(
                 user=self,
-                slug=self.email
+                slug=self.username
             )
         '''
         if self.is_hosting_host and getattr(self, 'hostinghostprofile', None) is None:
@@ -464,13 +466,13 @@ class User(AbstractBaseUser, PermissionsMixin):
 # Funcion para no crear un slug similar #ej juan.jaime crea slug juanjaime y juanjaime crea slug juanjaime
 # entonces que la cambie
 def create_slug(instance, new_slug=None):
-    slug = slugify(instance.email)
+    slug = slugify(instance.username)
     if new_slug is not None:
         slug = new_slug
     qs = User.objects.filter(slug=slug).order_by("-id")
     exists = qs.exists()
     if exists:
-        # Add the id to slug (compose by email + ID)
+        # Add the id to slug (compose by username + ID)
         new_slug = "%s-%s" % (slug, qs.first().id)
         return create_slug(instance, new_slug=new_slug)
     return slug
@@ -587,14 +589,13 @@ class UserProfile(models.Model):
     # Para evitar que following a mi mismo mirar follow toggle video
     def get_following(self):
         users = self.following.all()  # Users.objects.all().exclude(email=self.user.email)
-        return users.exclude(email=self.user.email)
+        return users.exclude(username=self.user.username)
 
     def get_follow_url(self):
-        return reverse_lazy('accounts:follow', kwargs={"email": self.user.email})
-
+        return reverse_lazy('accounts:follow', kwargs={"username": self.user.username})
 
     def get_absolute_url(self):
-        return reverse_lazy('accounts:detail', kwargs={"email": self.user.email})
+        return reverse_lazy('accounts:detail', kwargs={"username": self.user.username})
 
 '''
 class EmailConfirmed(models.Model):
@@ -627,9 +628,6 @@ class EmailConfirmed(models.Model):
 
 '''
 
-
-
-
 # Signal para que cuando se cree un usuario, se cree su userprofile y se envie un correo de
 # confirmación.
 # View post_save parametere https://docs.djangoproject.com/en/1.11/ref/signals/#post-save
@@ -640,7 +638,7 @@ def user_created(sender, instance, created, *args, **kwargs):
     #
 
     if created:
-        new_profile = UserProfile.objects.get_or_create(user = instance)
+        new_profile = UserProfile.objects.get_or_create(user=instance)
         '''
         # send email to verify user email
         email_confirmed, email_is_created = EmailConfirmed.objects.get_or_create(user = instance)
@@ -728,7 +726,7 @@ class StudentProfile(models.Model):
         verbose_name_plural = 'Usuarios con perfil de estudiantes'
 
     def __str__(self):
-        return "{}".format(self.user.email)
+        return "{}".format(self.user.username)
 
 
 class ProfessorProfile(models.Model):
@@ -808,7 +806,7 @@ class ProfessorProfile(models.Model):
         verbose_name_plural = 'Usuarios con perfil de profesores'
 
     def __str__(self):
-        return "{}".format(self.user.email, )
+        return "{}".format(self.user.username, )
 
 
 class ExecutiveProfile(models.Model):
@@ -961,7 +959,7 @@ class StudyHostProfile(models.Model):
         verbose_name_plural = 'Usuarios con perfil de anfitriones de estudio'
 
     def __str__(self):
-        return "{}".format(self.user.email, )
+        return "{}".format(self.user.username, )
 
 
 class InnovationHostProfile(models.Model):
@@ -1004,7 +1002,7 @@ class HostingHostProfile(models.Model):
         verbose_name_plural = 'Usuarios con perfil de anfitriones de hospedaje'
 
     def __str__(self):
-        return "{}".format(self.user.email, )
+        return "{}".format(self.user.username, )
 
 '''
 
@@ -1024,7 +1022,7 @@ class EntertainmentHostProfile(models.Model):
         verbose_name_plural = 'Usuarios con perfil de anfitriones de entretenimiento'
 
     def __str__(self):
-        return "{}".format(self.user.display_name, )
+        return "{}".format(self.user.username, )
 
 
 class OtherServicesHostProfile(models.Model):

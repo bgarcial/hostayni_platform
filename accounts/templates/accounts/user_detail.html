@@ -19,7 +19,7 @@
         <p>Followers: {{ object.followed_by.all.count }}</p>
 
         <!--Validando que no me parezca para seguirme a mi mismo-->
-        {% if object.profile.user.id != userprofile.user.id %}
+        {% if object.profile.user.username != userprofile.user.username %}
         <p>
             <a href='{{ object.profile.get_follow_url }}'>
                 {% if following %}
@@ -144,7 +144,7 @@
 
         <h1>Following <small>{{ object.profile.get_following.count }}</small></h1>
             {% for user in object.profile.get_following %}
-            <a href='../{{ user.email }}'>{{ user.email }}</a> <br /><br />
+            <a href='../{{ user.username }}'>{{ user.username }}</a> <br /><br />
                 {% comment %}usar el mismo js que en post-list.hml{% endcomment %}
             {% empty %}
                 <h4>Not following any users</h4>
@@ -153,7 +153,7 @@
         <hr/>
         <h1>Followed By</h1>
             {% for profile in object.followed_by.all %}
-                <a href='../{{ profile.user.email }}'>{{ profile.user.email }}</a><br /><br />
+                <a href='../{{ profile.user.username }}'>{{ profile.user.username }}</a><br /><br />
             {% empty %}
                 <h4>Not followed by any users</h4>
             {% endfor %}
@@ -177,7 +177,7 @@
 
         {% endcomment %}
 
-        <div id="post-container" data-url="/api/{{ object.email }}/post/">
+        <div id="post-container" data-url="/api/{{ object.username }}/post/">
 
         </div>
         <a href="#" id="loadmore">Load More Posts</a>

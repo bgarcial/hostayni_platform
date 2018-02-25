@@ -229,7 +229,8 @@ STATICFILES_FINDERS = [
 
 
 FIXTURE_DIRS = (
-   os.path.join(BASE_DIR, 'fixtures'),
+   os.path.join(BASE_DIR, 'fixtures/'),
+
 )
 
 LOGIN_URL='/accounts/login/'

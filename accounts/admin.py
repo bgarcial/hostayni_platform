@@ -57,7 +57,7 @@ class CustomUserAdmin(UserAdmin):
 @admin.register(User)
 class UserAdmin(CustomUserAdmin):
 
-    list_display = ('id',
+    list_display = (
                     'username',
                     'email',
                     'slug',

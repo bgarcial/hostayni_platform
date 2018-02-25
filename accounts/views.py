@@ -62,7 +62,7 @@ class UserDetailView(UserProfileDataMixin, generic.DetailView):
     def get_object(self):
         return get_object_or_404(
                     User,
-                    email__iexact=self.kwargs.get("email")
+                    username__iexact=self.kwargs.get("slug") # es slug
                     )
 
     def get_context_data(self, **kwargs):
@@ -72,11 +72,11 @@ class UserDetailView(UserProfileDataMixin, generic.DetailView):
         context['following'] = following
         context['recommended'] = UserProfile.objects.recommended(self.request.user)
 
-        speaklanguages = User.objects.get(email=self.kwargs.get('email'))
+        speaklanguages = User.objects.get(username=self.kwargs.get('slug'))
         speak_languages_query = speaklanguages.speak_languages.all()
         context['speak_languages'] = speak_languages_query
 
-        entertainmentactivities = User.objects.get(email=self.kwargs.get('email'))
+        entertainmentactivities = User.objects.get(username=self.kwargs.get('slug'))
         entertainment_activities_query = entertainmentactivities.entertainment_activities.all()
         context['entertainment_activities'] = entertainment_activities_query
 
@@ -88,10 +88,11 @@ class UserDetailView(UserProfileDataMixin, generic.DetailView):
 
 class UserFollowView(View):
 
-    def get(self, request, email, *args, **kwargs):
+    def get(self, request, username, *args, **kwargs):
 
         # Capturamos el usuario al que queremos seguir
-        toggle_user = get_object_or_404(User, email__iexact=email)
+        toggle_user = get_object_or_404(User, username__iexact=username)
+        # toggle_user = get_object_or_404(User, email__iexact=email)
 
         # Si el usuario quien presiona Follow esta autenticado ...
         if request.user.is_authenticated():
@@ -101,7 +102,10 @@ class UserFollowView(View):
             # enviandole el usuario al que queremos darle follow
             is_following = UserProfile.objects.toggle_follow(request.user, toggle_user)
 
-        return redirect("accounts:detail", email=email)
+        return redirect("accounts:detail", slug=username)
+        # porque accounts:detail espera un slug en el url.
+
+
         # url = reverse("profiles:detail", kwargs={"username": username})
 # HttpResponseRedirect(url)
 
@@ -130,7 +134,7 @@ def user_profile_update_view(request, slug):
     # print(profile)
 
     user_roles = User.objects.get(slug=slug)
-    if user_roles.id != request.user.id:
+    if user_roles.username != request.user.username:
         raise Http404
 
     if user.is_student:
@@ -197,7 +201,7 @@ class AccountSettingsUpdateView(SuccessMessageMixin, LoginRequiredMixin, UserPro
     def get_object(self, queryset=None):
         """ Hook to ensure object is owned by request.user. """
         obj = super(AccountSettingsUpdateView, self).get_object()
-        if not obj.id == self.request.user.id:
+        if not obj.username == self.request.user.username:
             raise Http404
         return obj
 
@@ -210,7 +214,6 @@ class AccountSettingsUpdateView(SuccessMessageMixin, LoginRequiredMixin, UserPro
         form.save()
         #ipdb.set_trace()
         # messages.success(self.request, "Successfully created")
-        print("Se almaceno?")
         return super(AccountSettingsUpdateView, self).form_valid(form)
 
     """

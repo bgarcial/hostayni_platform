@@ -27,7 +27,6 @@ from accounts.views import activation_view, activate
 from hosts.views import LodgingOfferViewSet, StudiesOffertViewSet
 
 from rest_framework import routers
-
 from posts.api.views import SearchPostAPIView
 from hashtags.views import HashTagView
 from hashtags.api.views import TagPostAPIView
@@ -58,6 +57,7 @@ urlpatterns = [
     # I don't assign namespace because this is django URL
     # ----------------------------------------------------------------------------------------
 
+    #url(r"^(?P<username>[\w\-]+)/$", UserDetailView.as_view(), name='detail'),
 
     url(r'^carousel-marketing/', include('carousel_offers.urls', namespace='carousels')),
 
