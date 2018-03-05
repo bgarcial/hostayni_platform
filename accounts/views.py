@@ -62,7 +62,7 @@ class UserDetailView(UserProfileDataMixin, generic.DetailView):
     def get_object(self):
         return get_object_or_404(
                     User,
-                    username__iexact=self.kwargs.get("slug") # es slug
+            slug__iexact=self.kwargs.get("slug") # es slug
                     )
 
     def get_context_data(self, **kwargs):
@@ -72,11 +72,11 @@ class UserDetailView(UserProfileDataMixin, generic.DetailView):
         context['following'] = following
         context['recommended'] = UserProfile.objects.recommended(self.request.user)
 
-        speaklanguages = User.objects.get(username=self.kwargs.get('slug'))
+        speaklanguages = User.objects.get(slug=self.kwargs.get('slug'))
         speak_languages_query = speaklanguages.speak_languages.all()
         context['speak_languages'] = speak_languages_query
 
-        entertainmentactivities = User.objects.get(username=self.kwargs.get('slug'))
+        entertainmentactivities = User.objects.get(slug=self.kwargs.get('slug'))
         entertainment_activities_query = entertainmentactivities.entertainment_activities.all()
         context['entertainment_activities'] = entertainment_activities_query
 
@@ -88,10 +88,10 @@ class UserDetailView(UserProfileDataMixin, generic.DetailView):
 
 class UserFollowView(View):
 
-    def get(self, request, username, *args, **kwargs):
+    def get(self, request, slug, *args, **kwargs):
 
         # Capturamos el usuario al que queremos seguir
-        toggle_user = get_object_or_404(User, username__iexact=username)
+        toggle_user = get_object_or_404(User, slug__iexact=slug)
         # toggle_user = get_object_or_404(User, email__iexact=email)
 
         # Si el usuario quien presiona Follow esta autenticado ...
@@ -102,7 +102,7 @@ class UserFollowView(View):
             # enviandole el usuario al que queremos darle follow
             is_following = UserProfile.objects.toggle_follow(request.user, toggle_user)
 
-        return redirect("accounts:detail", slug=username)
+        return redirect("accounts:detail", slug=slug)
         # porque accounts:detail espera un slug en el url.
 
 

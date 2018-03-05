@@ -137,4 +137,4 @@ def post_save_receiver(sender, instance, created, *args, **kwargs):
         # Enviar hashtag signal al usuario aqui
         '''
 
-# post_save.connect(post_save_receiver, sender=Post)
+post_save.connect(post_save_receiver, sender=Post)

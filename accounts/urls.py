@@ -28,7 +28,7 @@ urlpatterns = [
 
 
     # follow or un follow users. Los remueve o los agrega de mi lista de following
-    url(r"^(?P<username>[\w.@+-]+)/follow/$", views.UserFollowView.as_view(), name='follow'),
+    url(r"^(?P<slug>[\w.@+-]+)/follow/$", views.UserFollowView.as_view(), name='follow'),
     # url(r"^(?P<email>[\w.@+-]+)/follow/$", views.UserFollowView.as_view(), name='follow'),
 
 

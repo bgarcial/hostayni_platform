@@ -124,7 +124,9 @@ class User(AbstractBaseUser, PermissionsMixin):
         (ENTERPRISE, "Organización"),
     )
 
-    username = models.CharField(_('username'), max_length=30, primary_key=True,
+    # id = models.AutoField(primary_key=True)
+
+    username = models.CharField(_('username'), max_length=30,
                                 # help_text=_('Required. 30 characters or fewer. Letters, digits and ''@/./+/-/_ only.'),
                                 validators=[RegexValidator(r'^[\w.@+-]+$', _('Enter a valid username.'), 'invalid')
                                             ])
@@ -465,6 +467,7 @@ class User(AbstractBaseUser, PermissionsMixin):
 
 # Funcion para no crear un slug similar #ej juan.jaime crea slug juanjaime y juanjaime crea slug juanjaime
 # entonces que la cambie
+
 def create_slug(instance, new_slug=None):
     slug = slugify(instance.username)
     if new_slug is not None:
@@ -484,7 +487,7 @@ def pre_save_user_receiver(sender, instance, *args, **kwargs):
 
     if not instance.slug:
         instance.slug = create_slug(instance)
-    """
+"""
     slug = slugify(instance.email)
     # fabiola.quimica - fabiolaquimica
     # We want to make sure that slug doesn't already exist
@@ -495,7 +498,7 @@ def pre_save_user_receiver(sender, instance, *args, **kwargs):
         slug = "%s-%s" %(slugify(instance.email), instance.id)
 
     instance.slug = slug
-    """
+"""
 
 
 pre_save.connect(pre_save_user_receiver, sender=settings.AUTH_USER_MODEL)
@@ -592,7 +595,7 @@ class UserProfile(models.Model):
         return users.exclude(username=self.user.username)
 
     def get_follow_url(self):
-        return reverse_lazy('accounts:follow', kwargs={"username": self.user.username})
+        return reverse_lazy('accounts:follow', kwargs={"slug": self.user.slug})
 
     def get_absolute_url(self):
         return reverse_lazy('accounts:detail', kwargs={"username": self.user.username})
