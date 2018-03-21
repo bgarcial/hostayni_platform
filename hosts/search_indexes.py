@@ -105,7 +105,7 @@ class LodgingOfferIndex(indexes.SearchIndex, indexes.Indexable):
 
     bed_type = indexes.CharField(model_attr='bed_type', null=True)
 
-    bathroom = indexes.CharField(model_attr='bathroom', null=True)
+    # bathroom = indexes.CharField(model_attr='bathroom', null=True)
 
     pub_date = indexes.DateTimeField(model_attr='pub_date')
 
