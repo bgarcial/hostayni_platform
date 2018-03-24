@@ -38,6 +38,7 @@ class CustomUserAdmin(UserAdmin):
                     'biography',
                     'avatar',
                     'date_of_birth',
+                    'user_type',
                     'is_student',
                     'is_professor',
                     'is_executive',
