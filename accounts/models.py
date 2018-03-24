@@ -71,7 +71,7 @@ class UserManager(BaseUserManager):
             # make sure that all the email addresses throughout your app are formatted the same way
             # username = self.normalize_username(username),
             username=username,
-            email = self.normalize_email(email),
+            email=self.normalize_email(email),
             **extra_fields
 
         )
@@ -87,6 +87,9 @@ class UserManager(BaseUserManager):
         extra_fields.setdefault('is_staff', True)
         extra_fields.setdefault('is_superuser', True)
         extra_fields.setdefault('is_active', True)
+        extra_fields.setdefault('user_type', "O")
+        extra_fields.setdefault('is_hosting_host', True)
+        extra_fields.setdefault('is_study_host', True)
 
         if extra_fields.get('is_staff') is not True:
             raise ValueError('Superuser must have is_staff=True.')
