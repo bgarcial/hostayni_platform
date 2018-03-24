@@ -70,10 +70,13 @@ class UserManager(BaseUserManager):
         user  = self.model(
             # make sure that all the email addresses throughout your app are formatted the same way
             # username = self.normalize_username(username),
+            username=username,
             email = self.normalize_email(email),
             **extra_fields
 
         )
+
+
         user.set_password(password)
 
         # handle the encryption and validation checks and so.
