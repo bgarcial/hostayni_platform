@@ -5,8 +5,8 @@ from django.contrib.auth.admin import UserAdmin
 
 from .models import (
     User, UserProfile, StudentProfile, ProfessorProfile, ExecutiveProfile,
-    StudyHostProfile, InnovationHostProfile, EntertainmentHostProfile,
-    OtherServicesHostProfile,
+    StudyHostProfile, EnterprenurshipHostProfile, AyniHostProfile,
+    DailyLifeHostProfile,
 )
 
 from .forms import CustomUserChangeForm, CustomUserCreationForm
@@ -75,10 +75,10 @@ class UserAdmin(CustomUserAdmin):
                     'is_professor',
                     'is_executive',
                     'is_study_host',
-                    "is_innovation_host",
+                    "is_entrepreneurship_host",
                     "is_hosting_host",
-                    "is_entertainment_host",
-                    "is_other_services_host",
+                    "is_ayni_host",
+                    "is_daily_life_host",
     )
 
 
@@ -106,17 +106,17 @@ class StudyHostProfileAdmin(admin.ModelAdmin):
     list_display = ('id', 'user_id', 'slug', )
 
 
-@admin.register(InnovationHostProfile)
+@admin.register(EnterprenurshipHostProfile)
 class InnovationHostProfileAdmin(admin.ModelAdmin):
     list_display = ('id', 'user_id', 'slug', )
 
 
-@admin.register(EntertainmentHostProfile)
+@admin.register(AyniHostProfile)
 class EntertainmentHostProfileAdmin(admin.ModelAdmin):
     list_display = ('id', 'user_id', 'slug', )
 
 
-@admin.register(OtherServicesHostProfile)
+@admin.register(DailyLifeHostProfile)
 class OtherServicesHostProfileAdmin(admin.ModelAdmin):
     list_display = ('id', 'user_id', 'slug', )
 

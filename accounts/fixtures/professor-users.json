@@ -2,8 +2,8 @@
 	"model": "accounts.professorprofile",
 	"pk": 1,
 	"fields": {
-		"user": 3,
-		"slug": "christiandiazleon@gmail.com",
+		"user": 2,
+		"slug": "christiandiazleon",
 		"occupation": "['CATHEDRAL', 'RESEARCH']",
 		"origin_education_school": "Universidad EAFIT",
 		"current_education_school": "Universidad EAFIT",
@@ -17,8 +17,8 @@
 	"model": "accounts.professorprofile",
 	"pk": 2,
 	"fields": {
-		"user": 8,
-		"slug": "juanjaimearroyaver@gmail.com",
+		"user": 7,
+		"slug": "juanjaimearroyaver",
 		"occupation": "",
 		"origin_education_school": "",
 		"current_education_school": "",

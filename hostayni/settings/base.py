@@ -56,7 +56,7 @@ INSTALLED_APPS = [
     'bootstrap_datepicker',
     'django_countries',
     'django_extensions',
-    'easy_thumbnails',
+    # 'easy_thumbnails',
     # 'languages_plus',
     'haystack',
     # 'mail_panel',

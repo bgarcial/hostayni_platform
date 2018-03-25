@@ -289,9 +289,9 @@ class User(AbstractBaseUser, PermissionsMixin):
         verbose_name='Anfitrion de estudio',
     )
 
-    is_innovation_host = models.BooleanField(
+    is_entrepreneurship_host = models.BooleanField(
         default=False,
-        verbose_name='Anfitrión de innovación',
+        verbose_name='Anfitrión de emprendimiento',
 
     )
 
@@ -301,15 +301,15 @@ class User(AbstractBaseUser, PermissionsMixin):
 
     )
 
-    is_entertainment_host = models.BooleanField(
+    is_ayni_host = models.BooleanField(
         default=False,
-        verbose_name='Anfitrión de entretenimiento',
+        verbose_name='Anfitrión AYNI',
 
     )
 
-    is_other_services_host = models.BooleanField(
+    is_daily_life_host = models.BooleanField(
         default=False,
-        verbose_name='Anfitrión de otros servicios',
+        verbose_name='Anfitrión de servicios de vida diaria',
     )
 
     # Adicionarla ahora despues de la migración
@@ -412,11 +412,11 @@ class User(AbstractBaseUser, PermissionsMixin):
             study_host_profile = self.studyhostprofile
         return study_host_profile
 
-    def get_innovation_host_profile(self):
-        innovation_host_profile = None
-        if hasattr(self, 'innovationhostprofile'):
-            innovation_host_profile = self.innovationhostprofile
-        return innovation_host_profile
+    def get_enterpreneurship_host_profile(self):
+        enterpreneurship_host_profile = None
+        if hasattr(self, 'enterpreneurshiphostprofile'):
+            enterpreneurship_host_profile = self.enterpreneurshiphostprofile
+        return enterpreneurship_host_profile
 
     def get_hosting_host_profile(self):
         hosting_host_profile = None
@@ -424,25 +424,21 @@ class User(AbstractBaseUser, PermissionsMixin):
             hosting_host_profile = self.hostinghostprofile
         return hosting_host_profile
 
-    def get_entertainment_host_profile(self):
-        entertainment_host_profile = None
-        if hasattr(self, 'entertainmenthostprofile'):
-            entertainment_host_profile = self.entertainmenthostprofile
-        return entertainment_host_profile
+    def get_ayni_host_profile(self):
+        ayni_host_profile = None
+        if hasattr(self, 'aynihostprofile'):
+            ayni_host_profile = self.aynihostprofile
+        return ayni_host_profile
 
-    def get_other_services_host_profile(self):
-        other_services_host_profile = None
-        if hasattr(self, 'otherserviceshostprofile'):
-            other_services_host_profile = self.otherserviceshostprofile
-        return other_services_host_profile
+    def get_daily_life_host_profile(self):
+        daily_life_host_profile = None
+        if hasattr(self, 'dailylifehostprofile'):
+            daily_life_host_profile = self.dailylifehostprofile
+        return daily_life_host_profile
 
     def save(self, *args, **kwargs):
         super(User, self).save(*args, **kwargs)
 
-        #self.avatar =
-
-        # if self.user_type=='O':
-        #    FirstName = self.enterprise_name
 
         if self.is_student and getattr(self, 'studentprofile', None) is None:
             StudentProfile.objects.create(
@@ -464,13 +460,35 @@ class User(AbstractBaseUser, PermissionsMixin):
                 user=self,
                 slug=self.username
             )
-        '''
+
+        # Hosting Host data details was removed by team decisions
+
         if self.is_hosting_host and getattr(self, 'hostinghostprofile', None) is None:
             HostingHostProfile.objects.create(
                 user=self,
-                slug=self.email
+                slug=self.username
             )
-        '''
+
+
+        if self.is_entrepreneurship_host and getattr(self, 'enterpreneurshiphostprofile', None) is None:
+            EnterprenurshipHostProfile.objects.create(
+                user=self,
+                slug=self.username
+            )
+
+        if self.is_daily_life_host and getattr(self, 'dailylifehostprofile', None) is None:
+            DailyLifeHostProfile.objects.create(
+                user=self,
+                slug=self.username
+            )
+
+        if self.is_ayni_host and getattr(self, 'aynihostprofile', None) is None:
+            AyniHostProfile.objects.create(
+                user=self,
+                slug=self.username
+            )
+
+
 
 
 # https://docs.djangoproject.com/en/1.11/ref/signals/#django.db.models.signals.pre_save
@@ -975,7 +993,7 @@ class StudyHostProfile(models.Model):
         return "{}".format(self.user.username, )
 
 
-class InnovationHostProfile(models.Model):
+class EnterprenurshipHostProfile(models.Model):
     user = models.OneToOneField(
         settings.AUTH_USER_MODEL,
         on_delete=models.CASCADE
@@ -987,12 +1005,12 @@ class InnovationHostProfile(models.Model):
     )
 
     class Meta:
-        verbose_name_plural = 'Usuarios con perfil de anfitriones de innovación'
+        verbose_name_plural = 'Usuarios con perfil de anfitriones de emprendimiento'
 
     def __str__(self):
-        return "{}".format(self.user.display_name, )
+        return "{}".format(self.user.username, )
 
-'''
+
 class HostingHostProfile(models.Model):
     user = models.OneToOneField(
         settings.AUTH_USER_MODEL,
@@ -1017,10 +1035,8 @@ class HostingHostProfile(models.Model):
     def __str__(self):
         return "{}".format(self.user.username, )
 
-'''
 
-
-class EntertainmentHostProfile(models.Model):
+class AyniHostProfile(models.Model):
     user = models.OneToOneField(
         settings.AUTH_USER_MODEL,
         on_delete=models.CASCADE
@@ -1032,13 +1048,13 @@ class EntertainmentHostProfile(models.Model):
     )
 
     class Meta:
-        verbose_name_plural = 'Usuarios con perfil de anfitriones de entretenimiento'
+        verbose_name_plural = 'Usuarios con perfil de AYNI'
 
     def __str__(self):
         return "{}".format(self.user.username, )
 
 
-class OtherServicesHostProfile(models.Model):
+class DailyLifeHostProfile(models.Model):
     user = models.OneToOneField(
         settings.AUTH_USER_MODEL,
         on_delete=models.CASCADE
@@ -1053,4 +1069,4 @@ class OtherServicesHostProfile(models.Model):
         verbose_name_plural = 'Usuarios con perfil de anfitriones de servicios varios'
 
     def __str__(self):
-        return "{}".format(self.user.display_name, )
+        return "{}".format(self.user.username, )

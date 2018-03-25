@@ -19,8 +19,6 @@ from django.dispatch import receiver
 from django.template.defaultfilters import slugify
 from django_countries.fields import CountryField
 from django.db.models.signals import pre_save
-from PIL import Image
-from easy_thumbnails.fields import ThumbnailerImageField
 from django.utils import timezone
 
 
@@ -633,8 +631,6 @@ def get_image_path(instance, filename):
 class StudyOfferImage(models.Model):
     # puedo poner headere text and small text
     study_offer = models.ForeignKey(StudiesOffert, related_name='uploadsstudyoffer')
-    # image = ThumbnailerImageField(upload_to=get_image_path, resize_source=CROP_SETTINGS)
-
     image = models.ImageField(upload_to=get_image_path, verbose_name='Seleccionar imagen')
 
     # images folder per object
