@@ -1,86 +1,86 @@
 [{
 	"model": "blog.article",
-	"pk": 3,
+	"pk": 1,
 	"fields": {
-		"author": 2,
+		"author": 5,
 		"title": "LACHEC 2017 un espacio para el desarrollo de Am\u00e9rica Latina y el Caribe",
 		"slug": "lachec-2017-un-espacio-para-el-desarrollo-de-america-latina-y-el-caribe",
 		"content": "LACHEC 2017 ser\u00e1 el evento acad\u00e9mico m\u00e1s importante del \u00faltimo a\u00f1o entorno a La internacionalizaci\u00f3n de la educaci\u00f3n como potenciadora de la Innovaci\u00f3n, la Investigaci\u00f3n y la Interculturalidad, para el Desarrollo: D=(I+I+I)i\r\nLACHEC reunir\u00e1 expertos nacionales e internacionales en temas fundamentales que necesita toda empresa, entidad educativa y entidad gubernamental para afrontar con \u00e9xito los retos de la globalizaci\u00f3n y lo mejor de todo es que Medell\u00edn ser\u00e1 la sede de este importante evento durante el 21-22-23 de noviembre.\r\nhttp://lachec.com/portal/",
 		"draft": false,
 		"publish": "2017-10-31",
-		"category": 4,
-		"image": "None/lachec.jpg",
+		"category": 5,
+		"image": "articles_images/lachec-2017-un-espacio-para-el-desarrollo-de-america-latina-y-el-caribe/lachec.jpg",
 		"height_field": 500,
 		"width_field": 960,
-		"updated": "2017-10-31T04:19:59.818Z",
+		"updated": "2018-03-25T18:47:31.256Z",
 		"timestamp": "2017-10-31T04:19:59.818Z"
 	}
 }, {
 	"model": "blog.article",
-	"pk": 4,
+	"pk": 2,
 	"fields": {
-		"author": 2,
+		"author": 5,
 		"title": "Casas de familia una opci\u00f3n excelente si vas a viajar",
 		"slug": "casas-de-familia-una-opcion-excelente-si-vas-a-viajar",
 		"content": "En muchas ocasiones quienes viajan se pueden sentir solos y desear\u00edan contar con un ambiente familiar en el cual puedan sentirse como en casa, por ello al momento de viajar una excelente opci\u00f3n es hospedarte con una familia, en donde no s\u00f3lo encontraras un ambiente familiar y acogedor, sino que tambi\u00e9n te sentir\u00e1s m\u00e1s seguro y podr\u00e1s recibir recomendaciones sobre a donde ir y qu\u00e9 hacer, como si fueran dadas por personas de tu mismo hogar.",
 		"draft": false,
 		"publish": "2017-10-31",
 		"category": 1,
-		"image": "None/familia_Andres.jpg",
+		"image": "articles_images/casas-de-familia-una-opcion-excelente-si-vas-a-viajar/CasaFamilia.jpg",
 		"height_field": 720,
 		"width_field": 960,
-		"updated": "2017-10-31T04:28:52.553Z",
+		"updated": "2018-03-25T18:46:23.013Z",
 		"timestamp": "2017-10-31T04:28:52.553Z"
 	}
 }, {
 	"model": "blog.article",
-	"pk": 5,
+	"pk": 3,
 	"fields": {
-		"author": 2,
-		"title": "La responsabilidad social llega a las Universidades",
-		"slug": "la-responsabilidad-social-llega-a-las-universidades",
-		"content": "La Responsabilidad Social, se ha convertido en una tem\u00e1tica de inter\u00e9s no s\u00f3lo del \u00e1mbito empresarial, en donde lo ha sido desde el \u00faltimo siglo, sino tambi\u00e9n del \u00e1mbito universitario, a partir de la \u201cDeclaraci\u00f3n mundial sobre la Educaci\u00f3n Superior en el Siglo XXI: Visi\u00f3n y Acci\u00f3n\u201d, promovida por la UNESCO, a trav\u00e9s de la Conferencia Mundial, de 1998, en la cual se reforz\u00f3 el llamado a las universidades a ser socialmente responsables, toda vez que se\u00f1alo: \u201cla pertinencia de la educaci\u00f3n superior debe ser evaluada en funci\u00f3n de la adecuaci\u00f3n entre lo que la sociedad espera de las instituciones y lo que \u00e9stas hacen\u201d (UNESCO, 1998).",
-		"draft": false,
-		"publish": "2017-10-31",
-		"category": 4,
-		"image": "None/cooperacion.jpg",
-		"height_field": 194,
-		"width_field": 260,
-		"updated": "2017-10-31T04:33:53.491Z",
-		"timestamp": "2017-10-31T04:33:53.491Z"
-	}
-}, {
-	"model": "blog.article",
-	"pk": 6,
-	"fields": {
-		"author": 2,
-		"title": "MEDELLIN: LA CIUDAD MAS INNOVADORA DEL MUNDO",
+		"author": 4,
+		"title": "Medell\u00edn: La ciudad mas innovadora del mundo",
 		"slug": "medellin-la-ciudad-mas-innovadora-del-mundo",
 		"content": "En el 2013,  el Concurso City of the Year, organizado por  The Wall Street Journal y Citigroup, escogi\u00f3 entre 200 ciudades postuladas a Medell\u00edn como la Ciudad m\u00e1s innovadora del mundo, ocmpitiendo entre otras con ciudades como Tel Aviv y Nueva York.  El reconocimiento en gran parte se agradece a las constantes soluciones tecnol\u00f3gicas, culturales y educativas que de manera permanente la ciudad produce y ofrece tanto a habitantes como visitantes.\r\n\r\nSeg\u00fan lo recalca el organizador del premio y publicaciones locales de la revista semana y Urna de Cristal, \u00e9ste reconocimiento se debe gracias a lo siguiente:\r\n\r\n1. Innovaci\u00f3n sobre la necesidad: las escaleras el\u00e9ctricas de la Comuna 13 son \u00fanicas en el mundo y se convierten en la soluci\u00f3n m\u00e1s innovadora para la necesidad de sus habitantes, quienes deben ascender el equivalente a 28 pisos\r\n2. Tecnolog\u00eda en estructuras: el Edificio Inteligente de las Empresas de Medell\u00edn es otra de las evidencias de la innovaci\u00f3n y el desarrollo; s\u00edmbolo de una ciudad innovadora y desarrollada\r\n3. Parques hechos biblioteca: iniciativas como los parques biblioteca reflejan una estrategia para despertar la cultura, con toques de innovaci\u00f3n. La Biblioteca Espa\u00f1a representa un nuevo modelo de inclusi\u00f3n para los habitantes de la ciudad.\r\n4. El Metro reduce contaminaci\u00f3n: el solo hecho de que Medell\u00edn sea la \u00fanica ciudad con Metro en Colombia, ya lo hace una ciudad con un toque de desarrollo en innovaci\u00f3n, por sobre todas las dem\u00e1s en el pa\u00eds. A esto lo acompa\u00f1a la reducci\u00f3n de m\u00e1s de 175 mil toneladas de Di\u00f3xido de Carbono. Este sistema de transporte, moviliza al menos medio mill\u00f3n de personas\r\n5. La cultura entre los m\u00e1s necesitados: una construcci\u00f3n como el Centro Cultural Moravia, con moderna infraestructura, se hace m\u00e1s valioso cuando contribuye al desarrollo y a la igualdad al beneficiar a los m\u00e1s necesitados, ya que est\u00e1 construido en uno de los sectores m\u00e1s pobres\r\n6. Menos criminalidad: entre 1991 y 2010 las tasas de criminalidad se redujeron en un 80%. En dos d\u00e9cadas Medell\u00edn pas\u00f3 de la inseguridad, a la innovaci\u00f3n y el desarrollo.\r\n\r\nHoy 4 a\u00f1os despu\u00e9s, Medell\u00edn contin\u00faa innovando para conservar \u00e9ste t\u00edtulo otorgado, consolidando el distrito de la innovaci\u00f3n en la zona norte de la ciudad, en la cual se puede encontrar un conjunto de instituciones que apoyan y acompa\u00f1an a los emprendedores e innovadores de la ciudad, adicionalmente construye los parques del r\u00edo que ofrecer\u00e1 una alternativa para una recreaci\u00f3n y contacto con la naturaleza, adem\u00e1s de canalizar el flujo vehicular en zonas de algo tr\u00e1fico de la ciudad y contin\u00faa integrando sistemas de transporte en las diferentes zonas distantes del casco urbano con las creaci\u00f2n de nuevas lienas del metro y la integraci\u00f3n del sistema de metrocable y metroplus.\r\n\r\nMedell\u00edn 4 a\u00f1os despu\u00e9s, sigue hacinedo honor al t\u00edtulo \u201cMedell\u00edn la Ciudad m\u00e1s innovadora del mundo\u201d",
 		"draft": false,
 		"publish": "2017-11-05",
 		"category": 2,
-		"image": "None/Medell\u00ecn.jpg",
+		"image": "articles_images/medellin-la-ciudad-mas-innovadora-del-mundo/Medell\u00ecnMasInnovadora.jpg",
 		"height_field": 720,
 		"width_field": 960,
-		"updated": "2017-11-05T22:54:20.829Z",
+		"updated": "2018-03-25T18:43:19.640Z",
 		"timestamp": "2017-11-05T22:54:20.829Z"
 	}
 }, {
 	"model": "blog.article",
-	"pk": 7,
+	"pk": 4,
 	"fields": {
-		"author": 2,
-		"title": "EMPRENDER PARA INNOVAR O INNOVAR PARA EMPRENDER",
+		"author": 4,
+		"title": "Emprender para innovar o innovar para emprender",
 		"slug": "emprender-para-innovar-o-innovar-para-emprender",
 		"content": "Se ha vuelto habitual en los \u00faltimos tiempos escuchar el t\u00e9rmino \u201c eso es muy innovador\u201d o \u201c tengo una idea s\u00faper innovadora\u201d,  tambi\u00e9n es bastante com\u00fan en ciudades como Medell\u00edn  que conozcamos cada vez m\u00e1s emprendedores o instituciones que se suman al ecosistema de emprendimiento ofreciendo sus servicios  sea en fase de acompa\u00f1amiento al emprendedor o  en fases de incubaci\u00f3n o aceleraci\u00f3n empresarial, lo cierto es que aunque \u00e9stos dos t\u00e9rminos est\u00e1n estrechamente relacionados, deber\u00e1n diferenciarse en si mismos para tener claro el camino de qui\u00e9n se defina como un Emprendedor o un Innovador.\r\n\r\n\r\nCuando consultamos referentes en t\u00e9rminos de innovaci\u00f3n en el mundo, como manuales de Oslo , Fascatti y art\u00edculos relacionados, siempre el t\u00e9rmino de innovaci\u00f3n se referrir\u00e1 a una novedad o transformaci\u00f3n parcial o completa de cualquier producto, servicio, proceso, mercado entre otros, siempre que sea aplicado o que tenga un uso particular, por lo tanto cuando hablamos de innovaci\u00f3n no sreferimos a una invenci\u00f3n que involucra una aplicaci\u00f3n en particular. Por otro lado, el emprendimiento se referir\u00e1 siempre a la acci\u00f3n de comenzar algo, \u201cEmprender\u201d  podr\u00e1 referirse a comenzar un nuevo proyecto o enfrentar un nuevo camino hacia una meta en particular, cuando emprendemos un nuevo negocio o una empresa, estamos comenzando un camino  con una idea de negocio que esperamos nos lleve como meta a una empresa exitosa en el mercdo.\r\n\r\nTeniendo en cuenta esto, podremos  emprender un nuevo negocio con o sin factor innovador de por medio, podremos  iniciar un nuevo negocio que ya exista  y lo hacemos por tener las habilidades para ello o tener los contactos necesarios para que \u00e9ste crezca, pero cuando  en el proceso de emprender est\u00e1 involucrado  un claro factor innovador, nos dirigimos sin duda a un \u00e9xito inminente, una innovaci\u00f3n disruptiva o incremental  que al sumarla a la propuesta de valor del modelo de negocio propuesto har\u00e1 que el Emprendimiento crezca y permanezca en el tiempo.",
 		"draft": false,
 		"publish": "2017-11-05",
 		"category": 2,
-		"image": "None/Emprender.jpg",
+		"image": "articles_images/emprender-para-innovar-o-innovar-para-emprender/EmprenderParaInnovar.jpg",
 		"height_field": 720,
 		"width_field": 960,
-		"updated": "2017-11-05T23:06:44.607Z",
+		"updated": "2018-03-25T18:42:33.505Z",
 		"timestamp": "2017-11-05T23:06:44.607Z"
+	}
+}, {
+	"model": "blog.article",
+	"pk": 5,
+	"fields": {
+		"author": 5,
+		"title": "La responsabilidad social llega a las Universidades",
+		"slug": "la-responsabilidad-social-llega-a-las-universidades",
+		"content": "La Responsabilidad Social, se ha convertido en una tem\u00e1tica de inter\u00e9s no s\u00f3lo del \u00e1mbito empresarial, en donde lo ha sido desde el \u00faltimo siglo, sino tambi\u00e9n del \u00e1mbito universitario, a partir de la \u201cDeclaraci\u00f3n mundial sobre la Educaci\u00f3n Superior en el Siglo XXI: Visi\u00f3n y Acci\u00f3n\u201d, promovida por la UNESCO, a trav\u00e9s de la Conferencia Mundial, de 1998, en la cual se reforz\u00f3 el llamado a las universidades a ser socialmente responsables, toda vez que se\u00f1alo: \u201cla pertinencia de la educaci\u00f3n superior debe ser evaluada en funci\u00f3n de la adecuaci\u00f3n entre lo que la sociedad espera de las instituciones y lo que \u00e9stas hacen\u201d (UNESCO, 1998).",
+		"draft": false,
+		"publish": "2018-03-25",
+		"category": 4,
+		"image": "articles_images/la-responsabilidad-social-llega-a-las-universidades/ResponsabilidadSocial.jpg",
+		"height_field": 194,
+		"width_field": 260,
+		"updated": "2018-03-25T18:56:57.675Z",
+		"timestamp": "2018-03-25T18:56:57.676Z"
 	}
 }]

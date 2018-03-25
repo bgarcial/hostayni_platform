@@ -33,6 +33,7 @@ class StudyOfferImagesUploadForm(forms.ModelForm):
 class DateInput(DatePicker):
     def __init__(self):
         DatePicker.__init__(self,format="%Y-%m-%d")
+
     def build_attrs(self, attrs, extra_attrs=None, **kwargs):
         attrs = dict(self.attrs, **kwargs)
         if extra_attrs:

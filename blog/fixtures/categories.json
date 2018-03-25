@@ -9,8 +9,8 @@
 	"model": "blog.category",
 	"pk": 2,
 	"fields": {
-		"title": "EDUCACIÓN",
-		"description": "EDUCACIÓN"
+		"title": "EMPRENDIMIENTO",
+		"description": "EMPRENDIMIENTO"
 	}
 }, {
 	"model": "blog.category",
@@ -23,14 +23,14 @@
 	"model": "blog.category",
 	"pk": 4,
 	"fields": {
-		"title": "EMPRENDIMIENTO",
-		"description": "EMPRENDIMIENTO"
+		"title": "AYNI",
+		"description": "AYNI"
 	}
 }, {
 	"model": "blog.category",
 	"pk": 5,
 	"fields": {
-		"title": "AYNI",
-		"description": "AYNI"
+		"title": "EDUCACI\u00d3N",
+		"description": "EDUCACI\u00d3N"
 	}
 }]
