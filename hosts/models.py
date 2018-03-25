@@ -274,7 +274,12 @@ class LodgingOffer(models.Model):
         help_text='Esta imagen acompañará tu oferta en los resultados de búsquedas'
     )
 
-    room_value = models.CharField(_("Precio"), max_length=128, help_text='Precio en pesos colombianos')
+    location_zone = models.CharField(_("Zona/Barrio"),
+                    max_length=128, help_text='Sector por donde está ubicada la oferta')
+
+    monthly_price = models.CharField(_("Precio mensual"), max_length=128, help_text='Precio en pesos colombianos')
+
+    room_night_value = models.CharField(_("Precio por noche"), max_length=128, help_text='Precio en pesos colombianos')
 
     additional_description = models.TextField(
         null=True,

@@ -86,7 +86,8 @@
         <span>{{ lodgingofferdetail.address }}, {{ lodgingofferdetail.city }} - {{ lodgingofferdetail.country }}</span>
       </div>
       <div class="lodging-price">
-        <span>$ {{ lodgingofferdetail.room_value }} COP </span>
+        <span>Precio por noche: $ {{ lodgingofferdetail.room_night_value }} COP </span>
+        <span>Precio mensual: $ {{ lodgingofferdetail.monthly_price }} COP </span>
       </div>
     </div>
 
@@ -126,7 +127,7 @@
               </div>
               <div class="imp-feat-I">
                 <img src="{% static 'img/icons/diary-button.svg' %}" alt="">
-                <p> {{ lodgingofferdetail.bathroom }} </p>
+                <p> {{ lodgingofferdetail.location_zone }} </p>
               </div>
             </div>
             <div class="cont amenities">
