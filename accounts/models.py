@@ -412,11 +412,11 @@ class User(AbstractBaseUser, PermissionsMixin):
             study_host_profile = self.studyhostprofile
         return study_host_profile
 
-    def get_enterpreneurship_host_profile(self):
-        enterpreneurship_host_profile = None
-        if hasattr(self, 'enterpreneurshiphostprofile'):
-            enterpreneurship_host_profile = self.enterpreneurshiphostprofile
-        return enterpreneurship_host_profile
+    def get_entrepreneurship_host_profile(self):
+        entrepreneurship_host_profile = None
+        if hasattr(self, 'entrepreneurshiphostprofile'):
+            entrepreneurship_host_profile = self.entrepreneurshiphostprofile
+        return entrepreneurship_host_profile
 
     def get_hosting_host_profile(self):
         hosting_host_profile = None
@@ -470,8 +470,8 @@ class User(AbstractBaseUser, PermissionsMixin):
             )
 
 
-        if self.is_entrepreneurship_host and getattr(self, 'enterpreneurshiphostprofile', None) is None:
-            EnterprenurshipHostProfile.objects.create(
+        if self.is_entrepreneurship_host and getattr(self, 'entrepreneurshiphostprofile', None) is None:
+            EntrepreneurshipHostProfile.objects.create(
                 user=self,
                 slug=self.username
             )
@@ -993,7 +993,7 @@ class StudyHostProfile(models.Model):
         return "{}".format(self.user.username, )
 
 
-class EnterprenurshipHostProfile(models.Model):
+class EntrepreneurshipHostProfile(models.Model):
     user = models.OneToOneField(
         settings.AUTH_USER_MODEL,
         on_delete=models.CASCADE
@@ -1066,7 +1066,7 @@ class DailyLifeHostProfile(models.Model):
     )
 
     class Meta:
-        verbose_name_plural = 'Usuarios con perfil de anfitriones de servicios varios'
+        verbose_name_plural = 'Usuarios con perfil de anfitriones de vida diaria'
 
     def __str__(self):
         return "{}".format(self.user.username, )
