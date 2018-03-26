@@ -31,7 +31,7 @@ class EntrepreneurshipOfferCreateView(SuccessMessageMixin, LoginRequiredMixin, U
 class EntrepreneurshipOfferDetailView(SuccessMessageMixin, UserProfileDataMixin, LoginRequiredMixin, DetailView):
     model = EntrepreneurshipOffer
     template_name = 'entrepreneurship/detail.html'
-    context_object_name = 'entrepreneurshipdetail'
+    # context_object_name = 'entrepreneurshipdetail'
 
     def get_context_data(self, **kwargs):
         context = super(EntrepreneurshipOfferDetailView, self).get_context_data(**kwargs)

@@ -3,8 +3,39 @@
 {% load bootstrap3 %}
 {% bootstrap_css %}
 {% bootstrap_javascript %}
-{% block title_tag %}{{ entrepreneurshipdetail.ad_title }} | {{ block.super }}{% endblock %}
+{% block title_tag %}{{ object.ad_title }} | {{ block.super }}{% endblock %}
 {% block body_content %}
+
+<!-- Carousel container-fluid lo redimensiona hacia al lado izquierdo -->
+<!-- <div class="container-fluid-lodging" style="margin-top: -19px; margin-bottom: 19px;padding: 0px;">
+    <div id="carousel-example-generic" class="carousel slide" data-ride="carousel"> -->
+      <!-- Indicators -->
+      <!-- <ol class="carousel-indicators">
+        {% for upload in uploads %}
+        <li data-target="#carousel-example-generic" data-slide-to="{{ forloop.counter }}"{% if forloop.first %}class="active"{% endif %}>
+        </li>
+        {% endfor %}
+      </ol> -->
+
+      <!-- Wrapper for slides -->
+      <!-- <div class="carousel-inner-lodging" role="listbox">
+        {% for upload in uploads %}
+            <div class="item {% if forloop.first %}active{% endif %}">
+              <img src="{{ upload.image.url }}" width="100%" height="auto"  alt="">
+            </div>
+        {% endfor %}
+      </div> -->
+      <!-- Controls -->
+      <!-- <a class="left carousel-control" href="#carousel-example-generic" role="button" data-slide="prev">
+        <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
+        <span class="sr-only">Previous</span>
+      </a>
+      <a class="right carousel-control" href="#carousel-example-generic" role="button" data-slide="next">
+        <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
+        <span class="sr-only">Next</span>
+      </a> -->
+    <!-- </div>
+</div> -->
 
 <div class="container">
   <div id="myCarousel" class="carousel slide" data-ride="carousel">
@@ -40,17 +71,17 @@
 <div class="detail-lodging-container">
 <main class="main-detail-lodging">
     <div class="acomodacion-lodging">
-        <h4>{{ entrepreneurshipdetail.offer_type }}</h4>
+        <h4>{{ object.offer_type }}</h4>
     </div>
     <div class="title-cont-lodging">
-        <h1>{{ entrepreneurshipdetail.ad_title }}</h1>
+        <h1>{{ object.ad_title }}</h1>
     </div>
     <div class="lodging-location-title">
       <div class="lodging-location">
-        <span>{{ entrepreneurshipdetail.city }} - {{ entrepreneurshipdetail.country }}</span>
+        <span>{{ object.city }} - {{ object.country }}</span>
       </div>
       <div class="lodging-price">
-        <span>Precio por noche: $ {{ entrepreneurshipdetail.price }} COP </span>
+        <span>Precio: $ {{ object.price }} COP </span>
       </div>
     </div>
 
@@ -61,57 +92,64 @@
 
         {% comment %}
         <div class="title-cont-lodging">
-            <h1>{{ lodgingofferdetail.ad_title }}</h1>
+            <h1>{{ object.ad_title }}</h1>
         </div>
         {% endcomment %}
 
-        {% comment %}
         <div class="add-images-container">
-            {% if entrepreneurshipdetail.created_by_id == userprofile.user.id %}
+            {% if object.created_by_id == userprofile.user.id %}
             <div class="main-content-lodging">
-              <a href="{% url 'host:edit_lodging_offer_uploads_image' slug=lodgingofferdetail.slug %}">
+              <a href="#">
                   <img src="{% static 'img/icons/photo.svg' %}" alt=""> Agregar/Editar </a>
             </div>
-            <p><a class='glyphicon glyphicon-pencil' href = "{% url 'host:edit-lodging-offer' slug=lodgingofferdetail.slug %}"></a>
+            <p><a class='glyphicon glyphicon-pencil' href = ""></a>
       &nbsp;&nbsp;&nbsp;&nbsp;| &nbsp;&nbsp;&nbsp;&nbsp;
-            <a class='glyphicon glyphicon-trash' href = "{% url 'host:delete-lodging-offer' slug=lodgingofferdetail.slug %}"></a></p>
+            <a class='glyphicon glyphicon-trash' href = ""></a></p>
             {% endif %}
         </div>
-        {% endcomment %}
 
         <div class="details-alojamiento">
 
             <div class="important-features">
               <div class="imp-feat-I">
                 <img src="{% static 'img/icons/diary-button.svg' %}" alt="">
-                <p> {{ entrepreneurshipdetail.date }} </p>
+                <p> {{ object.date }} </p>
               </div>
               <div class="imp-feat-I">
                 <img src="{% static 'img/icons/diary-button.svg' %}" alt="">
-                <p> Más información: {{ entrepreneurshipdetail.url }} </p>
+                <p> {{ object.url }} </p>
+              </div>
+              <div class="imp-feat-I">
+                <img src="{% static 'img/icons/diary-button.svg' %}" alt="">
+                <p>  </p>
               </div>
             </div>
-              <div class="comodidades-destacadas-container">
-                <h3>Contacto</h3>
-
-                <div class="comodidades-destacadas-lodging">
+            <div class="cont amenities">
+              <div class="servicios-ofrecidos-container"/>
+                <h3>Datos de contacto</h3>
+                <div class="servicios-ofrecidos-lodging">
                     <img src="{% static 'img/icons/diary-button.svg' %}" alt="">
-                    <span>Contacto: {{ entrepreneurshipdetail.contact_name }}</span><br/>
-                    <span>No. de teléfono: {{ entrepreneurshipdetail.phone_number }}</span><br/>
-                    <span>Correo electrónico {{ entrepreneurshipdetail.username }}</span>
+                    <span>{{ object.contact_name }}</span>
+                    <img src="{% static 'img/icons/diary-button.svg' %}" alt="">
+                    <span>{{ object.phone_number }}</span>
+                    <img src="{% static 'img/icons/diary-button.svg' %}" alt="">
+                    <span>{{ object.email }}</span>
                 </div>
 
-              </div>
-            {% comment %}
-            <div class="lodging-mapa">
 
+            </div>
+
+
+
+            <div class="lodging-mapa">
+                {% comment %}
                 <div class="map-cont">
                     <iframe src="https://www.google.com/maps/embed?pb=!1m10!1m8!1m3!1d1983.0517024099001!2d-75.56337732682343!3d6.25010353077667!3m2!1i1024!2i768!4f13.1!5e0!3m2!1ses!2sco!4v1501007278560" frameborder="0" style="border:0" allowfullscreen></iframe>
                 </div>
-
+                {% endcomment %}
             </div>
-            {% endcomment %}
         </div>
+
 
         <div id="disqus_thread"></div>
     </div>
@@ -128,9 +166,9 @@
             <div class="autor-lodging">
                 <div class="profile-lodging">
                     <div class="img-cont-lodging">
-                        {% if entrepreneurshipdetail.created_by.avatar %}
+                        {% if object.created_by.avatar %}
                         <a href="{% url 'accounts:detail' userprofile.user.username %}">
-                            <img src="{{ entrepreneurshipdetail.created_by.avatar.url }}" alt="" class="img-responsive">
+                            <img src="{{ object.created_by.avatar.url }}" alt="" class="img-responsive">
                         </a>
                         {% else %}
                              <a href="{% url 'accounts:detail' userprofile.user.username %}">
@@ -141,10 +179,10 @@
                     <div class="name-review-cont-lodging">
                         {% comment %} A quien corresponda {% endcomment %}
                          <a href="{% url 'accounts:detail' userprofile.user.username %}">
-                            {% if entrepreneurshipdetail.created_by.user_type == "O" %}
-                                <span>{{ entrepreneurshipdetail.created_by.get_enterprise_name }} (@{{ entrepreneurshipdetail.created_by.username }})</span>
+                            {% if object.created_by.user_type == "O" %}
+                                <span>{{ object.created_by.get_enterprise_name }} (@{{ object.created_by.username }})</span>
                             {% else %}
-                                <span><span>{{ entrepreneurshipdetail.created_by.get_long_name }}</span> (@{{ entrepreneurshipdetail.created_by.username }})</span>
+                                <span><span>{{ object.created_by.get_long_name }}</span> (@{{ object.created_by.username }})</span>
                             {% endif %}
                          </a>
 
@@ -160,13 +198,12 @@
                 </div>
             </div>
             <div class="date-lodging-publish">
-                <span>{{ entrepreneurshipdetail.created }}</span>
+                <span>{{ object.pub_date }}</span>
             </div>
 
 
-
-            {% comment %} APLICANDO.
-            {% if entrepreneurshipdetail.created_by_id != userprofile.user.id %}
+            {% comment %}
+            {% if lodgingofferdetail.created_by_id != userprofile.user.id %}
             <div class="contact">
               <a class="contact-button" href="
               {% url 'host:contact_owner_offer' lodging_offer_owner_full_name=lodging_offer_owner_full_name lodging_offer_owner_email=lodging_offer_owner_email user_interested_full_name=user_interested_full_name interested_email=user_interested_email lodging_offer_title=lodging_offer_title offer_url=offer_url %}">
@@ -177,9 +214,8 @@
                           al dueño de la oferta y al usuario interesado en ella.</h4>
             </div>
             {% endif %}
-            {% endcomment %}
 
-            {% comment %}
+
             <div class="review">
                 <p class="title">Calificación de la oferta</p>
                 <img src="{% static 'img/stars.svg' %}" alt="">
