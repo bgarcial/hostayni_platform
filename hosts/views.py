@@ -723,17 +723,11 @@ class StudyOfferUpdateView(SuccessMessageMixin, UserProfileDataMixin, LoginRequi
     form_class = StudiesOffertForm
     # success_url = reverse_lazy("articles:articles_list")
     # success_url = reverse_lazy("hosts:detail-lodging-offer")
-    success_message = "Oferta de estudio actualizada con éxito"
+    success_message = "Oferta educativa actualizada con éxito"
 
     def get_context_data(self, **kwargs):
         context = super(StudyOfferUpdateView, self).get_context_data(**kwargs)
         user = self.request.user
-        study_offer = StudiesOffert.objects.get(slug=self.kwargs.get('slug'))
-        print(study_offer)
-        print(user)
-        if not (study_offer.created_by.email == user.email):
-            return HttpResponse("It is not yours ! You are not permitted !",
-                        content_type="application/json", status=403)
         return context
 
 

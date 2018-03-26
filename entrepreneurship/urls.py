@@ -31,7 +31,7 @@ urlpatterns = [
         EntrepreneurshipOffersByUser.as_view(),
         name='list'),
 
-    # Ver todas las imágenes de oferta de emprendimiento que han sido subidas
+    # Ver todas las imágenes de oferta de emprendimiento que han sido subidas y subir una nueva
     # llama a edit_entrepreneurship_offer_images.html
     url(r'^(?P<slug>[-\w]+)/edit/images/$',
         add_entrepreneurship_offer_images, name='edit_entrepreneurship_images'),
