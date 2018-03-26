@@ -1,0 +1,34 @@
+{% extends 'layout.html' %}
+{% block title_tag %}Lodging Offert | {{ block.super }}{% endblock %}
+
+{% block body_content %}
+
+<div class="container-lodging">
+ <div class="panel-lodging panel-default">
+ <!-- Default panel contents -->
+  <div class="panel-heading">Mis ofertas de emprendimiento
+      &nbsp;&nbsp;&nbsp;&nbsp;| &nbsp;&nbsp;&nbsp;&nbsp;
+       <a href = "{% url 'offer:create' %}">Crear oferta</a>
+  </div>
+   <!-- Table -->
+   <table class="table">
+    <tr>
+     <th>Oferta</th>
+     <th>Acciones</th>
+    </tr>
+  {% for offers in offers_by_user %}
+
+    <tr>
+     <td>
+      <h5><a href="{% url 'offer:detail' offers.slug %}">{{ offers.ad_title }}</a>
+     </td>
+     <td>
+     <p><a class='glyphicon glyphicon-pencil' href = "{% url 'offer:edit' slug=offers.slug %}"></a>
+      &nbsp;&nbsp;&nbsp;&nbsp;| &nbsp;&nbsp;&nbsp;&nbsp;
+   <a class='glyphicon glyphicon-trash' href = "{% url 'offer:delete' slug=offers.slug %}"></a></p>
+     </td>
+    {% endfor %}
+   </table>
+ </div>
+</div>
+{% endblock %}

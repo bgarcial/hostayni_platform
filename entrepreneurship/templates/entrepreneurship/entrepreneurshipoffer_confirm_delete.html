@@ -1,0 +1,17 @@
+{% extends 'layout.html' %}
+
+{% block title_tag %}{{ object.ad_title }} | {{ block.super }}{% endblock %}
+{% block body_content %}
+<br/><br/><br/><br/>
+<div class="container">
+    <h1>¿ Estas seguro que deseas borrar la oferta {{ object.ad_title }} ?</h1>
+    <form method="post">
+        {% csrf_token %}
+        <input type="submit" class="btn btn-danger"
+               a href="{% url 'offer:delete' object.slug %}" value="Eliminar">
+        <a href="{% url 'offer:list' object.created_by.slug %}">Cancelar</a>
+    </form>
+<br/><br/><br/>
+</div>
+
+{% endblock %}

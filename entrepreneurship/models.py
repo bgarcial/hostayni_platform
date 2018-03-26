@@ -95,7 +95,8 @@ class EntrepreneurshipOffer(TimeStampModel):
     url = models.TextField(
         validators=[URLValidator()],
         verbose_name='Dirección de enlace',
-        help_text='Para mayor información referencie una dirección o enlace web'
+        help_text='Para mayor información referencie una dirección o enlace web',
+        null = True
     )
 
     contact_name = models.CharField(

@@ -1,14 +1,18 @@
 from __future__ import unicode_literals
+
+from django.http import Http404
 from django.shortcuts import render
 from django.views.generic.edit import (CreateView, UpdateView,)
 from django.views.generic.detail import DetailView
+from django.views.generic import DeleteView, ListView
 from django.contrib.messages.views import SuccessMessageMixin
-from hostayni.mixins import UserProfileDataMixin
 from django.contrib.auth.mixins import LoginRequiredMixin
+from django.utils import timezone
+from django.core.urlresolvers import reverse_lazy, reverse
+
 from .models import EntrepreneurshipOffer
 from .forms import EntrepreneurshipOfferForm
-from django.utils import timezone
-
+from hostayni.mixins import UserProfileDataMixin
 
 # Create your views here.
 
@@ -36,7 +40,6 @@ class EntrepreneurshipOfferDetailView(SuccessMessageMixin, UserProfileDataMixin,
     def get_context_data(self, **kwargs):
         context = super(EntrepreneurshipOfferDetailView, self).get_context_data(**kwargs)
         user = self.request.user
-
 
         # Capturamos quien creo la oferta, y su titulo de anuncio
         offer_owner = self.get_object().created_by.get_long_name()
@@ -70,4 +73,82 @@ class EntrepreneurshipOfferDetailView(SuccessMessageMixin, UserProfileDataMixin,
 
         context['offer_url'] = offer_url
 
+        return context
+
+
+class EntrepreneurshipOfferUpdateView(SuccessMessageMixin, UserProfileDataMixin, LoginRequiredMixin, UpdateView):
+    model = EntrepreneurshipOffer
+    form_class = EntrepreneurshipOfferForm
+    success_message = "Oferta de emprendimiento actualizada con éxito"
+    # template_name = 'entrepreneruship/delete.html'
+
+    def get_context_data(self, **kwargs):
+        context = super(EntrepreneurshipOfferUpdateView, self).get_context_data(**kwargs)
+        # user = self.request.user
+        return context
+
+    # Permiso para que solo el dueño pueda editarla
+    def get_object(self, queryset=None):
+        """ Hook to ensure object is owned by request.user. """
+        obj = super(EntrepreneurshipOfferUpdateView, self).get_object()
+        if not obj.created_by == self.request.user:
+            raise Http404
+        return obj
+
+
+class EntrepreneurshipOfferDeleteView(SuccessMessageMixin, UserProfileDataMixin, LoginRequiredMixin, DeleteView):
+    model = EntrepreneurshipOffer
+
+    success_url = reverse_lazy("articles:article_list")
+    # context_object_name = 'lodgingofferdelete'
+    success_message = "Oferta de alojamiento eliminada con éxito"
+
+    """
+    def get_success_url(self):
+        entrepreneurship_offer = self.get_object()
+        #print(entrepreneurship_offer)
+        return reverse_lazy("offer:list", kwargs={'created_by': entrepreneurship_offer.created_by.username})
+    """
+
+    def get_object(self, queryset=None):
+        """ Hook to ensure object is owned by request.user. """
+        obj = super(EntrepreneurshipOfferDeleteView, self).get_object()
+        if not obj.created_by == self.request.user:
+            raise Http404
+        return obj
+
+    def get_context_data(self, **kwargs):
+        context = super(EntrepreneurshipOfferDeleteView, self).get_context_data(**kwargs)
+        return context
+
+
+def entrepreneurship_offers_by_user(request, username):
+    user = request.user
+    profile = user.profile
+    entrepreneurship_offers = EntrepreneurshipOffer.objects.filter(created_by__username=user.username)
+
+    return render(
+        request,
+        'entrepreneurship/my_entrepreneurship_offer_list.html',
+        {'entrepreneurship_offers': entrepreneurship_offers,
+        'userprofile': profile}
+    )
+
+
+class EntrepreneurshipOffersByUser(LoginRequiredMixin, UserProfileDataMixin, ListView):
+    template_name = 'entrepreneurship/my_entrepreneurship_offer_list.html'
+
+    def get_queryset(self, *args, **kwargs):
+        user = self.request.user
+        queryset_list = EntrepreneurshipOffer.objects.filter(created_by__username=user.username)
+        return queryset_list
+
+    def get_context_data(self, **kwargs):
+        context = super(EntrepreneurshipOffersByUser, self).get_context_data(**kwargs)
+        user = self.request.user
+        entrepreneurship_offers = EntrepreneurshipOffer.objects.filter(created_by__username=user.username)
+        context['offers_by_user'] = entrepreneurship_offers
+
+        #if user.is_authenticated():
+        #    context['userprofile'] = user.profile
         return context

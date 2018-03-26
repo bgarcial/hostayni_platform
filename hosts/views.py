@@ -185,10 +185,10 @@ class LodgingOfferSearch(FormView):
         return context
 
 
-def studies_offers_by_user(request, email):
+def studies_offers_by_user(request, username):
     user = request.user
     profile = user.profile
-    studies_offers = StudiesOffert.objects.filter(created_by__email=user.email)
+    studies_offers = StudiesOffert.objects.filter(created_by__email=user.username)
 
     return render(
         request,
@@ -212,7 +212,7 @@ class LodgingOffersByUser(LoginRequiredMixin, ListView):
         return context
 '''
 
-def lodging_offers_by_user(request, email):
+def lodging_offers_by_user(request, username):
     user = request.user
     profile = user.profile
     lodging_offers = LodgingOffer.objects.filter(created_by__email=user.email)
@@ -642,14 +642,9 @@ class StudyOfferImageUpdateView(SuccessMessageMixin, UserProfileDataMixin, Login
 
     def get_context_data(self, **kwargs):
         context = super(StudyOfferImageUpdateView, self).get_context_data(**kwargs)
-
         user = self.request.user
         study_offer_image = StudyOfferImage.objects.get(pk=self.kwargs.get('pk'))
         context['study_offer_image'] = study_offer_image
-
-        # study_offer = StudiesOffert.objects.get(slug=self.kwargs.get('slug'))
-
-
         return context
 
     # Permiso para que solo el dueño pueda editarla
