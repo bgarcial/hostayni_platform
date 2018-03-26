@@ -1,9 +1,6 @@
 {% extends 'layout.html' %}
 {% load staticfiles %}
-{% load thumbnail %}
-{% load bootstrap3 %}
-{% bootstrap_css %}
-{% bootstrap_javascript %}
+
 {% block title_tag %}{{ lodgingofferdetail.ad_title }} | {{ block.super }}{% endblock %}
 {% block body_content %}
 
@@ -123,20 +120,20 @@
                   <div class="profile-study">
                       <div class="img-cont-study">
                           {% if studyofferdetail.created_by.avatar %}
-                          <a href="{% url 'accounts:detail' userprofile.user.email %}">
+                          <a href="{% url 'accounts:detail' userprofile.user.username %}">
                               <img src="{{ studyofferdetail.created_by.avatar.url }}" alt="" class="img-responsive">
                           </a>
                           {% else %}
-                               <a href="{% url 'accounts:detail' userprofile.user.email %}">
+                               <a href="{% url 'accounts:detail' userprofile.user.username %}">
                                  <img src="{% static 'img/default_profile_pic.png' %}" class="img-responsive">
                                </a>
                           {% endif %}
                       </div>
                       <div class="name-review-cont-study">
                           {% comment %} A quien corresponda {% endcomment %}
-                           <a href="{% url 'accounts:detail' userprofile.user.email %}">
+                           <a href="{% url 'accounts:detail' userprofile.user.username %}">
                               <span>{{ studyofferdetail.created_by.get_long_name }}</span>
-                              <span>{{ studyofferdetail.created_by.get_enterprise_name }} (@{{ studyofferdetail.created_by.email }})</span>
+                              <span>{{ studyofferdetail.created_by.get_enterprise_name }} (@{{ studyofferdetail.created_by.username }})</span>
                           </a>
                           {% comment %}
                           <img src="{% static 'img/stars.svg' %}" alt="">

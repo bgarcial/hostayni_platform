@@ -199,9 +199,9 @@ s.setAttribute('data-timestamp', +new Date());
                         <div class="name-options-cont">
                             <div class="name">
                             {% if userprofile.user.user_type == "P" %}
-                                <p>{{ userprofile.user.email }} - {{ userprofile.user.first_name }}</p>
+                                <p>{{ userprofile.user.username }} - {{ userprofile.user.first_name }}</p>
                             {% else %}
-                                <p>{{ userprofile.user.email }} - {{ userprofile.user.enterprise_name }}</p>
+                                <p>{{ userprofile.user.username }} - {{ userprofile.user.enterprise_name }}</p>
                             {% endif %}
                             </div>
                             <div class="options">
@@ -425,7 +425,8 @@ s.setAttribute('data-timestamp', +new Date());
                  var parentId = this_.attr("data-id")
 
                  // Capturamos el user al que vamos a hacer reply
-                 var email = this_.attr("data-user")
+                 //var email = this_.attr("data-user")
+                 var username = this_.attr("data-user")
 
                  // Capturamos el contenido al que le haremos reply
                  //var content = this_.attr("data-content")
@@ -436,7 +437,7 @@ s.setAttribute('data-timestamp', +new Date());
                  $("#replyModal textarea").after("<input type='hidden' value='" + parentId + "' name='parent_id' />")
                  $("#replyModal textarea").after("<input type='hidden' value='" + true + "' name='reply' />")
 
-                  $("#replyModal textarea").val("@" + email + " ")
+                  $("#replyModal textarea").val("@" + username + " ")
 
                  // Poniendo el titulo al cual le queremos responder
                   $("#replyModal #replyModalLabel").text("Reply to " + content)
@@ -463,7 +464,7 @@ s.setAttribute('data-timestamp', +new Date());
                     url: url,
                     success: function (data) {
                         console.log(data)
-                        // if email is in the API path .. let's ignore
+                        // if username is in the API path .. let's ignore
                         if (initialURL == "/api/post/"){
                             attachPost(data, true, true)
                             updateHashLinks()
@@ -482,7 +483,7 @@ s.setAttribute('data-timestamp', +new Date());
              // cada que se ponga un post con #sdsd
 
              // Tambien User Parsing que se ponga con href cada
-             // que se ponga un @user/email en este caso
+             // que se ponga un @user/username en este caso
              function updateHashLinks() {
                 $(".content").each(function(data){
                 // Expresion regular para el hashtag
@@ -496,7 +497,7 @@ s.setAttribute('data-timestamp', +new Date());
                     newText = currentHtml.replace(hashtagRegex, "$1<a href='/tags/$2/'>#$2</a>")
                     //newText = currentHtml.replace(hashtagRegex, "$1<a href='/tags/$2/'>#$2</a>")
 
-                    // Creando el URL /accounts/profiles/@email y parseandola a html
+                    // Creando el URL /accounts/profiles/@username y parseandola a html
                     // inclyendo @ en link
                     newText = newText.replace(emailRegex, "$1 @<a href='/accounts/profiles/$2/'>$2</a>")
                  //newText = newText.replace(usernameRegex, "$1 @<a href='/$2/'>$2</a>")

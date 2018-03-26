@@ -1,20 +1,19 @@
 {% extends 'layout.html' %}
-{% load bootstrap3 %}
 {% block title_tag %}{{ studyofferdetail.ad_title }} | {{ block.super }}{% endblock %}
-{% block top_logo %}
-{% include "top-logo.html" %}
-{% endblock %}
 {% block body_content %}
-
+<br/><br/><br/>
 <div class="container">
+<br/><br/>
     <h1>¿ Estas seguro que deseas borrar la oferta {{ studyofferdelete.ad_title }} ?</h1>
     <form method="post">
         {% csrf_token %}
-        <input type="submit" class="btn btn-danger" value="Eliminar">
-        <a href="{% url 'host:studiesofferlist' studyofferdelete.slug %}">Cancelar</a>
+        <input type="submit" class="btn btn-danger"
+               a href="{% url 'host:delete-study-offer' studyofferdelete.slug %}" value="Eliminar">
+        <a href="{% url 'host:studiesofferlist' studyofferdelete.created_by.slug %}">Cancelar</a>
     </form>
+<br/><br/>
 
-    
+
 </div>
 
 {% endblock %}

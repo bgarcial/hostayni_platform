@@ -188,7 +188,7 @@ class LodgingOfferSearch(FormView):
 def studies_offers_by_user(request, username):
     user = request.user
     profile = user.profile
-    studies_offers = StudiesOffert.objects.filter(created_by__email=user.username)
+    studies_offers = StudiesOffert.objects.filter(created_by__username=user.username)
 
     return render(
         request,

@@ -82,7 +82,7 @@ urlpatterns = [
         name='study-host'),
 
     # List Study Host Offers
-    url(r'^studies-offers/by/u/@(?P<username>[-\w]+)/',
+    url(r'^studies-offers/by/u/(?P<username>[-\w]+)/',
         studies_offers_by_user,
         name='studiesofferlist'),
 
