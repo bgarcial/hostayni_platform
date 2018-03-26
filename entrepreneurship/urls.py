@@ -2,7 +2,8 @@ from django.conf.urls import url
 from .views import (EntrepreneurshipOfferCreateView, EntrepreneurshipOfferDetailView,
                     EntrepreneurshipOfferUpdateView, EntrepreneurshipOfferDeleteView,
                     entrepreneurship_offers_by_user, EntrepreneurshipOffersByUser,
-                    add_entrepreneurship_offer_images, EntrepreneurshipOfferImageUpdateView)
+                    add_entrepreneurship_offer_images, EntrepreneurshipOfferImageUpdateView,
+                    contact_owner_offer)
 
 urlpatterns = [
 
@@ -42,6 +43,14 @@ urlpatterns = [
     url(r"^lodging-offer/edit/images/(?P<pk>\d+)/$",
         EntrepreneurshipOfferImageUpdateView.as_view(),
         name='edit_entrepreneurship_offer_image'),
+
+
+    url(r'^contact-to-owner/(?P<offer_owner_full_name>[\w." "@+-]+)/'
+        r'(?P<offer_owner_username>[\w." "@+-]+)/(?P<lodging_offer_owner_email>[\w.@+-]+)/from/'
+        r'(?P<user_interested_full_name>[\w." "@+-]+)/(?P<interested_email>[\w.@+-]+)/'
+        r'(?P<offer_title>[\w." "@+-]+)/(?P<offer_url>[\w.@+-/]+)/$',
+        contact_owner_offer, name='contact_owner_offer'),
+
 
     ]
 

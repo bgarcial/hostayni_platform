@@ -1,6 +1,6 @@
 from __future__ import unicode_literals
 
-from django.http import Http404
+from django.http import Http404, HttpResponseNotModified
 from django.shortcuts import render, redirect
 from django.views.generic.edit import (CreateView, UpdateView,)
 from django.views.generic.detail import DetailView
@@ -12,10 +12,15 @@ from django.core.urlresolvers import reverse_lazy, reverse
 
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
+from django.template.loader import render_to_string
+from django.core.mail import send_mail
+from django.conf import settings
 
 from .models import EntrepreneurshipOffer, EntrepreneurshipOfferImage
 from .forms import EntrepreneurshipOfferForm, EntrepreneurshipOfferImagesForm
 from hostayni.mixins import UserProfileDataMixin
+
+
 
 
 
@@ -231,3 +236,50 @@ class EntrepreneurshipOfferImageUpdateView(SuccessMessageMixin, UserProfileDataM
         if not obj.entrepreneurship_offer.created_by == self.request.user:
             raise Http404
         return obj
+
+
+def contact_owner_offer(request, offer_owner_full_name, offer_owner_username, offer_owner_email,
+                        user_interested_full_name, interested_email, offer_title, offer_url):
+    user = request.user
+    if user.is_authenticated:
+        # print('Send email')
+        mail_subject = 'Interesados en tu oferta'
+
+
+        context = {
+            # usuario dueño de la oferta  TO
+            'offer_owner_full_name': offer_owner_full_name,
+            #'lodging_offer_owner_enterprise_name': lodging_offer_owner_enterprise_name,
+            'offer_owner_username': offer_owner_username,
+            'offer_owner_email': offer_owner_email,
+
+
+            # oferta por la que se pregunta
+            'offer_title': offer_title,
+            'offer_url': offer_url,
+            'domain': settings.SITE_URL,
+            'request': request.get_full_path,
+
+            # usuario interesado en la oferta
+            'interested_email': interested_email,
+            'user_interested_full_name': user_interested_full_name,
+        }
+
+        message = render_to_string('enterpreneurship/contact_user_own_offer.html', context)
+        #to_email = lodging_offer_owner.email,
+
+        send_mail(mail_subject, message, settings.DEFAULT_FROM_EMAIL,
+                  [offer_owner_email, interested_email], html_message=message, fail_silently=True)
+
+        #sleep(60)
+        # Hacer esto con celery --- pagina 66 https://docs.google.com/document/d/1aUVRvGFh0MwYZydjXlebaSQJgZnHJDOKx3ccjWmusgc/edit#
+
+        msg_to_owner = render_to_string('enterpreneurship/to_own_offer.html', context)
+        send_mail(mail_subject, msg_to_owner, settings.DEFAULT_FROM_EMAIL,
+                  [offer_owner_email], html_message=msg_to_owner, fail_silently=True)
+
+        #messages.success(request, "El anfitrión", lodging_offer_owner_email, "ha sido contactado " )
+
+    #return redirect('host:contact_owner_offer', lodging_offer_owner_email=lodging_offer_owner_email,
+                    #interested_email=interested_email, slug=slug)
+    return HttpResponseNotModified()

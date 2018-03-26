@@ -304,11 +304,13 @@ class HostingOfferDetailView(SuccessMessageMixin, UserProfileDataMixin, LoginReq
         #lodging_offer_owner = self.get_object()
         lodging_offer_owner_full_name = self.get_object().created_by.get_long_name()
         lodging_offer_owner_enterprise_name = self.get_object().created_by.get_enterprise_name
+        lodging_offer_owner_username = self.get_object().created_by.username
         lodging_offer_owner_email = self.get_object().created_by.email
         lodging_offer_title = self.get_object().ad_title
 
         # Capturamos los datos de quien esta interesado en la oferta
         user_interested_email = user.email
+        user_interested_username = user.username
         user_interested_full_name = user.get_long_name()
 
 
@@ -322,11 +324,13 @@ class HostingOfferDetailView(SuccessMessageMixin, UserProfileDataMixin, LoginReq
         # We send the contexts
         context['uploads'] = uploads
         context['lodging_offer_owner_email'] = lodging_offer_owner_email
+        context['lodging_offer_owner_username'] = lodging_offer_owner_username
         context['lodging_offer_owner_full_name'] = lodging_offer_owner_full_name
         context['lodging_offer_owner_enterprise_name'] = lodging_offer_owner_enterprise_name
         context['lodging_offer_title'] = lodging_offer_title
 
         context['user_interested_email'] = user_interested_email
+        context['user_interested_username'] = user_interested_username
         context['user_interested_full_name'] = user_interested_full_name
 
         context['offer_url'] = url_offer
@@ -449,17 +453,21 @@ def delete_upload_study_offer_image(request, id):
 
 
 def contact_owner_offer(request, lodging_offer_owner_full_name, lodging_offer_owner_email,
-                        user_interested_full_name, interested_email, lodging_offer_title, offer_url):
+                        lodging_offer_owner_username,
+                        user_interested_full_name, user_interested_username,
+                        interested_email, lodging_offer_title, offer_url):
     user = request.user
     if user.is_authenticated:
         # print('Send email')
-        mail_subject = 'Interesados en tu oferta'
+        mail_subject_to_user = 'Has aplicado a una oferta de alojamiento'
+        mail_subject_to_owner = 'Interesados en tu oferta'
 
 
         context = {
             # usuario dueño de la oferta  TO
             'lodging_offer_owner_full_name': lodging_offer_owner_full_name,
             #'lodging_offer_owner_enterprise_name': lodging_offer_owner_enterprise_name,
+            'lodging_offer_owner_username': lodging_offer_owner_username,
             'lodging_offer_owner_email': lodging_offer_owner_email,
 
             # oferta por la que se pregunta
@@ -469,21 +477,22 @@ def contact_owner_offer(request, lodging_offer_owner_full_name, lodging_offer_ow
             'request': request.get_full_path,
 
             # usuario interesado en la oferta
+            'user_interested_username': user_interested_username,
             'interested_email': interested_email,
             'user_interested_full_name': user_interested_full_name,
         }
 
-        message = render_to_string('contact_user_own_offer.html', context)
+        msg_to_who_applies = render_to_string('message_to_user_who_applies.html', context)
         #to_email = lodging_offer_owner.email,
 
-        send_mail(mail_subject, message, settings.DEFAULT_FROM_EMAIL,
-                  [lodging_offer_owner_email, interested_email], html_message=message, fail_silently=True)
+        send_mail(mail_subject_to_user, msg_to_who_applies, settings.DEFAULT_FROM_EMAIL,
+                  [interested_email], html_message=msg_to_who_applies, fail_silently=True)
 
         #sleep(60)
         # Hacer esto con celery --- pagina 66 https://docs.google.com/document/d/1aUVRvGFh0MwYZydjXlebaSQJgZnHJDOKx3ccjWmusgc/edit#
 
         msg_to_owner = render_to_string('to_lodging_own_offer.html', context)
-        send_mail(mail_subject, msg_to_owner, settings.DEFAULT_FROM_EMAIL,
+        send_mail(mail_subject_to_owner, msg_to_owner, settings.DEFAULT_FROM_EMAIL,
                   [lodging_offer_owner_email], html_message=msg_to_owner, fail_silently=True)
 
         #messages.success(request, "El anfitrión", lodging_offer_owner_email, "ha sido contactado " )

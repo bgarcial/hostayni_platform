@@ -167,18 +167,18 @@
                 <div class="profile-lodging">
                     <div class="img-cont-lodging">
                         {% if object.created_by.avatar %}
-                        <a href="{% url 'accounts:detail' userprofile.user.username %}">
+                        <a href="{% url 'accounts:detail' object.created_by.avatar.url %}">
                             <img src="{{ object.created_by.avatar.url }}" alt="" class="img-responsive">
                         </a>
                         {% else %}
-                             <a href="{% url 'accounts:detail' userprofile.user.username %}">
+                             <a href="{% url 'accounts:detail' object.created_by.username %}">
                                <img src="{% static 'img/default_profile_pic.png' %}" class="img-responsive">
                              </a>
                         {% endif %}
                     </div>
                     <div class="name-review-cont-lodging">
                         {% comment %} A quien corresponda {% endcomment %}
-                         <a href="{% url 'accounts:detail' userprofile.user.username %}">
+                         <a href="{% url 'accounts:detail' object.created_by.username %}">
                             {% if object.created_by.user_type == "O" %}
                                 <span>{{ object.created_by.get_enterprise_name }} (@{{ object.created_by.username }})</span>
                             {% else %}
@@ -206,7 +206,7 @@
             {% if object.created_by_id != userprofile.user.id %}
             <div class="contact">
               <a class="contact-button" href="
-              {% url 'host:contact_owner_offer' lodging_offer_owner_full_name=lodging_offer_owner_full_name lodging_offer_owner_email=lodging_offer_owner_email user_interested_full_name=user_interested_full_name interested_email=user_interested_email lodging_offer_title=lodging_offer_title offer_url=offer_url %}">
+              {% url 'host:contact_owner_offer' offer_owner_full_name=offer_owner_full_name offer_owner_username=offer_owner_username lodging_offer_owner_email=lodging_offer_owner_email user_interested_full_name=user_interested_full_name interested_email=interested_email offer_title=offer_title offer_url=offer_url %}">
                 <img src="{% static 'img/icons/social-lines.svg' %}" alt="">
                 <span>Aplicar</span>
               </a>

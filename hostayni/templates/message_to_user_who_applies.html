@@ -257,56 +257,32 @@
       <div class="bodyPart1">
         <div class="titleSlogan">
           <div class="title">
-            <p>Importante</p>
+            <p>Aplicación a oferta</p>
           </div>
           <div class="slogan">
-            <p style="display:inline">Una recomendación por parte de HOSTAYNI</p>
+            <p style="display:inline">Ha ocurrido una aplicación a una oferta de alojamiento por parte de {{ user_interested_full_name }}</p>
 
           </div>
         </div>
         <div class="msgSaludo">
           <div class="body1">
-              {% if lodging_offer_owner_full_name %}
-                <p class="saludoHola">¡ Hola {{ lodging_offer_owner_full_name }} !</p>
-              {% else %}
-                  <p class="saludoHola">¡ Hola {{ lodging_offer_owner_username }} !</p>
-              {% endif %}
-            <p>Gracias por utilizar hostayni para publicar tus ofertas de alojamiento.
-                El usuario {{ user_interested_full_name }} ({{ interested_email }})
-                está interesado en la siguiente oferta que has publicado:</p><br/>
-              {{ lodging_offer_title }}
+            {% if user_interested_full_name %}
+            <p class="saludoHola">¡ Hola {{ user_interested_full_name }} !</p>
+            {% else %}
+              <p class="saludoHola"> Hola {{ user_interested_username }} </p>
+            {% endif %}
+          {{ user_interested_username }}
+            <p>Gracias por utilizar hostayni para encontrar tu mejor opción de alojamiento.
+                El oferente que publicó la oferta en la cual estas interesado ya ha sido notificado
+                de tu interés y te estará contactando directamente para llegar a un acuerdo contigo.
+                Te deseamos una excelente experiencia en la red de alojamiento de Hostayni.
+            </p><br/>
+              La oferta  a la cual has aplicado es: {{ lodging_offer_title }}
           </div> <br/><br/>
-
+          <div class="contButton">
+            <a href="{{ domain }}{{ offer_url }}" class="button">Ir a oferta</a>
+          </div><br/>
           <div class="body2">
-            <p> Por favor contacta directamente a
-                {% if user_interested_full_name %}
-                    {{ user_interested_full_name }} ({{ interested_email }}),
-                {% else %}
-                    {{ user_interested_username }} ({{ interested_email }})
-                {% endif %}
-                vía correo electrónico para concretar un acuerdo y posteriormente dale de baja a
-                la oferta dentro de tus ofertas disponibles.</p>
-
-            <p>Si llegas a un acuerdo con
-                {% if user_interested_full_name %}
-                    {{ user_interested_full_name }} ({{ interested_email }}),
-                {% else %}
-                    {{ user_interested_username }} ({{ interested_email }})
-                {% endif %}
-                debes actualizar tu oferta, editando su estado a <strong>"Oferta tomada"</strong>
-                para que ésta no sea incluida en los resultados de búsquedas futuras por parte de
-                otros usuarios de HOSTAYNI</p>
-            <br/><br/>
-              <div class="contButton">
-                <a href="{{ domain }}{{ offer_url }}/edit" class="button">Actualizar estado de oferta</a>
-              </div><br/>
-
-              <br/>
-                 <p> En hostayni esperamos que todos los oferentes de servicios brinden una excelente
-              experiencia a todos los usuarios por lo que te solicitamos brindar una pronta respuesta
-              a esta solicitud y responder el correo electrónico que te estaremos enviando en las
-             próximas 5 horas para confirmar si llegaste o no a un acuerdo con el interesado.</p>
-
             <p>Saludos,</p>
             <br/>
             <p>Equipo Hostayni</p>
@@ -349,7 +325,9 @@
         </div>
       </div>
       <div class="footerDown">
+          <div class="foot"><br/>
 
+          </div>
       </div>
     </div>
   </div>
