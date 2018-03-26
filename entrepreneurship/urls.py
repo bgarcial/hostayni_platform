@@ -3,7 +3,7 @@ from .views import (EntrepreneurshipOfferCreateView, EntrepreneurshipOfferDetail
                     EntrepreneurshipOfferUpdateView, EntrepreneurshipOfferDeleteView,
                     entrepreneurship_offers_by_user, EntrepreneurshipOffersByUser,
                     add_entrepreneurship_offer_images, EntrepreneurshipOfferImageUpdateView,
-                    contact_owner_offer)
+                    contact_owner_offer, EntrepreneurshipOfferSearch)
 
 urlpatterns = [
 
@@ -11,6 +11,12 @@ urlpatterns = [
     url(r'^new/$',
         EntrepreneurshipOfferCreateView.as_view(),
         name='create'),
+
+    # Search Hosting Offer
+    url(r'^search/$',
+        EntrepreneurshipOfferSearch.as_view(),
+        name='entrepreneurship_offer_search'),
+
 
     # Detail of a Entrepreneurship Offer
     url(r"^(?P<slug>[\w-]+)/$",
@@ -40,7 +46,7 @@ urlpatterns = [
 
     # Editar una imágen de oferta de emprendimiento de manera individual
     # Llama a entrepreneurshipofferimage_form.html
-    url(r"^lodging-offer/edit/images/(?P<pk>\d+)/$",
+    url(r"^edit/images/(?P<pk>\d+)/$",
         EntrepreneurshipOfferImageUpdateView.as_view(),
         name='edit_entrepreneurship_offer_image'),
 
@@ -53,6 +59,7 @@ urlpatterns = [
         r'(?P<interested_email>[\w.@+-]+)/'
         r'(?P<offer_title>[\w." "@+-]+)/(?P<offer_url>[\w.@+-/]+)/$',
         contact_owner_offer, name='contact_owner_offer'),
+
 
 
     ]

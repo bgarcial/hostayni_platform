@@ -181,6 +181,7 @@ s.setAttribute('data-timestamp', +new Date());
                               <p><strong>Búsquedas</strong></p>
                               <li><a href="{% url 'host:hostingoffer-search' %}">Ofertas de alojamiento</a></li>
                               <li><a href="{% url 'host:studyoffer-search' %}">Ofertas de educación</a></li>
+                              <li><a href="{% url 'offer:entrepreneurship_offer_search' %}">Ofertas de emprendimiento</a></li>
                               {% if userprofile.user.is_superuser %}
                                   <li class="line"></li>
                                   <p><strong>Carrusel de imágenes</strong></p>
@@ -246,6 +247,7 @@ s.setAttribute('data-timestamp', +new Date());
                                         <p><strong>Búsquedas</strong></p>
                                         <li><a href="{% url 'host:hostingoffer-search' %}">Ofertas de alojamiento</a></li>
                                         <li><a href="{% url 'host:studyoffer-search' %}">Ofertas de educación</a></li>
+                                        <li><a href="{% url 'offer:entrepreneurship_offer_search' %}">Ofertas de emprendimiento</a></li>
 
                                          {% if userprofile.user.is_superuser %}
                                              <li class="line"></li>

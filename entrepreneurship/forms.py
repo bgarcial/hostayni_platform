@@ -39,3 +39,8 @@ class EntrepreneurshipOfferImagesForm(forms.ModelForm):
     class Meta:
         model = EntrepreneurshipOfferImage
         fields = ('image', )
+
+
+class EntrepreneurshipOfferSearchForm(forms.Form):
+    query = forms.CharField(label='', widget=forms.TextInput(
+        attrs={'placeholder': 'Buscar por: '}))
