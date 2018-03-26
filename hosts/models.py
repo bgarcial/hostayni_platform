@@ -127,9 +127,6 @@ class LodgingOffer(models.Model):
         (DOUBLE_BED, "Cama doble"),
     )
 
-    PRIVATE_BATHROOM = 'Baño privado'
-    SHARED_BATHROOM = 'Baño compartido'
-
     created_by = models.ForeignKey(
         settings.AUTH_USER_MODEL,
         on_delete=models.CASCADE
@@ -283,7 +280,7 @@ class LodgingOffer(models.Model):
         verbose_name='Descripción adicional'
     )
 
-    # Este campo sera grabado solo una vez cuando se cree el articulo
+    # Este campo sera grabado solo una vez cuando se cree la oferta
     pub_date = models.DateTimeField(
         auto_now=False, auto_now_add=True
         # related_name="lodgingoffers"
@@ -325,8 +322,11 @@ class LodgingOffer(models.Model):
     def get_absolute_url(self):
         return reverse('host:detail', kwargs={'slug': self.slug})
 
-    def get_price(self):
-        return self.room_value
+    def get_monthly_price(self):
+        return self.monthly_price
+
+    def get_room_night_value(self):
+        return self.room_night_value
 
     class Meta:
         ordering = ['-is_paid', '-pub_date', '-updated', ]

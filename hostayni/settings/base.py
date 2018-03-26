@@ -72,8 +72,9 @@ INSTALLED_APPS = [
     # Project apps
     'accounts.apps.AccountsConfig',
     'blog.apps.BlogConfig',
+    'entrepreneurship.apps.EntrepreneurshipConfig',
     'hashtags.apps.HashtagsConfig',
-    'hostayni',
+    # 'hostayni.apps.HostayniConfig',
     'host_information.apps.HostInformationConfig',
     'hosts.apps.HostsConfig',
     'posts.apps.PostsConfig',

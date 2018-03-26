@@ -63,7 +63,6 @@ class StudiesOffertIndex(indexes.SearchIndex, indexes.Indexable):
         return self.get_model().objects.filter(pub_date__lte=timezone.now()).filter(is_taked=False)
 
 
-
 class LodgingOfferIndex(indexes.SearchIndex, indexes.Indexable):
 
     # Cada SearchIndex requiere que uno de sus campos tenga document=True.
@@ -91,9 +90,9 @@ class LodgingOfferIndex(indexes.SearchIndex, indexes.Indexable):
 
     number_guest_room_type = indexes.CharField(model_attr='number_guest_room_type', null=True)
 
-    room_value = indexes.CharField(model_attr='room_value', null=True)
+    monthly_price = indexes.CharField(model_attr='monthly_price', null=True)
 
-    # offered_services = indexes.MultiValueField(model_attr='offered_services__lodgingserviceoffer__name', boost=1.25)
+    room_night_value = indexes.CharField(model_attr='room_night_value', null=True)
 
     offered_services = indexes.MultiValueField()
 

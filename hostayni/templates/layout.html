@@ -114,13 +114,13 @@ s.setAttribute('data-timestamp', +new Date());
                 <a href="{% url 'host:studyoffer-search' %}"><img src="{% static 'img/icons/Educacion.svg' %}" title="Ofertas de educación" alt=""></a>
               </div>
               <div class="pic_icon">
-                <a href="#"><img src="{% static 'img/icons/Emprendimiento.svg' %}" alt="" title="Próximamente"></a>
+                <a href="#"><img src="{% static 'img/icons/Emprendimiento.svg' %}" alt="" title="Ofertas de emprendimiento"></a>
               </div>
               <div class="pic_icon">
-                <a href="#"><img src="{% static 'img/icons/VidaDiaria.svg' %}" alt="" title="Próximamente"></a>
+                <a href="#"><img src="{% static 'img/icons/VidaDiaria.svg' %}" alt="" title="Ofertas de vida diaria"></a>
               </div>
               <div class="pic_icon">
-                <a href="#"><img src="{% static 'img/icons/Ayni.svg' %}" alt="" title="Próximamente"></a>
+                <a href="#"><img src="{% static 'img/icons/Ayni.svg' %}" alt="" title="Ofertas AYNI"></a>
               </div>
               <!-- <div class="pic_icon">
                 <a href="#"><img src="{% static 'img/icons/social-grey.svg' %}" alt="" title="Próximamente"></a>
@@ -150,7 +150,7 @@ s.setAttribute('data-timestamp', +new Date());
                               <li><a href="{% url 'accounts:profile' userprofile.user.slug %}">Mis roles de usuario</a></li>
                               <li class="line"></li>
                               <p><strong>Contenidos</strong></p>
-                              <li><a href="{% url 'articles:create' %}">Crear Artículo</a></li>
+                              <li><a href="{% url 'articles:new' %}">Crear Artículo</a></li>
                               <li><a href="{% url 'articles:list' userprofile.user.slug %}">Mis artículos</a></li>
                               <li class="line"></li>
                               <p><strong>Social</strong></p>
@@ -164,6 +164,18 @@ s.setAttribute('data-timestamp', +new Date());
                               {% if userprofile.user.is_study_host %}
                                 <li><a href="{% url 'host:study-host' %}">Crear oferta de educación</a></li>
                                    <li><a href="{% url 'host:studiesofferlist' userprofile.user.slug %}">Mis ofertas de educación</a></li>
+                              {% endif %}
+                              {% if userprofile.user.is_entrepreneurship_host %}
+                                <li><a href="#">Crear oferta de emprendimiento</a></li>
+                                <li><a href="#">Mis ofertas de emprendimiento</a></li>
+                              {% endif %}
+                              {% if userprofile.user.is_ayni_host %}
+                                <li><a href="#">Crear oferta AYNI</a></li>
+                                <li><a href="#">Mis ofertas AYNI</a></li>
+                              {% endif %}
+                              {% if userprofile.user.is_daily_life_host %}
+                                <li><a href="#">Crear oferta de vida diaria</a></li>
+                                <li><a href="#">Mis ofertas de vida diaria</a></li>
                               {% endif %}
                               <li class="line"></li>
                               <p><strong>Búsquedas</strong></p>
@@ -202,7 +214,7 @@ s.setAttribute('data-timestamp', +new Date());
                                         <li><a href="{% url 'accounts:profile' userprofile.user.slug %}">Mis roles de usuario</a></li>
                                         <li class="line"></li>
                                         <p><strong>Contenidos</strong></p>
-                                        <li><a href="{% url 'articles:create' %}">Crear Artículo</a></li>
+                                        <li><a href="{% url 'articles:new' %}">Crear Artículo</a></li>
                                         <li><a href="{% url 'articles:list' userprofile.user.slug %}">Mis artículos</a></li>
                                         <li class="line"></li>
                                         <p><strong>Anfitrión</strong></p>
@@ -210,9 +222,25 @@ s.setAttribute('data-timestamp', +new Date());
                                           <li><a href="{% url 'host:hosting-host' %}">Crear oferta de alojamiento</a></li>
                                           <li><a href="{% url 'host:list' userprofile.user.slug %}">Mis ofertas de alojamiento</a></li>
                                         {% endif %}
+
                                         {% if userprofile.user.is_study_host %}
                                           <li><a href="{% url 'host:study-host' %}">Crear oferta de educación</a></li>
                                              <li><a href="{% url 'host:studiesofferlist' userprofile.user.slug %}">Mis ofertas de educación</a></li>
+                                        {% endif %}
+                                        <hr>
+                                        {% if userprofile.user.is_entrepreneurship_host %}
+                                            <li><a href="{% url 'offer:create' %}">Crear oferta de emprendimiento</a></li>
+                                            <li><a href="#">Mis ofertas de emprendimiento</a></li>
+                                        {% endif %}
+                                        <hr>
+                                        {% if userprofile.user.is_ayni_host %}
+                                            <li><a href="#">Crear oferta AYNI</a></li>
+                                            <li><a href="#">Mis ofertas AYNI</a></li>
+                                        {% endif %}
+                                        <hr>
+                                        {% if userprofile.user.is_daily_life_host %}
+                                            <li><a href="#">Crear oferta de vida diaria</a></li>
+                                            <li><a href="#">Mis ofertas de vida diaria</a></li>
                                         {% endif %}
                                         <li class="line"></li>
                                         <p><strong>Búsquedas</strong></p>

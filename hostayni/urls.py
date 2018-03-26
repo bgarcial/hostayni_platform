@@ -32,7 +32,6 @@ from hashtags.views import HashTagView
 from hashtags.api.views import TagPostAPIView
 
 
-
 # Routers provide an easy way of automatically determining the URL conf.
 router = routers.DefaultRouter()
 router.register(r'lodging-offers', LodgingOfferViewSet)
@@ -109,6 +108,8 @@ urlpatterns = [
     url(r'^', include('blog.urls', namespace='articles')),
 
     url(r'^host/', include('hosts.urls', namespace='host')),
+
+    url(r'^offer/', include('entrepreneurship.urls', namespace='offer')),
 
     # Wire up our API using automatic URL routing.
     url(r'^api/', include(router.urls,)),

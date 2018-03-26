@@ -3,39 +3,8 @@
 {% load bootstrap3 %}
 {% bootstrap_css %}
 {% bootstrap_javascript %}
-{% block title_tag %}{{ lodgingofferdetail.ad_title }} | {{ block.super }}{% endblock %}
+{% block title_tag %}{{ entrepreneurshipdetail.ad_title }} | {{ block.super }}{% endblock %}
 {% block body_content %}
-
-<!-- Carousel container-fluid lo redimensiona hacia al lado izquierdo -->
-<!-- <div class="container-fluid-lodging" style="margin-top: -19px; margin-bottom: 19px;padding: 0px;">
-    <div id="carousel-example-generic" class="carousel slide" data-ride="carousel"> -->
-      <!-- Indicators -->
-      <!-- <ol class="carousel-indicators">
-        {% for upload in uploads %}
-        <li data-target="#carousel-example-generic" data-slide-to="{{ forloop.counter }}"{% if forloop.first %}class="active"{% endif %}>
-        </li>
-        {% endfor %}
-      </ol> -->
-
-      <!-- Wrapper for slides -->
-      <!-- <div class="carousel-inner-lodging" role="listbox">
-        {% for upload in uploads %}
-            <div class="item {% if forloop.first %}active{% endif %}">
-              <img src="{{ upload.image.url }}" width="100%" height="auto"  alt="">
-            </div>
-        {% endfor %}
-      </div> -->
-      <!-- Controls -->
-      <!-- <a class="left carousel-control" href="#carousel-example-generic" role="button" data-slide="prev">
-        <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
-        <span class="sr-only">Previous</span>
-      </a>
-      <a class="right carousel-control" href="#carousel-example-generic" role="button" data-slide="next">
-        <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
-        <span class="sr-only">Next</span>
-      </a> -->
-    <!-- </div>
-</div> -->
 
 <div class="container">
   <div id="myCarousel" class="carousel slide" data-ride="carousel">
@@ -71,22 +40,17 @@
 <div class="detail-lodging-container">
 <main class="main-detail-lodging">
     <div class="acomodacion-lodging">
-        {% if lodgingofferdetail.created_by.user_type == "O" %}
-            <h4>{{ lodgingofferdetail.lodging_offer_type_org }}</h4>
-        {% else %}
-            <h4>{{ lodgingofferdetail.lodging_offer_type }}</h4>
-        {% endif %}
+        <h4>{{ entrepreneurshipdetail.offer_type }}</h4>
     </div>
     <div class="title-cont-lodging">
-        <h1>{{ lodgingofferdetail.ad_title }}</h1>
+        <h1>{{ entrepreneurshipdetail.ad_title }}</h1>
     </div>
     <div class="lodging-location-title">
       <div class="lodging-location">
-        <span>{{ lodgingofferdetail.address }}, {{ lodgingofferdetail.city }} - {{ lodgingofferdetail.country }}</span>
+        <span>{{ entrepreneurshipdetail.city }} - {{ entrepreneurshipdetail.country }}</span>
       </div>
       <div class="lodging-price">
-        <span>Precio por noche: $ {{ lodgingofferdetail.room_night_value }} COP </span>
-        <span>Precio mensual: $ {{ lodgingofferdetail.monthly_price }} COP </span>
+        <span>Precio por noche: $ {{ entrepreneurshipdetail.price }} COP </span>
       </div>
     </div>
 
@@ -101,8 +65,9 @@
         </div>
         {% endcomment %}
 
+        {% comment %}
         <div class="add-images-container">
-            {% if lodgingofferdetail.created_by_id == userprofile.user.id %}
+            {% if entrepreneurshipdetail.created_by_id == userprofile.user.id %}
             <div class="main-content-lodging">
               <a href="{% url 'host:edit_lodging_offer_uploads_image' slug=lodgingofferdetail.slug %}">
                   <img src="{% static 'img/icons/photo.svg' %}" alt=""> Agregar/Editar </a>
@@ -112,71 +77,40 @@
             <a class='glyphicon glyphicon-trash' href = "{% url 'host:delete-lodging-offer' slug=lodgingofferdetail.slug %}"></a></p>
             {% endif %}
         </div>
+        {% endcomment %}
 
         <div class="details-alojamiento">
 
             <div class="important-features">
               <div class="imp-feat-I">
                 <img src="{% static 'img/icons/diary-button.svg' %}" alt="">
-                <p> {{ lodgingofferdetail.number_guest_room_type }} </p>
+                <p> {{ entrepreneurshipdetail.date }} </p>
               </div>
               <div class="imp-feat-I">
                 <img src="{% static 'img/icons/diary-button.svg' %}" alt="">
-                <p> {{ lodgingofferdetail.bed_type }} </p>
-              </div>
-              <div class="imp-feat-I">
-                <img src="{% static 'img/icons/diary-button.svg' %}" alt="">
-                <p> {{ lodgingofferdetail.location_zone }} </p>
+                <p> Más información: {{ entrepreneurshipdetail.url }} </p>
               </div>
             </div>
-            <div class="cont amenities">
-              <div class="servicios-ofrecidos-container"/>
-                <h3>Servicios ofrecidos</h3>
-                {% for services in offeredservices %}
-                <div class="servicios-ofrecidos-lodging">
-                    <img src="{% static 'img/icons/diary-button.svg' %}" alt="">
-                    <span>{{ services }}</span>
-                </div>
-                {% endfor %}
-              </div>
               <div class="comodidades-destacadas-container">
-                <h3>Comodidades destacadas</h3>
-                {% for fa in featuredamenities %}
+                <h3>Contacto</h3>
+
                 <div class="comodidades-destacadas-lodging">
                     <img src="{% static 'img/icons/diary-button.svg' %}" alt="">
-                    <span>{{ fa }}</span>
+                    <span>Contacto: {{ entrepreneurshipdetail.contact_name }}</span><br/>
+                    <span>No. de teléfono: {{ entrepreneurshipdetail.phone_number }}</span><br/>
+                    <span>Correo electrónico {{ entrepreneurshipdetail.username }}</span>
                 </div>
-                {% endfor %}
-              </div>
-              <div class="caract-cuarto-container">
-                      <h3>Características del cuarto</h3>
-                      {% for offer in lodgingoffer %}
-                      <div class="caract-cuarto-lodging">
-                          <img src="{% static 'img/icons/diary-button.svg' %}" alt="">
-                          <span>{{ offer }}</span>
-                      </div>
-                      {% endfor %}
-              </div>
 
+              </div>
+            {% comment %}
             <div class="lodging-mapa">
-                {% comment %}
+
                 <div class="map-cont">
                     <iframe src="https://www.google.com/maps/embed?pb=!1m10!1m8!1m3!1d1983.0517024099001!2d-75.56337732682343!3d6.25010353077667!3m2!1i1024!2i768!4f13.1!5e0!3m2!1ses!2sco!4v1501007278560" frameborder="0" style="border:0" allowfullscreen></iframe>
                 </div>
-                {% endcomment %}
+
             </div>
-        </div>
-        <div class="descripcion-container">
-          <h3>Descripción Adicional</h3>
-          <div class="container">
-              <div class="row">
-                  <div class="col">
-                      <div class="col-sm-6 col-24">
-                          <span><p align="justify">{{ lodgingofferdetail.additional_description }}</p></span>
-                      </div>
-                  </div>
-              </div>
-          </div>
+            {% endcomment %}
         </div>
 
         <div id="disqus_thread"></div>
@@ -194,9 +128,9 @@
             <div class="autor-lodging">
                 <div class="profile-lodging">
                     <div class="img-cont-lodging">
-                        {% if lodgingofferdetail.created_by.avatar %}
+                        {% if entrepreneurshipdetail.created_by.avatar %}
                         <a href="{% url 'accounts:detail' userprofile.user.username %}">
-                            <img src="{{ lodgingofferdetail.created_by.avatar.url }}" alt="" class="img-responsive">
+                            <img src="{{ entrepreneurshipdetail.created_by.avatar.url }}" alt="" class="img-responsive">
                         </a>
                         {% else %}
                              <a href="{% url 'accounts:detail' userprofile.user.username %}">
@@ -206,11 +140,11 @@
                     </div>
                     <div class="name-review-cont-lodging">
                         {% comment %} A quien corresponda {% endcomment %}
-                         <a href="{% url 'accounts:detail' userprofile.user.email %}">
-                            {% if lodgingofferdetail.created_by.user_type == "O" %}
-                                <span>{{ lodgingofferdetail.created_by.get_enterprise_name }} (@{{ lodgingofferdetail.created_by.username }})</span>
+                         <a href="{% url 'accounts:detail' userprofile.user.username %}">
+                            {% if entrepreneurshipdetail.created_by.user_type == "O" %}
+                                <span>{{ entrepreneurshipdetail.created_by.get_enterprise_name }} (@{{ entrepreneurshipdetail.created_by.username }})</span>
                             {% else %}
-                                <span><span>{{ lodgingofferdetail.created_by.get_long_name }}</span> (@{{ lodgingofferdetail.created_by.username }})</span>
+                                <span><span>{{ entrepreneurshipdetail.created_by.get_long_name }}</span> (@{{ entrepreneurshipdetail.created_by.username }})</span>
                             {% endif %}
                          </a>
 
@@ -226,10 +160,13 @@
                 </div>
             </div>
             <div class="date-lodging-publish">
-                <span>{{ lodgingofferdetail.pub_date }}</span>
+                <span>{{ entrepreneurshipdetail.created }}</span>
             </div>
 
-            {% if lodgingofferdetail.created_by_id != userprofile.user.id %}
+
+
+            {% comment %} APLICANDO.
+            {% if entrepreneurshipdetail.created_by_id != userprofile.user.id %}
             <div class="contact">
               <a class="contact-button" href="
               {% url 'host:contact_owner_offer' lodging_offer_owner_full_name=lodging_offer_owner_full_name lodging_offer_owner_email=lodging_offer_owner_email user_interested_full_name=user_interested_full_name interested_email=user_interested_email lodging_offer_title=lodging_offer_title offer_url=offer_url %}">
@@ -240,6 +177,7 @@
                           al dueño de la oferta y al usuario interesado en ella.</h4>
             </div>
             {% endif %}
+            {% endcomment %}
 
             {% comment %}
             <div class="review">

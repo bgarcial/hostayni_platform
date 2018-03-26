@@ -87,16 +87,10 @@ urlpatterns = [
         name='studiesofferlist'),
 
 
-
-
-
     # Editando imagen de estudios
     url(r"^study-offer/edit/images/(?P<pk>\d+)/$",
         StudyOfferImageUpdateView.as_view(),
         name='edit-study-offer-image'),
-
-
-
 
     # Edit Studies offer
     url(r"^study-offer/(?P<slug>[\w-]+)/edit/$",

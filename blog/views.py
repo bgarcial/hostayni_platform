@@ -28,7 +28,7 @@ from django.db.models import Q
 # Create your views here.
 
 
-# ****--- fbv CRUD blog poss ---*****
+# ****--- fbv CRUD blog posts ---*****
 
 def categories(request, id):
     categories = Category.objects.all()
@@ -245,13 +245,12 @@ def article_delete(request, slug=None):
 def articles_by_user(request, email):
     user = request.user
     profile = user.profile
-    articles = Article.objects.filter(author__email=user.email)
+    articles = Article.objects.filter(author__username=user.username)
     return render(
         request,
         'blog/my_articles.html',
         {'articles': articles,
         'userprofile': profile})
-
 
 
 class ArticleDetailView(UserProfileDataMixin, DetailView):
@@ -293,11 +292,12 @@ class CreateArticleView(LoginRequiredMixin, UserProfileDataMixin, CreateView):
     redirect_field_name = 'blog/article_detail.html'
     form_class = ArticleForm
 
-    model=Article
+    model = Article
 
     def form_valid(self, form):
         form.save(commit=False)
         form.instance.author = self.request.user
+        form.instance.publish = timezone.now()
         form.save()
         messages.success(self.request, "Successfully created")
         return super(CreateArticleView, self).form_valid(form)
