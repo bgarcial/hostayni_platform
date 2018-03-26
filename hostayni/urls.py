@@ -109,7 +109,7 @@ urlpatterns = [
 
     url(r'^host/', include('hosts.urls', namespace='host')),
 
-    url(r'^offer/', include('entrepreneurship.urls', namespace='offer')),
+    url(r'^offer/entrepreneurship/', include('entrepreneurship.urls', namespace='offer')),
 
     # Wire up our API using automatic URL routing.
     url(r'^api/', include(router.urls,)),

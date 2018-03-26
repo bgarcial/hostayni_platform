@@ -166,8 +166,8 @@ s.setAttribute('data-timestamp', +new Date());
                                    <li><a href="{% url 'host:studiesofferlist' userprofile.user.slug %}">Mis ofertas de educación</a></li>
                               {% endif %}
                               {% if userprofile.user.is_entrepreneurship_host %}
-                                <li><a href="#">Crear oferta de emprendimiento</a></li>
-                                <li><a href="#">Mis ofertas de emprendimiento</a></li>
+                                <li><a href="{% url 'offer:create' %}">Crear oferta de emprendimiento</a></li>
+                                <li><a href="{% url 'offer:list' userprofile.user.slug %}">Mis ofertas de emprendimiento</a></li>
                               {% endif %}
                               {% if userprofile.user.is_ayni_host %}
                                 <li><a href="#">Crear oferta AYNI</a></li>
@@ -230,7 +230,7 @@ s.setAttribute('data-timestamp', +new Date());
                                         <hr>
                                         {% if userprofile.user.is_entrepreneurship_host %}
                                             <li><a href="{% url 'offer:create' %}">Crear oferta de emprendimiento</a></li>
-                                            <li><a href="#">Mis ofertas de emprendimiento</a></li>
+                                            <li><a href="{% url 'offer:list' userprofile.user.slug %}">Mis ofertas de emprendimiento</a></li>
                                         {% endif %}
                                         <hr>
                                         {% if userprofile.user.is_ayni_host %}
