@@ -1,0 +1,26 @@
+{% extends 'layout.html' %}
+{% load staticfiles %}
+{% load bootstrap3 %}
+
+
+{% block title_tag %}Editar Imágenes de {{ entrepreneurship_offer_image.entrepreneurship_offer.ad_title }} | {{ block.super }}{% endblock %}
+{% block body_content %}
+
+<br/><br/><br/><br/><br/><br/>
+<a href="{% url 'offer:edit_entrepreneurship_images' slug=entrepreneurship_offer_image.entrepreneurship_offer.slug %}">Agregar más imágenes a esta oferta</a>
+&nbsp;&nbsp;&nbsp;&nbsp;| &nbsp;&nbsp;&nbsp;&nbsp;
+<a href="{% url 'offer:detail' slug=entrepreneurship_offer_image.entrepreneurship_offer.slug %}">Regresar a oferta</a>
+<h2>Editar imágen</h2>
+<form role="form" action="" method="POST" enctype="multipart/form-data">
+    {% csrf_token %}
+
+    {% bootstrap_form form %}
+
+    <div class="submit-button-cont">
+        <div>
+          <input type="image" src="{% static 'img/icons/ok.png' %}" alt="Submit" width="48" height="48">
+          <input type="submit" value="Actualizar" class="submit-button">
+        </div>
+    </div>
+</form>
+{% endblock %}

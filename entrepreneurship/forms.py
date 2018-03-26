@@ -1,5 +1,5 @@
 from django import forms
-from .models import EntrepreneurshipOffer
+from .models import EntrepreneurshipOffer, EntrepreneurshipOfferImage
 from django_countries.widgets import CountrySelectWidget
 from bootstrap_datepicker.widgets import DatePicker
 
@@ -31,3 +31,11 @@ class EntrepreneurshipOfferForm(forms.ModelForm):
         model = EntrepreneurshipOffer
         fields = ('ad_title', 'offer_type', 'price', 'country', 'city', 'date', 'url', 'contact_name',
                   'phone_number', 'email', 'photo', 'is_taked',)
+
+
+class EntrepreneurshipOfferImagesForm(forms.ModelForm):
+    image = forms.ImageField(label='Fotografía')
+
+    class Meta:
+        model = EntrepreneurshipOfferImage
+        fields = ('image', )

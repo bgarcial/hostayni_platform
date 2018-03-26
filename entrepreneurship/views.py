@@ -1,7 +1,7 @@
 from __future__ import unicode_literals
 
 from django.http import Http404
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.views.generic.edit import (CreateView, UpdateView,)
 from django.views.generic.detail import DetailView
 from django.views.generic import DeleteView, ListView
@@ -10,9 +10,14 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from django.utils import timezone
 from django.core.urlresolvers import reverse_lazy, reverse
 
-from .models import EntrepreneurshipOffer
-from .forms import EntrepreneurshipOfferForm
+from django.contrib import messages
+from django.contrib.auth.decorators import login_required
+
+from .models import EntrepreneurshipOffer, EntrepreneurshipOfferImage
+from .forms import EntrepreneurshipOfferForm, EntrepreneurshipOfferImagesForm
 from hostayni.mixins import UserProfileDataMixin
+
+
 
 # Create your views here.
 
@@ -152,3 +157,77 @@ class EntrepreneurshipOffersByUser(LoginRequiredMixin, UserProfileDataMixin, Lis
         #if user.is_authenticated():
         #    context['userprofile'] = user.profile
         return context
+
+
+
+@login_required
+def add_entrepreneurship_offer_images(request, slug):
+    user = request.user
+    profile = user.profile
+
+    # We get the entrepreneurship offer
+    entrep_offer = EntrepreneurshipOffer.objects.get(slug=slug)
+
+    # Verifying user owner offer to edit capabilities
+    if entrep_offer.created_by != request.user:
+        raise Http404
+
+    # Use the LodgingOfferImageForm
+    form_class = EntrepreneurshipOfferImagesForm
+
+    # If we make submit
+    if request.method == 'POST':
+        # We get data from the submitted form
+        form = form_class(data=request.POST, files=request.FILES, instance=entrep_offer)
+        if form.is_valid():
+            # Create the new LodgingOfferImage object from the submitted form
+            EntrepreneurshipOfferImage.objects.create(
+                entrepreneurship_offer=entrep_offer, image=form.cleaned_data['image']
+            )
+            messages.success(request, "La fotografía ha sido cargada y asociada a tu oferta " + entrep_offer.ad_title)
+            return redirect('offer:edit_entrepreneurship_images', slug=entrep_offer.slug)
+    # Otherwise, just create the lodging offer upload image form
+    else:
+        form = form_class(instance=entrep_offer)
+
+    # We get all images of a LodginOffer object
+    uploads = entrep_offer.entrepreneurshipofferimage.all()
+
+    # Render to template
+    return render(request, 'edit_entrepreneurship_offer_images.html', {
+        'entrep_offer': entrep_offer,
+        'form': form,
+        'uploads': uploads,
+        'userprofile': profile
+    })
+
+
+class EntrepreneurshipOfferImageUpdateView(SuccessMessageMixin, UserProfileDataMixin, LoginRequiredMixin, UpdateView):
+    model = EntrepreneurshipOfferImage
+    form_class = EntrepreneurshipOfferImagesForm
+
+    # success_url = reverse_lazy("host:edit-study-offer-image", pk_url_kwarg='pk')
+
+    success_message = "Imagen actualizada"
+
+    def get_success_url(self):
+        # return reverse("host:edit-study-offer-image", kwargs={self.pk_url_kwarg: self.kwargs.get('pk')})
+        return reverse("offer:edit_entrepreneurship_offer_image",
+                       kwargs={'pk': self.kwargs['pk']})
+
+    def get_context_data(self, **kwargs):
+        context = super(EntrepreneurshipOfferImageUpdateView, self).get_context_data(**kwargs)
+
+        user = self.request.user
+        entrepreneurship_offer_image = EntrepreneurshipOfferImage.objects.get(pk=self.kwargs.get('pk'))
+        context['entrepreneurship_offer_image'] = entrepreneurship_offer_image
+        return context
+
+    # Permiso para que solo el dueño pueda editarla
+
+    def get_object(self, queryset=None):
+        """ Hook to ensure object is owned by request.user. """
+        obj = super(EntrepreneurshipOfferImageUpdateView, self).get_object()
+        if not obj.entrepreneurship_offer.created_by == self.request.user:
+            raise Http404
+        return obj
