@@ -52,18 +52,29 @@ class EntrepreneurshipOfferDetailView(SuccessMessageMixin, UserProfileDataMixin,
         user = self.request.user
 
         # Capturamos quien creo la oferta, y su titulo de anuncio
+
         offer_owner = self.get_object().created_by.get_long_name()
+
         offer_owner_company = self.get_object().created_by.get_enterprise_name
+
+        offer_owner_username = self.get_object().created_by.username
+
         offer_owner_email = self.get_object().created_by.email
+
         offer_title = self.get_object().ad_title
 
         # Capturamos los datos de quien esta interesado en la oferta
         interested_email = user.email
+
         interested_username = user.username
+
         interested_full_name = user.get_long_name()
 
 
+
+
         offer_url = self.request.get_full_path
+        print(offer_url)
 
         # We get the images of LodgingOffer - LodgingOfferImages model
         entrepreneurship_offer = EntrepreneurshipOffer.objects.get(slug=self.kwargs.get('slug'))
@@ -72,9 +83,10 @@ class EntrepreneurshipOfferDetailView(SuccessMessageMixin, UserProfileDataMixin,
 
         # We send the contexts
         context['uploads'] = uploaded
+        context['offer_owner_username'] = offer_owner_username
         context['offer_owner_email'] = offer_owner_email
         context['offer_owner'] = offer_owner
-        context['offer_owner_company'] = offer_owner_company
+        # context['offer_owner_company'] = offer_owner_company
         context['offer_title'] = offer_title
 
         context['interested_email'] = interested_email
@@ -238,8 +250,9 @@ class EntrepreneurshipOfferImageUpdateView(SuccessMessageMixin, UserProfileDataM
         return obj
 
 
-def contact_owner_offer(request, offer_owner_full_name, offer_owner_username, offer_owner_email,
-                        user_interested_full_name, interested_email, offer_title, offer_url):
+def contact_owner_offer(request, offer_owner, offer_owner_username, offer_owner_email,
+                        interested_full_name, interested_username, interested_email,
+                        offer_title, offer_url):
     user = request.user
     if user.is_authenticated:
         # print('Send email')
@@ -248,7 +261,7 @@ def contact_owner_offer(request, offer_owner_full_name, offer_owner_username, of
 
         context = {
             # usuario dueño de la oferta  TO
-            'offer_owner_full_name': offer_owner_full_name,
+            'offer_owner_full_name': offer_owner,
             #'lodging_offer_owner_enterprise_name': lodging_offer_owner_enterprise_name,
             'offer_owner_username': offer_owner_username,
             'offer_owner_email': offer_owner_email,
@@ -261,8 +274,9 @@ def contact_owner_offer(request, offer_owner_full_name, offer_owner_username, of
             'request': request.get_full_path,
 
             # usuario interesado en la oferta
+            'interested_username': interested_username,
             'interested_email': interested_email,
-            'user_interested_full_name': user_interested_full_name,
+            'user_interested_full_name': interested_full_name,
         }
 
         message = render_to_string('enterpreneurship/contact_user_own_offer.html', context)
