@@ -19,6 +19,8 @@ from django.conf import settings
 from .models import EntrepreneurshipOffer, EntrepreneurshipOfferImage
 from .forms import (EntrepreneurshipOfferForm, EntrepreneurshipOfferImagesForm,
                     EntrepreneurshipOfferSearchForm)
+
+from carousel_offers.models import EntrepreneurshipOfferCarousel
 from hostayni.mixins import UserProfileDataMixin
 from django.views.generic.edit import FormView
 from haystack.query import SearchQuerySet
@@ -55,8 +57,8 @@ class EntrepreneurshipOfferSearch(FormView):
         qs_paid = EntrepreneurshipOffer.objects.paid()
         context['offers_paid'] = qs_paid
 
-        # sliders = LodgingOfferCarousel.objects.all_featured()
-        # context['sliders'] = sliders
+        sliders = EntrepreneurshipOfferCarousel.objects.all_featured()
+        context['sliders'] = sliders
 
         if form.is_valid():
             cd = form.cleaned_data

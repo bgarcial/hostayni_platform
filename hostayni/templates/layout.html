@@ -114,7 +114,7 @@ s.setAttribute('data-timestamp', +new Date());
                 <a href="{% url 'host:studyoffer-search' %}"><img src="{% static 'img/icons/Educacion.svg' %}" title="Ofertas de educación" alt=""></a>
               </div>
               <div class="pic_icon">
-                <a href="#"><img src="{% static 'img/icons/Emprendimiento.svg' %}" alt="" title="Ofertas de emprendimiento"></a>
+                <a href="{% url 'offer:entrepreneurship_offer_search' %}"><img src="{% static 'img/icons/Emprendimiento.svg' %}" alt="" title="Ofertas de emprendimiento"></a>
               </div>
               <div class="pic_icon">
                 <a href="#"><img src="{% static 'img/icons/VidaDiaria.svg' %}" alt="" title="Ofertas de vida diaria"></a>
@@ -188,6 +188,7 @@ s.setAttribute('data-timestamp', +new Date());
                                   <li><a href="{% url 'carousels:home-slider' %}">Agregar en el inicio</a></li>
                                   <li><a href="{% url 'carousels:lodging-offers-slider' %}">Agregar en ofertas de alojamiento</a></li>
                                   <li><a href="{% url 'carousels:educational-offers-slider' %}">Agregar en ofertas de educación</a></li>
+                                  <li><a href="{% url 'carousels:entrepreneurship-offers-slider' %}">Agregar en ofertas de emprendimiento</a></li>
                                   <li class="line"></li>
                               {% endif %}
                               <li><a href="{% url 'accounts:logout' %}">Salir</a></li>
@@ -255,6 +256,8 @@ s.setAttribute('data-timestamp', +new Date());
                                             <li><a href="{% url 'carousels:home-slider' %}">Agregar en el inicio</a></li>
                                             <li><a href="{% url 'carousels:lodging-offers-slider' %}">Agregar en ofertas de alojamiento</a></li>
                                             <li><a href="{% url 'carousels:educational-offers-slider' %}">Agregar en ofertas de educación</a></li>
+                                            <li><a href="{% url 'carousels:entrepreneurship-offers-slider' %}">Agregar en ofertas de emprendimiento</a></li>
+
                                             <li class="line"></li>
                                          {% endif %}
 

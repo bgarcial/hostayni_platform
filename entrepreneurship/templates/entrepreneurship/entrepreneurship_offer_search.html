@@ -1,6 +1,6 @@
 {% extends 'layout.html' %}
 {% load staticfiles %}
-{% block title_tag %}Entrepreneurship Offert Search | {{ block.super }}{% endblock %}
+{% block title_tag %}Entrepreneurship Offer Search | {{ block.super }}{% endblock %}
 {% block body_content %}
 
 {% if sliders %}
@@ -77,18 +77,18 @@
 
 {% if "query" in request.GET %}<br />
     <div class="info-results-query">
-        <p><h3>Ofertas de alojamiento que contengan: "{{ cd.query }}"</h3></p>
+        <p><h3>Ofertas de emprendimiento que contengan: "{{ cd.query }}"</h3></p>
         <span>Encontrados cerca de {{ total_results }} resultado{{ total_results|pluralize }}</span>
     </div>
     <br /><br />
     {% for result in results %}
-        {% with lodgingoffer=result.object %}
+        {% with entrepreneurshipoffer=result.object %}
         <div class="item-result-lodging" >
           <div class="img-item-container">
-            <a href="{% url 'host:detail' lodgingoffer.slug %}">
+            <a href="{% url 'offer:detail' entrepreneurshipoffer.slug %}">
                 <div class="img-item-search">
-                    {% if lodgingoffer.photo %}
-                         <img src="{{ lodgingoffer.photo.url }}" width="auto" height="100%" alt="">
+                    {% if entrepreneurshipoffer.photo %}
+                         <img src="{{ entrepreneurshipoffer.photo.url }}" width="auto" height="100%" alt="">
                          <!-- <div class="img-item" style="background: url('{{ offers.photo.url }}') no-repeat center; background-size:cover;"></div> -->
                      {% endif %}
                  </div>
@@ -97,39 +97,39 @@
           <div class="info-item-lodging">
             <div class="info-item-lodging-firstpart">
               <div class="title-item-lodging">
-                  <h3>{{ lodgingoffer.ad_title }}</h3>
+                  <h3>{{ entrepreneurshipoffer.ad_title }}</h3>
               </div>
               <div class="price-item-lodging">
-                <p> $ {{ lodgingoffer.room_value }} COP </p>
+                <p> $ {{ entrepreneurshipoffer.room_value }} COP </p>
               </div>
            </div>
            <div clas="location-item-lodging">
-             <p> {{ lodgingoffer.address }}, {{ lodgingoffer.city }} - {{ lodgingoffer.country }} </p>
+             <p> {{ entrepreneurshipoffer.address }}, {{ entrepreneurshipoffer.city }} - {{ entrepreneurshipoffer.country }} </p>
            </div>
             <div class="info-item-lodging-lastpart">
               <div class="description-item-lodging">
-                <p> {{ lodgingoffer.additional_description|linebreaks|truncatechars:420 }} </p>
+                <p> {{ entrepreneurshipoffer.additional_description|linebreaks|truncatechars:420 }} </p>
               </div>
               <div class="mainfeatures-item-lodging">
                 <div class="imp-feat-II">
                   <img src="{% static 'img/icons/diary-button.svg' %}" alt="">
-                  <p> {{ lodgingoffer.number_guest_room_type }} </p>
+                  <p> {{ entrepreneurshipoffer.number_guest_room_type }} </p>
                  </div>
                  <div class="imp-feat-II">
                    <img src="{% static 'img/icons/diary-button.svg' %}" alt="">
-                   <p> {{ lodgingoffer.room_type_offered }} </p>
+                   <p> {{ entrepreneurshipoffer.room_type_offered }} </p>
                   </div>
                   <div class="imp-feat-II">
                     <img src="{% static 'img/icons/diary-button.svg' %}" alt="">
-                    <p> {{ lodgingoffer.bathroom }} </p>
+                    <p> {{ entrepreneurshipoffer.bathroom }} </p>
                   </div>
               </div>
                 {% comment %}
-                {% if lodgingoffer.created_by.first_name %}
-                    <p>Publicada por: {{ lodgingoffer.created_by.get_long_name }}</p>
+                {% if entrepreneurshipoffer.created_by.first_name %}
+                    <p>Publicada por: {{ entrepreneurshipoffer.created_by.get_long_name }}</p>
                 {% endif %}
-                {% if lodgingoffer.created_by.get_enterprise_name %}
-                    <p>Publicada por: {{ lodgingoffer.created_by.get_enterprise_name }}</p>
+                {% if entrepreneurshipoffer.created_by.get_enterprise_name %}
+                    <p>Publicada por: {{ entrepreneurshipoffer.created_by.get_enterprise_name }}</p>
                 {% endif %}
                 {% endcomment %}
             </div>
@@ -144,7 +144,7 @@
     {% for po in offers_paid %}
     <div class="item-result-lodging" >
       <div class="img-item-container">
-        <a href="{% url 'host:detail' po.slug %}">
+        <a href="{% url 'offer:detail' po.slug %}">
             <div class="img-item-search">
                 {% if po.photo %}
                      <img src="{{ po.photo.url }}" width="auto" height="100%" alt="">
@@ -198,7 +198,7 @@
   {% for offers in offer_list %}
    <div class="item-result-lodging" >
      <div class="img-item-container">
-       <a href="{% url 'host:detail' offers.slug %}">
+       <a href="{% url 'offer:detail' offers.slug %}">
            <div class="img-item-search">
                {% if offers.photo %}
                     <img src="{{ offers.photo.url }}" width="auto" height="100%" alt="">
@@ -222,8 +222,8 @@
        <div class="info-item-lodging-lastpart">
          <div class="description-item-lodging">
 
-             <a href="{% url 'accounts:detail' userprofile.user.email %}">
-                {% if lodgingofferdetail.created_by.user_type == "O" %}
+             <a href="{% url 'accounts:detail' userprofile.user.username %}">
+                {% if entrepreneurshipoffer.created_by.user_type == "O" %}
                     <span>{{ offers.created_by.get_enterprise_name }} <br/>
                 {% else %}
                     <span>{{ offers.created_by.get_long_name }}<br/>
