@@ -279,7 +279,7 @@ def contact_owner_offer(request, offer_owner, offer_owner_username, offer_owner_
             'user_interested_full_name': interested_full_name,
         }
 
-        message = render_to_string('enterpreneurship/contact_user_own_offer.html', context)
+        message = render_to_string('entrepreneurship/message_to_user_who_applies.html', context)
         #to_email = lodging_offer_owner.email,
 
         send_mail(mail_subject, message, settings.DEFAULT_FROM_EMAIL,
@@ -288,7 +288,7 @@ def contact_owner_offer(request, offer_owner, offer_owner_username, offer_owner_
         #sleep(60)
         # Hacer esto con celery --- pagina 66 https://docs.google.com/document/d/1aUVRvGFh0MwYZydjXlebaSQJgZnHJDOKx3ccjWmusgc/edit#
 
-        msg_to_owner = render_to_string('enterpreneurship/to_own_offer.html', context)
+        msg_to_owner = render_to_string('entrepreneurship/to_own_offer.html', context)
         send_mail(mail_subject, msg_to_owner, settings.DEFAULT_FROM_EMAIL,
                   [offer_owner_email], html_message=msg_to_owner, fail_silently=True)
 
