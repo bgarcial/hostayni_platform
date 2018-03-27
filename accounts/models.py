@@ -386,6 +386,7 @@ class User(AbstractBaseUser, PermissionsMixin):
     def get_enterprise_name(self):
         return "{}".format(self.enterprise_name)
 
+
     # We get the profiles user according with their type
 
     def get_student_profile(self):

@@ -128,9 +128,13 @@ urlpatterns = [
         StudyOffertDetailView.as_view(),
         name='studyoffertdetail'),
 
-    url(r'^contact-study-owner/(?P<study_offer_owner_full_name>[\w." "@+-]+)/(?P<study_offer_owner_email>[\w.@+-]+)/from/'
-        r'(?P<user_interested_full_name>[\w." "@+-]+)/(?P<user_interested_email>[\w.@+-]+)/'
-        r'(?P<study_offer_title>[\w." "@+-]+)/(?P<url_offer>[\w.@+-/]+)/$',
+    url(r'^contact-study-owner/(?P<study_offer_owner_full_name>[\w." "@+-]+)/'
+        r'(?P<study_offer_owner_username>[\w." "@+-]+)/'
+        r'(?P<study_offer_owner_email>[\w.@+-]+)/from/'
+        r'(?P<user_interested_full_name>[\w." "@+-]+)/'
+        r'(?P<user_interested_username>[\w.@+-]+)/'
+        r'(?P<user_interested_email>[\w.@+-]+)/'
+        r'(?P<study_offer_title>[\w." "@+-]+)/(?P<offer_url>[\w.@+-/]+)/$',
         contact_study_owner_offer,
         name='contact_study_owner_offer'),
 ]

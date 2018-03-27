@@ -554,20 +554,30 @@ class StudyOffertDetailView(LoginRequiredMixin, UserProfileDataMixin, DetailView
 
         # Capturamos quien creo la oferta, y su titulo de anuncio
         study_offer_owner_full_name = self.get_object().created_by.get_enterprise_name()
-        study_offer_owner_email = self.get_object().created_by.email
+        print("Nombe completo del dueño", study_offer_owner_full_name)
 
-        # print('email del dueño oferta', study_offer_owner_email)
+        study_offer_owner_username = self.get_object().created_by.username
+        print("Usuario del dueño", study_offer_owner_username)
+
+        study_offer_owner_email = self.get_object().created_by.email
+        print('email del dueño ofertassss', study_offer_owner_email)
 
         study_offer_title = self.get_object().ad_title
-        # print('titulo oferta', study_offer_title)
+        print('titulo oferta', study_offer_title)
 
         # Capturamos los datos de quien esta interesado en la oferta
         user_interested_email = user.email
-        # print('email del user interesado oferta', user_interested_email)
+        print('email del user interesado oferta', user_interested_email)
+
+        user_interested_username = user.username
+        print('username del user interesado oferta', user_interested_username)
+
         user_interested_full_name = user.get_long_name()
+        print('Nombe completo del intereadao', user_interested_full_name)
 
         # Capturamos el url de la oferta de estudios
-        url_offer = self.request.get_full_path
+        offer_url = self.request.get_full_path
+        print("URL Offer", offer_url)
 
         study_offer = StudiesOffert.objects.get(slug=self.kwargs.get('slug'))
         # print(study_offer)
@@ -578,14 +588,16 @@ class StudyOffertDetailView(LoginRequiredMixin, UserProfileDataMixin, DetailView
 
         # Enviamos contextos
         context['uploads'] = uploads
+        context['study_offer_owner_username'] = study_offer_owner_username
         context['study_offer_owner_email'] = study_offer_owner_email
         context['study_offer_owner_full_name'] = study_offer_owner_full_name
         context['study_offer_title'] = study_offer_title
 
         context['user_interested_email'] = user_interested_email
+        context['user_interested_username'] = user_interested_username
         context['user_interested_full_name'] = user_interested_full_name
 
-        context['url_offer'] = url_offer
+        context['offer_url'] = offer_url
 
         return context
 
@@ -685,8 +697,10 @@ def delete_upload_study_offer_image(request, id):
     return redirect('host:edit_study_offer_uploads', slug=upload.study_offer.slug)
 
 
-def contact_study_owner_offer(request, study_offer_owner_full_name, study_offer_owner_email,
-                              user_interested_full_name, user_interested_email, study_offer_title, url_offer):
+def contact_study_owner_offer(request, study_offer_owner_full_name, study_offer_owner_username,
+                                study_offer_owner_email, user_interested_full_name, user_interested_username,
+                                user_interested_email,  study_offer_title, offer_url
+                              ):
     user = request.user
     print(study_offer_owner_full_name)
     if user.is_authenticated:
@@ -696,15 +710,17 @@ def contact_study_owner_offer(request, study_offer_owner_full_name, study_offer_
         context = {
             # usuario dueño de la oferta  TO
             'study_offer_owner_full_name': study_offer_owner_full_name,
+            'study_offer_owner_username': study_offer_owner_username,
             'study_offer_owner_email': study_offer_owner_email,
 
             # oferta por la que se pregunta
             'study_offer_title': study_offer_title,
-            'url_offer': url_offer,
+            'offer_url': offer_url,
             'domain': settings.SITE_URL,
             'request': request.get_full_path,
 
             # usuario interesado en la oferta
+            'user_interested_username': user_interested_username,
             'user_interested_email': user_interested_email,
             'user_interested_full_name': user_interested_full_name,
         }
