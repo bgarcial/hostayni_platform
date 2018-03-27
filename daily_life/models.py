@@ -31,7 +31,7 @@ class DailyLifeOfferManager(models.Manager):
 
 
 def get_daily_life_image_path(instance, filename):
-    return '/'.join(['entrepreneurship_offer_images', instance.slug, filename])
+    return '/'.join(['daily_life_offer_images', instance.slug, filename])
 
 
 class DailyLifeOffer(TimeStampModel):
@@ -129,23 +129,23 @@ class DailyLifeOffer(TimeStampModel):
         return "%s" % self.ad_title
 
     def get_absolute_url(self):
-        return reverse('offer:detail', kwargs={'slug': self.slug})
+        return reverse('daily_life_offer:detail', kwargs={'slug': self.slug})
 
     def get_price(self):
         return self.price
 
     class Meta:
         ordering = ['-is_paid', '-created', '-modified', ]
-    """
+
     def save(self, *args, **kwargs):
-        super(EntrepreneurshipOffer, self).save(*args, **kwargs)
+        super(DailyLifeOffer, self).save(*args, **kwargs)
 
         if self.photo:
-            EntrepreneurshipOfferImage.objects.create(
-                entrepreneurship_offer=self,
+            DailyLifeOfferImage.objects.create(
+                daily_life_offer=self,
                 image=self.photo
             )
-    """
+
 
 
 def create_slug(instance, new_slug=None):
@@ -166,3 +166,15 @@ def pre_save_daily_life_offer_receiver(sender, instance, *args, **kwargs):
 
 
 pre_save.connect(pre_save_daily_life_offer_receiver, sender=DailyLifeOffer)
+
+
+def get_image_filename(instance, filename):
+    return '/'.join(['daily_life_offer_images', instance.daily_life_offer.slug, filename])
+
+
+class DailyLifeOfferImage(models.Model):
+    daily_life_offer = models.ForeignKey(DailyLifeOffer, related_name='dailylifeofferimage')
+    image = models.ImageField(upload_to=get_image_filename, verbose_name='Imagen', )
+
+    def __str__(self):
+        return self.daily_life_offer.ad_title

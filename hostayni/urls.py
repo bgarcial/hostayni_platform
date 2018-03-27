@@ -109,9 +109,10 @@ urlpatterns = [
 
     url(r'^host/', include('hosts.urls', namespace='host')),
 
+    url(r'^daily-life-offer/', include('daily_life.urls', namespace='daily_life_offer')),
+
     url(r'^offer/entrepreneurship/', include('entrepreneurship.urls', namespace='offer')),
 
-    url(r'^daily-life-offer/', include('daily_life.urls', namespace='daily_life_offer')),
 
     # Wire up our API using automatic URL routing.
     url(r'^api/', include(router.urls,)),

@@ -1,5 +1,5 @@
 from django import forms
-from .models import DailyLifeOffer
+from .models import (DailyLifeOffer, DailyLifeOfferImage)
 from django_countries.widgets import CountrySelectWidget
 
 
@@ -19,3 +19,17 @@ class DailyLifeOfferForm(forms.ModelForm):
         model = DailyLifeOffer
         fields = ('ad_title', 'country', 'city', 'offer_type', 'photo', 'address', 'price', 'additional_description',
                   'is_taked',)
+
+
+class DailyLifeOfferImagesForm(forms.ModelForm):
+
+    image = forms.ImageField(label='Fotografía')
+
+    class Meta:
+        model = DailyLifeOfferImage
+        fields = ('image', )
+
+
+class DailyLifeOfferSearchForm(forms.Form):
+    query = forms.CharField(label='', widget=forms.TextInput(
+        attrs={'placeholder': 'Buscar por: '}))
