@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import EntrepreneurshipOffer
+from .models import EntrepreneurshipOffer, EntrepreneurshipOfferImage
 
 # Register your models here.
 
@@ -9,3 +9,10 @@ class EntrepreneurshipOfferAdmin(admin.ModelAdmin):
                      'country', 'city', 'date', 'url', 'contact_name')
 
     list_editable = ('is_taked', 'is_paid')
+
+
+@admin.register(EntrepreneurshipOfferImage)
+class EntrepreneurshipOfferImageAdmin(admin.ModelAdmin):
+    list_display = ('id', 'entrepreneurship_offer', 'image',)
+
+    list_editable = ('image',)

@@ -12,7 +12,7 @@ urlpatterns = [
         EntrepreneurshipOfferCreateView.as_view(),
         name='create'),
 
-    # Search Hosting Offer
+    # Search Entrepreneurship Offer
     url(r'^search/$',
         EntrepreneurshipOfferSearch.as_view(),
         name='entrepreneurship_offer_search'),

@@ -17,6 +17,7 @@ from haystack.query import SearchQuerySet
 from hostayni.mixins import UserProfileDataMixin
 from .models import DailyLifeOffer, DailyLifeOfferImage
 from .forms import DailyLifeOfferForm, DailyLifeOfferImagesForm, DailyLifeOfferSearchForm
+from carousel_offers.models import DailyLifeOfferCarousel
 
 
 # Create your views here.
@@ -50,8 +51,8 @@ class DailyLifeOfferSearch(FormView):
         qs_paid = DailyLifeOffer.objects.paid()
         context['offers_paid'] = qs_paid
 
-        # sliders = EntrepreneurshipOfferCarousel.objects.all_featured()
-        # context['sliders'] = sliders
+        sliders = DailyLifeOfferCarousel.objects.all_featured()
+        context['sliders'] = sliders
 
         if form.is_valid():
             cd = form.cleaned_data
