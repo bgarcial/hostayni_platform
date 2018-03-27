@@ -71,6 +71,7 @@ INSTALLED_APPS = [
 
     # Project apps
     'accounts.apps.AccountsConfig',
+    'ayni.apps.AyniConfig',
     'blog.apps.BlogConfig',
     'daily_life.apps.DailyLifeConfig',
     'entrepreneurship.apps.EntrepreneurshipConfig',

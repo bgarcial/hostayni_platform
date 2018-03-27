@@ -1,63 +1,43 @@
 from __future__ import unicode_literals
 from django.db import models
-
 from django.db.models.signals import pre_save
 from django.urls import reverse
 from django.utils import timezone
 from django.template.defaultfilters import slugify
 from django_countries.fields import CountryField
 from django.conf import settings
-
-
-from phonenumber_field.modelfields import PhoneNumberField
-# https://github.com/stefanfoulis/django-phonenumber-field
-
 from django.utils.translation import ugettext_lazy as _
-from django.core.validators import RegexValidator
 
 from entrepreneurship.models import TimeStampModel
 
+
+
 # Create your models here.
 
-
-class DailyLifeOfferManager(models.Manager):
+class AyniOfferManager(models.Manager):
 
     def active(self, *args, **kwargs):
-        return super(DailyLifeOfferManager, self).filter(is_taked=False).filter(is_paid=False).filter(
+        return super(AyniOfferManager, self).filter(is_taked=False).filter(is_paid=False).filter(
             created__lte=timezone.now())
 
     def paid(self, *args, **kwargs):
-        return super(DailyLifeOfferManager, self).filter(is_paid=True).filter(created__lte=timezone.now())
+        return super(AyniOfferManager, self).filter(is_paid=True).filter(created__lte=timezone.now())
 
 
-def get_daily_life_image_path(instance, filename):
+def get_ayni_image_path(instance, filename):
     return '/'.join(['daily_life_offer_images', instance.slug, filename])
 
 
-class DailyLifeOffer(TimeStampModel):
+class AyniOffer(TimeStampModel):
 
-    TRANSPORT = 'Transporte'
-    HEALTH_AND_WELLNESS = 'Salud y bienestar'
-    SPORT = 'Deporte'
-    SHOPPING = 'Compras'
-    GASTRONOMY = 'Gastronomía'
-    TOURISM = 'Turismo'
-    NIGHT_LIFE = 'Vida nocturna'
-    EVENTS_AND_SHOWS = 'Eventos y espectáculos'
-    OUTDOOR_ACTIVITIES = 'Actividades al aire libre'
-    OTHERS = 'Otros'
+    SOCIAL_PROJECTION = 'Proyección Social'
+    ENVIRONMENTAL_PROTECTION = 'Protección del medio ambiente'
+    ANIMAL_PROTECTION = 'Protección Animal'
 
     OFFER_TYPE = (
-        (TRANSPORT, "Transporte"),
-        (HEALTH_AND_WELLNESS,'Salud y bienestar'),
-        (SPORT, "Deporte"),
-        (SHOPPING, "Compras"),
-        (GASTRONOMY, "Gastronomía"),
-        (TOURISM, "Turismo"),
-        (NIGHT_LIFE, "Vida nocturna"),
-        (EVENTS_AND_SHOWS, "Eventos y espectáculos"),
-        (OUTDOOR_ACTIVITIES, "Actividades al aire libre"),
-        (OTHERS, "Otros"),
+        (SOCIAL_PROJECTION, "Proyección Social"),
+        (ENVIRONMENTAL_PROTECTION,'Protección del medio ambiente'),
+        (ANIMAL_PROTECTION, "Protección Animal"),
     )
 
     created_by = models.ForeignKey(
@@ -89,7 +69,7 @@ class DailyLifeOffer(TimeStampModel):
     )
 
     photo = models.ImageField(
-        upload_to=get_daily_life_image_path,
+        upload_to=get_ayni_image_path,
         blank=False,
         verbose_name='Fotografía',
         null=False,
@@ -97,6 +77,10 @@ class DailyLifeOffer(TimeStampModel):
     )
 
     address = models.CharField(_("Dirección"), max_length=128, help_text='Precio en pesos colombianos')
+
+    maximum_quota = models.PositiveSmallIntegerField(
+        verbose_name='Cupos'
+    )
 
     price = models.CharField(_("Precio"), max_length=128, help_text='Precio en pesos colombianos')
 
@@ -123,7 +107,7 @@ class DailyLifeOffer(TimeStampModel):
         default=False,
     )
 
-    objects = DailyLifeOfferManager()
+    objects = AyniOfferManager()
 
     def __str__(self):
         return "%s" % self.ad_title
@@ -138,21 +122,20 @@ class DailyLifeOffer(TimeStampModel):
         ordering = ['-is_paid', '-created', '-modified', ]
 
     def save(self, *args, **kwargs):
-        super(DailyLifeOffer, self).save(*args, **kwargs)
+        super(AyniOffer, self).save(*args, **kwargs)
 
         if self.photo:
-            DailyLifeOfferImage.objects.create(
+            AyniOfferImage.objects.create(
                 daily_life_offer=self,
                 image=self.photo
             )
-
 
 
 def create_slug(instance, new_slug=None):
     slug = slugify(instance.ad_title)
     if new_slug is not None:
         slug = new_slug
-    qs = DailyLifeOffer.objects.filter(slug=slug).order_by("-id")
+    qs = AyniOffer.objects.filter(slug=slug).order_by("-id")
     exists = qs.exists()
     if exists:
         new_slug = "%s-%s" % (slug, qs.first().id)
@@ -160,21 +143,21 @@ def create_slug(instance, new_slug=None):
     return slug
 
 
-def pre_save_daily_life_offer_receiver(sender, instance, *args, **kwargs):
+def pre_save_ayni_offer_receiver(sender, instance, *args, **kwargs):
     if not instance.slug:
         instance.slug = create_slug(instance)
 
 
-pre_save.connect(pre_save_daily_life_offer_receiver, sender=DailyLifeOffer)
+pre_save.connect(pre_save_ayni_offer_receiver, sender=AyniOffer)
 
 
 def get_image_filename(instance, filename):
-    return '/'.join(['daily_life_offer_images', instance.daily_life_offer.slug, filename])
+    return '/'.join(['ayni_offer_images', instance.ayni_offer.slug, filename])
 
 
-class DailyLifeOfferImage(models.Model):
-    daily_life_offer = models.ForeignKey(DailyLifeOffer, related_name='dailylifeofferimage')
+class AyniOfferImage(models.Model):
+    ayni_offer = models.ForeignKey(AyniOffer, related_name='ayniofferimage')
     image = models.ImageField(upload_to=get_image_filename, verbose_name='Imagen', )
 
     def __str__(self):
-        return self.daily_life_offer.ad_title
+        return self.ayni_offer.ad_title
