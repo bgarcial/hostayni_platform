@@ -72,6 +72,7 @@ INSTALLED_APPS = [
     # Project apps
     'accounts.apps.AccountsConfig',
     'blog.apps.BlogConfig',
+    'daily_life.apps.DailyLifeConfig',
     'entrepreneurship.apps.EntrepreneurshipConfig',
     'hashtags.apps.HashtagsConfig',
     # 'hostayni.apps.HostayniConfig',
