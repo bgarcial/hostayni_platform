@@ -167,7 +167,7 @@
                 <div class="profile-lodging">
                     <div class="img-cont-lodging">
                         {% if object.created_by.avatar %}
-                        <a href="{% url 'accounts:detail' object.created_by.avatar.url %}">
+                        <a href="{% url 'accounts:detail' object.created_by.username %}">
                             <img src="{{ object.created_by.avatar.url }}" alt="" class="img-responsive">
                         </a>
                         {% else %}

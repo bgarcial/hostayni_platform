@@ -13,6 +13,9 @@ from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.views.generic.edit import FormView
 from haystack.query import SearchQuerySet
+from django.template.loader import render_to_string
+from django.core.mail import send_mail
+from django.conf import settings
 
 from hostayni.mixins import UserProfileDataMixin
 from .models import DailyLifeOffer, DailyLifeOfferImage
@@ -108,24 +111,32 @@ class DailyLifeOfferDetailView(SuccessMessageMixin, UserProfileDataMixin, LoginR
         # Capturamos quien creo la oferta, y su titulo de anuncio
 
         offer_owner = self.get_object().created_by.get_long_name()
+        print("Dueño de la oferta", offer_owner)
 
-        offer_owner_company = self.get_object().created_by.get_enterprise_name
+        offer_owner_company = self.get_object().created_by.enterprise_name
+        print("Dueño por si es una compania", offer_owner_company)
 
         offer_owner_username = self.get_object().created_by.username
+        print("Username del dueño de oferta", offer_owner_username)
 
         offer_owner_email = self.get_object().created_by.email
+        print("Emai dueño oferta", offer_owner_email)
 
         offer_title = self.get_object().ad_title
+        print("Titulo ofeta", offer_title)
 
         # Capturamos los datos de quien esta interesado en la oferta
         interested_email = user.email
+        print(interested_email)
 
         interested_username = user.username
+        print(interested_username)
 
         interested_full_name = user.get_long_name()
+        print(interested_full_name)
 
         offer_url = self.request.get_full_path
-        # print(offer_url)
+        print(offer_url)
 
         # We get the images of DailyLifeOffer - DailyLifeOfferImages model
         daily_life_offer = DailyLifeOffer.objects.get(slug=self.kwargs.get('slug'))
@@ -138,6 +149,7 @@ class DailyLifeOfferDetailView(SuccessMessageMixin, UserProfileDataMixin, LoginR
         context['offer_owner_username'] = offer_owner_username
         context['offer_owner_email'] = offer_owner_email
         context['offer_owner'] = offer_owner
+        context['offer_owner_company'] = offer_owner_company
         # context['offer_owner_company'] = offer_owner_company
         context['offer_title'] = offer_title
 
@@ -148,6 +160,56 @@ class DailyLifeOfferDetailView(SuccessMessageMixin, UserProfileDataMixin, LoginR
         context['offer_url'] = offer_url
 
         return context
+
+
+def contact_owner_offer(request, offer_owner, offer_owner_username, offer_owner_email,
+                        interested_full_name, interested_username, interested_email,
+                        offer_title, offer_url):
+    user = request.user
+    if user.is_authenticated:
+        # print('Send email')
+        mail_subject_to_user = 'Has aplicado a una oferta de alojamiento'
+        mail_subject_to_owner = 'Interesados en tu oferta'
+
+
+        context = {
+            # usuario dueño de la oferta  TO
+            'offer_owner_full_name': offer_owner,
+            #'lodging_offer_owner_enterprise_name': lodging_offer_owner_enterprise_name,
+            'offer_owner_username': offer_owner_username,
+            'offer_owner_email': offer_owner_email,
+
+
+            # oferta por la que se pregunta
+            'offer_title': offer_title,
+            'offer_url': offer_url,
+            'domain': settings.SITE_URL,
+            'request': request.get_full_path,
+
+            # usuario interesado en la oferta
+            'interested_username': interested_username,
+            'interested_email': interested_email,
+            'user_interested_full_name': interested_full_name,
+        }
+
+        msg_to_who_applies = render_to_string('entrepreneurship/message_to_user_who_applies.html', context)
+        #to_email = lodging_offer_owner.email,
+
+        send_mail(mail_subject_to_user, msg_to_who_applies, settings.DEFAULT_FROM_EMAIL,
+                  [interested_email], html_message=msg_to_who_applies, fail_silently=True)
+
+        #sleep(60)
+        # Hacer esto con celery --- pagina 66 https://docs.google.com/document/d/1aUVRvGFh0MwYZydjXlebaSQJgZnHJDOKx3ccjWmusgc/edit#
+
+        msg_to_owner = render_to_string('entrepreneurship/to_own_offer.html', context)
+        send_mail(mail_subject_to_owner, msg_to_owner, settings.DEFAULT_FROM_EMAIL,
+                  [offer_owner_email], html_message=msg_to_owner, fail_silently=True)
+
+        #messages.success(request, "El anfitrión", lodging_offer_owner_email, "ha sido contactado " )
+
+    #return redirect('host:contact_owner_offer', lodging_offer_owner_email=lodging_offer_owner_email,
+                    #interested_email=interested_email, slug=slug)
+    return HttpResponseNotModified()
 
 
 class DailyLifeOfferUpdateView(SuccessMessageMixin, UserProfileDataMixin, LoginRequiredMixin, UpdateView):

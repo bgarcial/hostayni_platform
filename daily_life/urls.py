@@ -3,7 +3,7 @@ from django.conf.urls import url
 
 from .views import (DailyLifeOfferCreateView, DailyLifeOfferDetailView, DailyLifeOfferUpdateView,
                     DailyLifeOfferDeleteView, add_daily_life_offer_images, DailyLifeOfferImageUpdateView,
-                    delete_daily_life_offer_image, DailyLifeOffersByUser, DailyLifeOfferSearch)
+                    delete_daily_life_offer_image, DailyLifeOffersByUser, DailyLifeOfferSearch, contact_owner_offer)
 
 
 urlpatterns = [
@@ -53,4 +53,13 @@ urlpatterns = [
     url(r'^by/u/(?P<username>[-\w]+)/$',
         DailyLifeOffersByUser.as_view(),
         name='list'),
+
+    url(r'^contact-to-owner/(?P<offer_owner>[\w." "@+-]+)/'
+        r'(?P<offer_owner_username>[\w." "@+-]+)/'
+        r'(?P<offer_owner_email>[\w.@+-]+)/from/'
+        r'(?P<interested_full_name>[\w." "@+-]+)/'
+        r'(?P<interested_username>[\w.@+-]+)/'
+        r'(?P<interested_email>[\w.@+-]+)/'
+        r'(?P<offer_title>[\w." "@+-]+)/(?P<offer_url>[\w.@+-/]+)/$',
+        contact_owner_offer, name='contact_owner_offer'),
 ]

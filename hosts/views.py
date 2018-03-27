@@ -705,7 +705,8 @@ def contact_study_owner_offer(request, study_offer_owner_full_name, study_offer_
     print(study_offer_owner_full_name)
     if user.is_authenticated:
         #print('Send email')
-        mail_subject = 'Interesados en tu oferta educativa'
+        mail_subject_to_user = 'Has aplicado a una oferta de alojamiento'
+        mail_subject_to_owner = 'Interesados en tu oferta'
 
         context = {
             # usuario dueño de la oferta  TO
@@ -725,15 +726,15 @@ def contact_study_owner_offer(request, study_offer_owner_full_name, study_offer_
             'user_interested_full_name': user_interested_full_name,
         }
 
-        message = render_to_string('contact_study_own_offer.html', context)
+        msg_to_who_applies = render_to_string('hosts/message_to_user_who_applies.html', context)
         #to_email = lodging_offer_owner.email,
 
-        send_mail(mail_subject, message, settings.DEFAULT_FROM_EMAIL,
-                  [study_offer_owner_email, user_interested_email], html_message=message, fail_silently=True)
+        send_mail(mail_subject_to_user, msg_to_who_applies, settings.DEFAULT_FROM_EMAIL,
+                  [user_interested_email], html_message=msg_to_who_applies, fail_silently=True)
 
-        msg_to_owner = render_to_string('to_educational_own_offer.html', context)
+        msg_to_owner = render_to_string('hosts/to_educational_own_offer.html', context)
 
-        send_mail(mail_subject, msg_to_owner, settings.DEFAULT_FROM_EMAIL,
+        send_mail(mail_subject_to_owner, msg_to_owner, settings.DEFAULT_FROM_EMAIL,
                   [study_offer_owner_email], html_message=msg_to_owner, fail_silently=True)
 
         #messages.success(request, "El anfitrión", lodging_offer_owner_email, "ha sido contactado " )

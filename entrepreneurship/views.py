@@ -327,14 +327,14 @@ def delete_entrepreneurship_offer_image(request, id):
     return redirect('offer:edit_entrepreneurship_images', slug=upload.entrepreneurship_offer.slug)
 
 
-
 def contact_owner_offer(request, offer_owner, offer_owner_username, offer_owner_email,
                         interested_full_name, interested_username, interested_email,
                         offer_title, offer_url):
     user = request.user
     if user.is_authenticated:
         # print('Send email')
-        mail_subject = 'Interesados en tu oferta'
+        mail_subject_to_user = 'Has aplicado a una oferta de alojamiento'
+        mail_subject_to_owner = 'Interesados en tu oferta'
 
 
         context = {
@@ -357,17 +357,17 @@ def contact_owner_offer(request, offer_owner, offer_owner_username, offer_owner_
             'user_interested_full_name': interested_full_name,
         }
 
-        message = render_to_string('entrepreneurship/message_to_user_who_applies.html', context)
+        msg_to_who_applies = render_to_string('entrepreneurship/message_to_user_who_applies.html', context)
         #to_email = lodging_offer_owner.email,
 
-        send_mail(mail_subject, message, settings.DEFAULT_FROM_EMAIL,
-                  [offer_owner_email, interested_email], html_message=message, fail_silently=True)
+        send_mail(mail_subject_to_user, msg_to_who_applies, settings.DEFAULT_FROM_EMAIL,
+                  [interested_email], html_message=msg_to_who_applies, fail_silently=True)
 
         #sleep(60)
         # Hacer esto con celery --- pagina 66 https://docs.google.com/document/d/1aUVRvGFh0MwYZydjXlebaSQJgZnHJDOKx3ccjWmusgc/edit#
 
         msg_to_owner = render_to_string('entrepreneurship/to_own_offer.html', context)
-        send_mail(mail_subject, msg_to_owner, settings.DEFAULT_FROM_EMAIL,
+        send_mail(mail_subject_to_owner, msg_to_owner, settings.DEFAULT_FROM_EMAIL,
                   [offer_owner_email], html_message=msg_to_owner, fail_silently=True)
 
         #messages.success(request, "El anfitrión", lodging_offer_owner_email, "ha sido contactado " )
