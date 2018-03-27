@@ -309,6 +309,25 @@ class EntrepreneurshipOfferImageUpdateView(SuccessMessageMixin, UserProfileDataM
         return obj
 
 
+
+@login_required
+def delete_entrepreneurship_offer_image(request, id):
+    # We get the image
+    upload = EntrepreneurshipOfferImage.objects.get(id=id)
+
+    # Security check
+    if upload.entrepreneurship_offer.created_by != request.user:
+        raise Http404
+
+    # Delete image
+    upload.delete()
+    messages.success(request, 'Tu imágen ha sido borrada, ya no aparecerá en el detalle de tu '
+                              'oferta ' + upload.entrepreneurship_offer.ad_title)
+    # Refresh the edit page
+    return redirect('offer:edit_entrepreneurship_images', slug=upload.entrepreneurship_offer.slug)
+
+
+
 def contact_owner_offer(request, offer_owner, offer_owner_username, offer_owner_email,
                         interested_full_name, interested_username, interested_email,
                         offer_title, offer_url):

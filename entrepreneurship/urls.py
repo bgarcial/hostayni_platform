@@ -3,7 +3,7 @@ from .views import (EntrepreneurshipOfferCreateView, EntrepreneurshipOfferDetail
                     EntrepreneurshipOfferUpdateView, EntrepreneurshipOfferDeleteView,
                     entrepreneurship_offers_by_user, EntrepreneurshipOffersByUser,
                     add_entrepreneurship_offer_images, EntrepreneurshipOfferImageUpdateView,
-                    contact_owner_offer, EntrepreneurshipOfferSearch)
+                    contact_owner_offer, EntrepreneurshipOfferSearch, delete_entrepreneurship_offer_image)
 
 urlpatterns = [
 
@@ -42,6 +42,10 @@ urlpatterns = [
     # llama a edit_entrepreneurship_offer_images.html
     url(r'^(?P<slug>[-\w]+)/edit/images/$',
         add_entrepreneurship_offer_images, name='edit_entrepreneurship_images'),
+
+    # Borrar una imagen de una oferta de emprendimiento
+    url(r'^lodging-offer/delete/images/(?P<id>[-\w]+)/$',
+        delete_entrepreneurship_offer_image, name='delete_offer_image'),
 
 
     # Editar una imágen de oferta de emprendimiento de manera individual

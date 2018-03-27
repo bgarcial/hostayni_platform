@@ -8,11 +8,14 @@ from .models import LodgingOffer, StudiesOffert, StudyOfferImage, LodgingOfferIm
 @admin.register(LodgingOfferImage)
 class StudyOfferImageAdmin(admin.ModelAdmin):
     list_display = ['__str__', 'lodging_offer', 'image']
+    list_editable = ('image',)
 
 @admin.register(StudyOfferImage)
 class StudyOfferImageAdmin(admin.ModelAdmin):
     list_display = ['__str__', 'study_offer', 'image']
     # list_editable = ['order', 'active', 'featured']
+
+    list_editable = ('image',)
 
 @admin.register(LodgingOffer)
 class LodgingOfferAdmin(admin.ModelAdmin):

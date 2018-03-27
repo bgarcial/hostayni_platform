@@ -99,7 +99,7 @@
         <div class="add-images-container">
             {% if dailylife.created_by_id == userprofile.user.id %}
             <div class="main-content-lodging">
-              <a href="{% url 'offer:edit_entrepreneurship_images' slug=dailylife.slug %}">
+              <a href="{% url 'daily_life_offer:edit_images' slug=dailylife.slug %}">
                   <img src="{% static 'img/icons/photo.svg' %}" alt=""> Agregar/Editar </a>
             </div>
             <p><a class='glyphicon glyphicon-pencil' href = "{% url 'daily_life_offer:edit' slug=dailylife.slug %}"></a>

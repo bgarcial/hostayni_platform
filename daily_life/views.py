@@ -1,5 +1,5 @@
 from __future__ import unicode_literals
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 
 from django.views.generic.edit import (CreateView, UpdateView,)
 from django.views.generic.detail import DetailView
@@ -9,12 +9,75 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from django.utils import timezone
 from django.http import Http404, HttpResponseNotModified
 from django.core.urlresolvers import reverse_lazy, reverse
+from django.contrib import messages
+from django.contrib.auth.decorators import login_required
+from django.views.generic.edit import FormView
+from haystack.query import SearchQuerySet
 
 from hostayni.mixins import UserProfileDataMixin
-from .models import DailyLifeOffer
-from .forms import DailyLifeOfferForm
+from .models import DailyLifeOffer, DailyLifeOfferImage
+from .forms import DailyLifeOfferForm, DailyLifeOfferImagesForm, DailyLifeOfferSearchForm
+
 
 # Create your views here.
+
+class DailyLifeOfferSearch(FormView):
+    template_name = 'daily_life/daily_life_offer_search.html'
+
+    # first we instantiate the SearchForm that we created before.
+    form_class = DailyLifeOfferSearchForm()
+
+    def get(self, request, *args, **kwargs):
+        # We are going to submit the form using the GET method so that the
+        # resulting URL includes the query parameter.
+        form = DailyLifeOfferSearchForm(self.request.GET or None)
+        return self.render_to_response(self.get_context_data(form=form))
+
+    def get_context_data(self, **kwargs):
+        context = super(DailyLifeOfferSearch, self).get_context_data(**kwargs)
+        user = self.request.user
+        form = DailyLifeOfferSearchForm(self.request.GET or None)
+
+        # When the form is submitted, we instantiate it with the submitted GET
+        # data and we check that the given data is valid. If the form is
+        # valid, we use the we use SearchQuerySet to perform a search for
+        # indexed LodgingOffer objects whose main content contains the given
+        # query
+
+        qs = DailyLifeOffer.objects.active()
+        context['offer_list'] = qs
+
+        qs_paid = DailyLifeOffer.objects.paid()
+        context['offers_paid'] = qs_paid
+
+        # sliders = EntrepreneurshipOfferCarousel.objects.all_featured()
+        # context['sliders'] = sliders
+
+        if form.is_valid():
+            cd = form.cleaned_data
+            # The load_all() method loads all related LodgingOffer objects
+            # from the database at once
+            # With this method, we populate the search results with the
+            # database objects to avoid per-object access to the database when
+            # iterating over results to access object data.
+            results = SearchQuerySet().models(DailyLifeOffer)\
+                          .filter(content=cd['query']).load_all()
+
+            # Finally, we store the total number of results in a total_results
+            # variable and pass the local variables as context to render a
+            # template.
+            total_results = results.count()
+            context.update({
+                'cd': cd,
+                'results':results,
+                'total_results': total_results,
+
+            })
+        if user.is_authenticated():
+            context['userprofile'] = user.profile
+
+        return context
+
 
 
 class DailyLifeOfferCreateView(SuccessMessageMixin, LoginRequiredMixin, UserProfileDataMixin, CreateView):
@@ -126,3 +189,113 @@ class DailyLifeOfferDeleteView(SuccessMessageMixin, UserProfileDataMixin, LoginR
         if not obj.created_by == self.request.user:
             raise Http404
         return obj
+
+
+
+@login_required
+def add_daily_life_offer_images(request, slug):
+    user = request.user
+    profile = user.profile
+
+    # We get the daily_life offer
+    daily_life_offer = DailyLifeOffer.objects.get(slug=slug)
+
+    # Verifying user owner offer to edit capabilities
+    if daily_life_offer.created_by != request.user:
+        raise Http404
+
+    # Use the LodgingOfferImageForm
+    form_class = DailyLifeOfferImagesForm
+
+    # If we make submit
+    if request.method == 'POST':
+        # We get data from the submitted form
+        form = form_class(data=request.POST, files=request.FILES, instance=daily_life_offer)
+        if form.is_valid():
+            # Create the new LodgingOfferImage object from the submitted form
+            DailyLifeOfferImage.objects.create(
+                daily_life_offer=daily_life_offer, image=form.cleaned_data['image']
+            )
+            messages.success(request, "La fotografía ha sido cargada y asociada a tu oferta " + daily_life_offer.ad_title)
+            return redirect('daily_life_offer:edit_images', slug=daily_life_offer.slug)
+    # Otherwise, just create the lodging offer upload image form
+    else:
+        form = form_class(instance=daily_life_offer)
+
+    # We get all images of a LodginOffer object
+    uploads = daily_life_offer.dailylifeofferimage.all()
+
+    # Render to template
+    return render(request, 'edit_daily_life_offer_images.html', {
+        'daily_life_offer': daily_life_offer,
+        'form': form,
+        'uploads': uploads,
+        'userprofile': profile
+    })
+
+
+class DailyLifeOfferImageUpdateView(SuccessMessageMixin, UserProfileDataMixin, LoginRequiredMixin, UpdateView):
+    model = DailyLifeOfferImage
+    form_class = DailyLifeOfferImagesForm
+
+    # success_url = reverse_lazy("host:edit-study-offer-image", pk_url_kwarg='pk')
+
+    success_message = "Imagen actualizada"
+
+    def get_success_url(self):
+        # return reverse("host:edit-study-offer-image", kwargs={self.pk_url_kwarg: self.kwargs.get('pk')})
+        return reverse("daily_life_offer:edit_image",
+                       kwargs={'pk': self.kwargs['pk']})
+
+    def get_context_data(self, **kwargs):
+        context = super(DailyLifeOfferImageUpdateView, self).get_context_data(**kwargs)
+
+        user = self.request.user
+        daily_life_offer_image = DailyLifeOfferImage.objects.get(pk=self.kwargs.get('pk'))
+        context['daily_life_offer_image'] = daily_life_offer_image
+        return context
+
+    # Permiso para que solo el dueño pueda editarla
+
+    def get_object(self, queryset=None):
+        """ Hook to ensure object is owned by request.user. """
+        obj = super(DailyLifeOfferImageUpdateView, self).get_object()
+        if not obj.daily_life_offer.created_by == self.request.user:
+            raise Http404
+        return obj
+
+
+@login_required
+def delete_daily_life_offer_image(request, id):
+    # We get the image
+    upload = DailyLifeOfferImage.objects.get(id=id)
+
+    # Security check
+    if upload.daily_life_offer.created_by != request.user:
+        raise Http404
+
+    # Delete image
+    upload.delete()
+    messages.success(request, 'Tu imágen ha sido borrada, ya no aparecerá en el detalle de tu '
+                              'oferta ' + upload.daily_life_offer.ad_title)
+    # Refresh the edit page
+    return redirect('daily_life_offer:edit_images', slug=upload.daily_life_offer.slug)
+
+
+class DailyLifeOffersByUser(LoginRequiredMixin, UserProfileDataMixin, ListView):
+    template_name = 'daily_life/my_daily_life_offer_list.html'
+
+    def get_queryset(self, *args, **kwargs):
+        user = self.request.user
+        queryset_list = DailyLifeOffer.objects.filter(created_by__username=user.username)
+        return queryset_list
+
+    def get_context_data(self, **kwargs):
+        context = super(DailyLifeOffersByUser, self).get_context_data(**kwargs)
+        user = self.request.user
+        daily_life_offers = DailyLifeOffer.objects.filter(created_by__username=user.username)
+        context['offers_by_user'] = daily_life_offers
+
+        #if user.is_authenticated():
+        #    context['userprofile'] = user.profile
+        return context
