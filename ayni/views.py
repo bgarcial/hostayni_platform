@@ -31,7 +31,7 @@ class AyniOfferCreateView(SuccessMessageMixin, LoginRequiredMixin, UserProfileDa
 class AyniOfferDetailView(SuccessMessageMixin, UserProfileDataMixin, LoginRequiredMixin, DetailView):
     model = AyniOffer
     template_name = 'ayni/detail.html'
-    context_object_name = 'dailylife'
+    context_object_name = 'ayni'
 
     def get_context_data(self, **kwargs):
         context = super(AyniOfferDetailView, self).get_context_data(**kwargs)

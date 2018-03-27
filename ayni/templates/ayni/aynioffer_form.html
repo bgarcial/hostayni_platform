@@ -1,0 +1,75 @@
+{% extends 'layout.html' %}
+{% load staticfiles %}
+{% load bootstrap3 %}
+{% block title_tag %}Ayni Offert | {{ block.super }}{% endblock %}
+{% block body_content %}
+
+
+
+<div class="offert-form">
+
+    <h1>
+      {% if not form.instance.pk %}
+        {{ form.title }}
+      {% else %}
+      Actualizar oferta de Ayni
+      {% endif %}
+    </h1>
+    <form class="stayhost" enctype="multipart/form-data" method="post">
+      <div class="head">
+        <div class="ofert-icon">
+          <img src="{% static 'img/icons/Ayni.svg' %}" alt="">
+          <div class="title">
+            <h2>AYNI</h2>
+            <span>Crear oferta</span>
+          </div>
+        </div>
+        <div class="submit-button-cont">
+            <div>
+              <input type="image" src="{% static 'img/icons/ok.png' %}" alt="Submit" width="48" height="48">
+              <input type="submit" value="Guardar" class="submit-button">
+            </div>
+        </div>
+      </div>
+      {% csrf_token %}
+      <div class="col margin-right">
+          <div class="formgroup">
+              {% bootstrap_field form.ad_title %}
+              {% bootstrap_field form.country %}
+              {% bootstrap_field form.city %}
+              {% bootstrap_field form.offer_type %}
+              {% bootstrap_field form.photo %}
+              {% bootstrap_field form.address %}
+              {% bootstrap_field form.maximum_quota %}
+              {% bootstrap_field form.price %}
+              {% bootstrap_field form.additional_description %}
+          </div>
+      </div>
+      <div class="col">
+        <div class="formgroup">
+            {% if not form.instance.pk %}
+            {% else %}
+                {% bootstrap_field form.is_taked %}
+                {{ form.offer_taked }}
+            {% endif %}
+
+            {% comment %}
+          <div class="map-cont">
+            <iframe src="https://www.google.com/maps/embed?pb=!1m10!1m8!1m3!1d1983.0517024099001!2d-75.56337732682343!3d6.25010353077667!3m2!1i1024!2i768!4f13.1!5e0!3m2!1ses!2sco!4v1501007278560" frameborder="0" style="border:0" allowfullscreen></iframe>
+          </div>
+            {% endcomment %}
+        </div>
+      </div>
+
+        <div class="submit-button-cont">
+            <div>
+              <input type="image" src="{% static 'img/icons/ok.png' %}" alt="Submit" width="48" height="48">
+              <input type="submit" value="Guardar" class="submit-button">
+            </div>
+        </div>
+
+
+    </form>
+
+</div>
+{% endblock %}

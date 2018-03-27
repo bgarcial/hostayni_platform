@@ -126,7 +126,7 @@ class AyniOffer(TimeStampModel):
 
         if self.photo:
             AyniOfferImage.objects.create(
-                daily_life_offer=self,
+                ayni_offer=self,
                 image=self.photo
             )
 
