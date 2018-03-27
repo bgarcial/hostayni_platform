@@ -113,7 +113,7 @@ class AyniOffer(TimeStampModel):
         return "%s" % self.ad_title
 
     def get_absolute_url(self):
-        return reverse('daily_life_offer:detail', kwargs={'slug': self.slug})
+        return reverse('ayni_offer:detail', kwargs={'slug': self.slug})
 
     def get_price(self):
         return self.price

@@ -113,6 +113,8 @@ urlpatterns = [
 
     url(r'^offer/entrepreneurship/', include('entrepreneurship.urls', namespace='offer')),
 
+    url(r'^ayni-offer/', include('ayni.urls', namespace='ayni_offer')),
+
 
     # Wire up our API using automatic URL routing.
     url(r'^api/', include(router.urls,)),
