@@ -171,8 +171,7 @@ s.setAttribute('data-timestamp', +new Date());
                               {% endif %}
                               {% if userprofile.user.is_ayni_host %}
                                 <li><a href="{% url 'ayni_offer:create' %}">Crear oferta AYNI</a></li>
-                                <li><a href="#">Mis ofertas AYNI</a></li>
-                              {% endif %}
+                                <li><a href="{% url 'ayni_offer:list' userprofile.user.slug %}">Mis ofertas AYNI</a></li>                              {% endif %}
                               {% if userprofile.user.is_daily_life_host %}
                                 <li><a href="{% url 'daily_life_offer:create' %}">Crear oferta de vida diaria</a></li>
                                   <li><a href="{% url 'daily_life_offer:list' userprofile.user.slug %}">Mis ofertas de vida diaria</a></li>
@@ -243,7 +242,7 @@ s.setAttribute('data-timestamp', +new Date());
                                         <hr>
                                         {% if userprofile.user.is_ayni_host %}
                                             <li><a href="{% url 'ayni_offer:create' %}">Crear oferta AYNI</a></li>
-                                            <li><a href="#">Mis ofertas AYNI</a></li>
+                                            <li><a href="{% url 'ayni_offer:list' userprofile.user.slug %}">Mis ofertas AYNI</a></li>
                                         {% endif %}
                                         <hr>
                                         {% if userprofile.user.is_daily_life_host %}
