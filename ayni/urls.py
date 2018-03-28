@@ -1,9 +1,14 @@
 from django.conf.urls import url
 from .views import (AyniOfferCreateView, AyniOfferDetailView, AyniOfferUpdateView, AyniOfferDeleteView,
                     AyniOffersByUser, add_ayni_offer_images, delete_ayni_offer_image, AyniOfferImageUpdateView,
-                    contact_owner_offer)
+                    contact_owner_offer, AyniOfferSearch)
 
 urlpatterns = [
+
+    # Search Ayni Offer
+    url(r'^search/$',
+        AyniOfferSearch.as_view(),
+        name='search'),
 
     # Create Ayni Offer
     url(r'^new/$',
