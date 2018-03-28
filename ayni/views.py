@@ -20,7 +20,7 @@ from django.views.generic.edit import FormView
 from hostayni.mixins import UserProfileDataMixin
 from .models import AyniOffer, AyniOfferImage
 from .forms import AyniOfferForm, AyniOfferImageForm, AyniOfferSearchForm
-
+from carousel_offers.models import AyniOfferCarousel
 # Create your views here.
 
 
@@ -53,8 +53,8 @@ class AyniOfferSearch(FormView):
         qs_paid = AyniOffer.objects.paid()
         context['offers_paid'] = qs_paid
 
-        # sliders = DailyLifeOfferCarousel.objects.all_featured()
-        # context['sliders'] = sliders
+        sliders = AyniOfferCarousel.objects.all_featured()
+        context['sliders'] = sliders
 
         if form.is_valid():
             cd = form.cleaned_data

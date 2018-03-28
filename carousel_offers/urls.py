@@ -1,6 +1,6 @@
 from django.conf.urls import url
 from carousel_offers.views import (HomeCarouselCreateView, LodgingOfferCarouselCreateView, EducationalOfferCarouselCreateView,
-                                    EntrepreneurshipOfferCarouselCreateView, DailyLifeOfferCarouselCreateView)
+                                    EntrepreneurshipOfferCarouselCreateView, DailyLifeOfferCarouselCreateView, AyniOfferCarouselCreateView)
 
 urlpatterns = [
     url(r'^home-slider/add/$', HomeCarouselCreateView.as_view(), name='home-slider'),
@@ -16,4 +16,7 @@ urlpatterns = [
 
     url(r'^daily-life-offers-slider/add/$', DailyLifeOfferCarouselCreateView.as_view(),
         name='daily-life-offers-slider'),
+
+    url(r'^ayni-offers-slider/add/$', AyniOfferCarouselCreateView.as_view(),
+        name='ayni-offers-slider'),
 ]

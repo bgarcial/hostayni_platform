@@ -4,9 +4,10 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.messages.views import SuccessMessageMixin
 from django.views.generic import CreateView, UpdateView
 from .models import (LodgingOfferCarousel, EducationalOfferCarousel, HomeCarousel, EntrepreneurshipOfferCarousel,
-                    DailyLifeOfferCarousel)
-from .forms import (LodgingOfferCarouselForm, EducationalOfferCarouselForm,
-                    HomeCarouselForm, EntrepreneurshipOfferCarouselForm, DailyLifeOfferCarouselForm)
+                     DailyLifeOfferCarousel, AyniOfferCarousel)
+from .forms import (LodgingOfferCarouselForm, EducationalOfferCarouselForm, HomeCarouselForm,
+                    EntrepreneurshipOfferCarouselForm, DailyLifeOfferCarouselForm, AyniOfferCarouselForm)
+
 from django.core.urlresolvers import reverse
 from django.utils import timezone
 
@@ -107,3 +108,19 @@ class DailyLifeOfferCarouselCreateView(SuccessMessageMixin, LoginRequiredMixin, 
         form.instance.timestamp = timezone.now()
         form.save()
         return super(DailyLifeOfferCarouselCreateView, self).form_valid(form)
+
+
+class AyniOfferCarouselCreateView(SuccessMessageMixin, LoginRequiredMixin, UserProfileDataMixin, CreateView):
+    model = AyniOfferCarousel
+    form_class = AyniOfferCarouselForm
+    success_message = "La imagen ha sido adicionada al carrusel de la página de inicio"
+
+    #def get_success_url(self):
+    #    return reverse("carousels:lodging-offers-slider",)
+
+    def form_valid(self, form):
+        form.save(commit=False)
+        form.instance.user = self.request.user
+        form.instance.timestamp = timezone.now()
+        form.save()
+        return super(AyniOfferCarouselCreateView, self).form_valid(form)

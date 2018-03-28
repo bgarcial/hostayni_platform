@@ -120,7 +120,7 @@ s.setAttribute('data-timestamp', +new Date());
                 <a href="{% url 'daily_life_offer:search' %}"><img src="{% static 'img/icons/VidaDiaria.svg' %}" alt="" title="Ofertas de vida diaria"></a>
               </div>
               <div class="pic_icon">
-                <a href="#"><img src="{% static 'img/icons/Ayni.svg' %}" alt="" title="Ofertas AYNI"></a>
+                <a href="{% url 'ayni_offer:search' %}"><img src="{% static 'img/icons/Ayni.svg' %}" alt="" title="Ofertas AYNI"></a>
               </div>
               <!-- <div class="pic_icon">
                 <a href="#"><img src="{% static 'img/icons/social-grey.svg' %}" alt="" title="Próximamente"></a>
@@ -182,6 +182,7 @@ s.setAttribute('data-timestamp', +new Date());
                               <li><a href="{% url 'host:studyoffer-search' %}">Ofertas de educación</a></li>
                               <li><a href="{% url 'offer:entrepreneurship_offer_search' %}">Ofertas de emprendimiento</a></li>
                               <li><a href="{% url 'daily_life_offer:search' %}">Ofertas de vida diaria</a></li>
+                              <li><a href="{% url 'ayni_offer:search' %}">Ofertas de AYNI</a></li>
 
                               {% if userprofile.user.is_superuser %}
                                   <li class="line"></li>
@@ -191,6 +192,7 @@ s.setAttribute('data-timestamp', +new Date());
                                   <li><a href="{% url 'carousels:educational-offers-slider' %}">Agregar en ofertas de educación</a></li>
                                   <li><a href="{% url 'carousels:entrepreneurship-offers-slider' %}">Agregar en ofertas de emprendimiento</a></li>
                                   <li><a href="{% url 'carousels:daily-life-offers-slider' %}">Agregar en ofertas de vida diaria</a></li>
+                                  <li><a href="{% url 'carousels:ayni-offers-slider' %}">Agregar en ofertas AYNI</a></li>
                                   <li class="line"></li>
                               {% endif %}
                               <li><a href="{% url 'accounts:logout' %}">Salir</a></li>
@@ -256,7 +258,7 @@ s.setAttribute('data-timestamp', +new Date());
                                         <li><a href="{% url 'host:studyoffer-search' %}">Ofertas de educación</a></li>
                                         <li><a href="{% url 'offer:entrepreneurship_offer_search' %}">Ofertas de emprendimiento</a></li>
                                         <li><a href="{% url 'daily_life_offer:search' %}">Ofertas de vida diaria</a></li>
-
+                                        <li><a href="{% url 'ayni_offer:search' %}">Ofertas de AYNI</a></li>
                                          {% if userprofile.user.is_superuser %}
                                              <li class="line"></li>
                                             <p><strong>Carrusel de imágenes</strong></p>
@@ -265,6 +267,7 @@ s.setAttribute('data-timestamp', +new Date());
                                             <li><a href="{% url 'carousels:educational-offers-slider' %}">Agregar en ofertas de educación</a></li>
                                             <li><a href="{% url 'carousels:entrepreneurship-offers-slider' %}">Agregar en ofertas de emprendimiento</a></li>
                                             <li><a href="{% url 'carousels:daily-life-offers-slider' %}">Agregar en ofertas de vida diaria</a></li>
+                                            <li><a href="{% url 'carousels:ayni-offers-slider' %}">Agregar en ofertas AYNI</a></li>
                                             <li class="line"></li>
                                          {% endif %}
 
