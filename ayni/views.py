@@ -224,16 +224,15 @@ class AyniOfferUpdateView(SuccessMessageMixin, UserProfileDataMixin, LoginRequir
 class AyniOfferDeleteView(SuccessMessageMixin, UserProfileDataMixin, LoginRequiredMixin, DeleteView):
     model = AyniOffer
 
-    success_url = reverse_lazy("articles:article_list")
+    # success_url = reverse_lazy("articles:article_list")
     # context_object_name = 'lodgingofferdelete'
     success_message = "Oferta de vida diaria eliminada con éxito"
 
-    """
     def get_success_url(self):
-        entrepreneurship_offer = self.get_object()
-        #print(entrepreneurship_offer)
-        return reverse_lazy("offer:list", kwargs={'created_by': entrepreneurship_offer.created_by.username})
-    """
+        ayni_offer = self.get_object()
+        # print(entrepreneurship_offer)
+        # return reverse_lazy("offer:list", kwargs={'created_by': entrepreneurship_offer.created_by.username})
+        return reverse_lazy("offer:list", kwargs={'username': ayni_offer.created_by.username})
 
     def get_object(self, queryset=None):
         """ Hook to ensure object is owned by request.user. """

@@ -510,6 +510,12 @@ class HostingOfferDeleteView(SuccessMessageMixin, UserProfileDataMixin, LoginReq
     context_object_name = 'lodgingofferdelete'
     success_message = "Oferta de alojamiento eliminada con éxito"
 
+    def get_success_url(self):
+        lodging_offers = self.get_object()
+        # print(entrepreneurship_offer)
+        # return reverse_lazy("offer:list", kwargs={'created_by': entrepreneurship_offer.created_by.username})
+        return reverse_lazy("host:list", kwargs={'username': lodging_offers.created_by.username})
+
     def get_object(self, queryset=None):
         """ Hook to ensure object is owned by request.user. """
         obj = super(HostingOfferDeleteView, self).get_object()
@@ -768,10 +774,16 @@ class StudyOfferUpdateView(SuccessMessageMixin, UserProfileDataMixin, LoginRequi
 
 class StudyOfferDeleteView(SuccessMessageMixin, UserProfileDataMixin, LoginRequiredMixin, DeleteView):
     model = StudiesOffert
-    success_url = reverse_lazy("articles:article_list")
+    # success_url = reverse_lazy("articles:article_list")
     # success_url = reverse_lazy("host:list")
     context_object_name = 'studyofferdelete'
     success_message = "Oferta de estudio eliminada con éxito"
+
+    def get_success_url(self):
+        educational_offers = self.get_object()
+        # print(entrepreneurship_offer)
+        # return reverse_lazy("offer:list", kwargs={'created_by': entrepreneurship_offer.created_by.username})
+        return reverse_lazy("host:studiesofferlist", kwargs={'username': educational_offers.created_by.username})
 
     def get_context_data(self, **kwargs):
         context = super(StudyOfferDeleteView, self).get_context_data(**kwargs)
