@@ -2,7 +2,7 @@ from django import forms
 from bootstrap_datepicker.widgets import DatePicker
 
 from .models import (EducationalOfferCarousel, LodgingOfferCarousel, HomeCarousel,
-                     EntrepreneurshipOfferCarousel, DailyLifeOfferCarousel)
+                     EntrepreneurshipOfferCarousel, DailyLifeOfferCarousel, AyniOfferCarousel)
 
 
 class DateInput(DatePicker):
@@ -93,6 +93,7 @@ class EntrepreneurshipOfferCarouselForm(forms.ModelForm):
         fields = ['title', 'image', 'order', 'url_link', 'header_text', 'text', 'active', 'featured',
                   'start_date', 'end_date', ]
 
+
 class DailyLifeOfferCarouselForm(forms.ModelForm):
     title = "Ingresar imágenes en el carrusel de la página de Inicio"
 
@@ -106,5 +107,22 @@ class DailyLifeOfferCarouselForm(forms.ModelForm):
                          }),
         }
         model = DailyLifeOfferCarousel
+        fields = ['title', 'image', 'order', 'url_link', 'header_text', 'text', 'active', 'featured',
+                  'start_date', 'end_date', ]
+
+
+class AyniOfferCarouselForm(forms.ModelForm):
+    title = "Ingresar imágenes en el carrusel de la página de Inicio"
+
+    class Meta:
+        widgets = {
+            'start_date': DateInput(),
+            'end_date': forms.DateInput(
+                            attrs={'id': 'end_date',
+                                   'class': 'input-sm form-control',
+                                   'type': 'text'
+                         }),
+        }
+        model = AyniOfferCarousel
         fields = ['title', 'image', 'order', 'url_link', 'header_text', 'text', 'active', 'featured',
                   'start_date', 'end_date', ]

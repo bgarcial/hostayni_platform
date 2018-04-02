@@ -99,12 +99,12 @@
         <div class="add-images-container">
             {% if ayni.created_by_id == userprofile.user.id %}
             <div class="main-content-lodging">
-              <a href="{% url 'daily_life_offer:edit_images' slug=ayni.slug %}">
+              <a href="{% url 'ayni_offer:edit_images' slug=ayni.slug %}">
                   <img src="{% static 'img/icons/photo.svg' %}" alt=""> Agregar/Editar </a>
             </div>
-            <p><a class='glyphicon glyphicon-pencil' href = "{% url 'daily_life_offer:edit' slug=ayni.slug %}"></a>
+            <p><a class='glyphicon glyphicon-pencil' href = "{% url 'ayni_offer:edit' slug=ayni.slug %}"></a>
       &nbsp;&nbsp;&nbsp;&nbsp;| &nbsp;&nbsp;&nbsp;&nbsp;
-            <a class='glyphicon glyphicon-trash' href = "{% url 'daily_life_offer:delete' slug=ayni.slug %}"></a></p>
+            <a class='glyphicon glyphicon-trash' href = "{% url 'ayni_offer:delete' slug=ayni.slug %}"></a></p>
             {% endif %}
         </div>
 
