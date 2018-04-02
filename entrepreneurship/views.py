@@ -180,16 +180,15 @@ class EntrepreneurshipOfferUpdateView(SuccessMessageMixin, UserProfileDataMixin,
 class EntrepreneurshipOfferDeleteView(SuccessMessageMixin, UserProfileDataMixin, LoginRequiredMixin, DeleteView):
     model = EntrepreneurshipOffer
 
-    success_url = reverse_lazy("articles:article_list")
+    # success_url = reverse_lazy("articles:article_list")
     # context_object_name = 'lodgingofferdelete'
     success_message = "Oferta de alojamiento eliminada con éxito"
 
-    """
     def get_success_url(self):
         entrepreneurship_offer = self.get_object()
-        #print(entrepreneurship_offer)
-        return reverse_lazy("offer:list", kwargs={'created_by': entrepreneurship_offer.created_by.username})
-    """
+        # print(entrepreneurship_offer)
+        # return reverse_lazy("offer:list", kwargs={'created_by': entrepreneurship_offer.created_by.username})
+        return reverse_lazy("offer:list", kwargs={'username': entrepreneurship_offer.created_by.username})
 
     def get_object(self, queryset=None):
         """ Hook to ensure object is owned by request.user. """
