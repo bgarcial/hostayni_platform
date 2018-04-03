@@ -35,6 +35,7 @@
 {% endblock %}
 
 <div class="offert-form">
+
     <h1>
       {% if not form.instance.pk %}
         {{ form.title }}
@@ -92,10 +93,11 @@
             {% bootstrap_field form.number_guest_room_type %}
             {% bootstrap_field form.photo %}
             {% bootstrap_field form.bed_type %}
-            {% bootstrap_field form.bathroom %}
             {% bootstrap_field form.room_information %}
             {% bootstrap_field form.address %}
-            {% bootstrap_field form.room_value %}
+            {% bootstrap_field form.location_zone %}
+            {% bootstrap_field form.monthly_price %}
+            {% bootstrap_field form.room_night_value %}
 
             {% comment %}
           <div class="map-cont">

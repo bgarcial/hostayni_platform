@@ -5,7 +5,8 @@
 {{ object.room_type_offered }}
 {{ object.lodging_offer_type }}
 {{ object.number_guest_room_type }}
-{{ object.room_value }}
+{{ object.monthly_price }}
+{{ object.room_night_value }}
 
 {% for services in object.offered_services.all %}
     {{ services.name }}
@@ -23,4 +24,3 @@
 
 
 {{ object.bed_type }}
-{{ object.bathroom }}

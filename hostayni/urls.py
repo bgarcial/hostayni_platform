@@ -24,14 +24,12 @@ from .views import WhoWeArePageView, TermsAndConditions, PrivacyPolicy, contact
 
 from accounts.views import activation_view, activate
 
-from hosts.views import LodgingOfferViewSet,StudiesOffertViewSet
+from hosts.views import LodgingOfferViewSet, StudiesOffertViewSet
 
 from rest_framework import routers
-
 from posts.api.views import SearchPostAPIView
 from hashtags.views import HashTagView
 from hashtags.api.views import TagPostAPIView
-
 
 
 # Routers provide an easy way of automatically determining the URL conf.
@@ -58,6 +56,7 @@ urlpatterns = [
     # I don't assign namespace because this is django URL
     # ----------------------------------------------------------------------------------------
 
+    #url(r"^(?P<username>[\w\-]+)/$", UserDetailView.as_view(), name='detail'),
 
     url(r'^carousel-marketing/', include('carousel_offers.urls', namespace='carousels')),
 
@@ -109,6 +108,13 @@ urlpatterns = [
     url(r'^', include('blog.urls', namespace='articles')),
 
     url(r'^host/', include('hosts.urls', namespace='host')),
+
+    url(r'^daily-life-offer/', include('daily_life.urls', namespace='daily_life_offer')),
+
+    url(r'^offer/entrepreneurship/', include('entrepreneurship.urls', namespace='offer')),
+
+    url(r'^ayni-offer/', include('ayni.urls', namespace='ayni_offer')),
+
 
     # Wire up our API using automatic URL routing.
     url(r'^api/', include(router.urls,)),

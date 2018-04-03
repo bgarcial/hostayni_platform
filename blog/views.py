@@ -2,7 +2,7 @@ from django.shortcuts import render, get_object_or_404, redirect, render_to_resp
 from django.utils import timezone
 from django.core.mail import send_mail
 
-from hostayni.models import Slider
+from carousel_offers.models import HomeCarousel
 
 from blog.models import Article, Category
 from blog.forms import ArticleForm
@@ -28,7 +28,7 @@ from django.db.models import Q
 # Create your views here.
 
 
-# ****--- fbv CRUD blog poss ---*****
+# ****--- fbv CRUD blog posts ---*****
 
 def categories(request, id):
     categories = Category.objects.all()
@@ -149,7 +149,7 @@ class ArticleListView(UserProfileDataMixin, ListView):
         #categories = Category.objects.all()
         #cat = Category.objects.get(pk=)
         #context['categories'] = categories
-        sliders = Slider.objects.all_featured()
+        sliders = HomeCarousel.objects.all_featured()
         today = timezone.now().date()
         context['today'] = today
         context['sliders'] = sliders
@@ -245,13 +245,12 @@ def article_delete(request, slug=None):
 def articles_by_user(request, email):
     user = request.user
     profile = user.profile
-    articles = Article.objects.filter(author__email=user.email)
+    articles = Article.objects.filter(author__username=user.username)
     return render(
         request,
         'blog/my_articles.html',
         {'articles': articles,
         'userprofile': profile})
-
 
 
 class ArticleDetailView(UserProfileDataMixin, DetailView):
@@ -293,11 +292,12 @@ class CreateArticleView(LoginRequiredMixin, UserProfileDataMixin, CreateView):
     redirect_field_name = 'blog/article_detail.html'
     form_class = ArticleForm
 
-    model=Article
+    model = Article
 
     def form_valid(self, form):
         form.save(commit=False)
         form.instance.author = self.request.user
+        form.instance.publish = timezone.now()
         form.save()
         messages.success(self.request, "Successfully created")
         return super(CreateArticleView, self).form_valid(form)

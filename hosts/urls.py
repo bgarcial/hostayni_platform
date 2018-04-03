@@ -29,7 +29,7 @@ urlpatterns = [
         name='hosting-host'),
 
     # List Lodging Offer's user
-    url(r'^lodging-offers/by/u/(?P<email>[-\w]+)/$',
+    url(r'^lodging-offers/by/u/(?P<username>[-\w]+)/$',
         lodging_offers_by_user,
         name='list'),
 
@@ -68,8 +68,12 @@ urlpatterns = [
         name='detail'),
 
 
-    url(r'^contact-to-owner/(?P<lodging_offer_owner_full_name>[\w." "@+-]+)/(?P<lodging_offer_owner_email>[\w.@+-]+)/from/'
-        r'(?P<user_interested_full_name>[\w." "@+-]+)/(?P<interested_email>[\w.@+-]+)/'
+    url(r'^contact-to-owner/(?P<lodging_offer_owner_full_name>[\w." "@+-]+)/'
+        r'(?P<lodging_offer_owner_username>[\w.@+-]+)/from/'
+        r'(?P<lodging_offer_owner_email>[\w.@+-]+)/from/'
+        r'(?P<user_interested_full_name>[\w." "@+-]+)/'
+        r'(?P<user_interested_username>[\w.@+-]+)/'
+        r'(?P<interested_email>[\w.@+-]+)/'
         r'(?P<lodging_offer_title>[\w." "@+-]+)/(?P<offer_url>[\w.@+-/]+)/$',
         contact_owner_offer,
         name='contact_owner_offer'),
@@ -82,21 +86,15 @@ urlpatterns = [
         name='study-host'),
 
     # List Study Host Offers
-    url(r'^studies-offers/by/u/@(?P<email>[-\w]+)/',
+    url(r'^studies-offers/by/u/(?P<username>[-\w]+)/',
         studies_offers_by_user,
         name='studiesofferlist'),
-
-
-
 
 
     # Editando imagen de estudios
     url(r"^study-offer/edit/images/(?P<pk>\d+)/$",
         StudyOfferImageUpdateView.as_view(),
         name='edit-study-offer-image'),
-
-
-
 
     # Edit Studies offer
     url(r"^study-offer/(?P<slug>[\w-]+)/edit/$",
@@ -130,9 +128,13 @@ urlpatterns = [
         StudyOffertDetailView.as_view(),
         name='studyoffertdetail'),
 
-    url(r'^contact-study-owner/(?P<study_offer_owner_full_name>[\w." "@+-]+)/(?P<study_offer_owner_email>[\w.@+-]+)/from/'
-        r'(?P<user_interested_full_name>[\w." "@+-]+)/(?P<user_interested_email>[\w.@+-]+)/'
-        r'(?P<study_offer_title>[\w." "@+-]+)/(?P<url_offer>[\w.@+-/]+)/$',
+    url(r'^contact-study-owner/(?P<study_offer_owner_full_name>[\w." "@+-]+)/'
+        r'(?P<study_offer_owner_username>[\w." "@+-]+)/'
+        r'(?P<study_offer_owner_email>[\w.@+-]+)/from/'
+        r'(?P<user_interested_full_name>[\w." "@+-]+)/'
+        r'(?P<user_interested_username>[\w.@+-]+)/'
+        r'(?P<user_interested_email>[\w.@+-]+)/'
+        r'(?P<study_offer_title>[\w." "@+-]+)/(?P<offer_url>[\w.@+-/]+)/$',
         contact_study_owner_offer,
         name='contact_study_owner_offer'),
 ]

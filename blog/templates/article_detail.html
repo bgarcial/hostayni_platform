@@ -39,7 +39,7 @@ h1 {
         <!-- Columna a la derecha -->
         <div class="search-column-low">
           <div class="img-cont">
-              <a href="{% url 'accounts:detail' instance.author.email %}">
+              <a href="{% url 'accounts:detail' instance.author.username %}">
                   {% if instance.author.avatar%}
               <img src="{{ instance.author.avatar.url }}" alt="">
                   {% else %}
@@ -50,14 +50,14 @@ h1 {
           </div>
           <div class="name-review-author">
             {% comment %} A quien corresponda {% endcomment %}
-            <a href="{% url 'accounts:detail' instance.author.email %}">
+            <a href="{% url 'accounts:detail' instance.author.username %}">
                 {% if instance.author.get_long_name %}
                 <span>{{ instance.author.get_long_name }}</span><br/>
-                <span>@{{ instance.author.email }}</span>
+                <span>@{{ instance.author.username }}</span>
                 {% endif %}
                 {% if instance.author.get_enterprise_name %}
                 <span>{{ instance.author.get_enterprise_name }}</span>
-                <span>@{{ instance.author.email }}</span>
+                <span>@{{ instance.author.username }}</span>
                 {% endif %}
             </a>
           </div>
@@ -142,7 +142,7 @@ h1 {
             <div class="autor">
                 <div class="profile">
                     <div class="img-cont">
-                        <a href="{% url 'accounts:detail' instance.author.email %}">
+                        <a href="{% url 'accounts:detail' instance.author.username %}">
                             {% if instance.author.avatar%}
                         <img src="{{ instance.author.avatar.url }}" alt="">
                             {% else %}
@@ -154,14 +154,14 @@ h1 {
                     <div class="name-review-cont">
 
                         {% comment %} A quien corresponda {% endcomment %}
-                        <a href="{% url 'accounts:detail' instance.author.email %}">
+                        <a href="{% url 'accounts:detail' instance.author.username %}">
                             {% if instance.author.get_long_name %}
                             <span>{{ instance.author.get_long_name }}</span><br/>
-                            <span>@{{ instance.author.email }}</span>
+                            <span>@{{ instance.author.username }}</span>
                             {% endif %}
                             {% if instance.author.get_enterprise_name %}
                             <span>{{ instance.author.get_enterprise_name }}</span>
-                            <span>@{{ instance.author.email }}</span>
+                            <span>@{{ instance.author.username }}</span>
                             {% endif %}
                         </a>
                         <p><div class="fb-like" data-href="{{ request.build_absolute_uri }" data-layout="standard"

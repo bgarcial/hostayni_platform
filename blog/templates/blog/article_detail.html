@@ -28,7 +28,7 @@
                         {% comment %} A quien corresponda {% endcomment %}
                         <a href="#">
                             <span>{{ article.author.get_long_name }}</span>
-                            <span>{{ article.author.get_enterprise_name }} (@{{ article.author.email }})</span>
+                            <span>{{ article.author.get_enterprise_name }} (@{{ article.author.username }})</span>
                         </a>
                         <img src="{% static 'img/stars.svg' %}" alt="">
                         <div class="average">

@@ -1,5 +1,12 @@
 [{
 	"model": "accounts.userprofile",
+	"pk": 1,
+	"fields": {
+		"user": 1,
+		"following": []
+	}
+}, {
+	"model": "accounts.userprofile",
 	"pk": 2,
 	"fields": {
 		"user": 2,
@@ -49,37 +56,16 @@
 	}
 }, {
 	"model": "accounts.userprofile",
-	"pk": 11,
+	"pk": 9,
 	"fields": {
-		"user": 11,
+		"user": 9,
 		"following": []
 	}
 }, {
 	"model": "accounts.userprofile",
-	"pk": 12,
+	"pk": 10,
 	"fields": {
-		"user": 12,
-		"following": []
-	}
-}, {
-	"model": "accounts.userprofile",
-	"pk": 13,
-	"fields": {
-		"user": 13,
-		"following": []
-	}
-}, {
-	"model": "accounts.userprofile",
-	"pk": 14,
-	"fields": {
-		"user": 14,
-		"following": []
-	}
-}, {
-	"model": "accounts.userprofile",
-	"pk": 15,
-	"fields": {
-		"user": 15,
+		"user": 10,
 		"following": []
 	}
 }]

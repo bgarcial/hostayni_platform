@@ -56,7 +56,7 @@ INSTALLED_APPS = [
     'bootstrap_datepicker',
     'django_countries',
     'django_extensions',
-    'easy_thumbnails',
+    # 'easy_thumbnails',
     # 'languages_plus',
     'haystack',
     # 'mail_panel',
@@ -71,9 +71,12 @@ INSTALLED_APPS = [
 
     # Project apps
     'accounts.apps.AccountsConfig',
+    'ayni.apps.AyniConfig',
     'blog.apps.BlogConfig',
+    'daily_life.apps.DailyLifeConfig',
+    'entrepreneurship.apps.EntrepreneurshipConfig',
     'hashtags.apps.HashtagsConfig',
-    'hostayni',
+    # 'hostayni.apps.HostayniConfig',
     'host_information.apps.HostInformationConfig',
     'hosts.apps.HostsConfig',
     'posts.apps.PostsConfig',
@@ -229,7 +232,8 @@ MEDIA_ROOT = os.path.join(os.path.dirname(BASE_DIR), "static_cdn", "media_root")
 
 
 FIXTURE_DIRS = (
-   os.path.join(BASE_DIR, 'fixtures'),
+   os.path.join(BASE_DIR, 'fixtures/'),
+
 )
 
 LOGIN_URL='/accounts/login/'

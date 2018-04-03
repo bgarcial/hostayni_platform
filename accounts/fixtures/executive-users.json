@@ -2,8 +2,8 @@
 	"model": "accounts.executiveprofile",
 	"pk": 1,
 	"fields": {
-		"user": 3,
-		"slug": "christiandiazleon@gmail.com",
+		"user": 2,
+		"slug": "christiandiazleon",
 		"enterprise_name": "SimDesign Inc",
 		"innovation_topics_choice": "Medtech, software, innovation methodologies",
 		"educational_titles": "Ing. Biom\u00e9dico, M.Sc., Ph.D.",
@@ -13,8 +13,8 @@
 	"model": "accounts.executiveprofile",
 	"pk": 2,
 	"fields": {
-		"user": 4,
-		"slug": "mariemiperez24@gmail.com",
+		"user": 3,
+		"slug": "mariemiperez24",
 		"enterprise_name": "",
 		"innovation_topics_choice": "",
 		"educational_titles": "",
@@ -24,8 +24,8 @@
 	"model": "accounts.executiveprofile",
 	"pk": 3,
 	"fields": {
-		"user": 5,
-		"slug": "bmlugar@gmail.com",
+		"user": 4,
+		"slug": "bmlugar",
 		"enterprise_name": "Universidad CES",
 		"innovation_topics_choice": "Incubaci\u00f3n- Aceleraci\u00f3n a emprendedores",
 		"educational_titles": "Ingeniera Biom\u00e9dica",
@@ -35,8 +35,8 @@
 	"model": "accounts.executiveprofile",
 	"pk": 4,
 	"fields": {
-		"user": 8,
-		"slug": "juanjaimearroyaver@gmail.com",
+		"user": 7,
+		"slug": "juanjaimearroyaver",
 		"enterprise_name": "",
 		"innovation_topics_choice": "",
 		"educational_titles": "",

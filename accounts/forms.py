@@ -23,7 +23,7 @@ class CustomUserChangeForm(UserChangeForm):
 class CustomUserCreationForm(UserCreationForm):
     class Meta(UserCreationForm.Meta):
         model = get_user_model()
-        fields = ('email',)
+        #fields = ('email',)
 
 
 class UserCreateForm(UserCreationForm):
@@ -33,11 +33,12 @@ class UserCreateForm(UserCreationForm):
             'user_type':forms.RadioSelect(),
         }
 
-        fields = ("email", "password1", "password2", "user_type",)
+        fields = ("username", "email", "password1", "password2", "user_type",)
         model = get_user_model()
 
     def __init__(self, *args, **kwargs):
         super(UserCreateForm, self).__init__(*args, **kwargs)
+        self.fields["username"].label = ""
         self.fields["email"].label = ""
         self.fields["password1"].label = ""
         self.fields["password2"].label = ""
@@ -73,11 +74,10 @@ class UserUpdateForm(forms.ModelForm):
         "country_of_origin", "city_of_origin", "country_current_residence",
         "city_current_residence", 'speak_languages', "phone_number",
         "address", "biography", 'description', "avatar", "date_of_birth", "creation_date",
-        'entertainment_activities', "is_student", "is_professor",
-        "is_executive", "is_study_host", "is_hosting_host",)
+        'entertainment_activities', "is_student", "is_professor", 'is_entrepreneurship_host',
+        "is_executive", "is_study_host", "is_hosting_host", 'is_ayni_host', 'is_daily_life_host')
 
         model = get_user_model()
-
 
 
 class StudentProfileForm(forms.ModelForm):

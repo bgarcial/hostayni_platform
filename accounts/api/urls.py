@@ -9,5 +9,6 @@ from posts.api.views import (
 
 urlpatterns = [
     # URL para los posts que un usuario ha creado o reposteado
-    url(r'^(?P<email>[\w.@+-]+)/post/$', PostListAPIView.as_view(), name='list'), #/api/email-user/post/
+    # url(r'^(?P<email>[\w.@+-]+)/post/$', PostListAPIView.as_view(), name='list'), #/api/email-user/post/
+    url(r'^(?P<slug>[\w.\-]+)/post/$', PostListAPIView.as_view(), name='list'), #/api/email-user/post/
 ]

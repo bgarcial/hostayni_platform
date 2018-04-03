@@ -57,7 +57,7 @@ class PostManager(models.Manager):
 
 class Post(models.Model):
     parent = models.ForeignKey("self", blank=True, null=True)
-    user = models.ForeignKey(settings.AUTH_USER_MODEL, default=1,)
+    user = models.ForeignKey(settings.AUTH_USER_MODEL)
     content = models.TextField(validators=[validate_content])
     # fix max_length?
 
@@ -109,9 +109,11 @@ def post_save_receiver(sender, instance, created, *args, **kwargs):
     # Si fue un post creado y no reposteado
     if created and not instance.parent:
         # notify a user
-        user_regex = r'@(?P<email>[\w.@+-]+)'
+        user_regex = r'@(?P<username>[\w.@+-]+)'
+        # user_regex = r'@(?P<email>[\w.@+-]+)'
         # match
-        emails = re.findall(user_regex, instance.content)
+        usernames = re.findall(user_regex, instance.content)
+        # emails = re.findall(user_regex, instance.content)
         # if emails:
             # print(emails)
             # email = m.group("email")
@@ -135,4 +137,4 @@ def post_save_receiver(sender, instance, created, *args, **kwargs):
         # Enviar hashtag signal al usuario aqui
         '''
 
-# post_save.connect(post_save_receiver, sender=Post)
+post_save.connect(post_save_receiver, sender=Post)

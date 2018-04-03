@@ -2,8 +2,8 @@
 	"model": "accounts.studentprofile",
 	"pk": 1,
 	"fields": {
-		"user": 3,
-		"slug": "christiandiazleon@gmail.com",
+		"user": 2,
+		"slug": "christiandiazleon",
 		"origin_education_school": "",
 		"current_education_school": "",
 		"extra_occupation": "",
@@ -15,8 +15,8 @@
 	"model": "accounts.studentprofile",
 	"pk": 2,
 	"fields": {
-		"user": 8,
-		"slug": "juanjaimearroyaver@gmail.com",
+		"user": 7,
+		"slug": "juanjaimearroyaver",
 		"origin_education_school": "",
 		"current_education_school": "",
 		"extra_occupation": "",
