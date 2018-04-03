@@ -315,7 +315,7 @@ class ArticleUpdateView(LoginRequiredMixin, UserProfileDataMixin, UpdateView):
     def get_object(self, queryset=None):
         """ Hook to ensure object is owned by request.user. """
         obj = super(ArticleUpdateView, self).get_object()
-        print (obj.author)
+        # print (obj.author)
         if not obj.author == self.request.user:
             raise Http404
         return obj

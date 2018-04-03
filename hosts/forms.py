@@ -49,8 +49,8 @@ class LodgingOfferForm(forms.ModelForm):
 
     class Meta:
         widgets = {
-            #'check_in': DateInput(),
-            #'check_out': DateInput(),
+            'check_in': DateInput(),
+            'check_out': DateInput(),
             'country': CountrySelectWidget(),
         }
         model = LodgingOffer
@@ -61,8 +61,8 @@ class LodgingOfferForm(forms.ModelForm):
 
     def __init__(self, *args, **kwargs):
         super(LodgingOfferForm, self).__init__(*args, **kwargs)
-        self.fields['check_in'].widget.attrs['class'] = 'input-group input-daterange'
-        self.fields['check_out'].widget.attrs['class'] = 'input-group input-daterange'
+        #self.fields['check_in'].widget.attrs['class'] = 'input-group input-daterange'
+        #self.fields['check_out'].widget.attrs['class'] = 'input-group input-daterange'
 
 
 class LodgingOfferImagesForm(forms.ModelForm):

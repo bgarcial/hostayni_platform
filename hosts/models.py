@@ -343,7 +343,6 @@ class LodgingOffer(models.Model):
             )
 
 
-
 def create_slug(instance, new_slug=None):
     slug = slugify(instance.ad_title)
     if new_slug is not None:
