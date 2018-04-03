@@ -7,17 +7,18 @@
 
 {% block body_content %}
 
-<!-- banner de christian
+
 <div class="banner-lodging-search">
   <img src="{% static 'img/Slider-3.png' %}" alt="">
 </div>
--->
+
 
 
     {% comment %}
         BANNER DESDE LA BASE DE DATOS
     {% endcomment %}
 
+{% comment %}
 {% if sliders %}
 <div class="container" style="margin-top: -19px;margin-bottom: 19px;">
    <!-- <div class="col-sm-8 col-sm-offset-4"> -->
@@ -64,6 +65,7 @@
 </div>
    <!-- </div> -->
 {% endif %}
+{% endcomment %}
 
 
 <!-- Columna del logo, mapa, filtro -->

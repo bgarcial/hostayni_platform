@@ -30,18 +30,18 @@ class StudyOfferImagesUploadForm(forms.ModelForm):
         fields = ('image',)
 
 
-class DateInput(DatePicker):
-    def __init__(self):
-        DatePicker.__init__(self,format="%Y-%m-%d")
-    def build_attrs(self, attrs, extra_attrs=None, **kwargs):
-        attrs = dict(self.attrs, **kwargs)
-        if extra_attrs:
-            attrs.update(extra_attrs)
-        return attrs
+#class DateInput(DatePicker):
+#    def __init__(self):
+#        DatePicker.__init__(self,format="%Y-%m-%d")
+#    def build_attrs(self, attrs, extra_attrs=None, **kwargs):
+#        attrs = dict(self.attrs, **kwargs)
+#        if extra_attrs:
+#            attrs.update(extra_attrs)
+#        return attrs
 
 class LodgingOfferForm(forms.ModelForm):
     title = "Crear oferta de alojamiento"
-    offer_taked = ("\n" 
+    offer_taked = ("\n"
      " Indica si esta oferta ya fue tomada por un usuario.Este campo es solo para uso de \n"
      " actualización de una oferta cuando ya ha habido un acuerdo por ella. "
      " Si se selecciona, no aparecerá en los resultados de búsquedas. \n "
@@ -49,8 +49,8 @@ class LodgingOfferForm(forms.ModelForm):
 
     class Meta:
         widgets = {
-            'check_in': DateInput(),
-            'check_out': DateInput(),
+            #'check_in': DateInput(),
+            #'check_out': DateInput(),
             'country': CountrySelectWidget(),
         }
         model = LodgingOffer
