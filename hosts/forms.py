@@ -41,6 +41,7 @@ class DateInput(DatePicker):
         return attrs
 
 
+
 class LodgingOfferForm(forms.ModelForm):
     title = "Crear oferta de alojamiento"
     offer_taked = ("\n"

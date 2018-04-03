@@ -46,6 +46,512 @@
           <div class="idioma-text">
             {% for language in speak_languages %}
                 <p> {{ language }} </p>
+
+        <h1>{{ object.first_name }}</h1><br/>
+        {{ object.email }}<br/>
+        <hr/>
+        <p>Followers: {{ object.followed_by.all.count }}</p>
+
+        <!--Validando que no me parezca para seguirme a mi mismo-->
+        {% if object.profile.user.slug != userprofile.user.slug %}
+        <p>
+            <a href='{{ object.profile.get_follow_url }}'>
+                {% if following %}
+                    Unfollow
+                {% else %}
+                    Follow
+                {% endif %}
+            </a>
+
+        </p>
+        {% endif %}
+
+        <strong>Datos para perfil de usuario</strong>
+        <br/><br/>
+
+        Correo electronico: {{ object.profile.user.email }}<br/><br/>
+        Nombre Completo {{ object.profile.user.first_name }} {{ object.profile.user.last_name }}<br/>
+        <br/><br/>
+
+        {% if object.profile.user.user_type == "O"  %}
+            Nombre de la organizacion
+            {{ object.profile.user.enterprise_name }}
+            <br/><br/>
+        {% endif %}
+
+
+        {% if object.profile.user.gender == "M"  %}
+        Genero: Masculino
+        {% elif object.profile.user.gender == "F" %}
+        Genero: Femenino
+            <br/><br/>
+        {% endif %}
+
+
+        <!-- Los paises de los usuarios estan guardados en bd con
+         codigo de paises, por ejemplo Colombia es CO ... hay que mirar
+         como representarlos o estandarizarlos o mostrarlos asi cosa
+         que no es muy viable-->
+        {% if object.profile.user.country_of_origin == "CO"%}
+            País de origen: Colombia
+            <br/><br/>
+        {% endif %}
+
+
+        Ciudad de origen:
+        {{ object.profile.user.city_of_origin }}
+        <br/><br/>
+
+        {% if object.profile.user.country_current_residence == "CO" %}
+            Pais de residencia: Colombia
+        {% endif %}
+        <br/><br/>
+        <strong>Idiomas</strong><br/>
+        {% for language in speak_languages %}
+            {{ language }}<br/>
+        {% endfor %}<br/>
+        Telefono: {{ object.profile.user.phone_number }}<br/><br/>
+        Direccion: {{ object.profile.user.address }}<br/><br/>
+        Biografia: {{ object.profile.user.biography }}<br/><br/>
+
+        <!-- Por si es empresa -->
+        {% if object.profile.user.user_type == "O"  %}
+            Descripcion {{ object.profile.user.description }}<br/><br/>
+        {% endif %}
+
+        <!-- Si tiene avatar que lo muestre o si no la imagen por defecto -->
+        {% if object.profile.user.avatar %}
+              <img src="{{ object.profile.user.avatar.url }}" width="100" height="100" class="img-responsive">
+        {% else %}
+              <img src="{% static 'img/default_profile_pic.png' %}" class="img-responsive">
+        {% endif %}
+        <br/><br/>
+        Fecha de nacimiento
+        {{ object.profile.user.date_of_birth }}<br/>
+
+        <!-- Por si es empresa -->
+        {% if object.profile.user.user_type == "O"  %}
+            Fecha de creacion de la empresa
+            {{ object.profile.user.creation_date }}<br/><br/>
+        {% endif %}
+
+        <strong>Roles</strong><br/><br/>
+        {% if object.profile.user.is_student %}
+             Estudiante
+        {% endif %}
+        <br/>
+        {% if object.profile.user.is_professor %}
+             Profesor
+        {% endif %}
+        <br/>
+        {% if object.profile.user.is_executive %}
+             Ejecutivo
+        {% endif %}
+        <br/>
+        {% if object.profile.user.is_study_host %}
+             Anfitrion de estudios
+        {% endif %}
+        <br/>
+        {% if object.profile.user.is_innovation_host %}
+             Anfitrion de innovación
+        {% endif %}
+        <br/>
+        {% if object.profile.user.is_hosting_host %}
+             Anfitrion de alojamiento
+        {% endif %}
+        <br/>
+        {% if object.profile.user.is_entertainment_host %}
+             Anfitrión de entretenimiento
+        {% endif %}
+        <br/>
+        {% if object.profile.user.is_other_services_host %}
+             Anfitrión de otros servicios
+        {% endif %}
+        <br/><br/>
+
+        <strong>Actividades de Entretenimiento</strong><br/><br/>
+        {% for activities in entertainment_activities %}
+            {{ activities }}<br/>
+        {% endfor %}
+
+        <hr/>
+
+        <h1>Following <small>{{ object.profile.get_following.count }}</small></h1>
+            {% for user in object.profile.get_following %}
+            <a href='../{{ user.slug }}'>{{ user.slug }}</a> <br /><br />
+                {% comment %}usar el mismo js que en post-list.hml{% endcomment %}
+            {% empty %}
+                <h4>Not following any users</h4>
+            {% endfor %}
+
+        <hr/>
+        <h1>Followed By</h1>
+            {% for profile in object.followed_by.all %}
+                <a href='../{{ profile.user.slug }}'>{{ profile.user.slug }}</a><br /><br />
+            {% empty %}
+                <h4>Not followed by any users</h4>
+
+        <h1>{{ object.first_name }}</h1><br/>
+        {{ object.email }}<br/>
+        <hr/>
+        <p>Followers: {{ object.followed_by.all.count }}</p>
+
+        <!--Validando que no me parezca para seguirme a mi mismo-->
+        {% if object.profile.user.id != userprofile.user.id %}
+        <p>
+            <a href='{{ object.profile.get_follow_url }}'>
+                {% if following %}
+                    Unfollow
+                {% else %}
+                    Follow
+                {% endif %}
+            </a>
+
+        </p>
+        {% endif %}
+
+        <strong>Datos para perfil de usuario</strong>
+        <br/><br/>
+
+        Correo electronico: {{ object.profile.user.email }}<br/><br/>
+        Nombre Completo {{ object.profile.user.first_name }} {{ object.profile.user.last_name }}<br/>
+        <br/><br/>
+
+        {% if object.profile.user.user_type == "O"  %}
+            Nombre de la organizacion
+            {{ object.profile.user.enterprise_name }}
+            <br/><br/>
+        {% endif %}
+
+
+        {% if object.profile.user.gender == "M"  %}
+        Genero: Masculino
+        {% elif object.profile.user.gender == "F" %}
+        Genero: Femenino
+            <br/><br/>
+        {% endif %}
+
+
+        <!-- Los paises de los usuarios estan guardados en bd con
+         codigo de paises, por ejemplo Colombia es CO ... hay que mirar
+         como representarlos o estandarizarlos o mostrarlos asi cosa
+         que no es muy viable-->
+        {% if object.profile.user.country_of_origin == "CO"%}
+            País de origen: Colombia
+            <br/><br/>
+        {% endif %}
+
+
+        Ciudad de origen:
+        {{ object.profile.user.city_of_origin }}
+        <br/><br/>
+
+        {% if object.profile.user.country_current_residence == "CO" %}
+            Pais de residencia: Colombia
+        {% endif %}
+        <br/><br/>
+        <strong>Idiomas</strong><br/>
+        {% for language in speak_languages %}
+            {{ language }}<br/>
+        {% endfor %}<br/>
+        Telefono: {{ object.profile.user.phone_number }}<br/><br/>
+        Direccion: {{ object.profile.user.address }}<br/><br/>
+        Biografia: {{ object.profile.user.biography }}<br/><br/>
+
+        <!-- Por si es empresa -->
+        {% if object.profile.user.user_type == "O"  %}
+            Descripcion {{ object.profile.user.description }}<br/><br/>
+        {% endif %}
+
+        <!-- Si tiene avatar que lo muestre o si no la imagen por defecto -->
+        {% if object.profile.user.avatar %}
+              <img src="{{ object.profile.user.avatar.url }}" width="100" height="100" class="img-responsive">
+        {% else %}
+              <img src="{% static 'img/default_profile_pic.png' %}" class="img-responsive">
+        {% endif %}
+        <br/><br/>
+        Fecha de nacimiento
+        {{ object.profile.user.date_of_birth }}<br/>
+
+        <!-- Por si es empresa -->
+        {% if object.profile.user.user_type == "O"  %}
+            Fecha de creacion de la empresa
+            {{ object.profile.user.creation_date }}<br/><br/>
+        {% endif %}
+
+        <strong>Roles</strong><br/><br/>
+        {% if object.profile.user.is_student %}
+             Estudiante
+        {% endif %}
+        <br/>
+        {% if object.profile.user.is_professor %}
+             Profesor
+        {% endif %}
+        <br/>
+        {% if object.profile.user.is_executive %}
+             Ejecutivo
+        {% endif %}
+        <br/>
+        {% if object.profile.user.is_study_host %}
+             Anfitrion de estudios
+        {% endif %}
+        <br/>
+        {% if object.profile.user.is_innovation_host %}
+             Anfitrion de innovación
+        {% endif %}
+        <br/>
+        {% if object.profile.user.is_hosting_host %}
+             Anfitrion de alojamiento
+        {% endif %}
+        <br/>
+        {% if object.profile.user.is_entertainment_host %}
+             Anfitrión de entretenimiento
+        {% endif %}
+        <br/>
+        {% if object.profile.user.is_other_services_host %}
+             Anfitrión de otros servicios
+        {% endif %}
+        <br/><br/>
+
+        <strong>Actividades de Entretenimiento</strong><br/><br/>
+        {% for activities in entertainment_activities %}
+            {{ activities }}<br/>
+        {% endfor %}
+
+        <hr/>
+
+        <h1>Following <small>{{ object.profile.get_following.count }}</small></h1>
+            {% for user in object.profile.get_following %}
+            <a href='../{{ user.email }}'>{{ user.email }}</a> <br /><br />
+                {% comment %}usar el mismo js que en post-list.hml{% endcomment %}
+            {% empty %}
+                <h4>Not following any users</h4>
+            {% endfor %}
+
+        <hr/>
+        <h1>Followed By</h1>
+            {% for profile in object.followed_by.all %}
+                <a href='../{{ profile.user.email }}'>{{ profile.user.email }}</a><br /><br />
+            {% empty %}
+                <h4>Not followed by any users</h4>
+
+<!-- PROFILE INFO CONTAINER -->
+<div class="profile-info-container">
+    <!-- DETAILS PROFILE USER -->
+    <div class="column-profile-detail">
+      {% if object.profile.user.user_type == "P"  %}
+        <div class="img-profile">
+          {% if object.profile.user.avatar %}
+                <img src="{{ object.profile.user.avatar.url }}" width="100" height="100" class="img-responsive">
+          {% else %}
+                <img src="{% static 'img/default_profile_pic.png' %}" class="img-responsive">
+          {% endif %}
+        </div>
+        <div class="nombre-profile">
+          <p> <b> {{ object.profile.user.first_name }} {{ object.profile.user.last_name }} </b> </p>
+        </div>
+        <div class="lugar-nacimiento-profile">
+          <!-- Los paises de los usuarios estan guardados en bd con
+           codigo de paises, por ejemplo Colombia es CO ... hay que mirar
+           como representarlos o estandarizarlos o mostrarlos asi cosa
+           que no es muy viable-->
+          {% if object.profile.user.country_of_origin == "CO" %}
+              <p>{{ object.profile.user.city_of_origin }}, Colombia</p>
+          {% endif %}
+        </div>
+        <div class="fecha-nacimiento-profile">
+          <p>{{ object.profile.user.date_of_birth }}</p>
+        </div>
+        <div class="idiomas-profile">
+          <div class="idioma-icon">
+            <img src="{% static 'img/icons/lang.svg' %}" alt="">
+          </div>
+          <div class="idioma-text">
+            {% for language in speak_languages %}
+                <p> {{ language }} </p>
+            {% endfor %}
+          </div>
+
+<!-- PROFILE INFO CONTAINER -->
+<div class="profile-info-container">
+    <!-- DETAILS PROFILE USER -->
+    <div class="column-profile-detail">
+      {% if object.profile.user.user_type == "P"  %}
+        <div class="img-profile">
+          {% if object.profile.user.avatar %}
+                <img src="{{ object.profile.user.avatar.url }}" width="100" height="100" class="img-responsive">
+          {% else %}
+                <img src="{% static 'img/default_profile_pic.png' %}" class="img-responsive">
+          {% endif %}
+        </div>
+        <div class="nombre-profile">
+          <p> <b> {{ object.profile.user.first_name }} {{ object.profile.user.last_name }} </b> </p>
+        </div>
+        <div class="lugar-nacimiento-profile">
+          <!-- Los paises de los usuarios estan guardados en bd con
+           codigo de paises, por ejemplo Colombia es CO ... hay que mirar
+           como representarlos o estandarizarlos o mostrarlos asi cosa
+           que no es muy viable-->
+          {% if object.profile.user.country_of_origin == "CO" %}
+              <p>{{ object.profile.user.city_of_origin }}, Colombia</p>
+          {% endif %}
+        </div>
+        <div class="fecha-nacimiento-profile">
+          <p>{{ object.profile.user.date_of_birth }}</p>
+        </div>
+        <div class="idiomas-profile">
+          <div class="idioma-icon">
+            <img src="{% static 'img/icons/lang.svg' %}" alt="">
+          </div>
+          <div class="idioma-text">
+            {% for language in speak_languages %}
+                <p> {{ language }} </p>
+            {% endfor %}
+
+        <h1>{{ object.first_name }}</h1><br/>
+        {{ object.email }}<br/>
+        <hr/>
+        <p>Followers: {{ object.followed_by.all.count }}</p>
+
+        <!--Validando que no me parezca para seguirme a mi mismo-->
+        {% if object.profile.user.slug != userprofile.user.slug %}
+        <p>
+            <a href='{{ object.profile.get_follow_url }}'>
+                {% if following %}
+                    Unfollow
+                {% else %}
+                    Follow
+                {% endif %}
+            </a>
+
+        </p>
+        {% endif %}
+
+        <strong>Datos para perfil de usuario</strong>
+        <br/><br/>
+
+        Correo electronico: {{ object.profile.user.email }}<br/><br/>
+        Nombre Completo {{ object.profile.user.first_name }} {{ object.profile.user.last_name }}<br/>
+        <br/><br/>
+
+        {% if object.profile.user.user_type == "O"  %}
+            Nombre de la organizacion
+            {{ object.profile.user.enterprise_name }}
+            <br/><br/>
+        {% endif %}
+
+
+        {% if object.profile.user.gender == "M"  %}
+        Genero: Masculino
+        {% elif object.profile.user.gender == "F" %}
+        Genero: Femenino
+            <br/><br/>
+        {% endif %}
+
+
+        <!-- Los paises de los usuarios estan guardados en bd con
+         codigo de paises, por ejemplo Colombia es CO ... hay que mirar
+         como representarlos o estandarizarlos o mostrarlos asi cosa
+         que no es muy viable-->
+        {% if object.profile.user.country_of_origin == "CO"%}
+            País de origen: Colombia
+            <br/><br/>
+        {% endif %}
+
+
+        Ciudad de origen:
+        {{ object.profile.user.city_of_origin }}
+        <br/><br/>
+
+        {% if object.profile.user.country_current_residence == "CO" %}
+            Pais de residencia: Colombia
+        {% endif %}
+        <br/><br/>
+        <strong>Idiomas</strong><br/>
+        {% for language in speak_languages %}
+            {{ language }}<br/>
+        {% endfor %}<br/>
+        Telefono: {{ object.profile.user.phone_number }}<br/><br/>
+        Direccion: {{ object.profile.user.address }}<br/><br/>
+        Biografia: {{ object.profile.user.biography }}<br/><br/>
+
+        <!-- Por si es empresa -->
+        {% if object.profile.user.user_type == "O"  %}
+            Descripcion {{ object.profile.user.description }}<br/><br/>
+        {% endif %}
+
+        <!-- Si tiene avatar que lo muestre o si no la imagen por defecto -->
+        {% if object.profile.user.avatar %}
+              <img src="{{ object.profile.user.avatar.url }}" width="100" height="100" class="img-responsive">
+        {% else %}
+              <img src="{% static 'img/default_profile_pic.png' %}" class="img-responsive">
+        {% endif %}
+        <br/><br/>
+        Fecha de nacimiento
+        {{ object.profile.user.date_of_birth }}<br/>
+
+        <!-- Por si es empresa -->
+        {% if object.profile.user.user_type == "O"  %}
+            Fecha de creacion de la empresa
+            {{ object.profile.user.creation_date }}<br/><br/>
+        {% endif %}
+
+        <strong>Roles</strong><br/><br/>
+        {% if object.profile.user.is_student %}
+             Estudiante
+        {% endif %}
+        <br/>
+        {% if object.profile.user.is_professor %}
+             Profesor
+        {% endif %}
+        <br/>
+        {% if object.profile.user.is_executive %}
+             Ejecutivo
+        {% endif %}
+        <br/>
+        {% if object.profile.user.is_study_host %}
+             Anfitrion de estudios
+        {% endif %}
+        <br/>
+        {% if object.profile.user.is_innovation_host %}
+             Anfitrion de innovación
+        {% endif %}
+        <br/>
+        {% if object.profile.user.is_hosting_host %}
+             Anfitrion de alojamiento
+        {% endif %}
+        <br/>
+        {% if object.profile.user.is_entertainment_host %}
+             Anfitrión de entretenimiento
+        {% endif %}
+        <br/>
+        {% if object.profile.user.is_other_services_host %}
+             Anfitrión de otros servicios
+        {% endif %}
+        <br/><br/>
+
+        <strong>Actividades de Entretenimiento</strong><br/><br/>
+        {% for activities in entertainment_activities %}
+            {{ activities }}<br/>
+        {% endfor %}
+
+        <hr/>
+
+        <h1>Following <small>{{ object.profile.get_following.count }}</small></h1>
+            {% for user in object.profile.get_following %}
+            <a href='../{{ user.slug }}'>{{ user.slug }}</a> <br /><br />
+                {% comment %}usar el mismo js que en post-list.hml{% endcomment %}
+            {% empty %}
+                <h4>Not following any users</h4>
+            {% endfor %}
+
+        <hr/>
+        <h1>Followed By</h1>
+            {% for profile in object.followed_by.all %}
+                <a href='../{{ profile.user.slug }}'>{{ profile.user.slug }}</a><br /><br />
+            {% empty %}
+                <h4>Not followed by any users</h4>
+
             {% endfor %}
           </div>
         </div>
@@ -148,13 +654,11 @@
 
       {% endif %}
 
-<<<<<<< HEAD
+
       {% comment %}
-||||||| merged common ancestors
+
         <div id="post-container" data-url="/api/{{ object.email }}/post/">
-=======
         <div id="post-container" data-url="/api/{{ object.username }}/post/">
->>>>>>> development
 
       {% if object.profile.user.gender == "M"  %}
       Genero: Masculino
