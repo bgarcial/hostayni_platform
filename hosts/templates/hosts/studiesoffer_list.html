@@ -1,14 +1,13 @@
 {% extends 'layout.html' %}
-{% block title_tag %}Studies Offert | {{ block.super }}{% endblock %}
-{% block top_logo %}
-{% include "top-logo.html" %}
-{% endblock %}
+{% block title_tag %}My Educational Offers | {{ block.super }}{% endblock %}
+
 {% block body_content %}
-<div class="container">
- <div class="panel panel-default">
+
+<div class="container-lodging">
+ <div class="panel-lodging panel-default">
  <!-- Default panel contents -->
-  <div class="panel-heading">Mis ofertas Educativas
-  &nbsp;&nbsp;&nbsp;&nbsp;| &nbsp;&nbsp;&nbsp;&nbsp;
+  <div class="panel-heading">Mis ofertas de educación
+      &nbsp;&nbsp;&nbsp;&nbsp;| &nbsp;&nbsp;&nbsp;&nbsp;
        <a href = "{% url 'host:study-host' %}">Crear oferta</a>
   </div>
    <!-- Table -->
@@ -18,16 +17,16 @@
      <th>Acciones</th>
     </tr>
   {% for offers in studies_offers %}
+
     <tr>
      <td>
-      <h5><a href="{% url 'host:studyoffertdetail' offers.slug %}">{{ offers.ad_title }}</a></h5>
+      <h5><a href="{% url 'host:studyoffertdetail' offers.slug %}">{{ offers.ad_title }}</a>
      </td>
      <td>
-     <p><a class='glyphicon glyphicon-pencil' href = "{% url 'host:edit-study-offer' offers.slug %}"></a>
+     <p><a class='glyphicon glyphicon-pencil' href = "{% url 'host:edit-study-offer' slug=offers.slug %}"></a>
       &nbsp;&nbsp;&nbsp;&nbsp;| &nbsp;&nbsp;&nbsp;&nbsp;
    <a class='glyphicon glyphicon-trash' href = "{% url 'host:delete-study-offer' slug=offers.slug %}"></a></p>
      </td>
-    </tr>
     {% endfor %}
    </table>
  </div>

@@ -82,17 +82,19 @@
         <!-- TAB ROLES -->
           <div id="roles" class="tabcontent">
           <!-- Los dos tipos de usuario (persona y organizacion) pueden ser
-           anfitriones de alojamiento-->
+           anfitriones de alojamiento, de emprendimiento, de vida diaria y de ayni-->
             {% bootstrap_field form.is_hosting_host %}
+            {% bootstrap_field form.is_entrepreneurship_host %}
+            {% bootstrap_field form.is_ayni_host %}
+            {% bootstrap_field form.is_daily_life_host %}
             {% if user.user_type == 'P' %}
                 {% bootstrap_field form.is_student %}
                 {% bootstrap_field form.is_professor %}
                 {% bootstrap_field form.is_executive %}
+
             {% else %}
                 {% bootstrap_field form.is_study_host %}
             {% endif %}
-
-
           </div>
         </div>
 

@@ -50,10 +50,14 @@ class UserManager(BaseUserManager):
     instead of usernames. The default that's used is "UserManager"
     """
 
-    def create_user(self, email, password=None, **extra_fields):
+    def create_user(self, username, email, password=None, **extra_fields):
         # extra_fields.setdefault('is_active', False)
         if not email:
             raise ValueError("Users must have an email address")
+
+        if not username:
+            raise ValueError("Users must have an username field")
+
 
         # If the users don't have a user or display name
         # I set as display_name the username they've provided.
@@ -65,30 +69,37 @@ class UserManager(BaseUserManager):
         # Make new user, user instance in memory
         user  = self.model(
             # make sure that all the email addresses throughout your app are formatted the same way
-            email = self.normalize_email(email),
+            # username = self.normalize_username(username),
+            username=username,
+            email=self.normalize_email(email),
             **extra_fields
 
         )
+
+
         user.set_password(password)
 
         # handle the encryption and validation checks and so.
         user.save()
         return user
 
-    def create_superuser(self, email, password, **extra_fields):
+    def create_superuser(self, username, email, password, **extra_fields):
         extra_fields.setdefault('is_staff', True)
         extra_fields.setdefault('is_superuser', True)
         extra_fields.setdefault('is_active', True)
+        extra_fields.setdefault('user_type', "O")
+        extra_fields.setdefault('is_hosting_host', True)
+        extra_fields.setdefault('is_study_host', True)
 
         if extra_fields.get('is_staff') is not True:
             raise ValueError('Superuser must have is_staff=True.')
         if extra_fields.get('is_superuser') is not True:
             raise ValueError('Superuser must have is_superuser=True.')
-        return self.create_user(email, password, **extra_fields)
+        return self.create_user(username, email, password, **extra_fields)
 
 
 def get_image_path(instance, filename):
-    return os.path.join('userprofile-pictures', str(instance.email), filename)
+    return os.path.join('userprofile-pictures', str(instance.username), filename)
 
 
 class User(AbstractBaseUser, PermissionsMixin):
@@ -123,15 +134,19 @@ class User(AbstractBaseUser, PermissionsMixin):
         (ENTERPRISE, "Organización"),
     )
 
+    # id = models.AutoField(primary_key=True)
+
+    username = models.CharField(_('username'), max_length=30,
+                                # help_text=_('Required. 30 characters or fewer. Letters, digits and ''@/./+/-/_ only.'),
+                                validators=[RegexValidator(r'^[\w.@+-]+$', _('Enter a valid username.'), 'invalid')
+                                            ])
+
     email = models.EmailField(unique=True, null=True, verbose_name='correo electrónico',
             # help_text=_('Required. Letters, digits and ''@/./+/-/_ only.'),
         validators=[RegexValidator(r'^[\w.@+-]+$', _('Enter a valid email address.'), 'invalid')
         ])
 
-    username = models.CharField(_('username'), max_length=30, null=True,
-            help_text=_('Required. 30 characters or fewer. Letters, digits and ''@/./+/-/_ only.'),
-        validators=[RegexValidator(r'^[\w.@+-]+$', _('Enter a valid username.'), 'invalid')
-        ])
+
 
     slug = models.SlugField(
         # unique=True,
@@ -274,9 +289,9 @@ class User(AbstractBaseUser, PermissionsMixin):
         verbose_name='Anfitrion de estudio',
     )
 
-    is_innovation_host = models.BooleanField(
+    is_entrepreneurship_host = models.BooleanField(
         default=False,
-        verbose_name='Anfitrión de innovación',
+        verbose_name='Anfitrión de emprendimiento',
 
     )
 
@@ -286,15 +301,15 @@ class User(AbstractBaseUser, PermissionsMixin):
 
     )
 
-    is_entertainment_host = models.BooleanField(
+    is_ayni_host = models.BooleanField(
         default=False,
-        verbose_name='Anfitrión de entretenimiento',
+        verbose_name='Anfitrión AYNI',
 
     )
 
-    is_other_services_host = models.BooleanField(
+    is_daily_life_host = models.BooleanField(
         default=False,
-        verbose_name='Anfitrión de otros servicios',
+        verbose_name='Anfitrión de servicios de vida diaria',
     )
 
     # Adicionarla ahora despues de la migración
@@ -330,15 +345,15 @@ class User(AbstractBaseUser, PermissionsMixin):
 
     # List of fields that will be sent when create the superuser in addition to
     # username and password
-    # REQUIRED_FIELDS = ["display_name", "username"]
-    # REQUIRED_FIELDS = ["display_name",]
+    REQUIRED_FIELDS = ["username",]
+    # REQUIRED_FIELDS = ["email"]
 
     class Meta:
         db_table = 'auth_user'
         verbose_name_plural = 'Usuarios en la plataforma'
 
     def __str__(self):
-        return "@{}".format(self.email)
+        return "@{}".format(self.username)
 
     def set_avatar(self):
         _avatar = self.avatar
@@ -371,6 +386,7 @@ class User(AbstractBaseUser, PermissionsMixin):
     def get_enterprise_name(self):
         return "{}".format(self.enterprise_name)
 
+
     # We get the profiles user according with their type
 
     def get_student_profile(self):
@@ -397,11 +413,11 @@ class User(AbstractBaseUser, PermissionsMixin):
             study_host_profile = self.studyhostprofile
         return study_host_profile
 
-    def get_innovation_host_profile(self):
-        innovation_host_profile = None
-        if hasattr(self, 'innovationhostprofile'):
-            innovation_host_profile = self.innovationhostprofile
-        return innovation_host_profile
+    def get_entrepreneurship_host_profile(self):
+        entrepreneurship_host_profile = None
+        if hasattr(self, 'entrepreneurshiphostprofile'):
+            entrepreneurship_host_profile = self.entrepreneurshiphostprofile
+        return entrepreneurship_host_profile
 
     def get_hosting_host_profile(self):
         hosting_host_profile = None
@@ -409,67 +425,86 @@ class User(AbstractBaseUser, PermissionsMixin):
             hosting_host_profile = self.hostinghostprofile
         return hosting_host_profile
 
-    def get_entertainment_host_profile(self):
-        entertainment_host_profile = None
-        if hasattr(self, 'entertainmenthostprofile'):
-            entertainment_host_profile = self.entertainmenthostprofile
-        return entertainment_host_profile
+    def get_ayni_host_profile(self):
+        ayni_host_profile = None
+        if hasattr(self, 'aynihostprofile'):
+            ayni_host_profile = self.aynihostprofile
+        return ayni_host_profile
 
-    def get_other_services_host_profile(self):
-        other_services_host_profile = None
-        if hasattr(self, 'otherserviceshostprofile'):
-            other_services_host_profile = self.otherserviceshostprofile
-        return other_services_host_profile
+    def get_daily_life_host_profile(self):
+        daily_life_host_profile = None
+        if hasattr(self, 'dailylifehostprofile'):
+            daily_life_host_profile = self.dailylifehostprofile
+        return daily_life_host_profile
 
     def save(self, *args, **kwargs):
         super(User, self).save(*args, **kwargs)
 
-        #self.avatar =
-
-        # if self.user_type=='O':
-        #    FirstName = self.enterprise_name
 
         if self.is_student and getattr(self, 'studentprofile', None) is None:
             StudentProfile.objects.create(
                 user=self,
-                slug=self.email
+                slug=self.username
             )
         if self.is_professor and getattr(self, 'professorprofile', None) is None:
             ProfessorProfile.objects.create(
                 user=self,
-                slug=self.email
+                slug=self.username
             )
         if self.is_executive and getattr(self, 'executiveprofile', None) is None:
             ExecutiveProfile.objects.create(
                 user=self,
-                slug=self.email
+                slug=self.username
             )
         if self.is_study_host and getattr(self, 'studyhostprofile', None) is None:
             StudyHostProfile.objects.create(
                 user=self,
-                slug=self.email
+                slug=self.username
             )
-        '''
+
+        # Hosting Host data details was removed by team decisions
+
         if self.is_hosting_host and getattr(self, 'hostinghostprofile', None) is None:
             HostingHostProfile.objects.create(
                 user=self,
-                slug=self.email
+                slug=self.username
             )
-        '''
+
+
+        if self.is_entrepreneurship_host and getattr(self, 'entrepreneurshiphostprofile', None) is None:
+            EntrepreneurshipHostProfile.objects.create(
+                user=self,
+                slug=self.username
+            )
+
+        if self.is_daily_life_host and getattr(self, 'dailylifehostprofile', None) is None:
+            DailyLifeHostProfile.objects.create(
+                user=self,
+                slug=self.username
+            )
+
+        if self.is_ayni_host and getattr(self, 'aynihostprofile', None) is None:
+            AyniHostProfile.objects.create(
+                user=self,
+                slug=self.username
+            )
+
+
 
 
 # https://docs.djangoproject.com/en/1.11/ref/signals/#django.db.models.signals.pre_save
 
 # Funcion para no crear un slug similar #ej juan.jaime crea slug juanjaime y juanjaime crea slug juanjaime
 # entonces que la cambie
+
 def create_slug(instance, new_slug=None):
-    slug = slugify(instance.email)
+    slug = slugify(instance.username)
     if new_slug is not None:
         slug = new_slug
     qs = User.objects.filter(slug=slug).order_by("-id")
     exists = qs.exists()
     if exists:
-        # Add the id to slug (compose by email + ID)
+        # Add the id to slug (compose by username + ID)
         new_slug = "%s-%s" % (slug, qs.first().id)
         return create_slug(instance, new_slug=new_slug)
     return slug
@@ -481,7 +516,7 @@ def pre_save_user_receiver(sender, instance, *args, **kwargs):
 
     if not instance.slug:
         instance.slug = create_slug(instance)
-    """
+"""
     slug = slugify(instance.email)
     # fabiola.quimica - fabiolaquimica
     # We want to make sure that slug doesn't already exist
@@ -492,7 +527,7 @@ def pre_save_user_receiver(sender, instance, *args, **kwargs):
         slug = "%s-%s" %(slugify(instance.email), instance.id)
 
     instance.slug = slug
-    """
+"""
 
 
 pre_save.connect(pre_save_user_receiver, sender=settings.AUTH_USER_MODEL)
@@ -586,14 +621,13 @@ class UserProfile(models.Model):
     # Para evitar que following a mi mismo mirar follow toggle video
     def get_following(self):
         users = self.following.all()  # Users.objects.all().exclude(email=self.user.email)
-        return users.exclude(email=self.user.email)
+        return users.exclude(username=self.user.username)
 
     def get_follow_url(self):
-        return reverse_lazy('accounts:follow', kwargs={"email": self.user.email})
-
+        return reverse_lazy('accounts:follow', kwargs={"slug": self.user.slug})
 
     def get_absolute_url(self):
-        return reverse_lazy('accounts:detail', kwargs={"email": self.user.email})
+        return reverse_lazy('accounts:detail', kwargs={"username": self.user.username})
 
 '''
 class EmailConfirmed(models.Model):
@@ -626,9 +660,6 @@ class EmailConfirmed(models.Model):
 
 '''
 
-
-
-
 # Signal para que cuando se cree un usuario, se cree su userprofile y se envie un correo de
 # confirmación.
 # View post_save parametere https://docs.djangoproject.com/en/1.11/ref/signals/#post-save
@@ -639,7 +670,7 @@ def user_created(sender, instance, created, *args, **kwargs):
     #
 
     if created:
-        new_profile = UserProfile.objects.get_or_create(user = instance)
+        new_profile = UserProfile.objects.get_or_create(user=instance)
         '''
         # send email to verify user email
         email_confirmed, email_is_created = EmailConfirmed.objects.get_or_create(user = instance)
@@ -727,7 +758,7 @@ class StudentProfile(models.Model):
         verbose_name_plural = 'Usuarios con perfil de estudiantes'
 
     def __str__(self):
-        return "{}".format(self.user.email)
+        return "{}".format(self.user.username)
 
 
 class ProfessorProfile(models.Model):
@@ -807,7 +838,7 @@ class ProfessorProfile(models.Model):
         verbose_name_plural = 'Usuarios con perfil de profesores'
 
     def __str__(self):
-        return "{}".format(self.user.email, )
+        return "{}".format(self.user.username, )
 
 
 class ExecutiveProfile(models.Model):
@@ -960,10 +991,10 @@ class StudyHostProfile(models.Model):
         verbose_name_plural = 'Usuarios con perfil de anfitriones de estudio'
 
     def __str__(self):
-        return "{}".format(self.user.email, )
+        return "{}".format(self.user.username, )
 
 
-class InnovationHostProfile(models.Model):
+class EntrepreneurshipHostProfile(models.Model):
     user = models.OneToOneField(
         settings.AUTH_USER_MODEL,
         on_delete=models.CASCADE
@@ -975,12 +1006,12 @@ class InnovationHostProfile(models.Model):
     )
 
     class Meta:
-        verbose_name_plural = 'Usuarios con perfil de anfitriones de innovación'
+        verbose_name_plural = 'Usuarios con perfil de anfitriones de emprendimiento'
 
     def __str__(self):
-        return "{}".format(self.user.display_name, )
+        return "{}".format(self.user.username, )
 
-'''
+
 class HostingHostProfile(models.Model):
     user = models.OneToOneField(
         settings.AUTH_USER_MODEL,
@@ -1003,12 +1034,10 @@ class HostingHostProfile(models.Model):
         verbose_name_plural = 'Usuarios con perfil de anfitriones de hospedaje'
 
     def __str__(self):
-        return "{}".format(self.user.email, )
-
-'''
+        return "{}".format(self.user.username, )
 
 
-class EntertainmentHostProfile(models.Model):
+class AyniHostProfile(models.Model):
     user = models.OneToOneField(
         settings.AUTH_USER_MODEL,
         on_delete=models.CASCADE
@@ -1020,13 +1049,13 @@ class EntertainmentHostProfile(models.Model):
     )
 
     class Meta:
-        verbose_name_plural = 'Usuarios con perfil de anfitriones de entretenimiento'
+        verbose_name_plural = 'Usuarios con perfil de AYNI'
 
     def __str__(self):
-        return "{}".format(self.user.display_name, )
+        return "{}".format(self.user.username, )
 
 
-class OtherServicesHostProfile(models.Model):
+class DailyLifeHostProfile(models.Model):
     user = models.OneToOneField(
         settings.AUTH_USER_MODEL,
         on_delete=models.CASCADE
@@ -1038,7 +1067,7 @@ class OtherServicesHostProfile(models.Model):
     )
 
     class Meta:
-        verbose_name_plural = 'Usuarios con perfil de anfitriones de servicios varios'
+        verbose_name_plural = 'Usuarios con perfil de anfitriones de vida diaria'
 
     def __str__(self):
-        return "{}".format(self.user.display_name, )
+        return "{}".format(self.user.username, )

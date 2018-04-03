@@ -1,13 +1,9 @@
 {% extends 'layout.html' %}
 {% load staticfiles %}
 {% load bootstrap3 %}
-{% bootstrap_css %}
-{% bootstrap_javascript %}
-{% block title_tag %}Editar Imágenes de {{ lodging_offer.ad_title }} | {{ block.super }}{% endblock %}
-{% block top_logo %}
-{% include "top-logo.html" %}
-{% endblock %}
 {% block body_content %}
+
+<br/><br/><br/><br/><br/><br/>
 <a href="{% url 'host:edit_lodging_offer_uploads_image' slug=lodging_offer_image.lodging_offer.slug %}">Agregar más imágenes a esta oferta</a>
 &nbsp;&nbsp;&nbsp;&nbsp;| &nbsp;&nbsp;&nbsp;&nbsp;
 <a href="{% url 'host:detail' slug=lodging_offer_image.lodging_offer.slug %}">Regresar a oferta</a>

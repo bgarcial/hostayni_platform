@@ -152,14 +152,16 @@ class PostListAPIView(generics.ListAPIView):
         # qs = Post.objects.all().order_by('-updated')
 
         # Capturamos el request de un usuario
-        requested_user = self.kwargs.get("email")
+        requested_user = self.kwargs.get("username")
+        # requested_user = self.kwargs.get("email")
 
         if requested_user:
 
             # Mostrando los posts de un usuaSrio en especial
             # Bind querysets https://www.udemy.com/tweetme-django/learn/v4/t/lecture/6134712?start=0
             # Para ver los posts mios y los que reposteo
-            qs = Post.objects.filter(user__email=requested_user).order_by('-timestamp')
+            qs = Post.objects.filter(user__username=requested_user).order_by('-timestamp')
+            # qs = Post.objects.filter(user__email=requested_user).order_by('-timestamp')
             # print(self.request.GET)
         else:
             im_following = self.request.user.profile.get_following() # none
@@ -180,6 +182,7 @@ class PostListAPIView(generics.ListAPIView):
             # https://docs.djangoproject.com/en/1.11/topics/db/queries/#complex-lookups-with-q-objects
             qs = qs.filter(
                 Q(content__icontains=query) |
-                Q(user__email__icontains=query)
+                # Q(user__email__icontains=query)
+                Q(user__username__icontains=query)
                 )
         return qs

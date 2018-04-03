@@ -1,9 +1,6 @@
 {% extends 'layout.html' %}
 {% load staticfiles %}
-{% load thumbnail %}
-{% load bootstrap3 %}
-{% bootstrap_css %}
-{% bootstrap_javascript %}
+
 {% block title_tag %}{{ lodgingofferdetail.ad_title }} | {{ block.super }}{% endblock %}
 {% block body_content %}
 
@@ -123,20 +120,20 @@
                   <div class="profile-study">
                       <div class="img-cont-study">
                           {% if studyofferdetail.created_by.avatar %}
-                          <a href="{% url 'accounts:detail' userprofile.user.email %}">
+                          <a href="{% url 'accounts:detail' studyofferdetail.created_by.username %}">
                               <img src="{{ studyofferdetail.created_by.avatar.url }}" alt="" class="img-responsive">
                           </a>
                           {% else %}
-                               <a href="{% url 'accounts:detail' userprofile.user.email %}">
+                               <a href="{% url 'accounts:detail' studyofferdetail.created_by.username %}">
                                  <img src="{% static 'img/default_profile_pic.png' %}" class="img-responsive">
                                </a>
                           {% endif %}
                       </div>
                       <div class="name-review-cont-study">
                           {% comment %} A quien corresponda {% endcomment %}
-                           <a href="{% url 'accounts:detail' userprofile.user.email %}">
+                           <a href="{% url 'accounts:detail' studyofferdetail.created_by.username %}">
                               <span>{{ studyofferdetail.created_by.get_long_name }}</span>
-                              <span>{{ studyofferdetail.created_by.get_enterprise_name }} (@{{ studyofferdetail.created_by.email }})</span>
+                              <span>{{ studyofferdetail.created_by.get_enterprise_name }} (@{{ studyofferdetail.created_by.username }})</span>
                           </a>
                           {% comment %}
                           <img src="{% static 'img/stars.svg' %}" alt="">
@@ -156,7 +153,7 @@
               {% if studyofferdetail.created_by_id != userprofile.user.id %}
               <div class="contact">
                   <a class="contact-button" href="
-                  {% url 'host:contact_study_owner_offer' study_offer_owner_full_name=study_offer_owner_full_name study_offer_owner_email=study_offer_owner_email user_interested_full_name=user_interested_full_name user_interested_email=user_interested_email study_offer_title=study_offer_title url_offer=url_offer %}">
+                  {% url 'host:contact_study_owner_offer' study_offer_owner_full_name=study_offer_owner_full_name study_offer_owner_username=study_offer_owner_username study_offer_owner_email=study_offer_owner_email user_interested_full_name=user_interested_full_name user_interested_username=user_interested_username user_interested_email=user_interested_email study_offer_title=study_offer_title offer_url=offer_url %}">
                       <img src="{% static 'img/icons/social-lines.svg' %}" alt="">
                       <span>Aplicar</span>
                   </a>
@@ -165,7 +162,7 @@
               </div>
               {% endif %}
 
-              {% comment %}
+               {% comment %}
               <div class="review">
                   <p class="title">Calificación de la oferta</p>
                   <img src="{% static 'img/stars.svg' %}" alt="">

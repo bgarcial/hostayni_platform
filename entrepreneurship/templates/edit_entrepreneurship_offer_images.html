@@ -1,0 +1,47 @@
+{% extends 'layout.html' %}
+{% load staticfiles %}
+{% load bootstrap3 %}
+
+{% block title_tag %}Editar Imágenes de {{ entrep_offer.ad_title }} | {{ block.super }}{% endblock %}
+{% block body_content %}
+<div class="container-lodging-pics">
+  <h2>Imágenes de {{ entrep_offer.ad_title }}</h2>
+  <a href="{% url 'offer:detail' slug=entrep_offer.slug %}">Regresar a oferta</a>
+  <hr/>
+  <div class="lodging-img-container">
+    {% for upload in uploads %}
+      <div class="row-lodging">
+        <div class="col-sm-4 col-md-3">
+          <div class="thumbnail">
+            <img src="{{ upload.image.url }}" class="img-responsive" alt=""/>
+            <div class="caption">
+
+              <a href="{% url 'offer:edit_entrepreneurship_offer_image' pk=upload.pk %}" class="glyphicon glyphicon-pencil"></a>
+                &nbsp;&nbsp;&nbsp;&nbsp;| &nbsp;&nbsp;&nbsp;&nbsp;
+              <a href="{% url 'offer:delete_offer_image' id=upload.id %}" class="glyphicon glyphicon-trash"></a>
+            </div>
+          </div>
+        </div>
+      </div>
+  {% endfor %}
+  </div>
+
+  <hr/>
+  <h3>Subir una nueva imagen</h3>
+  <form role="form" action="" method="POST" enctype="multipart/form-data">
+      {% csrf_token %}
+      {%bootstrap_form form %}
+
+      <div class="submit-button-cont">
+          <div>
+            <input type="image" src="{% static 'img/icons/ok.png' %}" alt="Submit" width="48" height="48">
+            <input type="submit" value="Agregar imágen" class="submit-button">
+          </div>
+      </div>
+
+  </form>
+  <a href="{% url 'offer:detail' slug=entrep_offer.slug %}">Regresar a oferta</a>
+
+</div>
+
+{% endblock %}

@@ -30,14 +30,16 @@ class StudyOfferImagesUploadForm(forms.ModelForm):
         fields = ('image',)
 
 
-#class DateInput(DatePicker):
-#    def __init__(self):
-#        DatePicker.__init__(self,format="%Y-%m-%d")
-#    def build_attrs(self, attrs, extra_attrs=None, **kwargs):
-#        attrs = dict(self.attrs, **kwargs)
-#        if extra_attrs:
-#            attrs.update(extra_attrs)
-#        return attrs
+class DateInput(DatePicker):
+    def __init__(self):
+        DatePicker.__init__(self,format="%Y-%m-%d")
+
+    def build_attrs(self, attrs, extra_attrs=None, **kwargs):
+        attrs = dict(self.attrs, **kwargs)
+        if extra_attrs:
+            attrs.update(extra_attrs)
+        return attrs
+
 
 class LodgingOfferForm(forms.ModelForm):
     title = "Crear oferta de alojamiento"
@@ -54,16 +56,14 @@ class LodgingOfferForm(forms.ModelForm):
             'country': CountrySelectWidget(),
         }
         model = LodgingOffer
-        fields = ('ad_title', 'country', 'city', 'address', 'lodging_offer_type' , 'lodging_offer_type_org', 'stars',
-                  'check_in', 'check_out', 'offered_services', 'featured_amenities', 'room_type_offered',
-                'number_guest_room_type', 'photo', 'bed_type', 'bathroom', 'room_information', 'room_value',
-                    'additional_description', 'is_taked')
+        fields = ('ad_title', 'country', 'city', 'address', 'location_zone', 'lodging_offer_type' ,
+                  'lodging_offer_type_org', 'stars', 'check_in', 'check_out', 'offered_services',
+                  'featured_amenities', 'room_type_offered', 'number_guest_room_type', 'photo',
+                  'bed_type', 'room_information', 'monthly_price', 'room_night_value',
+                  'additional_description', 'is_taked')
 
     def __init__(self, *args, **kwargs):
         super(LodgingOfferForm, self).__init__(*args, **kwargs)
-        #self.fields['check_in'].widget.attrs['class'] = 'input-group input-daterange'
-        #self.fields['check_out'].widget.attrs['class'] = 'input-group input-daterange'
-
 
 class LodgingOfferImagesForm(forms.ModelForm):
     image = forms.ImageField(label='Fotografía')

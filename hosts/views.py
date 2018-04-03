@@ -41,7 +41,7 @@ from django.contrib.sites.shortcuts import get_current_site
 from django.template.loader import render_to_string
 from django.core.mail import EmailMessage
 from django.core.mail import send_mail
-from carousel_offers.models import LodgingOfferCarousel, EducationalOfferSlider
+from carousel_offers.models import LodgingOfferCarousel, EducationalOfferCarousel
 
 # Create your views here.
 
@@ -63,6 +63,7 @@ class LodgingOfferViewSet(viewsets.ModelViewSet):
     def dispatch(self, request, *args, **kwargs):
         return super(LodgingOfferViewSet, self).dispatch(request, *args, **kwargs)
     """
+
 
 class StudiesOffertViewSet(viewsets.ModelViewSet):
     # lookup_field = 'name'
@@ -92,7 +93,7 @@ class StudiesOffertSearch(FormView):
         qs_paid = StudiesOffert.objects.paid()
         context['offers_paid'] = qs_paid
 
-        sliders = EducationalOfferSlider.objects.all_featured()
+        sliders = EducationalOfferCarousel.objects.all_featured()
         context['sliders'] = sliders
 
 
@@ -184,10 +185,10 @@ class LodgingOfferSearch(FormView):
         return context
 
 
-def studies_offers_by_user(request, email):
+def studies_offers_by_user(request, username):
     user = request.user
     profile = user.profile
-    studies_offers = StudiesOffert.objects.filter(created_by__email=user.email)
+    studies_offers = StudiesOffert.objects.filter(created_by__username=user.username)
 
     return render(
         request,
@@ -211,7 +212,7 @@ class LodgingOffersByUser(LoginRequiredMixin, ListView):
         return context
 '''
 
-def lodging_offers_by_user(request, email):
+def lodging_offers_by_user(request, username):
     user = request.user
     profile = user.profile
     lodging_offers = LodgingOffer.objects.filter(created_by__email=user.email)
@@ -303,11 +304,13 @@ class HostingOfferDetailView(SuccessMessageMixin, UserProfileDataMixin, LoginReq
         #lodging_offer_owner = self.get_object()
         lodging_offer_owner_full_name = self.get_object().created_by.get_long_name()
         lodging_offer_owner_enterprise_name = self.get_object().created_by.get_enterprise_name
+        lodging_offer_owner_username = self.get_object().created_by.username
         lodging_offer_owner_email = self.get_object().created_by.email
         lodging_offer_title = self.get_object().ad_title
 
         # Capturamos los datos de quien esta interesado en la oferta
         user_interested_email = user.email
+        user_interested_username = user.username
         user_interested_full_name = user.get_long_name()
 
 
@@ -321,11 +324,13 @@ class HostingOfferDetailView(SuccessMessageMixin, UserProfileDataMixin, LoginReq
         # We send the contexts
         context['uploads'] = uploads
         context['lodging_offer_owner_email'] = lodging_offer_owner_email
+        context['lodging_offer_owner_username'] = lodging_offer_owner_username
         context['lodging_offer_owner_full_name'] = lodging_offer_owner_full_name
         context['lodging_offer_owner_enterprise_name'] = lodging_offer_owner_enterprise_name
         context['lodging_offer_title'] = lodging_offer_title
 
         context['user_interested_email'] = user_interested_email
+        context['user_interested_username'] = user_interested_username
         context['user_interested_full_name'] = user_interested_full_name
 
         context['offer_url'] = url_offer
@@ -448,17 +453,21 @@ def delete_upload_study_offer_image(request, id):
 
 
 def contact_owner_offer(request, lodging_offer_owner_full_name, lodging_offer_owner_email,
-                        user_interested_full_name, interested_email, lodging_offer_title, offer_url):
+                        lodging_offer_owner_username,
+                        user_interested_full_name, user_interested_username,
+                        interested_email, lodging_offer_title, offer_url):
     user = request.user
     if user.is_authenticated:
         # print('Send email')
-        mail_subject = 'Interesados en tu oferta'
+        mail_subject_to_user = 'Has aplicado a una oferta de alojamiento'
+        mail_subject_to_owner = 'Interesados en tu oferta'
 
 
         context = {
             # usuario dueño de la oferta  TO
             'lodging_offer_owner_full_name': lodging_offer_owner_full_name,
             #'lodging_offer_owner_enterprise_name': lodging_offer_owner_enterprise_name,
+            'lodging_offer_owner_username': lodging_offer_owner_username,
             'lodging_offer_owner_email': lodging_offer_owner_email,
 
             # oferta por la que se pregunta
@@ -468,21 +477,22 @@ def contact_owner_offer(request, lodging_offer_owner_full_name, lodging_offer_ow
             'request': request.get_full_path,
 
             # usuario interesado en la oferta
+            'user_interested_username': user_interested_username,
             'interested_email': interested_email,
             'user_interested_full_name': user_interested_full_name,
         }
 
-        message = render_to_string('contact_user_own_offer.html', context)
+        msg_to_who_applies = render_to_string('message_to_user_who_applies.html', context)
         #to_email = lodging_offer_owner.email,
 
-        send_mail(mail_subject, message, settings.DEFAULT_FROM_EMAIL,
-                  [lodging_offer_owner_email, interested_email], html_message=message, fail_silently=True)
+        send_mail(mail_subject_to_user, msg_to_who_applies, settings.DEFAULT_FROM_EMAIL,
+                  [interested_email], html_message=msg_to_who_applies, fail_silently=True)
 
         #sleep(60)
         # Hacer esto con celery --- pagina 66 https://docs.google.com/document/d/1aUVRvGFh0MwYZydjXlebaSQJgZnHJDOKx3ccjWmusgc/edit#
 
         msg_to_owner = render_to_string('to_lodging_own_offer.html', context)
-        send_mail(mail_subject, msg_to_owner, settings.DEFAULT_FROM_EMAIL,
+        send_mail(mail_subject_to_owner, msg_to_owner, settings.DEFAULT_FROM_EMAIL,
                   [lodging_offer_owner_email], html_message=msg_to_owner, fail_silently=True)
 
         #messages.success(request, "El anfitrión", lodging_offer_owner_email, "ha sido contactado " )
@@ -499,6 +509,12 @@ class HostingOfferDeleteView(SuccessMessageMixin, UserProfileDataMixin, LoginReq
     # success_url = reverse_lazy("host:list")
     context_object_name = 'lodgingofferdelete'
     success_message = "Oferta de alojamiento eliminada con éxito"
+
+    def get_success_url(self):
+        lodging_offers = self.get_object()
+        # print(entrepreneurship_offer)
+        # return reverse_lazy("offer:list", kwargs={'created_by': entrepreneurship_offer.created_by.username})
+        return reverse_lazy("host:list", kwargs={'username': lodging_offers.created_by.username})
 
     def get_object(self, queryset=None):
         """ Hook to ensure object is owned by request.user. """
@@ -544,20 +560,30 @@ class StudyOffertDetailView(LoginRequiredMixin, UserProfileDataMixin, DetailView
 
         # Capturamos quien creo la oferta, y su titulo de anuncio
         study_offer_owner_full_name = self.get_object().created_by.get_enterprise_name()
-        study_offer_owner_email = self.get_object().created_by.email
+        print("Nombe completo del dueño", study_offer_owner_full_name)
 
-        # print('email del dueño oferta', study_offer_owner_email)
+        study_offer_owner_username = self.get_object().created_by.username
+        print("Usuario del dueño", study_offer_owner_username)
+
+        study_offer_owner_email = self.get_object().created_by.email
+        print('email del dueño ofertassss', study_offer_owner_email)
 
         study_offer_title = self.get_object().ad_title
-        # print('titulo oferta', study_offer_title)
+        print('titulo oferta', study_offer_title)
 
         # Capturamos los datos de quien esta interesado en la oferta
         user_interested_email = user.email
-        # print('email del user interesado oferta', user_interested_email)
+        print('email del user interesado oferta', user_interested_email)
+
+        user_interested_username = user.username
+        print('username del user interesado oferta', user_interested_username)
+
         user_interested_full_name = user.get_long_name()
+        print('Nombe completo del intereadao', user_interested_full_name)
 
         # Capturamos el url de la oferta de estudios
-        url_offer = self.request.get_full_path
+        offer_url = self.request.get_full_path
+        print("URL Offer", offer_url)
 
         study_offer = StudiesOffert.objects.get(slug=self.kwargs.get('slug'))
         # print(study_offer)
@@ -568,14 +594,16 @@ class StudyOffertDetailView(LoginRequiredMixin, UserProfileDataMixin, DetailView
 
         # Enviamos contextos
         context['uploads'] = uploads
+        context['study_offer_owner_username'] = study_offer_owner_username
         context['study_offer_owner_email'] = study_offer_owner_email
         context['study_offer_owner_full_name'] = study_offer_owner_full_name
         context['study_offer_title'] = study_offer_title
 
         context['user_interested_email'] = user_interested_email
+        context['user_interested_username'] = user_interested_username
         context['user_interested_full_name'] = user_interested_full_name
 
-        context['url_offer'] = url_offer
+        context['offer_url'] = offer_url
 
         return context
 
@@ -641,14 +669,9 @@ class StudyOfferImageUpdateView(SuccessMessageMixin, UserProfileDataMixin, Login
 
     def get_context_data(self, **kwargs):
         context = super(StudyOfferImageUpdateView, self).get_context_data(**kwargs)
-
         user = self.request.user
         study_offer_image = StudyOfferImage.objects.get(pk=self.kwargs.get('pk'))
         context['study_offer_image'] = study_offer_image
-
-        # study_offer = StudiesOffert.objects.get(slug=self.kwargs.get('slug'))
-
-
         return context
 
     # Permiso para que solo el dueño pueda editarla
@@ -680,39 +703,44 @@ def delete_upload_study_offer_image(request, id):
     return redirect('host:edit_study_offer_uploads', slug=upload.study_offer.slug)
 
 
-def contact_study_owner_offer(request, study_offer_owner_full_name, study_offer_owner_email,
-                              user_interested_full_name, user_interested_email, study_offer_title, url_offer):
+def contact_study_owner_offer(request, study_offer_owner_full_name, study_offer_owner_username,
+                                study_offer_owner_email, user_interested_full_name, user_interested_username,
+                                user_interested_email,  study_offer_title, offer_url
+                              ):
     user = request.user
     print(study_offer_owner_full_name)
     if user.is_authenticated:
         #print('Send email')
-        mail_subject = 'Interesados en tu oferta educativa'
+        mail_subject_to_user = 'Has aplicado a una oferta de alojamiento'
+        mail_subject_to_owner = 'Interesados en tu oferta'
 
         context = {
             # usuario dueño de la oferta  TO
             'study_offer_owner_full_name': study_offer_owner_full_name,
+            'study_offer_owner_username': study_offer_owner_username,
             'study_offer_owner_email': study_offer_owner_email,
 
             # oferta por la que se pregunta
             'study_offer_title': study_offer_title,
-            'url_offer': url_offer,
+            'offer_url': offer_url,
             'domain': settings.SITE_URL,
             'request': request.get_full_path,
 
             # usuario interesado en la oferta
+            'user_interested_username': user_interested_username,
             'user_interested_email': user_interested_email,
             'user_interested_full_name': user_interested_full_name,
         }
 
-        message = render_to_string('contact_study_own_offer.html', context)
+        msg_to_who_applies = render_to_string('hosts/message_to_user_who_applies.html', context)
         #to_email = lodging_offer_owner.email,
 
-        send_mail(mail_subject, message, settings.DEFAULT_FROM_EMAIL,
-                  [study_offer_owner_email, user_interested_email], html_message=message, fail_silently=True)
+        send_mail(mail_subject_to_user, msg_to_who_applies, settings.DEFAULT_FROM_EMAIL,
+                  [user_interested_email], html_message=msg_to_who_applies, fail_silently=True)
 
-        msg_to_owner = render_to_string('to_educational_own_offer.html', context)
+        msg_to_owner = render_to_string('hosts/to_educational_own_offer.html', context)
 
-        send_mail(mail_subject, msg_to_owner, settings.DEFAULT_FROM_EMAIL,
+        send_mail(mail_subject_to_owner, msg_to_owner, settings.DEFAULT_FROM_EMAIL,
                   [study_offer_owner_email], html_message=msg_to_owner, fail_silently=True)
 
         #messages.success(request, "El anfitrión", lodging_offer_owner_email, "ha sido contactado " )
@@ -727,17 +755,11 @@ class StudyOfferUpdateView(SuccessMessageMixin, UserProfileDataMixin, LoginRequi
     form_class = StudiesOffertForm
     # success_url = reverse_lazy("articles:articles_list")
     # success_url = reverse_lazy("hosts:detail-lodging-offer")
-    success_message = "Oferta de estudio actualizada con éxito"
+    success_message = "Oferta educativa actualizada con éxito"
 
     def get_context_data(self, **kwargs):
         context = super(StudyOfferUpdateView, self).get_context_data(**kwargs)
         user = self.request.user
-        study_offer = StudiesOffert.objects.get(slug=self.kwargs.get('slug'))
-        print(study_offer)
-        print(user)
-        if not (study_offer.created_by.email == user.email):
-            return HttpResponse("It is not yours ! You are not permitted !",
-                        content_type="application/json", status=403)
         return context
 
 
@@ -752,10 +774,16 @@ class StudyOfferUpdateView(SuccessMessageMixin, UserProfileDataMixin, LoginRequi
 
 class StudyOfferDeleteView(SuccessMessageMixin, UserProfileDataMixin, LoginRequiredMixin, DeleteView):
     model = StudiesOffert
-    success_url = reverse_lazy("articles:article_list")
+    # success_url = reverse_lazy("articles:article_list")
     # success_url = reverse_lazy("host:list")
     context_object_name = 'studyofferdelete'
     success_message = "Oferta de estudio eliminada con éxito"
+
+    def get_success_url(self):
+        educational_offers = self.get_object()
+        # print(entrepreneurship_offer)
+        # return reverse_lazy("offer:list", kwargs={'created_by': entrepreneurship_offer.created_by.username})
+        return reverse_lazy("host:studiesofferlist", kwargs={'username': educational_offers.created_by.username})
 
     def get_context_data(self, **kwargs):
         context = super(StudyOfferDeleteView, self).get_context_data(**kwargs)

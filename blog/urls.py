@@ -14,8 +14,8 @@ urlpatterns = [
 
 
     # ---*** URLs with fbv ***---
-    url(r'^article/create/$', article_create, name='create'),
-    # url(r'^article/new/$', views.CreateArticleView.as_view(), name='article_new'),
+    # url(r'^article/create/$', article_create, name='create'),
+    url(r'^article/new/$', views.CreateArticleView.as_view(), name='new'),
     # MOre below
 
     url(r'^articles/categoria/(\d+)$', categories, name='categories'),

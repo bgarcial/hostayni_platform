@@ -9,8 +9,8 @@
 	"model": "blog.category",
 	"pk": 2,
 	"fields": {
-		"title": "INNOVACI\u00d3N",
-		"description": "INNOVACI\u00d3N"
+		"title": "EMPRENDIMIENTO",
+		"description": "EMPRENDIMIENTO"
 	}
 }, {
 	"model": "blog.category",
@@ -23,19 +23,12 @@
 	"model": "blog.category",
 	"pk": 4,
 	"fields": {
-		"title": "SOSTENIBILIDAD",
-		"description": "SOSTENIBILIDAD"
-	}
-}, {
-	"model": "blog.category",
-	"pk": 5,
-	"fields": {
 		"title": "AYNI",
 		"description": "AYNI"
 	}
 }, {
 	"model": "blog.category",
-	"pk": 6,
+	"pk": 5,
 	"fields": {
 		"title": "EDUCACI\u00d3N",
 		"description": "EDUCACI\u00d3N"

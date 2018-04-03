@@ -1,7 +1,5 @@
 from __future__ import unicode_literals
 
-import os
-
 from django.db import models
 
 from host_information.models import (
@@ -21,8 +19,6 @@ from django.dispatch import receiver
 from django.template.defaultfilters import slugify
 from django_countries.fields import CountryField
 from django.db.models.signals import pre_save
-from PIL import Image
-from easy_thumbnails.fields import ThumbnailerImageField
 from django.utils import timezone
 
 
@@ -129,14 +125,6 @@ class LodgingOffer(models.Model):
     BED_TYPE_OFFERED_CHOICES = (
         (SINGLE_BED, "Cama individual"),
         (DOUBLE_BED, "Cama doble"),
-    )
-
-    PRIVATE_BATHROOM = 'Baño privado'
-    SHARED_BATHROOM = 'Baño compartido'
-
-    BATHROOM_CHOICES = (
-        (PRIVATE_BATHROOM, "Baño privado"),
-        (SHARED_BATHROOM, "Baño compartido"),
     )
 
     created_by = models.ForeignKey(
@@ -256,11 +244,13 @@ class LodgingOffer(models.Model):
         verbose_name='Tipo de cama',
     )
 
+    '''
     bathroom = models.CharField(
         max_length=20,
         choices=BATHROOM_CHOICES,
         verbose_name='Baño',
     )
+    '''
 
     room_information = models.ManyToManyField(
         RoomInformation,
@@ -277,7 +267,12 @@ class LodgingOffer(models.Model):
         help_text='Esta imagen acompañará tu oferta en los resultados de búsquedas'
     )
 
-    room_value = models.CharField(_("Precio"), max_length=128, help_text='Precio en pesos colombianos')
+    location_zone = models.CharField(_("Zona/Barrio"),
+                    max_length=128, help_text='Sector por donde está ubicada la oferta')
+
+    monthly_price = models.CharField(_("Precio mensual"), max_length=128, help_text='Precio en pesos colombianos')
+
+    room_night_value = models.CharField(_("Precio por noche"), max_length=128, help_text='Precio en pesos colombianos')
 
     additional_description = models.TextField(
         null=True,
@@ -285,7 +280,7 @@ class LodgingOffer(models.Model):
         verbose_name='Descripción adicional'
     )
 
-    # Este campo sera grabado solo una vez cuando se cree el articulo
+    # Este campo sera grabado solo una vez cuando se cree la oferta
     pub_date = models.DateTimeField(
         auto_now=False, auto_now_add=True
         # related_name="lodgingoffers"
@@ -327,8 +322,11 @@ class LodgingOffer(models.Model):
     def get_absolute_url(self):
         return reverse('host:detail', kwargs={'slug': self.slug})
 
-    def get_price(self):
-        return self.room_value
+    def get_monthly_price(self):
+        return self.monthly_price
+
+    def get_room_night_value(self):
+        return self.room_night_value
 
     class Meta:
         ordering = ['-is_paid', '-pub_date', '-updated', ]
@@ -633,8 +631,6 @@ def get_image_path(instance, filename):
 class StudyOfferImage(models.Model):
     # puedo poner headere text and small text
     study_offer = models.ForeignKey(StudiesOffert, related_name='uploadsstudyoffer')
-    # image = ThumbnailerImageField(upload_to=get_image_path, resize_source=CROP_SETTINGS)
-
     image = models.ImageField(upload_to=get_image_path, verbose_name='Seleccionar imagen')
 
     # images folder per object

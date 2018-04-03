@@ -1,0 +1,218 @@
+{% extends 'layout.html' %}
+{% load staticfiles %}
+{% load bootstrap3 %}
+{% bootstrap_css %}
+{% bootstrap_javascript %}
+{% block title_tag %}{{ dailylife.ad_title }} | {{ block.super }}{% endblock %}
+{% block body_content %}
+
+<!-- Carousel container-fluid lo redimensiona hacia al lado izquierdo -->
+<!-- <div class="container-fluid-lodging" style="margin-top: -19px; margin-bottom: 19px;padding: 0px;">
+    <div id="carousel-example-generic" class="carousel slide" data-ride="carousel"> -->
+      <!-- Indicators -->
+      <!-- <ol class="carousel-indicators">
+        {% for upload in uploads %}
+        <li data-target="#carousel-example-generic" data-slide-to="{{ forloop.counter }}"{% if forloop.first %}class="active"{% endif %}>
+        </li>
+        {% endfor %}
+      </ol> -->
+
+      <!-- Wrapper for slides -->
+      <!-- <div class="carousel-inner-lodging" role="listbox">
+        {% for upload in uploads %}
+            <div class="item {% if forloop.first %}active{% endif %}">
+              <img src="{{ upload.image.url }}" width="100%" height="auto"  alt="">
+            </div>
+        {% endfor %}
+      </div> -->
+      <!-- Controls -->
+      <!-- <a class="left carousel-control" href="#carousel-example-generic" role="button" data-slide="prev">
+        <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
+        <span class="sr-only">Previous</span>
+      </a>
+      <a class="right carousel-control" href="#carousel-example-generic" role="button" data-slide="next">
+        <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
+        <span class="sr-only">Next</span>
+      </a> -->
+    <!-- </div>
+</div> -->
+
+<div class="container">
+  <div id="myCarousel" class="carousel slide" data-ride="carousel">
+    <!-- Indicators -->
+    <ol class="carousel-indicators">
+      {% for upload in uploads %}
+      <li data-target="#carousel-example-generic" data-slide-to="{{ forloop.counter }}"{% if forloop.first %}class="active"{% endif %}>
+      </li>
+      {% endfor %}
+    </ol>
+
+    <!-- Wrapper for slides -->
+    <div class="carousel-inner">
+      {% for upload in uploads %}
+          <div class="item {% if forloop.first %}active{% endif %}">
+            <img src="{{ upload.image.url }}" width="auto" height="auto"  alt="">
+          </div>
+      {% endfor %}
+    </div>
+
+    <!-- Left and right controls -->
+    <a class="left carousel-control" href="#myCarousel" data-slide="prev">
+      <span class="glyphicon glyphicon-chevron-left"></span>
+      <span class="sr-only">Previous</span>
+    </a>
+    <a class="right carousel-control" href="#myCarousel" data-slide="next">
+      <span class="glyphicon glyphicon-chevron-right"></span>
+      <span class="sr-only">Next</span>
+    </a>
+  </div>
+</div>
+
+<div class="detail-lodging-container">
+<main class="main-detail-lodging">
+    <div class="acomodacion-lodging">
+        <h4>{{ dailylife.offer_type }}</h4>
+    </div>
+    <div class="title-cont-lodging">
+        <h1>{{ dailylife.ad_title }}</h1>
+    </div>
+    <div class="lodging-location-title">
+      <div class="lodging-location">
+        <span>{{ dailylife.address }} - {{ dailylife.city }} - {{ dailylife.country }}</span>
+      </div>
+      <div class="lodging-price">
+        <span>Precio: $ {{ dailylife.price }} COP </span>
+      </div>
+    </div>
+
+        {% comment %}
+        <div class="post-body-lodging">
+
+        {% endcomment %}
+
+        {% comment %}
+        <div class="title-cont-lodging">
+            <h1>{{ dailylife.ad_title }}</h1>
+        </div>
+        {% endcomment %}
+
+        <div class="add-images-container">
+            {% if dailylife.created_by_id == userprofile.user.id %}
+            <div class="main-content-lodging">
+              <a href="{% url 'daily_life_offer:edit_images' slug=dailylife.slug %}">
+                  <img src="{% static 'img/icons/photo.svg' %}" alt=""> Agregar/Editar </a>
+            </div>
+            <p><a class='glyphicon glyphicon-pencil' href = "{% url 'daily_life_offer:edit' slug=dailylife.slug %}"></a>
+      &nbsp;&nbsp;&nbsp;&nbsp;| &nbsp;&nbsp;&nbsp;&nbsp;
+            <a class='glyphicon glyphicon-trash' href = "{% url 'daily_life_offer:delete' slug=dailylife.slug %}"></a></p>
+            {% endif %}
+        </div>
+
+        <div class="details-alojamiento">
+
+
+            <div class="cont amenities">
+              <div class="servicios-ofrecidos-container"/>
+                <h3>Descripción Adicional</h3>
+                <div class="servicios-ofrecidos-lodging">
+                    <span>{{ dailylife.additional_description }}</span>
+                </div>
+        </div>
+
+        <br/>
+
+
+            <div class="lodging-mapa">
+                {% comment %}
+                <div class="map-cont">
+                    <iframe src="https://www.google.com/maps/embed?pb=!1m10!1m8!1m3!1d1983.0517024099001!2d-75.56337732682343!3d6.25010353077667!3m2!1i1024!2i768!4f13.1!5e0!3m2!1ses!2sco!4v1501007278560" frameborder="0" style="border:0" allowfullscreen></iframe>
+                </div>
+                {% endcomment %}
+            </div>
+        </br>
+
+
+        <div id="disqus_thread"></div>
+    </div>
+</main>
+
+<!-- Search column -->
+<div class="search-column-lodging">
+    <div class="post-column-lodging">
+        <div class="info-lodging">
+           <div class="icon-lodging">
+                <img src="{% static 'img/icons/info.svg' %}" alt="">
+                <span>Información</span>
+           </div>
+            <div class="autor-lodging">
+                <div class="profile-lodging">
+                    <div class="img-cont-lodging">
+                        {% if object.created_by.avatar %}
+                        <a href="{% url 'accounts:detail' object.created_by.username %}">
+                            <img src="{{ object.created_by.avatar.url }}" alt="" class="img-responsive">
+                        </a>
+                        {% else %}
+                             <a href="{% url 'accounts:detail' object.created_by.username %}">
+                               <img src="{% static 'img/default_profile_pic.png' %}" class="img-responsive">
+                             </a>
+                        {% endif %}
+                    </div>
+                    <div class="name-review-cont-lodging">
+                        {% comment %} A quien corresponda {% endcomment %}
+                         <a href="{% url 'accounts:detail' object.created_by.username %}">
+                            {% if object.created_by.user_type == "O" %}
+                                <span>{{ object.created_by.get_enterprise_name }} (@{{ object.created_by.username }})</span>
+                            {% else %}
+                                <span><span>{{ object.created_by.get_long_name }}</span> (@{{ object.created_by.username }})</span>
+                            {% endif %}
+                         </a>
+
+                        {% comment %}
+                        <img src="{% static 'img/stars.svg' %}" alt="">
+
+                        <div class="average">
+                            <span>546</span>
+                            <span>valoraciones</span>
+                        </div>
+                        {% endcomment %}
+                    </div>
+                </div>
+            </div>
+            <div class="date-lodging-publish">
+                <span>{{ object.pub_date }}</span>
+            </div>
+
+
+
+            {% if object.created_by_id != userprofile.user.id %}
+            <div class="contact">
+              <a class="contact-button" href="
+              {% url 'offer:contact_owner_offer' offer_owner=offer_owner offer_owner_username=offer_owner_username offer_owner_email=offer_owner_email interested_full_name=interested_full_name interested_username=interested_username interested_email=interested_email offer_title=offer_title offer_url=offer_url %}">
+                <img src="{% static 'img/icons/social-lines.svg' %}" alt="">
+                <span>Aplicar</span>
+              </a>
+                          <h4>Al hacer clic en <strong>Aplicar</strong>, se enviará una notificación de correo electrónico
+                          al dueño de la oferta y al usuario interesado en ella.</h4>
+            </div>
+            {% endif %}
+
+            {% comment %}
+            <div class="review">
+                <p class="title">Calificación de la oferta</p>
+                <img src="{% static 'img/stars.svg' %}" alt="">
+                <div class="average">
+                    <span>546</span>
+                    <span>valoraciones</span>
+                </div>
+            </div>
+             {% endcomment %}
+        </div>
+
+    </div>
+</div>
+
+</div>
+
+
+<script id="dsq-count-scr" src="//hostayni.disqus.com/count.js" async></script>
+{% endblock %}
