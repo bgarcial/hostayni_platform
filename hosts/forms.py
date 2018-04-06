@@ -30,7 +30,6 @@ class StudyOfferImagesUploadForm(forms.ModelForm):
         fields = ('image',)
 
 
-
 class DateInput(DatePicker):
     def __init__(self):
         DatePicker.__init__(self,format="%Y-%m-%d")
