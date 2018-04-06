@@ -37,10 +37,10 @@ class UserDisplaySerializer(serializers.ModelSerializer):
             'is_professor',
             'is_executive',
             'is_study_host',
-            'is_innovation_host',
+            'is_entrepreneurship_host',
             'is_hosting_host',
-            'is_entertainment_host',
-            'is_other_services_host',
+            'is_ayni_host',
+            'is_daily_life_host',
             'entertainment_activities',
             'is_active',
         ]
@@ -50,4 +50,4 @@ class UserDisplaySerializer(serializers.ModelSerializer):
         return 0
 
     def get_url(self, obj):
-        return reverse_lazy('accounts:detail', kwargs={"email": obj.email})
+        return reverse_lazy('accounts:detail', kwargs={"slug": obj.slug})
