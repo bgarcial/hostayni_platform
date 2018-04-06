@@ -115,11 +115,7 @@ class SearchPostAPIView(generics.ListAPIView):
         return qs
 
 
-
-
 # ApiView para encontrar post de quienes sig
-
-
 
 class PostListAPIView(generics.ListAPIView):
     serializer_class = PostModelSerializer

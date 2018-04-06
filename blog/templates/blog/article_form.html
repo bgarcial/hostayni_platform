@@ -31,32 +31,12 @@
               <input type="submit" value="Guardar" class="submit-button">
             </div>
         </div>
-        <button type="submit" class="btn btn-success">Guardar</button>
     </div>
     {% csrf_token %}
-        <div class="formgroup">
         {% bootstrap_field form.title %}
-        </div>
-         <div class="formgroup">
         {% bootstrap_field form.content %}
-        </div>
-        <div class="formgroup">
+        {% bootstrap_field form.category %}
         {% bootstrap_field form.image %}
-        </div>
-        {% comment %}
-        <div class="formgroup">
-            <span>Title</span>
-            {{ form.title }}
-        </div>
-        <div class="formgroup">
-            <span>Text</span>
-            {{form.text}}
-        </div>
-        <div class="formgroup">
-            <span>Photo</span>
-            {{ form.image }}
-        </div>
-        {% endcomment %}
 
     </form>
 </div>
