@@ -27,6 +27,7 @@ class ArticleManager(models.Manager):
 def upload_location(instance, filename):
     return '/'.join(['articles_images', instance.slug, filename])
 
+
 class Category(models.Model):
     title = models.CharField(_('Titulo'), max_length=50,)
     description = models.TextField(_('Descripción'),)
@@ -118,7 +119,6 @@ def create_slug(instance, new_slug=None):
         new_slug = "%s-%s" %(slug, qs.first().id)
         return create_slug(instance, new_slug=new_slug)
     return slug
-
 
 
 def pre_save_article_receiver(sender, instance, *args, **kwargs):
