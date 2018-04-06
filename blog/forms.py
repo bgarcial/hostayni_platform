@@ -5,9 +5,6 @@ from django.utils.text import slugify
 
 
 
-YEARS = [x for x in range(1980, 2050)]
-
-
 class ArticleForm(forms.ModelForm):
     # title = forms.CharField(
     #        max_length=120,
@@ -20,9 +17,7 @@ class ArticleForm(forms.ModelForm):
 
     content = forms.CharField(label='Contenido', widget=forms.Textarea(attrs={'placeholder': 'Contenido'}))
     ad = "Nuevo artículo"
-    # publish = forms.DateField(initial="2010-11-20", widget=forms.SelectDateWidget(years=YEARS))
-    # publish = forms.DateField(widget=forms.DateInput(format='%d/%m/%Y'))
-    # publish = forms.DateField(widget=forms.)
+
     class Meta:
         model = Article
         fields = [
