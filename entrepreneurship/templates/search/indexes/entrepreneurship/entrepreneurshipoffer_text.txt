@@ -1,0 +1,4 @@
+{{ object.ad_title }}
+{{ object.country }}
+{{ object.city }}
+{{ object.offer_type }}

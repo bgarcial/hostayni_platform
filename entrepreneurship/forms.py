@@ -30,7 +30,7 @@ class EntrepreneurshipOfferForm(forms.ModelForm):
         }
         model = EntrepreneurshipOffer
         fields = ('ad_title', 'offer_type', 'price', 'country', 'city', 'date', 'url', 'contact_name',
-                  'phone_number', 'email', 'photo', 'is_taked',)
+                  'phone_number', 'email', 'photo', 'additional_description', 'is_taked',)
 
 
 class EntrepreneurshipOfferImagesForm(forms.ModelForm):
