@@ -3,6 +3,11 @@
 {% block title_tag %}Daily Life Offer Search | {{ block.super }}{% endblock %}
 {% block body_content %}
 
+<div class="banner-lodging-search">
+  <img src="{% static 'img/Banner-Vida-Diaria.png' %}" alt="">
+</div>
+
+{% comment %}
 {% if sliders %}
 <div class="container" style="margin-top: -19px;margin-bottom: 19px;">
    <!-- <div class="col-sm-8 col-sm-offset-4"> -->
@@ -49,6 +54,7 @@
 </div>
    <!-- </div> -->
 {% endif %}
+{% endcomment %}
 
 <br /><br />
 
@@ -213,7 +219,7 @@
              <h3>{{ offers.ad_title }}</h3>
          </div>
          <div class="price-item-lodging">
-           <p> $ {{ offers.room_value }} COP </p>
+           <p> $ {{ offers.price }} COP </p>
          </div>
       </div>
       <div clas="location-item-lodging">
@@ -222,7 +228,7 @@
        <div class="info-item-lodging-lastpart">
          <div class="description-item-lodging">
 
-             <a href="{% url 'accounts:detail' userprofile.user.username %}">
+             <a href="{% url 'accounts:detail' offers.created_by.username %}">
                 {% if entrepreneurshipoffer.created_by.user_type == "O" %}
                     <span>{{ offers.created_by.get_enterprise_name }} <br/>
                 {% else %}
@@ -233,16 +239,20 @@
          </div>
          <div class="mainfeatures-item-lodging">
            <div class="imp-feat-II">
+             {% comment %}
              <img src="{% static 'img/icons/diary-button.svg' %}" alt="">
              <p> {{ offers.number_guest_room_type }} </p>
+             {% endcomment %}
             </div>
             <div class="imp-feat-II">
+              {% comment %}
               <img src="{% static 'img/icons/diary-button.svg' %}" alt="">
               <p> {{ offers.room_type_offered }} </p>
+              {% endcomment %}
              </div>
              <div class="imp-feat-II">
                <img src="{% static 'img/icons/diary-button.svg' %}" alt="">
-               <p> {{ offers.bathroom }} </p>
+               <p> {{ offers.offer_type }} </p>
              </div>
          </div>
            {% comment %}

@@ -81,7 +81,7 @@
         <span>{{ object.city }} - {{ object.country }}</span>
       </div>
       <div class="lodging-price">
-        <span>Precio: $ {{ object.price }} COP </span>
+        <span>Precio: $ {{ object.price }} </span>
       </div>
     </div>
 
@@ -120,25 +120,38 @@
                 <p> {{ object.url }} </p>
               </div>
               <div class="imp-feat-I">
-                <img src="{% static 'img/icons/diary-button.svg' %}" alt="">
-                <p>  </p>
               </div>
             </div>
             <div class="cont amenities">
               <div class="servicios-ofrecidos-container"/>
                 <h3>Datos de contacto</h3>
                 <div class="servicios-ofrecidos-lodging">
-                    <img src="{% static 'img/icons/diary-button.svg' %}" alt="">
-                    <span>{{ object.contact_name }}</span>
-                    <img src="{% static 'img/icons/diary-button.svg' %}" alt="">
-                    <span>{{ object.phone_number }}</span>
-                    <img src="{% static 'img/icons/diary-button.svg' %}" alt="">
-                    <span>{{ object.email }}</span>
+                    <div class="imp-feat-I">
+                      <img src="{% static 'img/icons/diary-button.svg' %}" alt="">
+                      <p>{{ object.contact_name }}</p>
+                    </div>
+                    <div class="imp-feat-I">
+                      <img src="{% static 'img/icons/diary-button.svg' %}" alt="">
+                      <p> {{ object.phone_number }} </p>
+                    </div>
+                    <div class="imp-feat-I">
+                      <img src="{% static 'img/icons/diary-button.svg' %}" alt="">
+                      <p> {{ object.email }} </p>
+                    </div>
                 </div>
-
-
             </div>
-
+            <div class="descripcion-container">
+              <h3>Descripción Adicional</h3>
+              <div class="container">
+                  <div class="row">
+                      <div class="col">
+                          <div class="col-sm-6 col-24">
+                              <span><p align="justify">{{ lodgingofferdetail.additional_description }}</p></span>
+                          </div>
+                      </div>
+                  </div>
+              </div>
+            </div>
 
 
             <div class="lodging-mapa">

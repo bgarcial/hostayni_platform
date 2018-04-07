@@ -124,7 +124,7 @@ header {
           position: relative;
           top: 0;
           right: 127px;
-          width: 170px;
+          width: 200px;
           height: auto;
           padding: 13px;
           border: 1px solid #d6d6d6;
@@ -409,23 +409,20 @@ article {
   width: 100%
 }
 
-.innovate .post-type i {
-  background-color: #1d71b6; }
+.entrepreneurship .post-type i {
+  background-color: #E84E1B; }
 
-.social .post-type i {
-  background-color: #f19125; }
+.ayni .post-type i {
+  background-color: #DDDB00; }
 
 .learn .post-type i {
-  background-color: #e74e1b; }
+  background-color: #2D2E82; }
 
-.enjoy .post-type i {
-  background-color: #d73380; }
-
-.life .post-type i {
-  background-color: #3f4e55; }
+.daily-life .post-type i {
+  background-color: #D83381; }
 
 .host .post-type i {
-  background-color: #006533; }
+  background-color: #036633; }
 
 .full-width {
   width: auto;
@@ -685,6 +682,7 @@ footer {
 .ofert-icon img{
   width: 10%;
   height: auto;
+  border-radius: 10%;
 }
 
 
@@ -1454,4 +1452,108 @@ footer {
 
 .date-study-publish{
   margin-top: 5px;
+}
+
+/* PROFILE OF USERS DETAIL */
+
+
+.profile-info-container{
+  display: flex;
+  flex-flow: row wrap;
+}
+
+.column-profile-detail{
+  display: flex;
+  flex-flow: row wrap;
+  width: 20%;
+  /*margin: 90px 2px 10px 10px;*/
+  padding: 90px 20px 65px 100px;
+  background-color: #e5e5e5;
+}
+
+.post-info-profile{
+  width: 60%;
+  margin: 90px 20px 65px 120px;
+}
+
+.img-profile{
+  width: 100%;
+  margin: 10% 0 2% 0;
+  display: block;
+  justify-content: center;
+}
+
+.img-profile img{
+  width: 70%;
+  height: auto;
+  border-radius: 10%;
+}
+
+.nombre-profile{
+  width: 100%;
+  font-size: 20px;
+}
+
+.lugar-nacimiento-profile{
+  width: 100%;
+  text-align: left;
+}
+
+.fecha-nacimiento-profile{
+  width: 100%;
+  text-align: left;
+}
+
+.datos-contacto-profile{
+  width: 100%;
+  text-align: left;
+}
+
+.idiomas-profile{
+  display: flex;
+  width: 100%;
+  justify-content: left;
+}
+
+.idioma-icon{
+  width: 12%;
+  display: inline-block;
+}
+
+.idioma-icon img{
+  width: 80%;
+  height: auto;
+}
+
+.idioma-text{
+  width: 80%;
+  display: inline-block;
+}
+
+.lugar-residencia-profile{
+  width: 100%;
+  text-align: left;
+}
+
+.biografia-profile{
+  width: 100%;
+  text-align: left;
+}
+
+.column-profile-detail hr{
+  margin-top: 5px;
+  margin-bottom: 5px;
+  color: #656565;
+  background: #656565;
+}
+
+.profile{3
+  width: 100%;
+  text-align: left;
+}
+
+.contact{
+  margin: 10px;
+  width: 150px;
+  height: auto;
 }

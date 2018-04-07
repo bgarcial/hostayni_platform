@@ -21,12 +21,13 @@
 
           <div class="login-container">
             {% csrf_token %} <br/>
-            {% comment %}
-            {% bootstrap_form form %}
-            {% endcomment %}
 
+            {% bootstrap_form form %}
+
+            {% comment %}
             {% bootstrap_field form.username %}
             {% bootstrap_field form.password %}
+            {% endcomment %}
 
 
             <div class="submit-button-cont">

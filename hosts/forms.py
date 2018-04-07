@@ -41,9 +41,10 @@ class DateInput(DatePicker):
         return attrs
 
 
+
 class LodgingOfferForm(forms.ModelForm):
     title = "Crear oferta de alojamiento"
-    offer_taked = ("\n" 
+    offer_taked = ("\n"
      " Indica si esta oferta ya fue tomada por un usuario.Este campo es solo para uso de \n"
      " actualización de una oferta cuando ya ha habido un acuerdo por ella. "
      " Si se selecciona, no aparecerá en los resultados de búsquedas. \n "
@@ -52,12 +53,7 @@ class LodgingOfferForm(forms.ModelForm):
     class Meta:
         widgets = {
             'check_in': DateInput(),
-            'check_out': forms.DateInput(
-                            attrs={'id': 'check_out',
-                                   'class': 'input-sm form-control',
-                                   'type': 'text'
-                         }),
-
+            'check_out': DateInput(),
             'country': CountrySelectWidget(),
         }
         model = LodgingOffer
@@ -69,7 +65,6 @@ class LodgingOfferForm(forms.ModelForm):
 
     def __init__(self, *args, **kwargs):
         super(LodgingOfferForm, self).__init__(*args, **kwargs)
-
 
 class LodgingOfferImagesForm(forms.ModelForm):
     image = forms.ImageField(label='Fotografía')
