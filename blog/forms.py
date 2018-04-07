@@ -3,17 +3,7 @@ from blog.models import Article
 from django.utils.text import slugify
 
 
-
-
 class ArticleForm(forms.ModelForm):
-    # title = forms.CharField(
-    #        max_length=120,
-    #        label='Titulo',
-    #        help_text='some help text',
-    #        error_messages={
-    #            "required": "El campo título es requerido."
-    #        }
-    # )
 
     content = forms.CharField(label='Contenido', widget=forms.Textarea(attrs={'placeholder': 'Contenido'}))
     ad = "Nuevo artículo"
@@ -49,14 +39,6 @@ class ArticleForm(forms.ModelForm):
         }
 
 
-
-        '''
-        widgets = {
-            #'publish': forms.DateInput(attrs={'class':'datepicker'})
-            # 'title':forms.TextInput(attrs={'class':'textinputclass'}),
-            # 'text': forms.Textarea(attrs={'class':'editable medium-editor-textarea postcontent'})
-        }
-        '''
 
     def __init__(self, *args, **kwargs):
         super(ArticleForm, self).__init__(*args, **kwargs)
