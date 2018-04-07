@@ -236,7 +236,7 @@
        <div class="info-item-lodging-lastpart">
          <div class="description-item-lodging">
 
-             <a href="{% url 'accounts:detail' userprofile.user.username %}">
+             <a href="{% url 'accounts:detail' offers.created_by.username %}">
                 {% if entrepreneurshipoffer.created_by.user_type == "O" %}
                     <span>{{ offers.created_by.get_enterprise_name }} <br/>
                 {% else %}
