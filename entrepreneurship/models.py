@@ -96,7 +96,8 @@ class EntrepreneurshipOffer(TimeStampModel):
         validators=[URLValidator()],
         verbose_name='Dirección de enlace',
         help_text='Para mayor información referencie una dirección o enlace web',
-        null = True
+        null=True,
+        blank=True,
     )
 
     contact_name = models.CharField(
@@ -128,6 +129,12 @@ class EntrepreneurshipOffer(TimeStampModel):
 
     # Cada vez que se grabe en la base de datos se actualice el campo updated
     # modified = models.DateTimeField(auto_now=True, auto_now_add=False)
+
+    additional_description = models.TextField(
+        null=True,
+        blank=True,
+        verbose_name='Descripción adicional'
+    )
 
     is_taked = models.BooleanField(
         _('Oferta tomada'),
