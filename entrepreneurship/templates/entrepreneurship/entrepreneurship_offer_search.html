@@ -141,6 +141,9 @@
                     <p>Publicada por: {{ entrepreneurshipoffer.created_by.get_enterprise_name }}</p>
                 {% endif %}
                 {% endcomment %}
+                <div class="photo-profile">
+                  <img src="{{ entrepreneurshipoffer.photo.url }}" width="auto" height="100%" alt="">
+                </div>
             </div>
           </div>
           {% endwith %}
