@@ -26,7 +26,7 @@ class StudiesOffertIndex(indexes.SearchIndex, indexes.Indexable):
 
     # accreditations = indexes.MultiValueField()
 
-    # Mirar como mejorar este indice de busqueda. Supeditado a las palabras exactas del select.
+
     maximum_quota = indexes.CharField(model_attr='maximum_quota', null=True)
 
     studies_type_offered = indexes.MultiValueField()

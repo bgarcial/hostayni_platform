@@ -1,0 +1,8 @@
+{{ object.ad_title }}
+{{ object.country }}
+{{ object.city }}
+{{ object.address }}
+{{ object.offer_type }}
+{{ object.maximum_quota }}
+{{ object.price }}
+

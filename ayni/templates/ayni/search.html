@@ -1,6 +1,6 @@
 {% extends 'layout.html' %}
 {% load staticfiles %}
-{% block title_tag %}Daily Life Offer Search | {{ block.super }}{% endblock %}
+{% block title_tag %}Ayni Offer Search | {{ block.super }}{% endblock %}
 {% block body_content %}
 
 {% if sliders %}
@@ -82,13 +82,13 @@
     </div>
     <br /><br />
     {% for result in results %}
-        {% with dailylifeoffer=result.object %}
+        {% with aynioffer=result.object %}
         <div class="item-result-lodging" >
           <div class="img-item-container">
-            <a href="{% url 'offer:detail' dailylifeoffer.slug %}">
+            <a href="{% url 'offer:detail' aynioffer.slug %}">
                 <div class="img-item-search">
-                    {% if dailylifeoffer.photo %}
-                         <img src="{{ dailylifeoffer.photo.url }}" width="auto" height="100%" alt="">
+                    {% if aynioffer.photo %}
+                         <img src="{{ aynioffer.photo.url }}" width="auto" height="100%" alt="">
                          <!-- <div class="img-item" style="background: url('{{ offers.photo.url }}') no-repeat center; background-size:cover;"></div> -->
                      {% endif %}
                  </div>
@@ -97,39 +97,39 @@
           <div class="info-item-lodging">
             <div class="info-item-lodging-firstpart">
               <div class="title-item-lodging">
-                  <h3>{{ dailylifeoffer.ad_title }}</h3>
+                  <h3>{{ aynioffer.ad_title }}</h3>
               </div>
               <div class="price-item-lodging">
-                <p> $ {{ dailylifeoffer.room_value }} COP </p>
+                <p> $ {{ aynioffer.room_value }} COP </p>
               </div>
            </div>
            <div clas="location-item-lodging">
-             <p> {{ dailylifeoffer.address }}, {{ dailylifeoffer.city }} - {{ dailylifeoffer.country }} </p>
+             <p> {{ aynioffer.address }}, {{ aynioffer.city }} - {{ aynioffer.country }} </p>
            </div>
             <div class="info-item-lodging-lastpart">
               <div class="description-item-lodging">
-                <p> {{ dailylifeoffer.additional_description|linebreaks|truncatechars:420 }} </p>
+                <p> {{ aynioffer.additional_description|linebreaks|truncatechars:420 }} </p>
               </div>
               <div class="mainfeatures-item-lodging">
                 <div class="imp-feat-II">
                   <img src="{% static 'img/icons/diary-button.svg' %}" alt="">
-                  <p> {{ dailylifeoffer.number_guest_room_type }} </p>
+                  <p> {{ aynioffer.number_guest_room_type }} </p>
                  </div>
                  <div class="imp-feat-II">
                    <img src="{% static 'img/icons/diary-button.svg' %}" alt="">
-                   <p> {{ dailylifeoffer.room_type_offered }} </p>
+                   <p> {{ aynioffer.room_type_offered }} </p>
                   </div>
                   <div class="imp-feat-II">
                     <img src="{% static 'img/icons/diary-button.svg' %}" alt="">
-                    <p> {{ dailylifeoffer.bathroom }} </p>
+                    <p> {{ aynioffer.bathroom }} </p>
                   </div>
               </div>
                 {% comment %}
-                {% if dailylifeoffer.created_by.first_name %}
-                    <p>Publicada por: {{ entrepreneurshipoffer.created_by.get_long_name }}</p>
+                {% if aynioffer.created_by.first_name %}
+                    <p>Publicada por: {{ aynioffer.created_by.get_long_name }}</p>
                 {% endif %}
                 {% if dailylifeoffer.created_by.get_enterprise_name %}
-                    <p>Publicada por: {{ dailylifeoffer.created_by.get_enterprise_name }}</p>
+                    <p>Publicada por: {{ aynioffer.created_by.get_enterprise_name }}</p>
                 {% endif %}
                 {% endcomment %}
             </div>
@@ -144,7 +144,7 @@
     {% for po in offers_paid %}
     <div class="item-result-lodging" >
       <div class="img-item-container">
-        <a href="{% url 'offer:detail' po.slug %}">
+        <a href="{% url 'ayni_offer:detail' po.slug %}">
             <div class="img-item-search">
                 {% if po.photo %}
                      <img src="{{ po.photo.url }}" width="auto" height="100%" alt="">
@@ -159,7 +159,7 @@
               <h3>{{ po.ad_title }}</h3>
           </div>
           <div class="price-item-lodging">
-            <p> $ {{ po.room_value }} COP </p>
+            <p> $ {{ po.price }} COP </p>
           </div>
        </div>
        <div clas="location-item-lodging">
@@ -198,7 +198,7 @@
   {% for offers in offer_list %}
    <div class="item-result-lodging" >
      <div class="img-item-container">
-       <a href="{% url 'daily_life_offer:detail' offers.slug %}">
+       <a href="{% url 'ayni_offer:detail' offers.slug %}">
            <div class="img-item-search">
                {% if offers.photo %}
                     <img src="{{ offers.photo.url }}" width="auto" height="100%" alt="">
@@ -213,7 +213,7 @@
              <h3>{{ offers.ad_title }}</h3>
          </div>
          <div class="price-item-lodging">
-           <p> $ {{ offers.room_value }} COP </p>
+           <p> $ {{ offers.price }} COP </p>
          </div>
       </div>
       <div clas="location-item-lodging">

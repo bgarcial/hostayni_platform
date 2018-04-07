@@ -26,6 +26,7 @@ from carousel_offers.models import AyniOfferCarousel
 
 class AyniOfferSearch(FormView):
     template_name = 'ayni/ayni_offer_search.html'
+    # template_name = 'ayni/search.html'
 
     # first we instantiate the SearchForm that we created before.
     form_class = AyniOfferSearchForm()

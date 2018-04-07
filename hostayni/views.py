@@ -149,7 +149,7 @@ class SearchView(UserProfileDataMixin, TemplateView):
         qs = None
         if query:
             qs = User.objects.filter(
-                    Q(email__icontains=query)
+                    Q(username__icontains=query)
                     # Aca podriamos buscar por cualquier atributo
                     # relacionado con el usuario o del usuario
                     # # https://docs.djangoproject.com/en/1.11/topics/db/queries/#complex-lookups-with-q-objects
