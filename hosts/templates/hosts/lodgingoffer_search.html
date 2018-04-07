@@ -219,7 +219,8 @@
              <h3>{{ offers.ad_title }}</h3>
          </div>
          <div class="price-item-lodging">
-           <p> $ {{ offers.room_value }} COP </p>
+           <p> Mensual: $ {{ offers.monthly_price }} COP </p>
+           <p> Por noche: $ {{ offers.room_night_value }} COP </p>
          </div>
       </div>
       <div clas="location-item-lodging">
@@ -227,7 +228,6 @@
       </div>
        <div class="info-item-lodging-lastpart">
          <div class="description-item-lodging">
-
              <a href="{% url 'accounts:detail' userprofile.user.email %}">
                 {% if lodgingofferdetail.created_by.user_type == "O" %}
                     <span>{{ offers.created_by.get_enterprise_name }} <br/>
@@ -235,6 +235,9 @@
                     <span>{{ offers.created_by.get_long_name }}<br/>
                 {% endif %}
              </a>
+             <div class="description-item-lodging">
+               <p> {{ offers.additional_description|linebreaks|truncatechars:420 }} </p>
+             </div>
            <!-- <p> {{ offers.additional_description|linebreaks|truncatechars:420 }} </p> -->
          </div>
          <div class="mainfeatures-item-lodging">
@@ -248,7 +251,7 @@
              </div>
              <div class="imp-feat-II">
                <img src="{% static 'img/icons/diary-button.svg' %}" alt="">
-               <p> {{ offers.bathroom }} </p>
+               <p> {{ offers.location_zone }} </p>
              </div>
          </div>
            {% comment %}

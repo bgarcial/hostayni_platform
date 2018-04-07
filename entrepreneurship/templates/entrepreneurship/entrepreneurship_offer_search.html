@@ -107,11 +107,11 @@
                   <h3>{{ entrepreneurshipoffer.ad_title }}</h3>
               </div>
               <div class="price-item-lodging">
-                <p> $ {{ entrepreneurshipoffer.room_value }} COP </p>
+                <p> $ {{ entrepreneurshipoffer.price }} COP </p>
               </div>
            </div>
            <div clas="location-item-lodging">
-             <p> {{ entrepreneurshipoffer.address }}, {{ entrepreneurshipoffer.city }} - {{ entrepreneurshipoffer.country }} </p>
+             <p> {{ entrepreneurshipoffer.city }} - {{ entrepreneurshipoffer.country }} </p>
            </div>
             <div class="info-item-lodging-lastpart">
               <div class="description-item-lodging">
@@ -120,15 +120,17 @@
               <div class="mainfeatures-item-lodging">
                 <div class="imp-feat-II">
                   <img src="{% static 'img/icons/diary-button.svg' %}" alt="">
-                  <p> {{ entrepreneurshipoffer.number_guest_room_type }} </p>
+                  <p> {{ entrepreneurshipoffer.date }} </p>
                  </div>
                  <div class="imp-feat-II">
                    <img src="{% static 'img/icons/diary-button.svg' %}" alt="">
-                   <p> {{ entrepreneurshipoffer.room_type_offered }} </p>
+                   {% comment %}
+                   <p> {{ entrepreneurshipoffer.email }} </p>
+                   {% endcomment %}
                   </div>
                   <div class="imp-feat-II">
                     <img src="{% static 'img/icons/diary-button.svg' %}" alt="">
-                    <p> {{ entrepreneurshipoffer.bathroom }} </p>
+                    <p> {{ entrepreneurshipoffer.phone_number }} </p>
                   </div>
               </div>
                 {% comment %}
@@ -166,11 +168,11 @@
               <h3>{{ po.ad_title }}</h3>
           </div>
           <div class="price-item-lodging">
-            <p> $ {{ po.room_value }} COP </p>
+            <p> $ {{ po.price }} COP </p>
           </div>
        </div>
        <div clas="location-item-lodging">
-         <p> {{ po.address }}, {{ po.city }} - {{ po.country }} </p>
+         <p> {{ po.city }} - {{ po.country }} </p>
        </div>
         <div class="info-item-lodging-lastpart">
           <div class="description-item-lodging">
@@ -179,15 +181,17 @@
           <div class="mainfeatures-item-lodging">
             <div class="imp-feat-II">
               <img src="{% static 'img/icons/diary-button.svg' %}" alt="">
-              <p> {{ po.number_guest_room_type }} </p>
+              <p> {{ po.date }} </p>
              </div>
              <div class="imp-feat-II">
                <img src="{% static 'img/icons/diary-button.svg' %}" alt="">
-               <p> {{ po.room_type_offered }} </p>
+               {% comment %}
+               <p> {{ po.email }} </p>
+               {% endcomment %}
               </div>
               <div class="imp-feat-II">
                 <img src="{% static 'img/icons/diary-button.svg' %}" alt="">
-                <p> {{ po.bathroom }} </p>
+                <p> {{ po.phone_number }} </p>
               </div>
           </div>dd
             {% comment %}
@@ -220,11 +224,11 @@
              <h3>{{ offers.ad_title }}</h3>
          </div>
          <div class="price-item-lodging">
-           <p> $ {{ offers.room_value }} COP </p>
+           <p> $ {{ offers.price }} COP </p>
          </div>
       </div>
       <div clas="location-item-lodging">
-        <p> {{ offers.address }}, {{ offers.city }} - {{ offers.country }} </p>
+        <p> {{ offers.city }} - {{ offers.country }} </p>
       </div>
        <div class="info-item-lodging-lastpart">
          <div class="description-item-lodging">
@@ -241,15 +245,15 @@
          <div class="mainfeatures-item-lodging">
            <div class="imp-feat-II">
              <img src="{% static 'img/icons/diary-button.svg' %}" alt="">
-             <p> {{ offers.number_guest_room_type }} </p>
+             <p> {{ offers.date }} </p>
             </div>
             <div class="imp-feat-II">
               <img src="{% static 'img/icons/diary-button.svg' %}" alt="">
-              <p> {{ offers.room_type_offered }} </p>
+              <p> {{ offers.offer_type }} </p>
              </div>
              <div class="imp-feat-II">
                <img src="{% static 'img/icons/diary-button.svg' %}" alt="">
-               <p> {{ offers.bathroom }} </p>
+               <p> {{ offers.phone_number }} </p>
              </div>
          </div>
            {% comment %}

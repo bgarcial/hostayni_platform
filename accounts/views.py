@@ -72,9 +72,11 @@ class UserDetailView(UserProfileDataMixin, generic.DetailView):
         context['following'] = following
         context['recommended'] = UserProfile.objects.recommended(self.request.user)
 
-        speaklanguages = User.objects.get(slug=self.kwargs.get('slug'))
-        speak_languages_query = speaklanguages.speak_languages.all()
-        context['speak_languages'] = speak_languages_query
+        #x = User.objects.get(slug=self.kwargs.get('slug'))
+        #if x.user_type != 'O':
+        #    speaklanguages = User.objects.get(slug=self.kwargs.get('slug'))
+        #    speak_languages_query = speaklanguages.speak_languages.all()
+        #    context['speak_languages'] = speak_languages_query
 
         entertainmentactivities = User.objects.get(slug=self.kwargs.get('slug'))
         entertainment_activities_query = entertainmentactivities.entertainment_activities.all()
@@ -216,7 +218,7 @@ class AccountSettingsUpdateView(SuccessMessageMixin, LoginRequiredMixin, UserPro
         # messages.success(self.request, "Successfully created")
         return super(AccountSettingsUpdateView, self).form_valid(form)
 
-  
+
     def form_invalid(self, form):
         print("form is invalid")
         return HttpResponse("form is invalid.. this is just an HttpResponse object")
@@ -382,4 +384,3 @@ class ContactOwnOfferView(View):
         if request.user.is_authenticated():
             is_contacting = UserProfile.objects.toggle_contact_own_offer(request.user, user_to_contact, offer_to_interest)
         return redirect('hosts:detail', pk=pk)
-

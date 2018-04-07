@@ -239,16 +239,18 @@
          </div>
          <div class="mainfeatures-item-lodging">
            <div class="imp-feat-II">
+             {% comment %}
              <img src="{% static 'img/icons/diary-button.svg' %}" alt="">
              <p> {{ offers.number_guest_room_type }} </p>
+             {% endcomment %}
             </div>
             <div class="imp-feat-II">
               <img src="{% static 'img/icons/diary-button.svg' %}" alt="">
-              <p> {{ offers.room_type_offered }} </p>
+              <p> {{ offers.offer_type }} </p>
              </div>
              <div class="imp-feat-II">
                <img src="{% static 'img/icons/diary-button.svg' %}" alt="">
-               <p> {{ offers.bathroom }} </p>
+               <p> {{ offers.maximum_quota }} cupos </p>
              </div>
          </div>
            {% comment %}
