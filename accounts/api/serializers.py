@@ -15,6 +15,7 @@ class UserDisplaySerializer(serializers.ModelSerializer):
         model = User
         fields = [
             'url',
+            'username',
             'email',
             'slug',
             'first_name',

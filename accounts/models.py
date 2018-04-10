@@ -350,6 +350,7 @@ class User(AbstractBaseUser, PermissionsMixin):
 
     class Meta:
         db_table = 'auth_user'
+        verbose_name = _('user')
         verbose_name_plural = 'Usuarios en la plataforma'
 
     def __str__(self):

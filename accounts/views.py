@@ -72,14 +72,18 @@ class UserDetailView(UserProfileDataMixin, generic.DetailView):
         context['following'] = following
         context['recommended'] = UserProfile.objects.recommended(self.request.user)
 
+        user_to_display = User.objects.get(slug=self.kwargs.get('slug'))
 
-        speaklanguages = User.objects.get(slug=self.kwargs.get('slug'))
-        speak_languages_query = speaklanguages.speak_languages.all()
-        context['speak_languages'] = speak_languages_query
+        print("Oe", user_to_display.user_type)
 
-        entertainmentactivities = User.objects.get(slug=self.kwargs.get('slug'))
-        entertainment_activities_query = entertainmentactivities.entertainment_activities.all()
-        context['entertainment_activities'] = entertainment_activities_query
+        if user_to_display != "0":
+            speaklanguages = User.objects.get(slug=self.kwargs.get('slug'))
+            speak_languages_query = speaklanguages.speak_languages.all()
+            context['speak_languages'] = speak_languages_query
+
+            entertainmentactivities = User.objects.get(slug=self.kwargs.get('slug'))
+            entertainment_activities_query = entertainmentactivities.entertainment_activities.all()
+            context['entertainment_activities'] = entertainment_activities_query
 
         return context
 

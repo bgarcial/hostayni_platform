@@ -125,6 +125,21 @@
                 <img src="{% static 'img/default_profile_pic.png' %}" class="img-responsive">
           {% endif %}
         </div>
+          <div class="nombre-profile">
+          <!--Validando que no me parezca para seguirme a mi mismo-->
+          {% if object.profile.user.slug != userprofile.user.slug %}
+          <p>
+              <a href='{{ object.profile.get_follow_url }}'>
+                  {% if following %}
+                      Unfollow
+                  {% else %}
+                      Follow
+                  {% endif %}
+              </a>
+
+          </p>
+          {% endif %}
+        </div>
         <div class="nombre-profile">
           <p> <b> {{ object.profile.user.enterprise_name }} </b> </p>
         </div>
