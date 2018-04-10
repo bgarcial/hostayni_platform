@@ -92,6 +92,8 @@ class UserDetailView(UserProfileDataMixin, generic.DetailView):
             entertainmentactivities = User.objects.get(slug=self.kwargs.get('slug'))
             entertainment_activities_query = entertainmentactivities.entertainment_activities.all()
             context['entertainment_activities'] = entertainment_activities_query
+        if user.is_authenticated():
+            context['userprofile'] = user.profile
 
         return context
 
