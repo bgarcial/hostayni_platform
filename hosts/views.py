@@ -185,6 +185,23 @@ class LodgingOfferSearch(FormView):
         return context
 
 
+class StudyOffersByUser(LoginRequiredMixin, UserProfileDataMixin, ListView):
+    template_name = 'hosts/studiesoffer_list.html'
+
+    def get_queryset(self, *args, **kwargs):
+        user = self.request.user
+        queryset_list = StudiesOffert.objects.filter(created_by__username=user.username)
+        return queryset_list
+
+    def get_context_data(self, **kwargs):
+        context = super(StudyOffersByUser, self).get_context_data(**kwargs)
+        user = self.request.user
+        # studies_offers = StudyOffersByUser.objects.filter(created_by__username=user.username)
+        studies_offers = StudiesOffert.objects.filter(created_by=user)
+        context['offers_by_user'] = studies_offers
+        return context
+
+'''
 def studies_offers_by_user(request, username):
     user = request.user
     profile = user.profile
@@ -198,20 +215,25 @@ def studies_offers_by_user(request, username):
     )
 
 '''
-class LodgingOffersByUser(LoginRequiredMixin, ListView):
-    template_name = 'hosts/lodgingoffer_list2.html'
+
+
+class LodgingOffersByUser(LoginRequiredMixin, UserProfileDataMixin, ListView):
+    template_name = 'hosts/lodgingoffer_list.html'
+
+    def get_queryset(self, *args, **kwargs):
+        user = self.request.user
+        queryset_list = LodgingOffer.objects.filter(created_by__username=user.username)
+        return queryset_list
 
     def get_context_data(self, **kwargs):
         context = super(LodgingOffersByUser, self).get_context_data(**kwargs)
         user = self.request.user
-        lodging_offers = LodgingOffer.objects.filter(created_by__username=self.request.user)
+        # lodging_offers = LodgingOffer.objects.filter(created_by__username=user.username)
+        lodging_offers = LodgingOffer.objects.filter(created_by=user)
         context['offers_by_user'] = lodging_offers
-
-        if user.is_authenticated():
-            context['userprofile'] = user.profile
         return context
-'''
 
+'''
 def lodging_offers_by_user(request, username):
     user = request.user
     profile = user.profile
@@ -223,6 +245,8 @@ def lodging_offers_by_user(request, username):
         {'lodging_offers': lodging_offers,
         'userprofile': profile}
     )
+
+'''
 
 
 class HostingOfferCreateView(SuccessMessageMixin, LoginRequiredMixin, UserProfileDataMixin, CreateView):
@@ -783,8 +807,6 @@ class StudyOfferDeleteView(SuccessMessageMixin, UserProfileDataMixin, LoginRequi
 
     def get_success_url(self):
         educational_offers = self.get_object()
-        # print(entrepreneurship_offer)
-        # return reverse_lazy("offer:list", kwargs={'created_by': entrepreneurship_offer.created_by.username})
         return reverse_lazy("host:studiesofferlist", kwargs={'username': educational_offers.created_by.username})
 
     def get_context_data(self, **kwargs):

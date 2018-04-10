@@ -254,7 +254,8 @@ class AyniOffersByUser(LoginRequiredMixin, UserProfileDataMixin, ListView):
     def get_context_data(self, **kwargs):
         context = super(AyniOffersByUser, self).get_context_data(**kwargs)
         user = self.request.user
-        ayni_offers = AyniOffer.objects.filter(created_by__username=user.username)
+        # ayni_offers = AyniOffer.objects.filter(created_by__username=user.username)
+        ayni_offers = AyniOffer.objects.filter(created_by=user)
         context['offers_by_user'] = ayni_offers
 
         #if user.is_authenticated():

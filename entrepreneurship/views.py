@@ -226,7 +226,8 @@ class EntrepreneurshipOffersByUser(LoginRequiredMixin, UserProfileDataMixin, Lis
     def get_context_data(self, **kwargs):
         context = super(EntrepreneurshipOffersByUser, self).get_context_data(**kwargs)
         user = self.request.user
-        entrepreneurship_offers = EntrepreneurshipOffer.objects.filter(created_by__username=user.username)
+        # entrepreneurship_offers = EntrepreneurshipOffer.objects.filter(created_by__username=user.username)
+        entrepreneurship_offers = EntrepreneurshipOffer.objects.filter(created_by=user)
         context['offers_by_user'] = entrepreneurship_offers
 
         #if user.is_authenticated():

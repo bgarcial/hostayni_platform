@@ -3,8 +3,8 @@ from django.conf.urls import url
 from .views import (
     HostingOfferCreateView, HostingOfferUpdateView,
     StudyOfferCreateView, StudyOffertDetailView,
-    HostingOfferDetailView, lodging_offers_by_user,
-    studies_offers_by_user, StudyOfferUpdateView,
+    HostingOfferDetailView, LodgingOffersByUser,
+    StudyOfferUpdateView, StudyOffersByUser,
     LodgingOfferSearch, StudiesOffertSearch,
     HostingOfferDeleteView, StudyOfferDeleteView,
     LodgingOfferAjax, contact_owner_offer, contact_study_owner_offer,
@@ -29,9 +29,15 @@ urlpatterns = [
         name='hosting-host'),
 
     # List Lodging Offer's user
+    # url(r'^lodging-offers/by/u/(?P<username>[-\w]+)/$',
+    #    lodging_offers_by_user,
+    #    name='list'),
+
+    # List Lodging Offer's user
     url(r'^lodging-offers/by/u/(?P<username>[-\w]+)/$',
-        lodging_offers_by_user,
+        LodgingOffersByUser.as_view(),
         name='list'),
+
 
     # Editando imagenes de ofertas de alojamiento
     url(r"^lodging-offer/edit/images/(?P<pk>\d+)/$",
@@ -86,10 +92,14 @@ urlpatterns = [
         name='study-host'),
 
     # List Study Host Offers
-    url(r'^studies-offers/by/u/(?P<username>[-\w]+)/',
-        studies_offers_by_user,
-        name='studiesofferlist'),
+    # url(r'^studies-offers/by/u/(?P<username>[-\w]+)/',
+    #    studies_offers_by_user,
+    #    name='studiesofferlist'),
 
+    # List Educational Offer's user
+    url(r'^studies-offers/by/u/(?P<username>[-\w]+)/$',
+        StudyOffersByUser.as_view(),
+        name='studiesofferlist'),
 
     # Editando imagen de estudios
     url(r"^study-offer/edit/images/(?P<pk>\d+)/$",

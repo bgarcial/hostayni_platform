@@ -355,7 +355,8 @@ class DailyLifeOffersByUser(LoginRequiredMixin, UserProfileDataMixin, ListView):
     def get_context_data(self, **kwargs):
         context = super(DailyLifeOffersByUser, self).get_context_data(**kwargs)
         user = self.request.user
-        daily_life_offers = DailyLifeOffer.objects.filter(created_by__username=user.username)
+        # daily_life_offers = DailyLifeOffer.objects.filter(created_by__username=user.username)
+        daily_life_offers = DailyLifeOffer.objects.filter(created_by=user)
         context['offers_by_user'] = daily_life_offers
 
         #if user.is_authenticated():
