@@ -7,16 +7,7 @@
 
     <script type="text/javascript">
         $(function () {
-            $('#check_out').datepicker({
-                inline: true,
-                sideBySide: true,
-                autoclose: true,
-                format: 'yyyy-mm-dd',
-                todayHighlight: true
-            });
-        });
-        $(function () {
-            $('#_pickers').datepicker({
+            $('#datepicker2').datepicker({
                 inline: true,
                 sideBySide: true,
                 autoclose: true,
@@ -28,7 +19,6 @@
 
         });
     </script>
-
 
 {% block extrahead %}   {# Extra Resources Start #}
    {{ form.media }}        {# Form required JS and CSS #}
