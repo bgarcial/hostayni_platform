@@ -12,10 +12,12 @@
 
   <form role="form" action="" method="POST">
       {% csrf_token %}
-
+        {% bootstrap_form form %}
+      {% comment %}
       {% bootstrap_field form.contact_name %}
       {% bootstrap_field form.contact_email %}
       {% bootstrap_field form.form_content %}
+      {% endcomment %}
 
 
       <div class="submit-button-contactenos">

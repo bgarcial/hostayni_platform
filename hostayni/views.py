@@ -23,21 +23,6 @@ from django.core.urlresolvers import reverse
 User = get_user_model()
 
 
-class SearchView(UserProfileDataMixin, TemplateView):
-
-    def get(self, request, *args, **kwargs):
-        query = request.GET.get("q")
-        qs = None
-        if query:
-            qs = User.objects.filter(
-                    Q(email__icontains=query)
-                    # Aca podriamos buscar por cualquier atributo
-                    # relacionado con el usuario o del usuario
-                    # # https://docs.djangoproject.com/en/1.11/topics/db/queries/#complex-lookups-with-q-objects
-                )
-        context = {"users": qs}
-        return render(request, "search.html", context)
-
 
 def contact(request):
     user = request.user
@@ -46,7 +31,7 @@ def contact(request):
     context = {}
     if user.is_authenticated():
         context['userprofile'] = user.profile
-        print(user.profile)
+        # print(user.profile)
         if request.method == 'POST':
             form = form_class(data=request.POST)
             if form.is_valid():
@@ -140,6 +125,7 @@ class TermsAndConditions(UserProfileDataMixin, TemplateView):
 class PrivacyPolicy(UserProfileDataMixin, TemplateView):
     template_name = 'privacy-policy.html'
 
+
 # Buscando Users en hostayni social
 
 class SearchView(UserProfileDataMixin, TemplateView):
@@ -156,6 +142,15 @@ class SearchView(UserProfileDataMixin, TemplateView):
                 )
         context = {"users": qs}
         return render(request, "search.html", context)
+
+    def get_context_data(self, **kwargs):
+        context = super(SearchView, self).get_context_data(**kwargs)
+        # messages.info(self.request, 'hello http://example.com')
+        user = self.request.user
+        #context['userprofile'] = user.profile
+        if user.is_authenticated():
+            context['userprofile'] = user.profile
+        return context
 
 
 
