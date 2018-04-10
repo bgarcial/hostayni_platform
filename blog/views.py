@@ -299,7 +299,7 @@ class CreateArticleView(LoginRequiredMixin, UserProfileDataMixin, CreateView):
         form.instance.author = self.request.user
         form.instance.publish = timezone.now()
         form.save()
-        messages.success(self.request, "Successfully created")
+        messages.success(self.request, "Tu artículo ha sido exitosamente creado")
         return super(CreateArticleView, self).form_valid(form)
 
 
