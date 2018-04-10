@@ -27,6 +27,8 @@ from .forms import (
         ProfessorProfileForm, UserCreateForm, UserUpdateForm,
         StudyHostProfileForm, )
 
+from posts.forms import PostModelForm
+
 from .models import (
         StudentProfile, ProfessorProfile,
         ExecutiveProfile, User, UserProfile
@@ -72,11 +74,17 @@ class UserDetailView(UserProfileDataMixin, generic.DetailView):
         context['following'] = following
         context['recommended'] = UserProfile.objects.recommended(self.request.user)
 
+        # Pasamos el form de crear post para que aparezca en el post list
+        context['create_form'] = PostModelForm()
+
+        # Pasamos el url que me permite hacer un POST de un post
+        context['create_url'] = reverse_lazy("post:create")
+
         user_to_display = User.objects.get(slug=self.kwargs.get('slug'))
 
-        print("Oe", user_to_display.user_type)
+        # print("Oe", user_to_display.user_type)
 
-        if user_to_display != "0":
+        if user_to_display.user_type != "0":
             speaklanguages = User.objects.get(slug=self.kwargs.get('slug'))
             speak_languages_query = speaklanguages.speak_languages.all()
             context['speak_languages'] = speak_languages_query

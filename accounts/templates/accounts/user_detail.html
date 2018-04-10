@@ -95,17 +95,17 @@
           {% if object.profile.user.is_study_host %}
                <p> Anfitrion de estudios </p>
           {% endif %}
-          {% if object.profile.user.is_innovation_host %}
-               <p> Anfitrion de innovación </p>
+          {% if object.profile.user.is_entrepreneurship_host %}
+               <p> Anfitrion de Emprendimiento </p>
           {% endif %}
           {% if object.profile.user.is_hosting_host %}
                <p> Anfitrion de alojamiento </p>
           {% endif %}
-          {% if object.profile.user.is_entertainment_host %}
-               <p> Anfitrión de entretenimiento </p>
+          {% if object.profile.user.is_ayni_host %}
+               <p> Anfitrión de AYNI </p>
           {% endif %}
-          {% if object.profile.user.is_other_services_host %}
-               <p> Anfitrión de otros servicios </p>
+          {% if object.profile.user.is_daily_life_host %}
+               <p> Anfitrión de servicios de vida diaria</p>
           {% endif %}
         </div>
         <hr width="100%" size="10" noshade>
@@ -159,20 +159,29 @@
         <hr width="100%" size="10" noshade>
         <div class="roles-profile">
           <p> <b> Roles: </b> </p>
+          {% if object.profile.user.is_student %}
+               <p> Estudiante </p>
+          {% endif %}
+          {% if object.profile.user.is_professor %}
+               <p> Profesor </p>
+          {% endif %}
+          {% if object.profile.user.is_executive %}
+               <p> Ejecutivo </p>
+          {% endif %}
           {% if object.profile.user.is_study_host %}
                <p> Anfitrion de estudios </p>
           {% endif %}
-          {% if object.profile.user.is_innovation_host %}
-               <p> Anfitrion de innovación </p>
+          {% if object.profile.user.is_entrepreneurship_host %}
+               <p> Anfitrion de Emprendimiento </p>
           {% endif %}
           {% if object.profile.user.is_hosting_host %}
                <p> Anfitrion de alojamiento </p>
           {% endif %}
-          {% if object.profile.user.is_entertainment_host %}
-               <p> Anfitrión de entretenimiento </p>
+          {% if object.profile.user.is_ayni_host %}
+               <p> Anfitrión de AYNI </p>
           {% endif %}
-          {% if object.profile.user.is_other_services_host %}
-               <p> Anfitrión de otros servicios </p>
+          {% if object.profile.user.is_daily_life_host %}
+               <p> Anfitrión de servicios de vida diaria</p>
           {% endif %}
         </div>
 
@@ -210,24 +219,33 @@
       </div>
 
       <div class="historia-post">
+        {% include "posts/search_form.html" %} <br />
+
+        {% if not request.GET.q %}
+            <div class="">
+                {% include "posts/form.html" with form=create_form action_url=create_url btn_title='Post' form_class='post-form' %}
+            </div> <hr/>
+        {% endif %}
+
         <h4>Posts</h4>
 
         {% comment %} Cargando post desde cualquier lado
         Con el data-url y el url del listado de posts (a quienes sigo en el sistema)
-        le envio ese url a la llamada arriba de la funcion loadPostContainer("post-container") linea 14
+        le envio ese url a la llamada arriba de la funcion loadPostContainer("post-container") linea 8
         y esta es llamada alli (fue declarada en el layout.html) en donde se cargan todos los posts
 
         Este url es clave, es desde aqui en donde se toma el endpoint para ser enviado su URL y
         listarlo
 
-        Enviamos el url /api/email/post para que sean los posts de un usuario
+        Enviamos el url /api/username/post para que sean los posts de un usuario solamente
+        Si hubiesemos enviado el URL /api/post serian los posts de ese usuario y los post de los usuarios que sigue
 
         {% endcomment %}
 
         <div id="post-container" data-url="/api/{{ object.username }}/post/">
 
         </div>
-        <a href="#" id="loadmore">Cargue más posts</a>
+        <a href="#" id="loadmore">Ver mas posts</a>
 
 
         {% comment %} Trayendo posts de la forma tradicional sin Ajax ni JQuery
