@@ -65,8 +65,8 @@ class UserUpdateForm(forms.ModelForm):
             # I can customize these https://github.com/SmileyChris/
             # django-countries#countryselectwidget
 
-            #'date_of_birth': DateInput(),  # datepicker
-            #'creation_date': DateInput(), # datepicker
+            'date_of_birth': DateInput(),  # datepicker
+            'creation_date': DateInput(), # datepicker
 
         }
 

@@ -117,18 +117,10 @@
                 <p> {{ dailylifeoffer.additional_description|linebreaks|truncatechars:420 }} </p>
               </div>
               <div class="mainfeatures-item-lodging">
-                <div class="imp-feat-II">
-                  <img src="{% static 'img/icons/diary-button.svg' %}" alt="">
-                  <p> {{ dailylifeoffer.number_guest_room_type }} </p>
-                 </div>
                  <div class="imp-feat-II">
                    <img src="{% static 'img/icons/diary-button.svg' %}" alt="">
-                   <p> {{ dailylifeoffer.room_type_offered }} </p>
-                  </div>
-                  <div class="imp-feat-II">
-                    <img src="{% static 'img/icons/diary-button.svg' %}" alt="">
-                    <p> {{ dailylifeoffer.bathroom }} </p>
-                  </div>
+                   <p> {{ offers.offer_type }} </p>
+                 </div>
               </div>
                 {% comment %}
                 {% if dailylifeoffer.created_by.first_name %}
@@ -173,22 +165,22 @@
        </div>
         <div class="info-item-lodging-lastpart">
           <div class="description-item-lodging">
-            <p> {{ po.additional_description|linebreaks|truncatechars:420 }} </p>
-          </div>
+
+             <a href="{% url 'accounts:detail' po.created_by.username %}">
+                {% if po.created_by.user_type == "O" %}
+                    <span>{{ po.created_by.get_enterprise_name }} <br/>
+                {% else %}
+                    <span>{{ po.created_by.get_long_name }}<br/>
+                {% endif %}
+             </a>
+           <!-- <p> {{ po.additional_description|linebreaks|truncatechars:420 }} </p> -->
+         </div>
           <div class="mainfeatures-item-lodging">
             <div class="imp-feat-II">
               <img src="{% static 'img/icons/diary-button.svg' %}" alt="">
-              <p> {{ po.number_guest_room_type }} </p>
+              <p> {{ po.offer_type }} </p>
              </div>
-             <div class="imp-feat-II">
-               <img src="{% static 'img/icons/diary-button.svg' %}" alt="">
-               <p> {{ po.room_type_offered }} </p>
-              </div>
-              <div class="imp-feat-II">
-                <img src="{% static 'img/icons/diary-button.svg' %}" alt="">
-                <p> {{ po.bathroom }} </p>
-              </div>
-          </div>dd
+          </div>
             {% comment %}
             {% if po.created_by.first_name %}
                 <p>Publicada por: {{ po.created_by.get_long_name }}</p>
@@ -238,18 +230,6 @@
            <!-- <p> {{ offers.additional_description|linebreaks|truncatechars:420 }} </p> -->
          </div>
          <div class="mainfeatures-item-lodging">
-           <div class="imp-feat-II">
-             {% comment %}
-             <img src="{% static 'img/icons/diary-button.svg' %}" alt="">
-             <p> {{ offers.number_guest_room_type }} </p>
-             {% endcomment %}
-            </div>
-            <div class="imp-feat-II">
-              {% comment %}
-              <img src="{% static 'img/icons/diary-button.svg' %}" alt="">
-              <p> {{ offers.room_type_offered }} </p>
-              {% endcomment %}
-             </div>
              <div class="imp-feat-II">
                <img src="{% static 'img/icons/diary-button.svg' %}" alt="">
                <p> {{ offers.offer_type }} </p>

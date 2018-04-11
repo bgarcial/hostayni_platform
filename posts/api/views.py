@@ -5,6 +5,7 @@ from rest_framework import permissions
 from rest_framework.views import APIView
 from rest_framework.response import Response
 
+from hostayni.mixins import UserProfileDataMixin
 from posts.models import Post
 from .serializers import PostModelSerializer
 from .pagination import StandardResultsPagination
@@ -89,7 +90,7 @@ class PostDetailAPIView(generics.ListAPIView):
 
 # ApiView para encontrar post de cualquier persona
 
-class SearchPostAPIView(generics.ListAPIView):
+class SearchPostAPIView(UserProfileDataMixin, generics.ListAPIView):
     queryset = Post.objects.all().order_by('-timestamp')
     serializer_class = PostModelSerializer
     pagination_class = StandardResultsPagination

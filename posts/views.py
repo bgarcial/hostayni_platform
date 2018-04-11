@@ -31,10 +31,8 @@ class RepostView(View):
         return HttpResponseRedirect(post.get_absolute_url())
 
 
-
 # Create
 # https://docs.djangoproject.com/en/1.11/ref/class-based-views/generic-editing/#createview
-
 
 class PostCreateView(UserProfileDataMixin, FormUserNeededMixin, CreateView):
     form_class = PostModelForm
@@ -101,7 +99,7 @@ class PostListView(LoginRequiredMixin, UserProfileDataMixin, ListView):
             # https://docs.djangoproject.com/en/1.11/topics/db/queries/#complex-lookups-with-q-objects
             qs = qs.filter(
                 Q(content__icontains=query) |
-                Q(user__email__icontains=query)
+                Q(user__username__icontains=query)
             )
         return qs
 

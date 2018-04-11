@@ -232,6 +232,8 @@ class HostingOfferCreateView(SuccessMessageMixin, LoginRequiredMixin, UserProfil
                       "A continuación agrega más imágenes para generar " \
                       "mayor interés en los usuarios"
 
+
+
     def form_valid(self, form):
         form.save(commit=False)
         form.instance.created_by = self.request.user

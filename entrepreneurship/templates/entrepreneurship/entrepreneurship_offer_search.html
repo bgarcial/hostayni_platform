@@ -179,8 +179,16 @@
        </div>
         <div class="info-item-lodging-lastpart">
           <div class="description-item-lodging">
-            <p> {{ po.additional_description|linebreaks|truncatechars:420 }} </p>
-          </div>
+
+             <a href="{% url 'accounts:detail' po.created_by.username %}">
+                {% if po.created_by.user_type == "O" %}
+                    <span>{{ po.created_by.get_enterprise_name }} <br/>
+                {% else %}
+                    <span>{{ po.created_by.get_long_name }}<br/>
+                {% endif %}
+             </a>
+           <!-- <p> {{ po.additional_description|linebreaks|truncatechars:420 }} </p> -->
+         </div>
           <div class="mainfeatures-item-lodging">
             <div class="imp-feat-II">
               <img src="{% static 'img/icons/diary-button.svg' %}" alt="">

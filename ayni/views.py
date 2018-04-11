@@ -86,7 +86,7 @@ class AyniOfferSearch(FormView):
 class AyniOfferCreateView(SuccessMessageMixin, LoginRequiredMixin, UserProfileDataMixin, CreateView):
     model = AyniOffer
     form_class = AyniOfferForm
-    success_message = "Tu oferta de emprendiemiento fue creada con éxito. " \
+    success_message = "Tu oferta de AYNI fue creada con éxito. " \
                       "A continuación agrega más imágenes para generar " \
                       "mayor interés en los usuarios"
 

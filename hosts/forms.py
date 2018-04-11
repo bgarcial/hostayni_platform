@@ -33,7 +33,6 @@ class StudyOfferImagesUploadForm(forms.ModelForm):
 class DateInput(DatePicker):
     def __init__(self):
         DatePicker.__init__(self,format="%Y-%m-%d")
-
     def build_attrs(self, attrs, extra_attrs=None, **kwargs):
         attrs = dict(self.attrs, **kwargs)
         if extra_attrs:
@@ -53,7 +52,7 @@ class LodgingOfferForm(forms.ModelForm):
     class Meta:
         widgets = {
             'check_in': DateInput(),
-            'check_out': DateInput(),
+            'check_out': forms.DateInput(attrs={'id': 'datepicker2'}),
             'country': CountrySelectWidget(),
         }
         model = LodgingOffer
