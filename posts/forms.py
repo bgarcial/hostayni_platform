@@ -12,6 +12,10 @@ class PostModelForm(forms.ModelForm):
         ]
         # exclude = ["user"]
 
+    def __init__(self, *args, **kwargs):
+        super(PostModelForm, self).__init__(*args, **kwargs)
+        self.fields["content"].label = ""
+
     '''
     def clean_content(self, *args, **kwargs):
         # Basic validation

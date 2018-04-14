@@ -142,6 +142,7 @@ urlpatterns = [
         r'(?P<study_offer_owner_username>[\w." "@+-]+)/'
         r'(?P<study_offer_owner_email>[\w.@+-]+)/from/'
         r'(?P<user_interested_full_name>[\w." "@+-]+)/'
+        # r'(?P<user_interested_enterprise_name>[\w." "@+-]+)/'
         r'(?P<user_interested_username>[\w.@+-]+)/'
         r'(?P<user_interested_email>[\w.@+-]+)/'
         r'(?P<study_offer_title>[\w." "@+-]+)/(?P<offer_url>[\w.@+-/]+)/$',
