@@ -172,7 +172,8 @@ s.setAttribute('data-timestamp', +new Date());
                               {% endif %}
                               {% if userprofile.user.is_ayni_host %}
                                 <li><a href="{% url 'ayni_offer:create' %}">Crear oferta AYNI</a></li>
-                                <li><a href="{% url 'ayni_offer:list' userprofile.user.slug %}">Mis ofertas AYNI</a></li>                              {% endif %}
+                                <li><a href="{% url 'ayni_offer:list' userprofile.user.slug %}">Mis ofertas AYNI</a></li>
+                              {% endif %}
                               {% if userprofile.user.is_daily_life_host %}
                                 <li><a href="{% url 'daily_life_offer:create' %}">Crear oferta de vida diaria</a></li>
                                   <li><a href="{% url 'daily_life_offer:list' userprofile.user.slug %}">Mis ofertas de vida diaria</a></li>
@@ -232,26 +233,21 @@ s.setAttribute('data-timestamp', +new Date());
                                           <li><a href="{% url 'host:hosting-host' %}">Crear oferta de alojamiento</a></li>
                                           <li><a href="{% url 'host:list' userprofile.user.slug %}">Mis ofertas de alojamiento</a></li>
                                         {% endif %}
-
                                         {% if userprofile.user.is_study_host %}
                                           <li><a href="{% url 'host:study-host' %}">Crear oferta de educación</a></li>
                                              <li><a href="{% url 'host:studiesofferlist' userprofile.user.slug %}">Mis ofertas de educación</a></li>
                                         {% endif %}
-                                        <hr>
                                         {% if userprofile.user.is_entrepreneurship_host %}
                                             <li><a href="{% url 'offer:create' %}">Crear oferta de emprendimiento</a></li>
                                             <li><a href="{% url 'offer:list' userprofile.user.slug %}">Mis ofertas de emprendimiento</a></li>
                                         {% endif %}
-                                        <hr>
                                         {% if userprofile.user.is_ayni_host %}
                                             <li><a href="{% url 'ayni_offer:create' %}">Crear oferta AYNI</a></li>
                                             <li><a href="{% url 'ayni_offer:list' userprofile.user.slug %}">Mis ofertas AYNI</a></li>
                                         {% endif %}
-                                        <hr>
                                         {% if userprofile.user.is_daily_life_host %}
                                             <li><a href="{% url 'daily_life_offer:create' %}">Crear oferta de vida diaria</a></li>
                                             <li><a href="{% url 'daily_life_offer:list' userprofile.user.slug %}">Mis ofertas de vida diaria</a></li>
-
                                         {% endif %}
                                         <li class="line"></li>
                                         <p><strong>Búsquedas</strong></p>
@@ -568,15 +564,15 @@ s.setAttribute('data-timestamp', +new Date());
                      // There is a repost
                      postValue = postValue.parent
                      // Ponemos el estilo de repost en gris con el usuario quien hizo el repost y la fecha
-                    preContent  = "<span class='grey-color'>Repost via " + postValue.user.username + " on " + postValue.date_display +
-                         "</span><br/>"
+                    preContent  = "<div class=\"author-post-precontent\"><span class='grey-color'>Repost via " + postValue.user.username + " on " + postValue.date_display +
+                         "</span></div>"
 
                  // Sino y si tiene un valor parent y es una respuesta, es un reply
                  } else if(postValue.parent && isReply) {
                     //postValue = postValue.parent
                      // Ponemos el estilo de reply en gris con el usuario quien hizo el reply y la fecha
-                    preContent  = "<span class='grey-color'>Reply to @" + postValue.parent.user.username +
-                         "</span><br/>"
+                    preContent  = "<div class=\"author-post-precontent\"><span class='grey-color'>Reply to @" + postValue.parent.user.username +
+                         "</span></div>"
                  }
 
                  // Para que aparezca a un usuario Unlike si  ya le dio Like a un post
@@ -591,11 +587,11 @@ s.setAttribute('data-timestamp', +new Date());
                 // Separamos el formato del post en un container que son los estilos css
                  // y en el contenido del post, por eso estas dos variables arriba declaradas postContent y container
                  // POst original
-                 postContent = "<span class='content'>" + postValue.content + "</span><br/> via " + "<a href='" + postValue.user.url + "'>" + postValue.user.username +
-                     "</a> | " + postValue.date_display + " | " + "<a href='/post/" + postValue.id +"'>View</a> | " +
-                     "<a class='repostBtn' href='/post/" + postValue.id + "/repost/'>Repost</a>" + " | <a href='#' " +
-                     "class='post-like' data-id='"+ postValue.id + "'>" + verb + " (" + postValue.likes + ")</a>"
-                    + " | <a href='#' " + "class='post-reply' data-user='" + postValue.user.username + "'  data-id='"+ replyId + "'>Reply</a>"
+                 postContent = "<div class=\"post-content\"><span class='content'>" + postValue.content + "</span></div>" + "<div class=\"post-author-fecha\"><div class=\"post-author\"><a href='" + postValue.user.url + "'>" + postValue.user.username +
+                     "</a></div>" + "<div class=\"post-date\">" + postValue.date_display + "</div></div>" +
+                     "<div class=\"post-interaction\"><div class=\"post-repost\"><a class='repostBtn' href='/post/" + postValue.id + "/repost/'>Compartir</a></div>" + "<div class=\"post-liked\"><a href='#' " +
+                     "class='post-like' data-id='"+ postValue.id + "'>" + verb + " (" + postValue.likes + ")</a></div>"
+                    + "<div class=\"post-comentar\"><a href='#' " + "class='post-reply' data-user='" + postValue.user.username + "'  data-id='"+ replyId + "'>Comentar</a></div></div>"
 
                  // { if request.user == userprofile.user %} poner borrar
 
