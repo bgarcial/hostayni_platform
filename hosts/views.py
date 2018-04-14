@@ -631,7 +631,7 @@ class StudyOffertDetailView(LoginRequiredMixin, UserProfileDataMixin, DetailView
         context['user_interested_email'] = user_interested_email
         context['user_interested_username'] = user_interested_username
         context['user_interested_full_name'] = user_interested_full_name
-        context['user_interested_enterprise_name'] = user_interested_enterprise_name
+        # context['user_interested_enterprise_name'] = user_interested_enterprise_name
 
         context['offer_url'] = offer_url
 
