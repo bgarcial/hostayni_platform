@@ -605,7 +605,10 @@ class StudyOffertDetailView(LoginRequiredMixin, UserProfileDataMixin, DetailView
         print('username del user interesado oferta', user_interested_username)
 
         user_interested_full_name = user.get_long_name()
-        print('Nombe completo del intereadao', user_interested_full_name)
+        print('Nombre completo del intereadao', user_interested_full_name)
+
+        user_interested_enterprise_name = user.get_enterprise_name()
+        print('Nombre completo del intereadao', user_interested_enterprise_name)
 
         # Capturamos el url de la oferta de estudios
         offer_url = self.request.get_full_path
@@ -628,10 +631,61 @@ class StudyOffertDetailView(LoginRequiredMixin, UserProfileDataMixin, DetailView
         context['user_interested_email'] = user_interested_email
         context['user_interested_username'] = user_interested_username
         context['user_interested_full_name'] = user_interested_full_name
+        # context['user_interested_enterprise_name'] = user_interested_enterprise_name
 
         context['offer_url'] = offer_url
 
         return context
+
+
+def contact_study_owner_offer(request, study_offer_owner_full_name, study_offer_owner_username,
+                                study_offer_owner_email, user_interested_full_name, user_interested_username,
+                                user_interested_email,  study_offer_title, offer_url
+                              ):
+    user = request.user
+    print(study_offer_owner_full_name)
+    if user.is_authenticated:
+        #print('Send email')
+        mail_subject_to_user = 'Has aplicado a una oferta de alojamiento'
+        mail_subject_to_owner = 'Interesados en tu oferta'
+
+        context = {
+            # usuario dueño de la oferta  TO
+            'study_offer_owner_full_name': study_offer_owner_full_name,
+            'study_offer_owner_username': study_offer_owner_username,
+            'study_offer_owner_email': study_offer_owner_email,
+
+            # oferta por la que se pregunta
+            'study_offer_title': study_offer_title,
+            'offer_url': offer_url,
+            'domain': settings.SITE_URL,
+            'request': request.get_full_path,
+
+            # usuario interesado en la oferta
+            'user_interested_username': user_interested_username,
+            'user_interested_email': user_interested_email,
+            'user_interested_full_name': user_interested_full_name,
+            # 'user_interested_enterprise_name': user_interested_enterprise_name,
+        }
+
+        msg_to_who_applies = render_to_string('hosts/message_to_user_who_applies.html', context)
+        #to_email = lodging_offer_owner.email,
+
+        send_mail(mail_subject_to_user, msg_to_who_applies, settings.DEFAULT_FROM_EMAIL,
+                  [user_interested_email], html_message=msg_to_who_applies, fail_silently=True)
+
+        msg_to_owner = render_to_string('hosts/to_educational_own_offer.html', context)
+
+        send_mail(mail_subject_to_owner, msg_to_owner, settings.DEFAULT_FROM_EMAIL,
+                  [study_offer_owner_email], html_message=msg_to_owner, fail_silently=True)
+
+        #messages.success(request, "El anfitrión", lodging_offer_owner_email, "ha sido contactado " )
+
+    #return redirect('host:contact_owner_offer', lodging_offer_owner_email=lodging_offer_owner_email,
+                    #interested_email=interested_email, slug=slug)
+    return HttpResponseNotModified()
+
+
 
 @login_required
 def edit_study_offer_uploads(request, slug):
@@ -729,51 +783,7 @@ def delete_upload_study_offer_image(request, id):
     return redirect('host:edit_study_offer_uploads', slug=upload.study_offer.slug)
 
 
-def contact_study_owner_offer(request, study_offer_owner_full_name, study_offer_owner_username,
-                                study_offer_owner_email, user_interested_full_name, user_interested_username,
-                                user_interested_email,  study_offer_title, offer_url
-                              ):
-    user = request.user
-    print(study_offer_owner_full_name)
-    if user.is_authenticated:
-        #print('Send email')
-        mail_subject_to_user = 'Has aplicado a una oferta de alojamiento'
-        mail_subject_to_owner = 'Interesados en tu oferta'
 
-        context = {
-            # usuario dueño de la oferta  TO
-            'study_offer_owner_full_name': study_offer_owner_full_name,
-            'study_offer_owner_username': study_offer_owner_username,
-            'study_offer_owner_email': study_offer_owner_email,
-
-            # oferta por la que se pregunta
-            'study_offer_title': study_offer_title,
-            'offer_url': offer_url,
-            'domain': settings.SITE_URL,
-            'request': request.get_full_path,
-
-            # usuario interesado en la oferta
-            'user_interested_username': user_interested_username,
-            'user_interested_email': user_interested_email,
-            'user_interested_full_name': user_interested_full_name,
-        }
-
-        msg_to_who_applies = render_to_string('hosts/message_to_user_who_applies.html', context)
-        #to_email = lodging_offer_owner.email,
-
-        send_mail(mail_subject_to_user, msg_to_who_applies, settings.DEFAULT_FROM_EMAIL,
-                  [user_interested_email], html_message=msg_to_who_applies, fail_silently=True)
-
-        msg_to_owner = render_to_string('hosts/to_educational_own_offer.html', context)
-
-        send_mail(mail_subject_to_owner, msg_to_owner, settings.DEFAULT_FROM_EMAIL,
-                  [study_offer_owner_email], html_message=msg_to_owner, fail_silently=True)
-
-        #messages.success(request, "El anfitrión", lodging_offer_owner_email, "ha sido contactado " )
-
-    #return redirect('host:contact_owner_offer', lodging_offer_owner_email=lodging_offer_owner_email,
-                    #interested_email=interested_email, slug=slug)
-    return HttpResponseNotModified()
 
 
 class StudyOfferUpdateView(SuccessMessageMixin, UserProfileDataMixin, LoginRequiredMixin, UpdateView):

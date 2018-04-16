@@ -25,6 +25,7 @@ class CustomUserAdmin(UserAdmin):
                     #'first_name',
                     #'last_name',
                     # 'display_name',
+                    'enterprise_name',
                     'gender',
                     'country_of_origin',
                     'city_of_origin',
