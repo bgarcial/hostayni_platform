@@ -15,6 +15,7 @@
 <!-- PROFILE INFO CONTAINER -->
 <div class="profile-info-container">
     <!-- DETAILS PROFILE USER -->
+    <div class="full-column-profile">
     <div class="column-profile-detail">
       {% if object.profile.user.user_type == "P"  %}
         <div class="img-profile">
@@ -198,6 +199,7 @@
       {% endcomment %}
 
     </div>
+    </div>
 
     <!-- INFORMATION OF POST AND ACTIVITY OF THE PROFILE -->
     <div class="post-info-profile">
@@ -218,41 +220,21 @@
         <hr/>
       </div>
 
-      <div class="historia-post">
-        {% include "posts/search_form.html" %} <br />
+      <div class="search-post">
+        {% include "posts/search_form.html" %}
+      </div>
 
+      <div class="publish-post">
         {% if not request.GET.q %}
-            <div class="">
                 {% include "posts/form.html" with form=create_form action_url=create_url btn_title='Post' form_class='post-form' %}
-            </div> <hr/>
         {% endif %}
+      </div>
 
-        <h4>Posts</h4>
-
-        {% comment %} Cargando post desde cualquier lado
-        Con el data-url y el url del listado de posts (a quienes sigo en el sistema)
-        le envio ese url a la llamada arriba de la funcion loadPostContainer("post-container") linea 8
-        y esta es llamada alli (fue declarada en el layout.html) en donde se cargan todos los posts
-
-        Este url es clave, es desde aqui en donde se toma el endpoint para ser enviado su URL y
-        listarlo
-
-        Enviamos el url /api/username/post para que sean los posts de un usuario solamente
-        Si hubiesemos enviado el URL /api/post serian los posts de ese usuario y los post de los usuarios que sigue
-
-        {% endcomment %}
-
-        <div id="post-container" data-url="/api/{{ object.username }}/post/">
+      <div class="history-post">
+        <div class="history-each-post" id="post-container" data-url="/api/{{ object.username }}/post/">
 
         </div>
         <a href="#" id="loadmore">Ver mas posts</a>
-
-
-        {% comment %} Trayendo posts de la forma tradicional sin Ajax ni JQuery
-        {% for post in object.post_set.all %}
-            {{ post }} <br /><br />
-        {% endfor %}
-        {% endcomment %}
       </div>
 
     </div>
