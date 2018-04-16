@@ -178,14 +178,6 @@ s.setAttribute('data-timestamp', +new Date());
                                 <li><a href="{% url 'daily_life_offer:create' %}">Crear oferta de vida diaria</a></li>
                                   <li><a href="{% url 'daily_life_offer:list' userprofile.user.slug %}">Mis ofertas de vida diaria</a></li>
                               {% endif %}
-                              <li class="line"></li>
-                              <p><strong>Búsquedas</strong></p>
-                              <li><a href="{% url 'host:hostingoffer-search' %}">Ofertas de alojamiento</a></li>
-                              <li><a href="{% url 'host:studyoffer-search' %}">Ofertas de educación</a></li>
-                              <li><a href="{% url 'offer:entrepreneurship_offer_search' %}">Ofertas de emprendimiento</a></li>
-                              <li><a href="{% url 'daily_life_offer:search' %}">Ofertas de vida diaria</a></li>
-                              <li><a href="{% url 'ayni_offer:search' %}">Ofertas de AYNI</a></li>
-
                               {% if userprofile.user.is_superuser %}
                                   <li class="line"></li>
                                   <p><strong>Carrusel de imágenes</strong></p>
@@ -195,8 +187,8 @@ s.setAttribute('data-timestamp', +new Date());
                                   <li><a href="{% url 'carousels:entrepreneurship-offers-slider' %}">Agregar en ofertas de emprendimiento</a></li>
                                   <li><a href="{% url 'carousels:daily-life-offers-slider' %}">Agregar en ofertas de vida diaria</a></li>
                                   <li><a href="{% url 'carousels:ayni-offers-slider' %}">Agregar en ofertas AYNI</a></li>
-                                  <li class="line"></li>
                               {% endif %}
+                              <li class="line"></li>
                               <li><a href="{% url 'accounts:logout' %}">Salir</a></li>
                           </ul>
                       </div>
@@ -249,13 +241,6 @@ s.setAttribute('data-timestamp', +new Date());
                                             <li><a href="{% url 'daily_life_offer:create' %}">Crear oferta de vida diaria</a></li>
                                             <li><a href="{% url 'daily_life_offer:list' userprofile.user.slug %}">Mis ofertas de vida diaria</a></li>
                                         {% endif %}
-                                        <li class="line"></li>
-                                        <p><strong>Búsquedas</strong></p>
-                                        <li><a href="{% url 'host:hostingoffer-search' %}">Ofertas de alojamiento</a></li>
-                                        <li><a href="{% url 'host:studyoffer-search' %}">Ofertas de educación</a></li>
-                                        <li><a href="{% url 'offer:entrepreneurship_offer_search' %}">Ofertas de emprendimiento</a></li>
-                                        <li><a href="{% url 'daily_life_offer:search' %}">Ofertas de vida diaria</a></li>
-                                        <li><a href="{% url 'ayni_offer:search' %}">Ofertas de AYNI</a></li>
                                          {% if userprofile.user.is_superuser %}
                                              <li class="line"></li>
                                             <p><strong>Carrusel de imágenes</strong></p>
@@ -265,10 +250,8 @@ s.setAttribute('data-timestamp', +new Date());
                                             <li><a href="{% url 'carousels:entrepreneurship-offers-slider' %}">Agregar en ofertas de emprendimiento</a></li>
                                             <li><a href="{% url 'carousels:daily-life-offers-slider' %}">Agregar en ofertas de vida diaria</a></li>
                                             <li><a href="{% url 'carousels:ayni-offers-slider' %}">Agregar en ofertas AYNI</a></li>
-                                            <li class="line"></li>
                                          {% endif %}
-
-
+                                        <li class="line"></li>
                                         <li><a href="{% url 'accounts:logout' %}">Salir</a></li>
                                     </ul>
                                 </div>
