@@ -229,7 +229,7 @@ def article_update(request, slug=None):
     }
     if user.is_authenticated():
         context['userprofile'] = user.profile
-    return render(request, 'article_form.html', context)
+    return render(request, 'blog/article_form.html', context)
 
 
 def article_delete(request, slug=None):
