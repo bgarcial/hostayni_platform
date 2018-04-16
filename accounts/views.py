@@ -94,6 +94,8 @@ class UserDetailView(UserProfileDataMixin, generic.DetailView):
             context['entertainment_activities'] = entertainment_activities_query
         if user.is_authenticated():
             context['userprofile'] = user.profile
+        if not user.is_authenticated:
+            return None
 
         return context
 
