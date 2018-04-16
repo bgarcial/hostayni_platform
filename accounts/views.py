@@ -238,7 +238,6 @@ class AccountSettingsUpdateView(SuccessMessageMixin, LoginRequiredMixin, UserPro
     """
 
 
-
 def logout_view(request):
     logout(request)
     messages.success(request, "<strong>Has cerrado sesión</strong>, <a href='%s'>vuelve pronto!</a>" %(reverse('login')), extra_tags='safe, abc')
