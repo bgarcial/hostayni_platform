@@ -1,0 +1,39 @@
+[{
+	"model": "daily_life.dailylifeoffer",
+	"pk": 1,
+	"fields": {
+		"created": "2018-04-15T00:20:53.696Z",
+		"modified": "2018-04-15T00:20:55.212Z",
+		"created_by": 16,
+		"ad_title": "motaliadas",
+		"slug": "motaliadas",
+		"country": "CO",
+		"city": "medellin",
+		"offer_type": "Transporte",
+		"photo": "daily_life_offer_images/motaliadas/familias.jpg",
+		"address": "transporte al aeropuerto",
+		"price": "60.000",
+		"additional_description": "transporte para medellin a sabaneta",
+		"is_taked": false,
+		"is_paid": false
+	}
+}, {
+	"model": "daily_life.dailylifeoffer",
+	"pk": 2,
+	"fields": {
+		"created": "2018-04-16T17:33:23.200Z",
+		"modified": "2018-04-16T17:36:48.980Z",
+		"created_by": 17,
+		"ad_title": "Cine foro pel\u00edcula: Browling for Columbine",
+		"slug": "cine-foro-pelicul-browling-for-columbine",
+		"country": "CO",
+		"city": "Medell\u00edn",
+		"offer_type": "Eventos y espect\u00e1culos",
+		"photo": "daily_life_offer_images/cine-foro-pelicul-browling-for-columbine/Lunes_16_abril.jpg",
+		"address": "Sala de cine Universidad CES, calle 10 A 22-04, Medell\u00edn.",
+		"price": "0",
+		"additional_description": "La Universidad CES a trav\u00e9s de su Oficina de Asuntos Globales, en el marco de su semana denominada \"CES Sin fronteras\", invita a participar de esta pel\u00edcula de cine, la cual se basa en los sucesos ocurridos en un instituto de secundaria de Columbine (USA), donde murieron a tiros quince personas, tratando as\u00ed de forma  en clave ir\u00f3nica  la cultura del miedo del pueblo estadounidense y su pasi\u00f3n por las armas de fuego que, peri\u00f3dicamente, viene engendrando episodios irracionales de violencia.",
+		"is_taked": false,
+		"is_paid": false
+	}
+}]
