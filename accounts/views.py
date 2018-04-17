@@ -61,6 +61,21 @@ class UserDetailView(UserProfileDataMixin, generic.DetailView):
     template_name = 'accounts/user_detail.html'
     queryset = User.objects.all()
 
+    '''
+    def dispatch(self, request, slug, *args, **kwargs):
+        if request.user.is_anonymous():
+            username = User.objects.filter(slug__iexact=slug)
+            return HttpResponseRedirect(reverse_lazy("accounts:detail", slug=username))
+        else:
+            return super(UserDetailView, self).dispatch(request, slug, *args, **kwargs)
+
+    '''
+    def get(self, request, slug, *args, **kwargs):
+        if request.user.is_anonymous():
+            username = User.objects.filter(slug__iexact=slug)
+        return redirect("accounts:detail", slug=username)
+
+
     def get_object(self):
         return get_object_or_404(
                     User,
@@ -94,8 +109,6 @@ class UserDetailView(UserProfileDataMixin, generic.DetailView):
             context['entertainment_activities'] = entertainment_activities_query
         if user.is_authenticated():
             context['userprofile'] = user.profile
-        if not user.is_authenticated:
-            return None
 
         return context
 
