@@ -196,18 +196,18 @@
                 <div class="profile-lodging">
                     <div class="img-cont-lodging">
                         {% if lodgingofferdetail.created_by.avatar %}
-                        <a href="{% url 'accounts:detail' lodgingofferdetail.created_by.username %}">
+                        <a href="{% url 'accounts:detail' lodgingofferdetail.created_by.slug %}">
                             <img src="{{ lodgingofferdetail.created_by.avatar.url }}" alt="" class="img-responsive">
                         </a>
                         {% else %}
-                             <a href="{% url 'accounts:detail' lodgingofferdetail.created_by.username %}">
+                             <a href="{% url 'accounts:detail' lodgingofferdetail.created_by.slug %}">
                                <img src="{% static 'img/default_profile_pic.png' %}" class="img-responsive">
                              </a>
                         {% endif %}
                     </div>
                     <div class="name-review-cont-lodging">
                         {% comment %} A quien corresponda {% endcomment %}
-                         <a href="{% url 'accounts:detail' lodgingofferdetail.created_by.username %}">
+                         <a href="{% url 'accounts:detail' lodgingofferdetail.created_by.slug %}">
                             {% if lodgingofferdetail.created_by.user_type == "O" %}
                                 <span>{{ lodgingofferdetail.created_by.get_enterprise_name }} (@{{ lodgingofferdetail.created_by.username }})</span>
                             {% else %}

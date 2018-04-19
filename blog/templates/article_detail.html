@@ -39,18 +39,19 @@ h1 {
         <!-- Columna a la derecha -->
         <div class="search-column-low">
           <div class="img-cont">
-              <a href="{% url 'accounts:detail' instance.author.username %}">
-                  {% if instance.author.avatar%}
-              <img src="{{ instance.author.avatar.url }}" alt="">
-                  {% else %}
-                     <img src="{% static 'img/default_profile_pic.png' %}" class="img-fluid">
-                  {% endif %}
-
-              </a>
+            {% if instance.author.avatar %}
+                <a href="{% url 'accounts:detail' instance.author.slug %}">
+                    <img src="{{ instance.author.avatar.url }}" alt="" class="img-responsive">
+                </a>
+            {% else %}
+             <a href="{% url 'accounts:detail' instance.author.slug %}">
+               <img src="{% static 'img/default_profile_pic.png' %}" class="img-responsive">
+             </a>
+            {% endif %}
           </div>
           <div class="name-review-author">
             {% comment %} A quien corresponda {% endcomment %}
-            <a href="{% url 'accounts:detail' instance.author.username %}">
+            <a href="{% url 'accounts:detail' instance.author.slug %}">
                 {% if instance.author.get_long_name %}
                 <span>{{ instance.author.get_long_name }}</span><br/>
                 <span>@{{ instance.author.username }}</span>
@@ -142,19 +143,20 @@ h1 {
             <div class="autor">
                 <div class="profile">
                     <div class="img-cont">
-                        <a href="{% url 'accounts:detail' instance.author.username %}">
-                            {% if instance.author.avatar%}
-                        <img src="{{ instance.author.avatar.url }}" alt="">
-                            {% else %}
-                               <img src="{% static 'img/default_profile_pic.png' %}" class="img-fluid">
-                            {% endif %}
-
-                        </a>
+                        {% if instance.author.avatar %}
+                            <a href="{% url 'accounts:detail' instance.author.slug %}">
+                                <img src="{{ instance.author.avatar.url }}" alt="" class="img-responsive">
+                            </a>
+                        {% else %}
+                         <a href="{% url 'accounts:detail' instance.author.slug %}">
+                           <img src="{% static 'img/default_profile_pic.png' %}" class="img-responsive">
+                         </a>
+                        {% endif %}
                     </div>
                     <div class="name-review-cont">
 
                         {% comment %} A quien corresponda {% endcomment %}
-                        <a href="{% url 'accounts:detail' instance.author.username %}">
+                        <a href="{% url 'accounts:detail' instance.author.slug %}">
                             {% if instance.author.get_long_name %}
                             <span>{{ instance.author.get_long_name }}</span><br/>
                             <span>@{{ instance.author.username }}</span>
