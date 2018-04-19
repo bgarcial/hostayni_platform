@@ -83,7 +83,6 @@ class DailyLifeOfferSearch(FormView):
         return context
 
 
-
 class DailyLifeOfferCreateView(SuccessMessageMixin, LoginRequiredMixin, UserProfileDataMixin, CreateView):
     model = DailyLifeOffer
     form_class = DailyLifeOfferForm
@@ -113,8 +112,8 @@ class DailyLifeOfferDetailView(SuccessMessageMixin, UserProfileDataMixin, LoginR
         offer_owner = self.get_object().created_by.get_long_name()
         print("Dueño de la oferta", offer_owner)
 
-        offer_owner_company = self.get_object().created_by.enterprise_name
-        print("Dueño por si es una compania", offer_owner_company)
+        # offer_owner_company = self.get_object().created_by.enterprise_name
+        # print("Dueño por si es una compania", offer_owner_company)
 
         offer_owner_username = self.get_object().created_by.username
         print("Username del dueño de oferta", offer_owner_username)
@@ -149,7 +148,7 @@ class DailyLifeOfferDetailView(SuccessMessageMixin, UserProfileDataMixin, LoginR
         context['offer_owner_username'] = offer_owner_username
         context['offer_owner_email'] = offer_owner_email
         context['offer_owner'] = offer_owner
-        context['offer_owner_company'] = offer_owner_company
+        # context['offer_owner_company'] = offer_owner_company
         # context['offer_owner_company'] = offer_owner_company
         context['offer_title'] = offer_title
 

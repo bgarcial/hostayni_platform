@@ -131,10 +131,9 @@
                       </div>
                       <div class="name-review-cont-study">
                           {% comment %} A quien corresponda {% endcomment %}
-                           <a href="{% url 'accounts:detail' studyofferdetail.created_by.slug %}">
-                              <span>{{ studyofferdetail.created_by.get_long_name }}</span>
-                              <span>{{ studyofferdetail.created_by.get_enterprise_name }} (@{{ studyofferdetail.created_by.username }})</span>
-                          </a>
+                          <a href="{% url 'accounts:detail' object.created_by.slug %}">
+                            <span>{{ studyofferdetail.created_by.get_long_name }} <br/>@{{ studyofferdetail.created_by.username }}</span>
+                         </a>
                           {% comment %}
                           <img src="{% static 'img/stars.svg' %}" alt="">
 

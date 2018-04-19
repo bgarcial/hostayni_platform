@@ -25,7 +25,7 @@ class CustomUserAdmin(UserAdmin):
                     #'first_name',
                     #'last_name',
                     # 'display_name',
-                    'enterprise_name',
+                    "full_name",
                     'gender',
                     'country_of_origin',
                     'city_of_origin',
@@ -60,12 +60,13 @@ class CustomUserAdmin(UserAdmin):
 class UserAdmin(CustomUserAdmin):
 
     list_display = (
+                    'full_name',
                     'username',
                     'email',
                     'slug',
                     'user_type',
-                    'first_name',
-                    'last_name',
+                    # 'first_name',
+                    # 'last_name',
                     'gender',
                     'country_of_origin',
                     'phone_number',

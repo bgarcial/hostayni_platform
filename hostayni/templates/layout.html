@@ -195,11 +195,7 @@ s.setAttribute('data-timestamp', +new Date());
 
                         <div class="name-options-cont">
                             <div class="name">
-                            {% if userprofile.user.user_type == "P" %}
-                                <p>{{ userprofile.user.username }} - {{ userprofile.user.first_name }}</p>
-                            {% else %}
-                                <p>{{ userprofile.user.username }} - {{ userprofile.user.enterprise_name }}</p>
-                            {% endif %}
+                                <p>{{ userprofile.user.full_name }}</p>
                             </div>
                             <div class="options">
                                 <img src="{% static 'img/icons/gear.svg' %}" alt="">

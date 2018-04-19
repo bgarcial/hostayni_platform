@@ -114,7 +114,7 @@ class EntrepreneurshipOfferDetailView(SuccessMessageMixin, UserProfileDataMixin,
 
         offer_owner = self.get_object().created_by.get_long_name()
 
-        offer_owner_company = self.get_object().created_by.get_enterprise_name
+        # offer_owner_company = self.get_object().created_by.get_enterprise_name
 
         offer_owner_username = self.get_object().created_by.username
 

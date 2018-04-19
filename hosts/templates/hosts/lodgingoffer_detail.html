@@ -207,16 +207,9 @@
                     </div>
                     <div class="name-review-cont-lodging">
                         {% comment %} A quien corresponda {% endcomment %}
-                         <a href="{% url 'accounts:detail' lodgingofferdetail.created_by.slug %}">
-                            {% if lodgingofferdetail.created_by.user_type == "O" %}
-                                <span>{{ lodgingofferdetail.created_by.get_enterprise_name }} (@{{ lodgingofferdetail.created_by.username }})</span>
-                            {% else %}
-                                <span><span>{{ lodgingofferdetail.created_by.get_long_name }}</span> (@{{ lodgingofferdetail.created_by.username }})</span>
-                            {% endif %}
-
-                        </a>
-
-
+                         <a href="{% url 'accounts:detail' object.created_by.slug %}">
+                            <span>{{ lodgingofferdetail.created_by.get_long_name }} <br/>@{{ lodgingofferdetail.created_by.username }}</span>
+                         </a>
 
 
                         {% comment %}

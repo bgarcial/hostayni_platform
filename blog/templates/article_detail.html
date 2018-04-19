@@ -157,14 +157,7 @@ h1 {
 
                         {% comment %} A quien corresponda {% endcomment %}
                         <a href="{% url 'accounts:detail' instance.author.slug %}">
-                            {% if instance.author.get_long_name %}
-                            <span>{{ instance.author.get_long_name }}</span><br/>
-                            <span>@{{ instance.author.username }}</span>
-                            {% endif %}
-                            {% if instance.author.get_enterprise_name %}
-                            <span>{{ instance.author.get_enterprise_name }}</span>
-                            <span>@{{ instance.author.username }}</span>
-                            {% endif %}
+                            <span>{{ instance.author.get_long_name }}</span> <span>(@{{ instance.author.username }})</span>
                         </a>
                         <p><div class="fb-like" data-href="{{ request.build_absolute_uri }" data-layout="standard"
                                 data-action="like" data-size="small" data-show-faces="true" data-share="true"></div>
