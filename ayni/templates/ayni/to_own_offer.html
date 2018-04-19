@@ -267,14 +267,14 @@
         <div class="msgSaludo">
           <div class="body1">
               {% if lodging_offer_owner_full_name %}
-                <p class="saludoHola">¡ Hola {{ lodging_offer_owner_full_name }} !</p>
+                <p class="saludoHola">¡ Hola {{ offer_owner_full_name }} !</p>
               {% else %}
-                  <p class="saludoHola">¡ Hola {{ lodging_offer_owner_username }} !</p>
+                  <p class="saludoHola">¡ Hola {{ offer_owner_username }} !</p>
               {% endif %}
-            <p>Gracias por utilizar hostayni para publicar tus ofertas de alojamiento.
+            <p>Gracias por utilizar hostayni para publicar tus ofertas de AYNI.
                 El usuario {{ user_interested_full_name }} ({{ interested_email }})
                 está interesado en la siguiente oferta que has publicado:</p><br/>
-              {{ lodging_offer_title }}
+              {{ offer_title }}
           </div> <br/><br/>
 
           <div class="body2">
@@ -282,7 +282,7 @@
                 {% if user_interested_full_name %}
                     {{ user_interested_full_name }} ({{ interested_email }}),
                 {% else %}
-                    {{ user_interested_username }} ({{ interested_email }})
+                    {{ interested_username }} ({{ interested_email }})
                 {% endif %}
                 vía correo electrónico para concretar un acuerdo y posteriormente dale de baja a
                 la oferta dentro de tus ofertas disponibles.</p>
@@ -291,14 +291,14 @@
                 {% if user_interested_full_name %}
                     {{ user_interested_full_name }} ({{ interested_email }}),
                 {% else %}
-                    {{ user_interested_username }} ({{ interested_email }})
+                    {{ interested_username }} ({{ interested_email }})
                 {% endif %}
                 debes actualizar tu oferta, editando su estado a <strong>"Oferta tomada"</strong>
                 para que ésta no sea incluida en los resultados de búsquedas futuras por parte de
                 otros usuarios de HOSTAYNI</p>
             <br/><br/>
               <div class="contButton">
-                <a href="{{ domain }}{{ offer_url }}/edit" class="button">Actualizar estado de oferta</a>
+                <a href="{{ domain }}{{ offer_url }}edit" class="button">Actualizar estado de oferta</a>
               </div><br/>
 
               <br/>
@@ -362,4 +362,3 @@
 </body>
 </html>
 {% endautoescape %}
-

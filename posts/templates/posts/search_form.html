@@ -1,6 +1,6 @@
-<div class="row">
+<div class="search-form-post">
     <form id="navbar-search-form" method="GET" action="{% url 'post:search'  %}">
-        <input type="text" name="q", placeholder="Tu búsqueda" value="{{ request.GET.q }}"/>
-        <input type="submit" value="Search"/>
+        <input class="text-search-post" type="text" name="q", placeholder="    Busca aquí tus publicaciones" value="{{ request.GET.q }}"/>
+        <input class="btnSearchPost"type="submit" value="Buscar"/>
     </form>
 </div>
