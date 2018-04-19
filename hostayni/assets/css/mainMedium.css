@@ -1219,3 +1219,42 @@ input[type="text"] .form-control{
   background-position: center center;
   background-repeat: no-repeat;
 }
+
+/*DESIGN RESET PASSWORD*/
+
+.btnResetPassword{
+  background-color: #DEDC00;
+  border: none;
+  color: #706F6F;
+  text-align: center;
+  text-decoration: none;
+  /*display: inline-block;*/
+  display:block;
+  font-size: 16px;
+  cursor: pointer;
+  border-radius: 5px;
+  font-family: 'Source Sans Pro', sans-serif;
+  width: 203px;
+  height: 32px;
+  margin: 5px auto;
+}
+
+.btnResetPassword:hover {
+  background-color: #d6d6d6;
+}
+
+.container-reset-password{
+  margin: 14% 30% 20% 30%;
+}
+
+.title-reset-password{
+  margin: 10px 0 10px 0;
+}
+
+.title-reset-password h1{
+  font-size: 30px;
+}
+
+.texto-reset-password{
+  margin: 22px 0 27px 0;
+}
