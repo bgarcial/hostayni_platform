@@ -28,44 +28,23 @@
 	}
 }, {
 	"model": "accounts.userprofile",
-	"pk": 5,
-	"fields": {
-		"user": 5,
-		"following": []
-	}
-}, {
-	"model": "accounts.userprofile",
-	"pk": 6,
-	"fields": {
-		"user": 6,
-		"following": []
-	}
-}, {
-	"model": "accounts.userprofile",
-	"pk": 7,
-	"fields": {
-		"user": 7,
-		"following": []
-	}
-}, {
-	"model": "accounts.userprofile",
-	"pk": 8,
-	"fields": {
-		"user": 8,
-		"following": []
-	}
-}, {
-	"model": "accounts.userprofile",
-	"pk": 9,
-	"fields": {
-		"user": 9,
-		"following": []
-	}
-}, {
-	"model": "accounts.userprofile",
 	"pk": 10,
 	"fields": {
 		"user": 10,
+		"following": []
+	}
+}, {
+	"model": "accounts.userprofile",
+	"pk": 16,
+	"fields": {
+		"user": 16,
+		"following": []
+	}
+}, {
+	"model": "accounts.userprofile",
+	"pk": 17,
+	"fields": {
+		"user": 17,
 		"following": []
 	}
 }]
