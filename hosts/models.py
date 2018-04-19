@@ -429,12 +429,14 @@ class StudiesOffertManager(models.Manager):
 
 
 class StudiesOffert(models.Model):
+
     ACADEMIC_SEMESTER = 'Semestre académico'
     RESEARCH = 'Investigación'
     ROTATIONS_OR_PRACTICES = 'Rotaciones o prácticas'
     SUMMER_SCHOOL = 'Escuela de verano'
 
     ACADEMIC_MOBILITY_PROGRAMS_CHOICES = (
+
         (ACADEMIC_SEMESTER, 'Semestre académico'),
         (RESEARCH, 'Investigación'),
         (ROTATIONS_OR_PRACTICES, 'Rotaciones o prácticas'),
@@ -518,6 +520,8 @@ class StudiesOffert(models.Model):
         choices=ACADEMIC_MOBILITY_PROGRAMS_CHOICES,
         verbose_name='Programas de movilidad académica',
         # help_text='Available student academic mobility programs',
+        null=True,
+        blank=True
     )
 
     duration = models.CharField(

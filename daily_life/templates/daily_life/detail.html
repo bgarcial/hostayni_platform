@@ -148,18 +148,18 @@
                 <div class="profile-lodging">
                     <div class="img-cont-lodging">
                         {% if object.created_by.avatar %}
-                        <a href="{% url 'accounts:detail' object.created_by.username %}">
+                        <a href="{% url 'accounts:detail' object.created_by.slug %}">
                             <img src="{{ object.created_by.avatar.url }}" alt="" class="img-responsive">
                         </a>
                         {% else %}
-                             <a href="{% url 'accounts:detail' object.created_by.username %}">
+                             <a href="{% url 'accounts:detail' object.created_by.slug %}">
                                <img src="{% static 'img/default_profile_pic.png' %}" class="img-responsive">
                              </a>
                         {% endif %}
                     </div>
                     <div class="name-review-cont-lodging">
                         {% comment %} A quien corresponda {% endcomment %}
-                         <a href="{% url 'accounts:detail' object.created_by.username %}">
+                         <a href="{% url 'accounts:detail' object.created_by.slug %}">
                             {% if object.created_by.user_type == "O" %}
                                 <span>{{ object.created_by.get_enterprise_name }} (@{{ object.created_by.username }})</span>
                             {% else %}
