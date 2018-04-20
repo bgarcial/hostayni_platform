@@ -1398,10 +1398,11 @@ input[type="text"] .form-control{
   cursor: pointer;
   border-radius: 5px;
   font-family: 'Source Sans Pro', sans-serif;
-  width: 125px;
-  height: 62px;
+  width: 130px;
+  height: 35px;
   margin: 5px auto;
   white-space: normal;
+  font-size: 12px;
 }
 
 .btnResetPassword:hover {
@@ -1425,5 +1426,82 @@ input[type="text"] .form-control{
 }
 
 .texto-reset-password p{
-  font-size: 10px;
+  font-size: 13px;
+}
+
+.text-done{
+  margin: 60% 0 60% 0;
+}
+
+
+.btnResetConfirm{
+  background-color: #DEDC00;
+  border: none;
+  color: #706F6F;
+  text-align: center;
+  text-decoration: none;
+  /*display: inline-block;*/
+  display:block;
+  font-size: 16px;
+  cursor: pointer;
+  border-radius: 5px;
+  font-family: 'Source Sans Pro', sans-serif;
+  width: 130px;
+  height: 35px;
+  margin: 5px auto;
+  white-space: normal;
+  font-size: 12px;
+}
+
+.btnResetConfirm:hover {
+  background-color: #d6d6d6;
+}
+
+.container-reset-confirm{
+  margin: 17% 20% 23% 20%;
+}
+
+.title-reset-confirm{
+  margin: 10px 0 50px 0;
+}
+
+.title-reset-confirm h1{
+  font-size: 20px;
+  text-align: center;
+}
+
+.help-block{
+  font-size: 8px;
+  text-align: center;
+}
+
+.btnIniciarSesionReset{
+  background-color: #DEDC00;
+  border: none;
+  color: #706F6F;
+  text-align: center;
+  text-decoration: none;
+  /*display: inline-block;*/
+  font-size: 12px;
+  cursor: pointer;
+  border-radius: 5px;
+  font-family: 'Source Sans Pro', sans-serif;
+  width: 100px;
+  height: 25px;
+  margin-top: 10px;
+  float:right;
+  vertical-align: middle;
+  display: table-cell;
+}
+
+.btnIniciarSesionReset:hover {
+  background-color: #d6d6d6;
+}
+
+.container-iniciar-reset{
+  margin: 45% 30% 45% 30%;
+}
+
+.title-reset-complete h1{
+  font-size: 20px;
 }
