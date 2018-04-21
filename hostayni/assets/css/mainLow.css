@@ -888,8 +888,8 @@ footer {
 .form-cont-low{
   display: flex;
   flex-flow: row wrap;
-  margin: 61px 0px 0px 0px;
-  height: 68%;
+  margin: 20px 0px 0px 0px;
+  height: 85%;
 }
 
 .main-login{
@@ -922,10 +922,13 @@ footer {
 
 .form-login{
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    border-radius: 10px;
     margin: auto;
     background-color: #FFFFFF;
     padding-top: 0px;
-    height: 67%;
+    /*height: 67%;*/
+    width: 100%;
+    display: inline-block;
 }
 
 .login-container{
