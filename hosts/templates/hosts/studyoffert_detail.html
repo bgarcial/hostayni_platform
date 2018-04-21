@@ -151,10 +151,9 @@
 
               {% if studyofferdetail.created_by_id != userprofile.user.id %}
               <div class="contact">
-                  <a class="contact-button" href="
+                  <a class="btnAplicarStudy" href="
                   {% url 'host:contact_study_owner_offer' study_offer_owner_full_name=study_offer_owner_full_name study_offer_owner_email=study_offer_owner_email user_interested_full_name=user_interested_full_name user_interested_email=user_interested_email study_offer_title=study_offer_title offer_url=offer_url %}">
-                      <img src="{% static 'img/icons/social-lines.svg' %}" alt="">
-                      <span>Aplicar</span>
+                      Aplicar
                   </a>
                   <h4 align="justify">Al hacer clic en <strong>Aplicar</strong>, se enviará una notificación de correo electrónico
                   al dueño de la oferta y al usuario interesado en ella.</h4>

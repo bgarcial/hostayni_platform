@@ -1423,9 +1423,9 @@ input[type="text"] .form-control{
 }
 
 .btnAplicarLodging{
-  background-color: ##036633;
+  background-color: #036633;
   border: none;
-  color: #706F6F;
+  color: #FFFFFF;
   text-align: center;
   text-decoration: none;
   /*display: inline-block;*/
@@ -1434,9 +1434,9 @@ input[type="text"] .form-control{
   cursor: pointer;
   border-radius: 5px;
   font-family: 'Source Sans Pro', sans-serif;
-  width: 203px;
-  height: 32px;
-  margin: 5px auto;
+  width: 150px;
+  height: 28px;
+  margin: 20px auto;
 }
 
 .btnAplicarLodging:hover {
@@ -1565,6 +1565,77 @@ input[type="text"] .form-control{
 
 .date-study-publish{
   margin-top: 5px;
+}
+
+.btnAplicarStudy{
+  background-color: #2D2E82;
+  border: none;
+  color: #FFFFFF;
+  text-align: center;
+  text-decoration: none;
+  /*display: inline-block;*/
+  display:block;
+  font-size: 16px;
+  cursor: pointer;
+  border-radius: 5px;
+  font-family: 'Source Sans Pro', sans-serif;
+  width: 150px;
+  height: 28px;
+  margin: 20px auto;
+}
+
+.btnAplicarStudy:hover {
+  background-color: #d6d6d6;
+}
+
+.contact h4{
+  font-size: 12px;
+}
+
+/* DETAIL ENTREPRENEURSHIP */
+
+.btnAplicarentrepreneurship{
+  background-color: #E84E1B;
+  border: none;
+  color: #FFFFFF;
+  text-align: center;
+  text-decoration: none;
+  /*display: inline-block;*/
+  display:block;
+  font-size: 16px;
+  cursor: pointer;
+  border-radius: 5px;
+  font-family: 'Source Sans Pro', sans-serif;
+  width: 150px;
+  height: 28px;
+  margin: 20px auto;
+}
+
+.btnAplicarentrepreneurship:hover {
+  background-color: #d6d6d6;
+}
+
+/* DETAIL DAILY LIFE */
+
+.btnAplicarDailyLife{
+  background-color: #D83381;
+  border: none;
+  color: #FFFFFF;
+  text-align: center;
+  text-decoration: none;
+  /*display: inline-block;*/
+  display:block;
+  font-size: 16px;
+  cursor: pointer;
+  border-radius: 5px;
+  font-family: 'Source Sans Pro', sans-serif;
+  width: 150px;
+  height: 28px;
+  margin: 20px auto;
+}
+
+.btnAplicarDailyLife:hover {
+  background-color: #d6d6d6;
 }
 
 /*DESIGN RESET PASSWORD*/

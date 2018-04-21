@@ -180,12 +180,11 @@
 
             {% if object.created_by_id != userprofile.user.id %}
             <div class="contact">
-              <a class="contact-button" href="
+              <a class="btnAplicarAyni" href="
               {% url 'ayni_offer:contact_owner_offer' offer_owner=offer_owner  offer_owner_email=offer_owner_email interested_full_name=interested_full_name interested_email=interested_email offer_title=offer_title offer_url=offer_url %}">
-                <img src="{% static 'img/icons/social-lines.svg' %}" alt="">
-                <span>Aplicar</span>
+                Aplicar
               </a>
-                          <h4>Al hacer clic en <strong>Aplicar</strong>, se enviará una notificación de correo electrónico
+                          <h4 align="justify">Al hacer clic en <strong>Aplicar</strong>, se enviará una notificación de correo electrónico
                           al dueño de la oferta y al usuario interesado en ella.</h4>
             </div>
             {% endif %}

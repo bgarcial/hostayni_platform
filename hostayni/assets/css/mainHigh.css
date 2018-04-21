@@ -1232,8 +1232,8 @@ footer {
   border-radius: 5px;
   font-family: 'Source Sans Pro', sans-serif;
   width: 150px;
-  height: 32px;
-  margin: 5px auto;
+  height: 28px;
+  margin: 20px auto;
 }
 
 .btnAplicarLodging:hover {
@@ -1518,6 +1518,100 @@ footer {
 
 .date-study-publish{
   margin-top: 5px;
+}
+
+.btnAplicarStudy{
+  background-color: #2D2E82;
+  border: none;
+  color: #FFFFFF;
+  text-align: center;
+  text-decoration: none;
+  /*display: inline-block;*/
+  display:block;
+  font-size: 16px;
+  cursor: pointer;
+  border-radius: 5px;
+  font-family: 'Source Sans Pro', sans-serif;
+  width: 150px;
+  height: 28px;
+  margin: 20px auto;
+}
+
+.btnAplicarStudy:hover {
+  background-color: #d6d6d6;
+}
+
+.contact h4{
+  font-size: 12px;
+}
+
+/* DETAIL ENTREPRENEURSHIP */
+
+.btnAplicarentrepreneurship{
+  background-color: #E84E1B;
+  border: none;
+  color: #FFFFFF;
+  text-align: center;
+  text-decoration: none;
+  /*display: inline-block;*/
+  display:block;
+  font-size: 16px;
+  cursor: pointer;
+  border-radius: 5px;
+  font-family: 'Source Sans Pro', sans-serif;
+  width: 150px;
+  height: 28px;
+  margin: 20px auto;
+}
+
+.btnAplicarentrepreneurship:hover {
+  background-color: #d6d6d6;
+}
+
+/* DETAIL DAILY LIFE */
+
+.btnAplicarDailyLife{
+  background-color: #D83381;
+  border: none;
+  color: #FFFFFF;
+  text-align: center;
+  text-decoration: none;
+  /*display: inline-block;*/
+  display:block;
+  font-size: 16px;
+  cursor: pointer;
+  border-radius: 5px;
+  font-family: 'Source Sans Pro', sans-serif;
+  width: 150px;
+  height: 28px;
+  margin: 20px auto;
+}
+
+.btnAplicarDailyLife:hover {
+  background-color: #d6d6d6;
+}
+
+/* DETAIL AYNI */
+
+.btnAplicarAyni{
+  background-color: #DDDB00;
+  border: none;
+  color: #FFFFFF;
+  text-align: center;
+  text-decoration: none;
+  /*display: inline-block;*/
+  display:block;
+  font-size: 16px;
+  cursor: pointer;
+  border-radius: 5px;
+  font-family: 'Source Sans Pro', sans-serif;
+  width: 150px;
+  height: 28px;
+  margin: 20px auto;
+}
+
+.btnAplicarAyni:hover {
+  background-color: #d6d6d6;
 }
 
 /* PROFILE OF USERS DETAIL */
