@@ -51,7 +51,7 @@ User = get_user_model()
 
 
 # Vista de detalle de usuario, sera usada para el detalle de perfil
-class UserDetailView(UserProfileDataMixin, generic.DetailView):
+class UserDetailView(LoginRequiredMixin, UserProfileDataMixin, generic.DetailView):
     # manejado dentro del ambito de la clase para que no cree conflicto si lo ponemos
     # global con las otras clases en donde se llama el esquema de usuarios
     # aunque lo llamamos model = ...
@@ -60,6 +60,21 @@ class UserDetailView(UserProfileDataMixin, generic.DetailView):
 
     template_name = 'accounts/user_detail.html'
     queryset = User.objects.all()
+
+    '''
+    def dispatch(self, request, slug, *args, **kwargs):
+        if request.user.is_anonymous():
+            username = User.objects.filter(slug__iexact=slug)
+            return HttpResponseRedirect(reverse_lazy("accounts:detail", slug=username))
+        else:
+            return super(UserDetailView, self).dispatch(request, slug, *args, **kwargs)
+
+    
+    def get(self, request, slug, *args, **kwargs):
+        if request.user.is_anonymous():
+            username = User.objects.filter(slug__iexact=slug)
+        return redirect("accounts:detail", slug=username)
+    '''
 
     def get_object(self):
         return get_object_or_404(
@@ -236,7 +251,6 @@ class AccountSettingsUpdateView(SuccessMessageMixin, LoginRequiredMixin, UserPro
         print("form is invalid")
         return HttpResponse("form is invalid.. this is just an HttpResponse object")
     """
-
 
 
 def logout_view(request):

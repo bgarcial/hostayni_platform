@@ -1,0 +1,21 @@
+[{
+	"model": "ayni.aynioffer",
+	"pk": 1,
+	"fields": {
+		"created": "2018-04-15T00:17:25.547Z",
+		"modified": "2018-04-15T00:17:27.058Z",
+		"created_by": 16,
+		"ad_title": "VOLUNTARIADO CON COMUNIDAD INDIGENA",
+		"slug": "voluntariado-con-comunidad-indigena",
+		"country": "CO",
+		"city": "Medell\u00edn",
+		"offer_type": "Proyecci\u00f3n Social",
+		"photo": "daily_life_offer_images/voluntariado-con-comunidad-indigena/bolibia.jpg",
+		"address": "calle 4 a 29 c 82",
+		"maximum_quota": 4,
+		"price": "400.000",
+		"additional_description": "Voluntariado con comunidad",
+		"is_taked": false,
+		"is_paid": false
+	}
+}]

@@ -76,7 +76,6 @@ class LodgingOffer(models.Model):
     HOUSE_OR_PRIV_APT = 'Casa o apartamento privado'
 
     LODGING_OFFER_TYPE_CHOICES = (
-        (EMPTY, " "),
         (STUDENT_RESIDENCE, "Residencia estudiantil"),
         (ACCOMODATION_WITH_LOCAL_FAMILY, "Acomodación con familia local"),
         (HOUSE_APT_SHARE_VISITORS, "Casa o apartamento para compartir con otros huéspedes"),
@@ -85,7 +84,6 @@ class LodgingOffer(models.Model):
 
     # LODGING_OFFER_TYPE_EMPTY = [('', '-------')] +
 
-    EMPTY = ' '
     HOTEL = 'Hotel'
     HOSTEL = 'Hostal'
     STUDENT_RESIDENCE = 'Residencia estudiantil'
@@ -94,7 +92,6 @@ class LodgingOffer(models.Model):
     HOUSE_OR_PRIV_APT = 'Casa o apartamento privado'
 
     LODGING_OFFER_TYPE_ORG_CHOICES = (
-        (EMPTY, " "),
         (HOTEL, "Hotel"),
         (HOSTEL, "Hostal"),
         (STUDENT_RESIDENCE, "Residencia estudiantil"),
@@ -103,7 +100,6 @@ class LodgingOffer(models.Model):
         (HOUSE_OR_PRIV_APT, "Casa o apartamento privado"),
     )
 
-    EMPTY = ' '
     ONE_STAR = '1 estrella'
     TWO_STARS = '2 estrellas'
     THREE_STARS = '3 estrellas'
@@ -111,7 +107,6 @@ class LodgingOffer(models.Model):
     FIVE_STARS = '5 estrellas'
 
     STARS_NUMBER_CHOICES = (
-        (EMPTY, " "),
         (ONE_STAR, "1 estrella"),
         (TWO_STARS, "2 estrellas"),
         (THREE_STARS, "3 estrellas"),
@@ -200,14 +195,14 @@ class LodgingOffer(models.Model):
     check_in = models.DateField(
         blank=True,
         null=True,
-        verbose_name='Check In',
+        verbose_name='Fecha de ingreso',
         help_text="Por favor use el formato: <em>YYYY-MM-DD</em>.",
     )
 
     check_out = models.DateField(
         blank=True,
         null=True,
-        verbose_name='Check Out',
+        verbose_name='Fecha de salida',
         help_text="Por favor use el formato: <em>YYYY-MM-DD</em>.",
     )
 
@@ -429,12 +424,14 @@ class StudiesOffertManager(models.Manager):
 
 
 class StudiesOffert(models.Model):
+
     ACADEMIC_SEMESTER = 'Semestre académico'
     RESEARCH = 'Investigación'
     ROTATIONS_OR_PRACTICES = 'Rotaciones o prácticas'
     SUMMER_SCHOOL = 'Escuela de verano'
 
     ACADEMIC_MOBILITY_PROGRAMS_CHOICES = (
+
         (ACADEMIC_SEMESTER, 'Semestre académico'),
         (RESEARCH, 'Investigación'),
         (ROTATIONS_OR_PRACTICES, 'Rotaciones o prácticas'),
@@ -518,6 +515,8 @@ class StudiesOffert(models.Model):
         choices=ACADEMIC_MOBILITY_PROGRAMS_CHOICES,
         verbose_name='Programas de movilidad académica',
         # help_text='Available student academic mobility programs',
+        null=True,
+        blank=True
     )
 
     duration = models.CharField(

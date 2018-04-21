@@ -154,11 +154,12 @@ class User(AbstractBaseUser, PermissionsMixin):
         blank=True
     )
 
+    full_name = models.CharField(_('full name'), max_length=60, blank=False, null=False)
     first_name = models.CharField(_('first name'), max_length=30, blank=True)
 
     last_name = models.CharField(_('last name'), max_length=30, blank=True)
 
-    enterprise_name = models.CharField(_('Nombre de la organización'), max_length=100, blank=True)
+    # enterprise_name = models.CharField(_('Nombre de la organización'), max_length=100, blank=True)
 
     gender = models.CharField(
         max_length=10,
@@ -377,15 +378,15 @@ class User(AbstractBaseUser, PermissionsMixin):
             return self.avatar.url
 
     def get_short_name(self):
-        return self.first_name
+        return self.username
         # return self.display_name
 
     def get_long_name(self):
-        return "{} {}".format(self.first_name, self.last_name)
+        return "{}".format(self.full_name)
         # return "{} (@{})".format(self.display_name, self.username)
 
-    def get_enterprise_name(self):
-        return "{}".format(self.enterprise_name)
+    # def get_enterprise_name(self):
+    #    return "{}".format(self.enterprise_name)
 
 
     # We get the profiles user according with their type

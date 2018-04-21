@@ -42,8 +42,8 @@ class Article(models.Model):
         on_delete=models.CASCADE
     )
 
-    title = models.CharField(max_length=120)
-    slug = models.SlugField(max_length=100, blank=True)
+    title = models.CharField(max_length=255)
+    slug = models.SlugField(max_length=255, blank=True)
     content = models.TextField(verbose_name=_("Contenido"),)
     draft = models.BooleanField(default=False, verbose_name='Borrador',
                                 help_text='Si seleccionas esta  opción tu artículo no será publicado por el momento')

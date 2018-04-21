@@ -262,16 +262,16 @@ AWS_S3_CUSTOM_DOMAIN = 's3-sa-east-1.amazonaws.com/%s' % AWS_STORAGE_BUCKET_NAME
 
 #---- To S3 -----
 STATICFILES_LOCATION = 'assets'
-# STATICFILES_STORAGE = 'custom_storages.StaticStorage' comment to  local
+STATICFILES_STORAGE = 'custom_storages.StaticStorage' # comment to  local
 
-# STATIC_URL = "https://%s/%s/" % (AWS_S3_CUSTOM_DOMAIN, STATICFILES_LOCATION) comment to local
+STATIC_URL = "https://%s/%s/" % (AWS_S3_CUSTOM_DOMAIN, STATICFILES_LOCATION) # comment to local
 #---- To S3 end -----
 
 MEDIAFILES_LOCATION = 'media'
 
 
 # -- To S3 - comment to local
-# MEDIA_URL = "https://%s/%s/" % (AWS_S3_CUSTOM_DOMAIN, MEDIAFILES_LOCATION)
+MEDIA_URL = "https://%s/%s/" % (AWS_S3_CUSTOM_DOMAIN, MEDIAFILES_LOCATION)
 # To S3 end
 
 DEFAULT_FILE_STORAGE = 'custom_storages.MediaStorage'
@@ -370,7 +370,7 @@ EMAIL_HOST_PASSWORD = get_env_variable('EMAIL_HOST_PASSWORD')
 EMAIL_PORT = 587
 EMAIL_USE_TLS = True
 
-SITE_URL = 'http://www.hostayni.com'
+SITE_URL = 'https://hostayni.herokuapp.com/'
 
 INTERNAL_IPS = ['127.0.0.1', '::1', '0.0.0.0']
 

@@ -260,24 +260,19 @@
             <p>Aplicación a oferta</p>
           </div>
           <div class="slogan">
-            <p style="display:inline">Ha ocurrido una aplicación a una oferta de alojamiento por parte de {{ user_interested_full_name }}</p>
+            <p style="display:inline"></p>
 
           </div>
         </div>
         <div class="msgSaludo">
           <div class="body1">
-            {% if user_interested_full_name %}
             <p class="saludoHola">¡ Hola {{ user_interested_full_name }} !</p>
-            {% else %}
-              <p class="saludoHola"> Hola {{ user_interested_username }} </p>
-            {% endif %}
-          {{ user_interested_username }}
-            <p>Gracias por utilizar hostayni para encontrar tu mejor opción de alojamiento.
+            <p>Gracias por utilizar hostayni para encontrar tu mejor opción para crecer con tu comunidad.
                 El oferente que publicó la oferta en la cual estas interesado ya ha sido notificado
                 de tu interés y te estará contactando directamente para llegar a un acuerdo contigo.
                 Te deseamos una excelente experiencia en la red de alojamiento de Hostayni.
             </p><br/>
-              La oferta  a la cual has aplicado es: {{ lodging_offer_title }}
+              La oferta  a la cual has aplicado es: {{ offer_title }}
           </div> <br/><br/>
           <div class="contButton">
             <a href="{{ domain }}{{ offer_url }}" class="button">Ir a oferta</a>
@@ -295,32 +290,38 @@
       </div>
       <div class="footerUp">
         <div class="textFooterUp">
-          <p>Crea tus roles y empieza a compartir y a promocionar tus productos o servicio</p>
+          <p>Crea tus roles y empieza a compartir y a promocionar tus productos o servicios</p>
         </div>
         <div class="iconsFooterUp">
           <div class="iconServices">
-            <img class="iconImageHost" src="{% static 'img/mail-notifications/hosting.svg' %}" width="38" height="38">
-            <p class="iconTextHost">ALOJAMIENTO</p>
+           <a href="https://hostayni.herokuapp.com/host/lodging-offer/search/" target="_blank">
+                <img class="iconImageHost" src="{% static 'img/icons/Alojamiento.svg' %}" width="38" height="38">
+                <p class="iconTextHost">ALOJAMIENTO</p>
+           </a>
           </div>
           <div class="iconServices">
-            <img class="iconImageLearn" src="{% static 'img/mail-notifications/learn.svg' %}" width="38" height="38">
-            <p class="iconTextLearn">EDUCACIÓN</p>
+              <a href="https://hostayni.herokuapp.com/host/study-offer/search/" target="_blank">
+                <img class="iconImageLearn" src="{% static 'img/icons/Educacion.svg' %}" width="38" height="38">
+                <p class="iconTextLearn">EDUCACIÓN</p>
+              </a>
           </div>
           <div class="iconServices">
-            <img class="iconImageInnovacion" src="{% static 'img/mail-notifications/innovate-grey.svg' %}" width="38" height="38">
-            <p class="iconTextInnovacion">INNOVACIÓN</p>
+              <a href="https://hostayni.herokuapp.com/offer/entrepreneurship/search/" target="_blank">
+                <img class="iconImageInnovacion" src="{% static 'img/icons/Emprendimiento.svg' %}" width="38" height="38">
+                <p class="iconTextInnovacion">EMPRENDIMIENTO</p>
+              </a>
           </div>
           <div class="iconServices">
-            <img class="iconImageEntretenimiento" src="{% static 'img/mail-notifications/enjoy-grey.svg' %}" width="38" height="38">
-            <p class="iconTextEntretenimiento">ENTRETENIMIENTO</p>
+              <a href="https://hostayni.herokuapp.com/daily-life-offer/search/" target="_blank">
+                <img class="iconImageEntretenimiento" src="{% static 'img/icons/VidaDiaria.svg' %}" width="38" height="38">
+                <p class="iconTextEntretenimiento">VIDA DIARIA</p>
+              </a>
           </div>
           <div class="iconServices">
-            <img class="iconImageSocial" src="{% static 'img/mail-notifications/social-grey.svg' %}" width="38" height="38">
-            <p class="iconTextSocial">SOSTENIBILIDAD</p>
-          </div>
-          <div class="iconServices">
-            <img class="iconImageVida" src="{% static 'img/mail-notifications/life-grey.svg' %}" width="38" height="38">
-            <p class="iconTextVida">VIDA DIARIA</p>
+              <a href="https://hostayni.herokuapp.com/ayni-offer/search/" target="_blank">
+                <img class="iconImageSocial" src="{% static 'img/icons/Ayni.svg' %}" width="38" height="38">
+                <p class="iconTextSocial">AYNI</p>
+              </a>
           </div>
         </div>
       </div>
@@ -334,4 +335,3 @@
 </body>
 </html>
 {% endautoescape %}
-

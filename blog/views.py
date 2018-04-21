@@ -229,7 +229,7 @@ def article_update(request, slug=None):
     }
     if user.is_authenticated():
         context['userprofile'] = user.profile
-    return render(request, 'article_form.html', context)
+    return render(request, 'blog/article_form.html', context)
 
 
 def article_delete(request, slug=None):
@@ -298,6 +298,7 @@ class CreateArticleView(LoginRequiredMixin, UserProfileDataMixin, CreateView):
         form.save(commit=False)
         form.instance.author = self.request.user
         form.instance.publish = timezone.now()
+        print(timezone.now())
         form.save()
         messages.success(self.request, "Tu artículo ha sido exitosamente creado")
         return super(CreateArticleView, self).form_valid(form)

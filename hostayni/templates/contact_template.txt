@@ -1,5 +1,5 @@
 Hola Equipo de Hostayni, {{ contact_name|striptags }} [ {{ contact_email|striptags }} ]
-ha querido enviarte este mensaje
+ha querido enviarte este mensaje. ff
 
 
 {{ form_content|striptags }}

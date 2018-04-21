@@ -260,45 +260,30 @@
             <p>Importante</p>
           </div>
           <div class="slogan">
-            <p style="display:inline">Una recomendación por parte de HOSTAYNI</p>
+            <p style="display:inline"></p>
 
           </div>
         </div>
         <div class="msgSaludo">
           <div class="body1">
-              {% if lodging_offer_owner_full_name %}
                 <p class="saludoHola">¡ Hola {{ lodging_offer_owner_full_name }} !</p>
-              {% else %}
-                  <p class="saludoHola">¡ Hola {{ lodging_offer_owner_username }} !</p>
-              {% endif %}
             <p>Gracias por utilizar hostayni para publicar tus ofertas de alojamiento.
-                El usuario {{ user_interested_full_name }} ({{ interested_email }})
+                El usuario {{ user_interested_full_name }}
                 está interesado en la siguiente oferta que has publicado:</p><br/>
               {{ lodging_offer_title }}
           </div> <br/><br/>
 
           <div class="body2">
-            <p> Por favor contacta directamente a
-                {% if user_interested_full_name %}
-                    {{ user_interested_full_name }} ({{ interested_email }}),
-                {% else %}
-                    {{ user_interested_username }} ({{ interested_email }})
-                {% endif %}
-                vía correo electrónico para concretar un acuerdo y posteriormente dale de baja a
-                la oferta dentro de tus ofertas disponibles.</p>
+            <p> Por favor contacta directamente a {{ user_interested_full_name }} al correo electrónico {{ interested_email }},
+                para concretar un acuerdo y posteriormente actualizar el estado de disponibilidad de tu oferta.
+            </p>
 
-            <p>Si llegas a un acuerdo con
-                {% if user_interested_full_name %}
-                    {{ user_interested_full_name }} ({{ interested_email }}),
-                {% else %}
-                    {{ user_interested_username }} ({{ interested_email }})
-                {% endif %}
-                debes actualizar tu oferta, editando su estado a <strong>"Oferta tomada"</strong>
-                para que ésta no sea incluida en los resultados de búsquedas futuras por parte de
+            <p>Si llegas a un acuerdo con {{ user_interested_full_name }} debes actualizar tu oferta, editando su estado a
+                <strong>"Oferta tomada"</strong>, para que ésta no sea incluida en los resultados de búsquedas futuras por parte de
                 otros usuarios de HOSTAYNI</p>
             <br/><br/>
               <div class="contButton">
-                <a href="{{ domain }}{{ offer_url }}/edit" class="button">Actualizar estado de oferta</a>
+                <a href="{{ domain }}{{ offer_url }}edit" class="button">Actualizar estado de oferta</a>
               </div><br/>
 
               <br/>
@@ -319,32 +304,38 @@
       </div>
       <div class="footerUp">
         <div class="textFooterUp">
-          <p>Crea tus roles y empieza a compartir y a promocionar tus productos o servicio</p>
+          <p>Crea tus roles y empieza a compartir y a promocionar tus productos o servicios</p>
         </div>
         <div class="iconsFooterUp">
           <div class="iconServices">
-            <img class="iconImageHost" src="{% static 'img/mail-notifications/hosting.svg' %}" width="38" height="38">
-            <p class="iconTextHost">ALOJAMIENTO</p>
+           <a href="https://hostayni.herokuapp.com/host/lodging-offer/search/" target="_blank">
+                <img class="iconImageHost" src="{% static 'img/icons/Alojamiento.svg' %}" width="38" height="38">
+                <p class="iconTextHost">ALOJAMIENTO</p>
+           </a>
           </div>
           <div class="iconServices">
-            <img class="iconImageLearn" src="{% static 'img/mail-notifications/learn.svg' %}" width="38" height="38">
-            <p class="iconTextLearn">EDUCACIÓN</p>
+              <a href="https://hostayni.herokuapp.com/host/study-offer/search/" target="_blank">
+                <img class="iconImageLearn" src="{% static 'img/icons/Educacion.svg' %}" width="38" height="38">
+                <p class="iconTextLearn">EDUCACIÓN</p>
+              </a>
           </div>
           <div class="iconServices">
-            <img class="iconImageInnovacion" src="{% static 'img/mail-notifications/innovate-grey.svg' %}" width="38" height="38">
-            <p class="iconTextInnovacion">INNOVACIÓN</p>
+              <a href="https://hostayni.herokuapp.com/offer/entrepreneurship/search/" target="_blank">
+                <img class="iconImageInnovacion" src="{% static 'img/icons/Emprendimiento.svg' %}" width="38" height="38">
+                <p class="iconTextInnovacion">EMPRENDIMIENTO</p>
+              </a>
           </div>
           <div class="iconServices">
-            <img class="iconImageEntretenimiento" src="{% static 'img/mail-notifications/enjoy-grey.svg' %}" width="38" height="38">
-            <p class="iconTextEntretenimiento">ENTRETENIMIENTO</p>
+              <a href="https://hostayni.herokuapp.com/daily-life-offer/search/" target="_blank">
+                <img class="iconImageEntretenimiento" src="{% static 'img/icons/VidaDiaria.svg' %}" width="38" height="38">
+                <p class="iconTextEntretenimiento">VIDA DIARIA</p>
+              </a>
           </div>
           <div class="iconServices">
-            <img class="iconImageSocial" src="{% static 'img/mail-notifications/social-grey.svg' %}" width="38" height="38">
-            <p class="iconTextSocial">SOSTENIBILIDAD</p>
-          </div>
-          <div class="iconServices">
-            <img class="iconImageVida" src="{% static 'img/mail-notifications/life-grey.svg' %}" width="38" height="38">
-            <p class="iconTextVida">VIDA DIARIA</p>
+              <a href="https://hostayni.herokuapp.com/ayni-offer/search/" target="_blank">
+                <img class="iconImageSocial" src="{% static 'img/icons/Ayni.svg' %}" width="38" height="38">
+                <p class="iconTextSocial">AYNI</p>
+              </a>
           </div>
         </div>
       </div>
@@ -356,4 +347,3 @@
 </body>
 </html>
 {% endautoescape %}
-

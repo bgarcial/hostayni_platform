@@ -148,23 +148,19 @@
                 <div class="profile-lodging">
                     <div class="img-cont-lodging">
                         {% if object.created_by.avatar %}
-                        <a href="{% url 'accounts:detail' object.created_by.username %}">
+                        <a href="{% url 'accounts:detail' object.created_by.slug %}">
                             <img src="{{ object.created_by.avatar.url }}" alt="" class="img-responsive">
                         </a>
                         {% else %}
-                             <a href="{% url 'accounts:detail' object.created_by.username %}">
+                             <a href="{% url 'accounts:detail' object.created_by.slug %}">
                                <img src="{% static 'img/default_profile_pic.png' %}" class="img-responsive">
                              </a>
                         {% endif %}
                     </div>
                     <div class="name-review-cont-lodging">
                         {% comment %} A quien corresponda {% endcomment %}
-                         <a href="{% url 'accounts:detail' object.created_by.username %}">
-                            {% if object.created_by.user_type == "O" %}
-                                <span>{{ object.created_by.get_enterprise_name }} (@{{ object.created_by.username }})</span>
-                            {% else %}
-                                <span><span>{{ object.created_by.get_long_name }}</span> (@{{ object.created_by.username }})</span>
-                            {% endif %}
+                         <a href="{% url 'accounts:detail' object.created_by.slug %}">
+                                <span>{{ object.created_by.get_long_name }} <br/>@{{ object.created_by.username }}</span>
                          </a>
 
                         {% comment %}
@@ -187,7 +183,7 @@
             {% if object.created_by_id != userprofile.user.id %}
             <div class="contact">
               <a class="contact-button" href="
-              {% url 'offer:contact_owner_offer' offer_owner=offer_owner offer_owner_username=offer_owner_username offer_owner_email=offer_owner_email interested_full_name=interested_full_name interested_username=interested_username interested_email=interested_email offer_title=offer_title offer_url=offer_url %}">
+              {% url 'daily_life_offer:contact_owner_offer' offer_owner=offer_owner offer_owner_email=offer_owner_email interested_full_name=interested_full_name interested_email=interested_email offer_title=offer_title offer_url=offer_url %}">
                 <img src="{% static 'img/icons/social-lines.svg' %}" alt="">
                 <span>Aplicar</span>
               </a>
