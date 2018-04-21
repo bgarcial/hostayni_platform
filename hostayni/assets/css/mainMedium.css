@@ -1422,6 +1422,27 @@ input[type="text"] .form-control{
   border-bottom-left-radius: 10px;
 }
 
+.btnAplicarLodging{
+  background-color: ##036633;
+  border: none;
+  color: #706F6F;
+  text-align: center;
+  text-decoration: none;
+  /*display: inline-block;*/
+  display:block;
+  font-size: 16px;
+  cursor: pointer;
+  border-radius: 5px;
+  font-family: 'Source Sans Pro', sans-serif;
+  width: 203px;
+  height: 32px;
+  margin: 5px auto;
+}
+
+.btnAplicarLodging:hover {
+  background-color: #d6d6d6;
+}
+
 /* STUDY OFERT DETAIL */
 
 .detail-study-container{

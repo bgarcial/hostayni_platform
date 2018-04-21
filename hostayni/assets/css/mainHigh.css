@@ -1219,6 +1219,27 @@ footer {
   width: 95%;
 }
 
+.btnAplicarLodging{
+  background-color: #036633;
+  border: none;
+  color: #FFFFFF;
+  text-align: center;
+  text-decoration: none;
+  /*display: inline-block;*/
+  display:block;
+  font-size: 16px;
+  cursor: pointer;
+  border-radius: 5px;
+  font-family: 'Source Sans Pro', sans-serif;
+  width: 150px;
+  height: 32px;
+  margin: 5px auto;
+}
+
+.btnAplicarLodging:hover {
+  background-color: #d6d6d6;
+}
+
 /* Lodging Search */
 
 .container-lodging-search{
