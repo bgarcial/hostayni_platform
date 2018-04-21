@@ -507,23 +507,20 @@ article {
   width: 100%
 }
 
-.innovate .post-type i {
-  background-color: #1d71b6; }
+.entrepreneurship .post-type i {
+  background-color: #E84E1B; }
 
-.social .post-type i {
-  background-color: #f19125; }
+.ayni .post-type i {
+  background-color: #DDDB00; }
 
 .learn .post-type i {
-  background-color: #e74e1b; }
+  background-color: #2D2E82; }
 
-.enjoy .post-type i {
-  background-color: #d73380; }
-
-.life .post-type i {
-  background-color: #3f4e55; }
+.daily-life .post-type i {
+  background-color: #D83381; }
 
 .host .post-type i {
-  background-color: #006533; }
+  background-color: #036633; }
 
 .full-width {
   width: auto;

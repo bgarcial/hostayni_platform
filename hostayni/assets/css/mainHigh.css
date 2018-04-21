@@ -1200,7 +1200,7 @@ footer {
 /* Lodging Search */
 
 .container-lodging-search{
-  margin: 2% 27% 0 27%;
+  margin: 2% 5% 0 5%;
   justify-content: space-between;
 }
 
@@ -1236,7 +1236,9 @@ footer {
 }
 
 .stayhost{
-  width: 100%;
+  width: 50%;
+  display: table;
+  margin: 0 auto;
 }
 
 .ofert-icon-lodging{
