@@ -15,13 +15,13 @@ class UserDisplaySerializer(serializers.ModelSerializer):
         model = User
         fields = [
             'url',
+            'full_name',
             'username',
             'email',
             'slug',
             'first_name',
             'last_name',
             'follower_count',
-            'enterprise_name',
             'gender',
             # 'country_of_origin',
             'city_of_origin',
