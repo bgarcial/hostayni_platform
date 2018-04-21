@@ -321,11 +321,13 @@ article {
     margin-top: 10px;}
 
   article .post-info .post-type {
-    display: flex;
-    flex-flow: row wrap;
+    /*display: flex;
+    flex-flow: row wrap;*/
     height: 15px;
     align-items: left;
-    margin-left: 7.5%; }
+    width: 40%;
+    margin: 7px 0 0 0;
+    text-align: center;}
 
   article .article-date{
     width: 45%;
@@ -345,7 +347,6 @@ article {
   }
 
   article .post-info .post-type i {
-        padding: 3px 6px;
         -webkit-border-radius: 5px;
         -moz-border-radius: 5px;
         -ms-border-radius: 5px;
@@ -410,19 +411,29 @@ article {
 }
 
 .entrepreneurship .post-type i {
-  background-color: #E84E1B; }
+  background-color: #E84E1B;
+  padding: 3px 13px;
+}
 
 .ayni .post-type i {
-  background-color: #DDDB00; }
+  background-color: #DDDB00;
+  padding: 3px 40px;
+ }
 
 .learn .post-type i {
-  background-color: #2D2E82; }
+  background-color: #2D2E82;
+  padding: 3px 20px;
+}
 
 .daily-life .post-type i {
-  background-color: #D83381; }
+  background-color: #D83381;
+  padding: 3px 20px;
+}
 
 .host .post-type i {
-  background-color: #036633; }
+  background-color: #036633;
+  padding: 3px 20px;
+}
 
 .full-width {
   width: auto;
@@ -437,7 +448,7 @@ article {
  .full-width .post-info .description {
    display: flex;
    flex-flow: row wrap;
-   width: 65%;
+   width: 60%;
    height: 100%; }
 
  .full-width .post-info .review {
@@ -741,6 +752,7 @@ footer {
 
 .form-login{
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    border-radius: 10px;
     margin: auto;
     background-color: #FFFFFF;
     padding-top: 0px;
@@ -1200,7 +1212,7 @@ footer {
 /* Lodging Search */
 
 .container-lodging-search{
-  margin: 2% 27% 0 27%;
+  margin: 2% 5% 0 5%;
   justify-content: space-between;
 }
 
@@ -1236,7 +1248,9 @@ footer {
 }
 
 .stayhost{
-  width: 100%;
+  width: 50%;
+  display: table;
+  margin: 0 auto;
 }
 
 .ofert-icon-lodging{
@@ -1250,6 +1264,7 @@ footer {
 
 .formgroup-lodging-search .input_search{
   width: 100%;
+  text-align: center;
 }
 
 .results-lodging-container{
