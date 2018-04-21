@@ -111,7 +111,7 @@ class AyniOfferDetailView(SuccessMessageMixin, UserProfileDataMixin, LoginRequir
 
         offer_owner = self.get_object().created_by.get_long_name()
 
-        offer_owner_company = self.get_object().created_by.enterprise_name
+        # offer_owner_company = self.get_object().created_by.enterprise_name
 
         offer_owner_username = self.get_object().created_by.username
 
@@ -139,7 +139,7 @@ class AyniOfferDetailView(SuccessMessageMixin, UserProfileDataMixin, LoginRequir
         context['offer_owner_username'] = offer_owner_username
         context['offer_owner_email'] = offer_owner_email
         context['offer_owner'] = offer_owner
-        context['offer_owner_company'] = offer_owner_company
+        # context['offer_owner_company'] = offer_owner_company
         # context['offer_owner_company'] = offer_owner_company
         context['offer_title'] = offer_title
 

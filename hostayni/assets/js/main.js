@@ -22,5 +22,5 @@ $(document).ready(function(i) {
         i(this).find(".drop-down").slideToggle(150)
     }), i(".diary .button").on("click", function() {
         i(".diary .diary-drop-down").slideToggle(230)
-    }), i("form #id_email").attr("placeholder", "Correo electrónico"), i("form #id_password1").attr("placeholder", "Contraseña"), i("form #id_password2").attr("placeholder", "Repetir contraseña"), i("form #id_username").attr("placeholder", "Nombre de usuario"), i("form #id_password").attr("placeholder", "Contraseña")
+    }), i("form #id_email").attr("placeholder", "Correo electrónico"), i("form #id_password1").attr("placeholder", "Contraseña"), i("form #id_password2").attr("placeholder", "Repetir contraseña"), i("form #id_full_name").attr("placeholder", "Nombre Completo"), i("form #id_username").attr("placeholder", "Nombre de usuario"), i("form #id_password").attr("placeholder", "Contraseña")
 });

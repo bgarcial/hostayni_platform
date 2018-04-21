@@ -31,13 +31,15 @@ class UserCreateForm(UserCreationForm):
     class Meta:
         widgets = {
             'user_type':forms.RadioSelect(),
+            'full_name':forms.TextInput(attrs={'placeholder':'Nombre Completo'})
         }
 
-        fields = ("username", "email", "password1", "password2", "user_type",)
+        fields = ("full_name", "username", "email", "password1", "password2", "user_type",)
         model = get_user_model()
 
     def __init__(self, *args, **kwargs):
         super(UserCreateForm, self).__init__(*args, **kwargs)
+        self.fields["full_name"].label = ""
         self.fields["username"].label = ""
         self.fields["email"].label = ""
         self.fields["password1"].label = ""
@@ -70,12 +72,11 @@ class UserUpdateForm(forms.ModelForm):
 
         }
 
-        fields = ("first_name", "last_name", "gender", "enterprise_name",
-        "country_of_origin", "city_of_origin", "country_current_residence",
-        "city_current_residence", 'speak_languages', "phone_number",
-        "address", "biography", 'description', "avatar", "date_of_birth", "creation_date",
-        'entertainment_activities', "is_student", "is_professor", 'is_entrepreneurship_host',
-        "is_executive", "is_study_host", "is_hosting_host", 'is_ayni_host', 'is_daily_life_host')
+        fields = ("full_name", "gender", "country_of_origin", "city_of_origin", "country_current_residence",
+        "city_current_residence", 'speak_languages', "phone_number", "address", "biography", 'description',
+        "avatar", "date_of_birth", "creation_date", 'entertainment_activities', "is_student", "is_professor",
+        'is_entrepreneurship_host', "is_executive", "is_study_host", "is_hosting_host", 'is_ayni_host',
+        'is_daily_life_host')
 
         model = get_user_model()
 

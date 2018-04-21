@@ -329,7 +329,7 @@ class HostingOfferDetailView(SuccessMessageMixin, UserProfileDataMixin, LoginReq
         # Capturamos quien creo la oferta, y su titulo de anuncio
         #lodging_offer_owner = self.get_object()
         lodging_offer_owner_full_name = self.get_object().created_by.get_long_name()
-        lodging_offer_owner_enterprise_name = self.get_object().created_by.get_enterprise_name
+        # lodging_offer_owner_enterprise_name = self.get_object().created_by.get_enterprise_name
         lodging_offer_owner_username = self.get_object().created_by.username
         lodging_offer_owner_email = self.get_object().created_by.email
         lodging_offer_title = self.get_object().ad_title
@@ -352,7 +352,7 @@ class HostingOfferDetailView(SuccessMessageMixin, UserProfileDataMixin, LoginReq
         context['lodging_offer_owner_email'] = lodging_offer_owner_email
         context['lodging_offer_owner_username'] = lodging_offer_owner_username
         context['lodging_offer_owner_full_name'] = lodging_offer_owner_full_name
-        context['lodging_offer_owner_enterprise_name'] = lodging_offer_owner_enterprise_name
+        # context['lodging_offer_owner_enterprise_name'] = lodging_offer_owner_enterprise_name
         context['lodging_offer_title'] = lodging_offer_title
 
         context['user_interested_email'] = user_interested_email
@@ -585,7 +585,7 @@ class StudyOffertDetailView(LoginRequiredMixin, UserProfileDataMixin, DetailView
         # context['studiestypeoffered'] = studies_type_study_offert
 
         # Capturamos quien creo la oferta, y su titulo de anuncio
-        study_offer_owner_full_name = self.get_object().created_by.get_enterprise_name()
+        study_offer_owner_full_name = self.get_object().created_by.get_long_name()
         print("Nombe completo del dueño", study_offer_owner_full_name)
 
         study_offer_owner_username = self.get_object().created_by.username
@@ -607,8 +607,8 @@ class StudyOffertDetailView(LoginRequiredMixin, UserProfileDataMixin, DetailView
         user_interested_full_name = user.get_long_name()
         print('Nombre completo del intereadao', user_interested_full_name)
 
-        user_interested_enterprise_name = user.get_enterprise_name()
-        print('Nombre completo del intereadao', user_interested_enterprise_name)
+        user_interested_full_name = user.get_long_name()
+        print('Nombre completo del intereadao', user_interested_full_name)
 
         # Capturamos el url de la oferta de estudios
         offer_url = self.request.get_full_path

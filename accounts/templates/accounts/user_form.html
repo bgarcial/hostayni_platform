@@ -44,15 +44,13 @@
 
             <!-- TAB Detalles de Usuario -->
           <div id="usuario" class="tabcontent">
+            {% bootstrap_field form.full_name %}
             {% if user.user_type == 'P' %}
-                {% bootstrap_field form.first_name %}
-                {% bootstrap_field form.last_name %}
                 {% bootstrap_field form.gender %}
                 {% bootstrap_field form.date_of_birth %}
                 {% bootstrap_field form.speak_languages %}
                 {% bootstrap_field form.entertainment_activities %}
             {% elif user.user_type == 'O' %}
-                {% bootstrap_field form.enterprise_name %}
                 {% bootstrap_field form.creation_date %}
             {% endif %}
           </div>
