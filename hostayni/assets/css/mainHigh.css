@@ -808,7 +808,9 @@ footer {
   display: flex;
   flex-flow: row wrap;
   margin: 0px 60px 34px 60px;
-  height: 73%;
+  /*height: 73%;*/
+  height: 100%;
+  overflow: auto;
 }
 
 .form-cont-signup-low{
@@ -828,10 +830,13 @@ footer {
 
 .form-signup{
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+  border-radius: 10px;
   margin: 0 0 0 0;
   background-color: #FFFFFF;
   padding-top: 0px;
-  height: 95%;
+  /*height: 95%;*/
+  width: 100%;
+  display: inline-block;
 }
 
 .signup-container{
