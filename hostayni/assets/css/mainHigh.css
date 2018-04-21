@@ -1029,6 +1029,7 @@ footer {
   justify-content: space-between;
   box-shadow: 0 0 1px 1px rgba(20,23,28,.1), 0 3px 1px 0 rgba(20,23,28,.1);
   padding: 11px 0px 0 15px;
+  border-radius: 10px;
 }
 
 .imp-feat-I{
@@ -1061,12 +1062,14 @@ footer {
   box-shadow: 0 0 1px 1px rgba(20,23,28,.1), 0 3px 1px 0 rgba(20,23,28,.1);
   padding: 2px 15px;
   margin-top: 13px;
+  border-radius: 10px;
 }
 
 .comodidades-destacadas-container{
   box-shadow: 0 0 1px 1px rgba(20,23,28,.1), 0 3px 1px 0 rgba(20,23,28,.1);
   padding: 2px 15px;
   margin-top: 13px;
+  border-radius: 10px;
 }
 
 .comodidades-destacadas-lodging{
@@ -1084,6 +1087,7 @@ footer {
   padding: 2px 15px;
   margin-top: 13px;
   margin-bottom: 16px;
+  border-radius: 10px;
 }
 
 #disqus_thread{
@@ -1105,6 +1109,7 @@ footer {
   padding: 2px 15px;
   margin-top: 13px;
   margin-bottom: 16px;
+  border-radius: 10px;
 }
 
 .caract-cuarto-lodging{
@@ -1429,6 +1434,7 @@ footer {
   justify-content: space-between;
   box-shadow: 0 0 1px 1px rgba(20,23,28,.1), 0 3px 1px 0 rgba(20,23,28,.1);
   padding: 11px 0px 0 15px;
+  border-radius: 10px;
 }
 
 .imp-feat-study-I{
@@ -1443,6 +1449,7 @@ footer {
 
 .servicios-ofrecidos-study{
   margin: 1px 0 8px 0;
+  border-radius: 10px;
 }
 
 .servicios-ofrecidos-study img{

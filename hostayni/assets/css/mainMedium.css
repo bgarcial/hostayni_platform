@@ -1073,6 +1073,7 @@ input[type="text"] .form-control{
   justify-content: space-between;
   box-shadow: 0 0 1px 1px rgba(20,23,28,.1), 0 3px 1px 0 rgba(20,23,28,.1);
   padding: 11px 0px 0 15px;
+  border-radius: 10px;
 }
 
 .imp-feat-I{
@@ -1111,10 +1112,12 @@ input[type="text"] .form-control{
   box-shadow: 0 0 1px 1px rgba(20,23,28,.1), 0 3px 1px 0 rgba(20,23,28,.1);
   padding: 2px 15px;
   margin-top: 13px;
+  border-radius: 10px;
 }
 
 .comodidades-destacadas-lodging{
   margin: 1px 0 8px 0;
+  border-radius: 10px;
 }
 
 .comodidades-destacadas-lodging img{
@@ -1128,6 +1131,7 @@ input[type="text"] .form-control{
   padding: 2px 15px;
   margin-top: 13px;
   margin-bottom: 16px;
+  border-radius: 10px;
 }
 
 #disqus_thread{
@@ -1149,6 +1153,7 @@ input[type="text"] .form-control{
   padding: 2px 15px;
   margin-top: 13px;
   margin-bottom: 16px;
+  border-radius: 10px;
 }
 
 .caract-cuarto-lodging{
@@ -1476,6 +1481,7 @@ input[type="text"] .form-control{
   justify-content: space-between;
   box-shadow: 0 0 1px 1px rgba(20,23,28,.1), 0 3px 1px 0 rgba(20,23,28,.1);
   padding: 11px 0px 0 15px;
+  border-radius: 10px;
 }
 
 .imp-feat-study-I{
@@ -1490,6 +1496,7 @@ input[type="text"] .form-control{
 
 .servicios-ofrecidos-study{
   margin: 1px 0 8px 0;
+  border-radius: 10px;
 }
 
 .servicios-ofrecidos-study img{
