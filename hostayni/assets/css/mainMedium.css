@@ -1366,9 +1366,14 @@ input[type="text"] .form-control{
   width: 80%;
 }
 
+.title-item-lodging h3{
+  font-size: 20px;
+}
+
+
 .price-item-lodging{
   width: 50%;
-  font-size: 21px;
+  font-size: 15px;
   text-align: right;
   margin: 13px 20px;
 }
@@ -1386,12 +1391,12 @@ input[type="text"] .form-control{
 }
 
 .description-item-lodging{
-  width: 50%;
+  width: 30%;
 }
 
 .mainfeatures-item-lodging{
   display: inline-flex;
-  width: 50%;
+  width: 70%;
   margin-top: 4%;
   justify-content: flex-end;
 }

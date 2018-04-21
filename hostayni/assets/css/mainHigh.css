@@ -1297,7 +1297,7 @@ footer {
   border-bottom-left-radius: 10px;
 }
 
-.img-item-search{
+.img-item-search{description-item-lodging
   width: 100%;
   height: 100%;
 }
@@ -1344,12 +1344,12 @@ footer {
 }
 
 .description-item-lodging{
-  width: 50%;
+  width: 30%;
 }
 
 .mainfeatures-item-lodging{
   display: inline-flex;
-  width: 50%;
+  width: 70%;
   margin-top: 4%;
   justify-content: flex-end;
 }

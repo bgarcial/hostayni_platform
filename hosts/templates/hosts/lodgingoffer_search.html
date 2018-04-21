@@ -221,7 +221,7 @@
          </div>
          <div class="price-item-lodging">
            <p> Mensual: $ {{ offers.monthly_price }} COP </p>
-           <p> Por noche: $ {{ offers.room_night_value }} COP </p>
+           <p> Noche: $ {{ offers.room_night_value }} COP </p>
          </div>
       </div>
       <div clas="location-item-lodging">
@@ -237,7 +237,7 @@
                 {% endif %}
              </a>
              <div class="description-item-lodging">
-               <p> {{ offers.additional_description|linebreaks|truncatechars:420 }} </p>
+               <!-- <p> {{ offers.additional_description|linebreaks|truncatechars:420 }} </p> -->
              </div>
            <!-- <p> {{ offers.additional_description|linebreaks|truncatechars:420 }} </p> -->
          </div>
