@@ -108,22 +108,16 @@ class AyniOfferDetailView(SuccessMessageMixin, UserProfileDataMixin, LoginRequir
         user = self.request.user
 
         # Capturamos quien creo la oferta, y su titulo de anuncio
-
         offer_owner = self.get_object().created_by.get_long_name()
-
         # offer_owner_company = self.get_object().created_by.enterprise_name
-
-        offer_owner_username = self.get_object().created_by.username
-
+        # offer_owner_username = self.get_object().created_by.username
         offer_owner_email = self.get_object().created_by.email
 
         offer_title = self.get_object().ad_title
 
         # Capturamos los datos de quien esta interesado en la oferta
         interested_email = user.email
-
-        interested_username = user.username
-
+        # interested_username = user.username
         interested_full_name = user.get_long_name()
 
         offer_url = self.request.get_full_path
@@ -136,7 +130,7 @@ class AyniOfferDetailView(SuccessMessageMixin, UserProfileDataMixin, LoginRequir
 
         # We send the contexts
         context['uploads'] = uploaded
-        context['offer_owner_username'] = offer_owner_username
+        # context['offer_owner_username'] = offer_owner_username
         context['offer_owner_email'] = offer_owner_email
         context['offer_owner'] = offer_owner
         # context['offer_owner_company'] = offer_owner_company
@@ -144,7 +138,7 @@ class AyniOfferDetailView(SuccessMessageMixin, UserProfileDataMixin, LoginRequir
         context['offer_title'] = offer_title
 
         context['interested_email'] = interested_email
-        context['interested_username'] = interested_username
+        # context['interested_username'] = interested_username
         context['interested_full_name'] = interested_full_name
 
         context['offer_url'] = offer_url
@@ -152,13 +146,13 @@ class AyniOfferDetailView(SuccessMessageMixin, UserProfileDataMixin, LoginRequir
         return context
 
 
-def contact_owner_offer(request, offer_owner, offer_owner_username, offer_owner_email,
-                        interested_full_name, interested_username, interested_email,
+def contact_owner_offer(request, offer_owner, offer_owner_email,
+                        interested_full_name, interested_email,
                         offer_title, offer_url):
     user = request.user
     if user.is_authenticated:
         # print('Send email')
-        mail_subject_to_user = 'Has aplicado a una oferta de alojamiento'
+        mail_subject_to_user = 'Has aplicado a una oferta de AYNI'
         mail_subject_to_owner = 'Interesados en tu oferta'
 
 
@@ -166,7 +160,7 @@ def contact_owner_offer(request, offer_owner, offer_owner_username, offer_owner_
             # usuario dueño de la oferta  TO
             'offer_owner_full_name': offer_owner,
             #'lodging_offer_owner_enterprise_name': lodging_offer_owner_enterprise_name,
-            'offer_owner_username': offer_owner_username,
+            # 'offer_owner_username': offer_owner_username,
             'offer_owner_email': offer_owner_email,
 
 
@@ -177,7 +171,7 @@ def contact_owner_offer(request, offer_owner, offer_owner_username, offer_owner_
             'request': request.get_full_path,
 
             # usuario interesado en la oferta
-            'interested_username': interested_username,
+            # 'interested_username': interested_username,
             'interested_email': interested_email,
             'user_interested_full_name': interested_full_name,
         }
@@ -191,7 +185,7 @@ def contact_owner_offer(request, offer_owner, offer_owner_username, offer_owner_
         #sleep(60)
         # Hacer esto con celery --- pagina 66 https://docs.google.com/document/d/1aUVRvGFh0MwYZydjXlebaSQJgZnHJDOKx3ccjWmusgc/edit#
 
-        msg_to_owner = render_to_string('entrepreneurship/to_own_offer.html', context)
+        msg_to_owner = render_to_string('ayni/to_own_offer.html', context)
         send_mail(mail_subject_to_owner, msg_to_owner, settings.DEFAULT_FROM_EMAIL,
                   [offer_owner_email], html_message=msg_to_owner, fail_silently=True)
 

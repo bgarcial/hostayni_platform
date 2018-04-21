@@ -159,7 +159,7 @@ class EntrepreneurshipOffer(TimeStampModel):
 
     class Meta:
         ordering = ['-is_paid', '-created', '-modified', ]
-    """
+
     def save(self, *args, **kwargs):
         super(EntrepreneurshipOffer, self).save(*args, **kwargs)
 
@@ -168,7 +168,7 @@ class EntrepreneurshipOffer(TimeStampModel):
                 entrepreneurship_offer=self,
                 image=self.photo
             )
-    """
+
 
 
 def create_slug(instance, new_slug=None):

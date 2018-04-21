@@ -230,7 +230,7 @@
             {% if lodgingofferdetail.created_by_id != userprofile.user.id %}
             <div class="contact">
               <a class="contact-button" href="
-              {% url 'host:contact_owner_offer' lodging_offer_owner_full_name=lodging_offer_owner_full_name lodging_offer_owner_username=lodging_offer_owner_username lodging_offer_owner_email=lodging_offer_owner_email user_interested_full_name=user_interested_full_name user_interested_username=user_interested_username interested_email=user_interested_email lodging_offer_title=lodging_offer_title offer_url=offer_url %}">
+              {% url 'host:contact_owner_offer' lodging_offer_owner_full_name=lodging_offer_owner_full_name lodging_offer_owner_email=lodging_offer_owner_email user_interested_full_name=user_interested_full_name  interested_email=user_interested_email lodging_offer_title=lodging_offer_title offer_url=offer_url %}">
                 <img src="{% static 'img/icons/social-lines.svg' %}" alt="">
                 <span>Aplicar</span>
               </a>

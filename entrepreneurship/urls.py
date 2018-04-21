@@ -55,11 +55,9 @@ urlpatterns = [
         name='edit_entrepreneurship_offer_image'),
 
 
-    url(r'^contact-to-owner/(?P<offer_owner>[\w." "@+-]+)/'
-        r'(?P<offer_owner_username>[\w." "@+-]+)/'
-        r'(?P<offer_owner_email>[\w.@+-]+)/from/'
+    url(r'^contact-to-owner/(?P<offer_owner>[\w." "@+-]+)/from/'
+        r'(?P<offer_owner_email>[\w.@+-]+)/to/'
         r'(?P<interested_full_name>[\w." "@+-]+)/'
-        r'(?P<interested_username>[\w.@+-]+)/'
         r'(?P<interested_email>[\w.@+-]+)/'
         r'(?P<offer_title>[\w." "@+-]+)/(?P<offer_url>[\w.@+-/]+)/$',
         contact_owner_offer, name='contact_owner_offer'),
