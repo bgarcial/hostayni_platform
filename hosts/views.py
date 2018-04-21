@@ -634,8 +634,7 @@ class StudyOffertDetailView(LoginRequiredMixin, UserProfileDataMixin, DetailView
         return context
 
 
-def contact_study_owner_offer(request, study_offer_owner_full_name, study_offer_owner_username,
-                                study_offer_owner_email, user_interested_full_name, user_interested_username,
+def contact_study_owner_offer(request, study_offer_owner_full_name, study_offer_owner_email, user_interested_full_name,
                                 user_interested_email,  study_offer_title, offer_url
                               ):
     user = request.user
@@ -648,7 +647,7 @@ def contact_study_owner_offer(request, study_offer_owner_full_name, study_offer_
         context = {
             # usuario dueño de la oferta  TO
             'study_offer_owner_full_name': study_offer_owner_full_name,
-            'study_offer_owner_username': study_offer_owner_username,
+            # 'study_offer_owner_username': study_offer_owner_username,
             'study_offer_owner_email': study_offer_owner_email,
 
             # oferta por la que se pregunta
@@ -658,7 +657,7 @@ def contact_study_owner_offer(request, study_offer_owner_full_name, study_offer_
             'request': request.get_full_path,
 
             # usuario interesado en la oferta
-            'user_interested_username': user_interested_username,
+            # 'user_interested_username': user_interested_username,
             'user_interested_email': user_interested_email,
             'user_interested_full_name': user_interested_full_name,
             # 'user_interested_enterprise_name': user_interested_enterprise_name,
