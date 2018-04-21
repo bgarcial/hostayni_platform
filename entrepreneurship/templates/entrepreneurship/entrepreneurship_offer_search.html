@@ -96,6 +96,7 @@
                 <div class="img-item-search">
                     {% if entrepreneurshipoffer.photo %}
                          <img src="{{ entrepreneurshipoffer.photo.url }}" width="auto" height="100%" alt="">
+                         <!-- <div class="img-item" style="background: url('{{ entrepreneurshipoffer.photo.url }}') no-repeat center; background-size:cover;"></div> -->
                          <!-- <div class="img-item" style="background: url('{{ offers.photo.url }}') no-repeat center; background-size:cover;"></div> -->
                      {% endif %}
                  </div>
@@ -223,7 +224,8 @@
        <a href="{% url 'offer:detail' offers.slug %}">
            <div class="img-item-search">
                {% if offers.photo %}
-                    <img src="{{ offers.photo.url }}" width="auto" height="100%" alt="">
+                    <div class="img-item-offer" style="background: url('{{ offers.photo.url }}') no-repeat center; background-size:cover;"></div>
+                    <!-- <img src="{{ offers.photo.url }}" width="auto" height="100%" alt=""> -->
                     <!-- <div class="img-item" style="background: url('{{ offers.photo.url }}') no-repeat center; background-size:cover;"></div> -->
                 {% endif %}
             </div>

@@ -966,14 +966,18 @@ input[type="text"] .form-control{
   display: none;
   flex-flow: row wrap;
   margin: 0px 60px 34px 60px;
-  height: 73%;
+  /*height: 73%;*/
+  height: 90%;
+  overflow: auto;
 }
 
 .form-cont-signup-low{
   display: flex;
   flex-flow: row wrap;
   margin: -9px 0px 0px 0px;
-  height: 77%;
+  /*height: 77%;*/
+  height: 90%;
+  overflow: auto;
 }
 
 .signup-container .legal{
@@ -1009,10 +1013,13 @@ input[type="text"] .form-control{
 
 .form-signup{
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+  border-radius: 10px;
   margin: 0 0 0 0;
   background-color: #FFFFFF;
   padding-top: 0px;
-  height: 95%;
+  /*height: 95%;*/
+  width: 100%;
+  display: inline-block;
 }
 
 .signup-container{
@@ -1480,6 +1487,7 @@ input[type="text"] .form-control{
 .item-result-lodging{
   width: 100%;
   margin: 20px 17px 0 17px;
+  border-radius: 10px;
   border-width: 1px;
   box-shadow: 0 0 1px 1px rgba(20,23,28,.1), 0 3px 1px 0 rgba(20,23,28,.1);
   display: inline-flex;
@@ -1491,18 +1499,20 @@ input[type="text"] .form-control{
 }
 
 .img-item-container{
-  width: auto;
+  width: 30%;
   height: 100%;
 }
 
 .img-item-search{
-  width: auto;
+  width: 100%;
   height: 100%;
 }
 
 .img-item-search img{
   width: auto;
   height: 100%;
+  border-top-left-radius: 10px;
+  border-bottom-left-radius: 10px;
 }
 
 .info-item-lodging{
@@ -1558,6 +1568,12 @@ input[type="text"] .form-control{
 .imp-feat-II img{
   width: 32px;
   height: 32px;
+}
+
+.img-item-offer{
+  height: 100%;
+  border-top-left-radius: 10px;
+  border-bottom-left-radius: 10px;
 }
 
 /* STUDY OFERT DETAIL */
