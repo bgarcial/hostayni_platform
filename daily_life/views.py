@@ -115,8 +115,8 @@ class DailyLifeOfferDetailView(SuccessMessageMixin, UserProfileDataMixin, LoginR
         # offer_owner_company = self.get_object().created_by.enterprise_name
         # print("Dueño por si es una compania", offer_owner_company)
 
-        offer_owner_username = self.get_object().created_by.username
-        print("Username del dueño de oferta", offer_owner_username)
+        # offer_owner_username = self.get_object().created_by.username
+        # print("Username del dueño de oferta", offer_owner_username)
 
         offer_owner_email = self.get_object().created_by.email
         print("Emai dueño oferta", offer_owner_email)
@@ -128,8 +128,8 @@ class DailyLifeOfferDetailView(SuccessMessageMixin, UserProfileDataMixin, LoginR
         interested_email = user.email
         print(interested_email)
 
-        interested_username = user.username
-        print(interested_username)
+        #interested_username = user.username
+        # print(interested_username)
 
         interested_full_name = user.get_long_name()
         print(interested_full_name)
@@ -145,7 +145,7 @@ class DailyLifeOfferDetailView(SuccessMessageMixin, UserProfileDataMixin, LoginR
 
         # We send the contexts
         context['uploads'] = uploaded
-        context['offer_owner_username'] = offer_owner_username
+        # context['offer_owner_username'] = offer_owner_username
         context['offer_owner_email'] = offer_owner_email
         context['offer_owner'] = offer_owner
         # context['offer_owner_company'] = offer_owner_company
@@ -153,7 +153,7 @@ class DailyLifeOfferDetailView(SuccessMessageMixin, UserProfileDataMixin, LoginR
         context['offer_title'] = offer_title
 
         context['interested_email'] = interested_email
-        context['interested_username'] = interested_username
+        # context['interested_username'] = interested_username
         context['interested_full_name'] = interested_full_name
 
         context['offer_url'] = offer_url
@@ -161,13 +161,13 @@ class DailyLifeOfferDetailView(SuccessMessageMixin, UserProfileDataMixin, LoginR
         return context
 
 
-def contact_owner_offer(request, offer_owner, offer_owner_username, offer_owner_email,
-                        interested_full_name, interested_username, interested_email,
+def contact_owner_offer(request, offer_owner, offer_owner_email,
+                        interested_full_name, interested_email,
                         offer_title, offer_url):
     user = request.user
     if user.is_authenticated:
         # print('Send email')
-        mail_subject_to_user = 'Has aplicado a una oferta de alojamiento'
+        mail_subject_to_user = 'Has aplicado a una oferta de vida diaria'
         mail_subject_to_owner = 'Interesados en tu oferta'
 
 
@@ -175,7 +175,7 @@ def contact_owner_offer(request, offer_owner, offer_owner_username, offer_owner_
             # usuario dueño de la oferta  TO
             'offer_owner_full_name': offer_owner,
             #'lodging_offer_owner_enterprise_name': lodging_offer_owner_enterprise_name,
-            'offer_owner_username': offer_owner_username,
+            # 'offer_owner_username': offer_owner_username,
             'offer_owner_email': offer_owner_email,
 
 
@@ -186,7 +186,7 @@ def contact_owner_offer(request, offer_owner, offer_owner_username, offer_owner_
             'request': request.get_full_path,
 
             # usuario interesado en la oferta
-            'interested_username': interested_username,
+            # 'interested_username': interested_username,
             'interested_email': interested_email,
             'user_interested_full_name': interested_full_name,
         }

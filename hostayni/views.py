@@ -55,7 +55,7 @@ def contact(request):
                     mail_subject,
                     content,
                     contact_email,
-                    ['hostayni@gmail.com'],
+                    ['info@hostayni.com'],
                     headers={'Reply-To': contact_email}
                 )
                 email.send()
@@ -87,7 +87,7 @@ def contact(request):
                 mail_subject,
                 content,
                 contact_email,
-                ['hostayni@gmail.com'],
+                ['info@hostayni.com'],
                 headers={'Reply-To': contact_email}
             )
             email.send()

@@ -74,11 +74,9 @@ urlpatterns = [
         name='detail'),
 
 
-    url(r'^contact-to-owner/(?P<lodging_offer_owner_full_name>[\w." "@+-]+)/'
-        r'(?P<lodging_offer_owner_username>[\w.@+-]+)/from/'
-        r'(?P<lodging_offer_owner_email>[\w.@+-]+)/from/'
+    url(r'^contact-to-owner/(?P<lodging_offer_owner_full_name>[\w." "@+-]+)/from/'
+        r'(?P<lodging_offer_owner_email>[\w.@+-]+)/to/'
         r'(?P<user_interested_full_name>[\w." "@+-]+)/'
-        r'(?P<user_interested_username>[\w.@+-]+)/'
         r'(?P<interested_email>[\w.@+-]+)/'
         r'(?P<lodging_offer_title>[\w." "@+-]+)/(?P<offer_url>[\w.@+-/]+)/$',
         contact_owner_offer,

@@ -260,40 +260,26 @@
             <p>Importante</p>
           </div>
           <div class="slogan">
-            <p style="display:inline">Una recomendación por parte de HOSTAYNI</p>
+            <p style="display:inline"></p>
 
           </div>
         </div>
         <div class="msgSaludo">
           <div class="body1">
-              {% if lodging_offer_owner_full_name %}
                 <p class="saludoHola">¡ Hola {{ offer_owner_full_name }} !</p>
-              {% else %}
-                  <p class="saludoHola">¡ Hola {{ offer_owner_username }} !</p>
-              {% endif %}
             <p>Gracias por utilizar hostayni para publicar tus ofertas de emprendimiento.
-                El usuario {{ user_interested_full_name }} ({{ interested_email }})
+                El usuario {{ user_interested_full_name }}
                 está interesado en la siguiente oferta que has publicado:</p><br/>
               {{ offer_title }}
           </div> <br/><br/>
 
           <div class="body2">
-            <p> Por favor contacta directamente a
-                {% if user_interested_full_name %}
-                    {{ user_interested_full_name }} ({{ interested_email }}),
-                {% else %}
-                    {{ interested_username }} ({{ interested_email }})
-                {% endif %}
-                vía correo electrónico para concretar un acuerdo y posteriormente dale de baja a
-                la oferta dentro de tus ofertas disponibles.</p>
+            <p> Por favor contacta directamente a {{ user_interested_full_name }} al correo electrónico
+                {{ interested_email }} para concretar un acuerdo y posteriormente actualizar el estado
+                de disponibilidad de tu oferta.</p>
 
-            <p>Si llegas a un acuerdo con
-                {% if user_interested_full_name %}
-                    {{ user_interested_full_name }} ({{ interested_email }}),
-                {% else %}
-                    {{ interested_username }} ({{ interested_email }})
-                {% endif %}
-                debes actualizar tu oferta, editando su estado a <strong>"Oferta tomada"</strong>
+            <p>Si llegas a un acuerdo con {{ user_interested_full_name }} debes actualizar tu oferta,
+                editando su estado a <strong>"Oferta tomada"</strong>
                 para que ésta no sea incluida en los resultados de búsquedas futuras por parte de
                 otros usuarios de HOSTAYNI</p>
             <br/><br/>

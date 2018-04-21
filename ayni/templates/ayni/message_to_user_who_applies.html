@@ -260,18 +260,13 @@
             <p>Aplicación a oferta</p>
           </div>
           <div class="slogan">
-            <p style="display:inline">Ha ocurrido una aplicación a una oferta de AYNI por parte de {{ user_interested_full_name }}</p>
+            <p style="display:inline"></p>
 
           </div>
         </div>
         <div class="msgSaludo">
           <div class="body1">
-            {% if user_interested_full_name %}
             <p class="saludoHola">¡ Hola {{ user_interested_full_name }} !</p>
-            {% else %}
-              <p class="saludoHola"> Hola {{ interested_username }} </p>
-            {% endif %}
-          {{ user_interested_username }}
             <p>Gracias por utilizar hostayni para encontrar tu mejor opción para crecer con tu comunidad.
                 El oferente que publicó la oferta en la cual estas interesado ya ha sido notificado
                 de tu interés y te estará contactando directamente para llegar a un acuerdo contigo.
@@ -339,4 +334,4 @@
   </div>
 </body>
 </html>
-{% endautoescape %
+{% endautoescape %}

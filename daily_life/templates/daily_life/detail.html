@@ -183,7 +183,7 @@
             {% if object.created_by_id != userprofile.user.id %}
             <div class="contact">
               <a class="contact-button" href="
-              {% url 'offer:contact_owner_offer' offer_owner=offer_owner offer_owner_username=offer_owner_username offer_owner_email=offer_owner_email interested_full_name=interested_full_name interested_username=interested_username interested_email=interested_email offer_title=offer_title offer_url=offer_url %}">
+              {% url 'daily_life_offer:contact_owner_offer' offer_owner=offer_owner offer_owner_email=offer_owner_email interested_full_name=interested_full_name interested_email=interested_email offer_title=offer_title offer_url=offer_url %}">
                 <img src="{% static 'img/icons/social-lines.svg' %}" alt="">
                 <span>Aplicar</span>
               </a>

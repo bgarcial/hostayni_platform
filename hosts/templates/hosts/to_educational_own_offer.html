@@ -260,44 +260,25 @@
             <p>Importante</p>
           </div>
           <div class="slogan">
-            <p style="display:inline">Una recomendación por parte de HOSTAYNI</p>
-
+            <p style="display:inline"></p>
           </div>
         </div>
         <div class="msgSaludo">
           <div class="body1">
-              {% if study_offer_owner_full_name %}
                 <p class="saludoHola">¡ Hola {{ study_offer_owner_full_name }} !</p>
-              {% else %}
-                  <p class="saludoHola">¡ Hola {{ user_interested_enterprise_name }} !</p>
-              {% endif %}
-
-            <p>Gracias por utilizar hostayni para publicar tus ofertas de educación.
-                El usuario {{ user_interested_full_name }} ({{ interested_email }})
-
             <p>Gracias por utilizar hostayni para publicar tus ofertas de EDUCACIÓN.
-                El usuario {{ user_interested_enterprise_name }} ({{ user_interested_email }})
+                El usuario {{ user_interested_full_name }}
                 está interesado en la siguiente oferta que has publicado:</p><br/>
               {{ study_offer_title }}
           </div> <br/><br/>
 
           <div class="body2">
-            <p> Por favor contacta directamente a
-                {% if user_interested_full_name %}
-                    {{ user_interested_full_name }} ({{ user_interested_email }}),
-                {% else %}
-                    {{ user_interested_username }} ({{ user_interested_email }})
-                {% endif %}
-                vía correo electrónico para concretar un acuerdo y posteriormente dale de baja a
-                la oferta dentro de tus ofertas disponibles.</p>
+            <p> Por favor contacta directamente a {{ user_interested_full_name }} al correo electrónico
+                {{ user_interested_email }} para concretar un acuerdo y posteriormente actualizar el
+                estado de disponibilidad de tu oferta.</p>
 
-            <p>Si llegas a un acuerdo con
-                {% if user_interested_full_name %}
-                    {{ user_interested_full_name }} ({{ user_interested_email }}),
-                {% else %}
-                    {{ user_interested_username }} ({{ user_interested_email }})
-                {% endif %}
-                debes actualizar tu oferta, editando su estado a <strong>"Oferta tomada"</strong>
+            <p>Si llegas a un acuerdo con {{ user_interested_full_name }}, debes actualizar tu oferta, editando su estado a
+                <strong>"Oferta tomada"</strong>
                 para que ésta no sea incluida en los resultados de búsquedas futuras por parte de
                 otros usuarios de HOSTAYNI</p>
             <br/><br/>
