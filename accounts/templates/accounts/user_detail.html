@@ -203,19 +203,24 @@
 
     <!-- INFORMATION OF POST AND ACTIVITY OF THE PROFILE -->
     <div class="post-info-profile">
-      <div class="actividad-post">
-          <p>Número de contactos: {{ object.followed_by.all.count }}</p>
-
-      <hr/>
-      </div>
-
       <div class="followed-by">
-        <h4>Contactos el usuario</h4>
-            {% for profile in object.followed_by.all %}
+
+      <h4>Seguidores: {{ object.profile.user.followed_by.all.count }}</h4>
+
+      {% comment %} VER EL PERFIL DE OTRO USUARIO, VER SUS SEGUIDORES QUE TIENE {% endcomment %}
+
+            {% for profile in object.profile.user.followed_by.all %}
                 <a href='../{{ profile.user.slug }}'>{{ profile.user.slug }}</a><br /><br />
             {% empty %}
-                <p>El usuario no tiene contactos aún</p>
+                <p>El usuario no tiene seguidores aún</p>
             {% endfor %}
+      <h4>Siguiendo: {{ object.profile.user.is_following.all.count }}</h4>
+            {% for a in object.profile.user.is_following.all %}
+                <a href='../{{ a.user.slug }}'>{{ a.user.slug }}</a><br /><br />
+            {% empty %}
+                <p>El usuario no esta siguiendo a nadie aún</p>
+            {% endfor %}
+
 
         <hr/>
       </div>

@@ -4,6 +4,7 @@ from django.urls import reverse_lazy
 
 User = get_user_model()
 
+
 class UserDisplaySerializer(serializers.ModelSerializer):
     # speak_languages = SpeakLanguagesDisplaySerializer()
     # Serializamos un metodo para que en el se vayan contando los seguidores de ese contacto

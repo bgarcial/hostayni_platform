@@ -1,3 +1,4 @@
+from django.conf import settings
 from django.shortcuts import render, get_object_or_404
 from django.contrib.auth.mixins import LoginRequiredMixin
 
@@ -17,7 +18,7 @@ from django.http import HttpResponseRedirect
 
 from .forms import PostModelForm
 from .mixins import FormUserNeededMixin, UserOwnerMixin
-
+from accounts.models import User, UserProfile
 
 class RepostView(View):
     def get(self, request, pk, *args, **kwargs):
@@ -88,6 +89,7 @@ class PostDeleteView(LoginRequiredMixin, UserProfileDataMixin, DeleteView):
 class PostListView(LoginRequiredMixin, UserProfileDataMixin, ListView):
     # template_name = "posts/post_list2.html"
     # queryset = Post.objects.all().order_by('-updated')
+    # queryset = User.objects.all()
 
     def get_queryset(self, *args, **kwargs):
         qs = Post.objects.all().order_by('-updated')
@@ -105,15 +107,19 @@ class PostListView(LoginRequiredMixin, UserProfileDataMixin, ListView):
 
     def get_context_data(self, *args, **kwargs):
         context = super(PostListView, self).get_context_data(*args, *kwargs)
-        # print(context)
-        # context["another_list"] = Post.objects.all()
-        # print(context)
+        user = self.request.user
+
+        following = UserProfile.objects.is_following(self.request.user, self.object_list)
+        context['following'] = following
 
         # Pasamos el form de crear post para que aparezca en el post list
         context['create_form'] = PostModelForm()
 
         # Pasamos el url que me permite hacer un POST de un post
         context['create_url'] = reverse_lazy("post:create")
+
+        if user.is_authenticated():
+            context['userprofile'] = user.profile
         return context
 
 '''

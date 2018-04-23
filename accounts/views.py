@@ -59,7 +59,7 @@ class UserDetailView(LoginRequiredMixin, UserProfileDataMixin, generic.DetailVie
     # POdria hacer un UserDetailAPIVIew como PostDetailView con permission_classes = [permissions.AllowAny]
 
     template_name = 'accounts/user_detail.html'
-    queryset = User.objects.all()
+    # queryset = User.objects.all()
 
     '''
     def dispatch(self, request, slug, *args, **kwargs):
