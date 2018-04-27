@@ -43,4 +43,4 @@ class EntrepreneurshipOfferImagesForm(forms.ModelForm):
 
 class EntrepreneurshipOfferSearchForm(forms.Form):
     query = forms.CharField(label='', widget=forms.TextInput(
-        attrs={'placeholder': 'Buscar por: '}))
+        attrs={'placeholder': 'Buscar por: Ciudad, Tipo de oferta, país, título '}))
