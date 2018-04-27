@@ -89,6 +89,7 @@
     <br /><br />
     {% for result in results %}
         {% with lodgingoffer=result.object %}
+        {% comment %} RESULTADOS DE BUSQUEDAS DE OFERTAS PUBLICADAS PAGAS/PROMOVIDAS/GRATIS EN HOSTAYNI  {% endcomment %}
         <div class="item-result-lodging" >
           <div class="img-item-container">
             <a href="{% url 'host:detail' lodgingoffer.slug %}">
@@ -106,7 +107,8 @@
                   <h3>{{ lodgingoffer.ad_title }}</h3>
               </div>
               <div class="price-item-lodging">
-                <p> $ {{ lodgingoffer.room_value }} COP </p>
+                <p> Mensual: $ {{ lodgingoffer.monthly_price }} COP </p>
+                <p> Noche: $ {{ lodgingoffer.room_night_value }} COP </p>
               </div>
            </div>
            <div clas="location-item-lodging">
@@ -114,7 +116,16 @@
            </div>
             <div class="info-item-lodging-lastpart">
               <div class="description-item-lodging">
-                <p> {{ lodgingoffer.additional_description|linebreaks|truncatechars:420 }} </p>
+                  <p>{{ lodgingoffer.created_by.get_long_name }}</p>
+                  {% if lodgingoffer.created_by.avatar %}
+                      <a href="{% url 'accounts:detail' lodgingoffer.created_by.slug %}">
+                        <img src="{{ lodgingoffer.created_by.avatar.url }}" width="50" height="50" class="img-responsive">
+                      </a>
+                  {% else %}
+                      <a href="{% url 'accounts:detail' lodgingoffer.created_by.slug %}">
+                        <img src="{% static 'img/default_profile_pic.png' %}" class="img-responsive">
+                      </a>
+                  {% endif %}
               </div>
               <div class="mainfeatures-item-lodging">
                 <div class="imp-feat-II">
@@ -127,17 +138,9 @@
                   </div>
                   <div class="imp-feat-II">
                     <img src="{% static 'img/icons/diary-button.svg' %}" alt="">
-                    <p> {{ lodgingoffer.bathroom }} </p>
+                    <p> {{ lodgingoffer.location_zone }} </p>
                   </div>
               </div>
-                {% comment %}
-                {% if lodgingoffer.created_by.first_name %}
-                    <p>Publicada por: {{ lodgingoffer.created_by.get_long_name }}</p>
-                {% endif %}
-                {% if lodgingoffer.created_by.get_enterprise_name %}
-                    <p>Publicada por: {{ lodgingoffer.created_by.get_enterprise_name }}</p>
-                {% endif %}
-                {% endcomment %}
             </div>
           </div>
           {% endwith %}
