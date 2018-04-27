@@ -38,6 +38,18 @@
 
 <div class="detail-study-container">
   <main class="main-detail-study">
+    <div class="add-images-container">
+        {% if studyofferdetail.created_by_id == userprofile.user.id %}
+        <div class="main-content-study">
+              <a href="{% url 'host:edit_study_offer_uploads' slug=studyofferdetail.slug %}">
+              <img src="{% static 'img/icons/photo.svg' %}" alt=""> Agregar/Editar </a>
+        </div>
+        <p><a class='glyphicon glyphicon-pencil' href = "{% url 'host:edit-study-offer' slug=studyofferdetail.slug %}"></a>
+  &nbsp;&nbsp;&nbsp;&nbsp;| &nbsp;&nbsp;&nbsp;&nbsp;
+<a class='glyphicon glyphicon-trash' href = "{% url 'host:delete-study-offer' slug=studyofferdetail.slug %}"></a></p>
+        {% endif %}
+    </div>
+    <div class="info-offer-detail">
     <div class="acomodacion-study">
       <h4>{{ studyofferdetail.studies_type_offered }}</h2>
     </div>
@@ -51,18 +63,6 @@
       <div class="study-price">
         <span>$ {{ studyofferdetail.studies_value }} COP </span>
       </div>
-    </div>
-
-    <div class="add-images-container">
-        {% if studyofferdetail.created_by_id == userprofile.user.id %}
-        <div class="main-content-study">
-              <a href="{% url 'host:edit_study_offer_uploads' slug=studyofferdetail.slug %}">
-              <img src="{% static 'img/icons/photo.svg' %}" alt=""> Agregar/Editar </a>
-        </div>
-        <p><a class='glyphicon glyphicon-pencil' href = "{% url 'host:edit-study-offer' slug=studyofferdetail.slug %}"></a>
-  &nbsp;&nbsp;&nbsp;&nbsp;| &nbsp;&nbsp;&nbsp;&nbsp;
-<a class='glyphicon glyphicon-trash' href = "{% url 'host:delete-study-offer' slug=studyofferdetail.slug %}"></a></p>
-        {% endif %}
     </div>
 
     <div class="details-studio">
@@ -94,6 +94,7 @@
                 <span><p align="justify">{{ studyofferdetail.additional_description }}</p></span>
             </div>
           </div>
+        </div>
 
         <div class="lodging-mapa">
             {% comment %}

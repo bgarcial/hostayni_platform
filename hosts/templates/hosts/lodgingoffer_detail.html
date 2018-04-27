@@ -70,6 +70,18 @@
 
 <div class="detail-lodging-container">
 <main class="main-detail-lodging">
+  <div class="add-images-container">
+      {% if lodgingofferdetail.created_by_id == userprofile.user.id %}
+      <div class="main-content-lodging">
+        <a href="{% url 'host:edit_lodging_offer_uploads_image' slug=lodgingofferdetail.slug %}">
+            <img src="{% static 'img/icons/photo.svg' %}" alt=""> Agregar/Editar </a>
+      </div>
+      <p><a class='glyphicon glyphicon-pencil' href = "{% url 'host:edit-lodging-offer' slug=lodgingofferdetail.slug %}"></a>
+&nbsp;&nbsp;&nbsp;&nbsp;| &nbsp;&nbsp;&nbsp;&nbsp;
+      <a class='glyphicon glyphicon-trash' href = "{% url 'host:delete-lodging-offer' slug=lodgingofferdetail.slug %}"></a></p>
+      {% endif %}
+  </div>
+  <div class="info-offer-detail">
     <div class="acomodacion-lodging">
         {% if lodgingofferdetail.created_by.user_type == "O" %}
             <h4>{{ lodgingofferdetail.lodging_offer_type_org }}</h4>
@@ -85,8 +97,8 @@
         <span>{{ lodgingofferdetail.address }}, {{ lodgingofferdetail.city }} - {{ lodgingofferdetail.country }}</span>
       </div>
       <div class="lodging-price">
-        <span>Precio por noche: $ {{ lodgingofferdetail.room_night_value }} COP </span>
-        <span>Precio mensual: $ {{ lodgingofferdetail.monthly_price }} COP </span>
+        <p>Noche: $ {{ lodgingofferdetail.room_night_value }} COP </p>
+        <p>Mensual: $ {{ lodgingofferdetail.monthly_price }} COP </p>
       </div>
     </div>
 
@@ -100,18 +112,6 @@
             <h1>{{ lodgingofferdetail.ad_title }}</h1>
         </div>
         {% endcomment %}
-
-        <div class="add-images-container">
-            {% if lodgingofferdetail.created_by_id == userprofile.user.id %}
-            <div class="main-content-lodging">
-              <a href="{% url 'host:edit_lodging_offer_uploads_image' slug=lodgingofferdetail.slug %}">
-                  <img src="{% static 'img/icons/photo.svg' %}" alt=""> Agregar/Editar </a>
-            </div>
-            <p><a class='glyphicon glyphicon-pencil' href = "{% url 'host:edit-lodging-offer' slug=lodgingofferdetail.slug %}"></a>
-      &nbsp;&nbsp;&nbsp;&nbsp;| &nbsp;&nbsp;&nbsp;&nbsp;
-            <a class='glyphicon glyphicon-trash' href = "{% url 'host:delete-lodging-offer' slug=lodgingofferdetail.slug %}"></a></p>
-            {% endif %}
-        </div>
 
         <div class="details-alojamiento">
 
@@ -179,6 +179,7 @@
               </div>
           </div>
         </div>
+      </div>
 
         <div id="disqus_thread"></div>
     </div>
