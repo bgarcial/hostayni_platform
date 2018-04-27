@@ -21,7 +21,7 @@ urlpatterns = [
     url(r'^articles/categoria/(\d+)$', categories, name='categories'),
 
     url(r'^article/(?P<slug>[\w.\-]+)/edit/$', article_update, name='update'),
-    url(r'^article/(?P<slug>[\w.\-]+)/delete/$', article_delete, name='delete'),
+    # url(r'^article/(?P<slug>[\w.\-]+)/delete/$', article_delete, name='delete'),
     url(r'^article/(?P<slug>[\w.\-]+)/$', artic_detail, name='detail'),
 
 

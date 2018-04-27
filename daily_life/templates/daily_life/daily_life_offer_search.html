@@ -89,9 +89,10 @@
     <br /><br />
     {% for result in results %}
         {% with dailylifeoffer=result.object %}
+        {% comment %} RESULTADOS DE BUSQUEDAS DE OFERTAS PUBLICADAS PAGAS/PROMOVIDAS/GRATIS EN HOSTAYNI  {% endcomment %}
         <div class="item-result-lodging" >
           <div class="img-item-container">
-            <a href="{% url 'offer:detail' dailylifeoffer.slug %}">
+            <a href="{% url 'daily_life_offer:detail' dailylifeoffer.slug %}">
                 <div class="img-item-search">
                     {% if dailylifeoffer.photo %}
                          <img src="{{ dailylifeoffer.photo.url }}" width="auto" height="100%" alt="">
@@ -106,7 +107,7 @@
                   <h3>{{ dailylifeoffer.ad_title }}</h3>
               </div>
               <div class="price-item-lodging">
-                <p> $ {{ dailylifeoffer.room_value }} COP </p>
+                <p> $ {{ dailylifeoffer.price }} COP </p>
               </div>
            </div>
            <div class="location-item-lodging">
@@ -114,22 +115,23 @@
            </div>
             <div class="info-item-lodging-lastpart">
               <div class="description-item-lodging">
-                <p> {{ dailylifeoffer.additional_description|linebreaks|truncatechars:420 }} </p>
+                <p>{{ dailylifeoffer.created_by.get_long_name }}</p>
+                {% if dailylifeoffer.created_by.avatar %}
+                  <a href="{% url 'accounts:detail' dailylifeoffer.created_by.slug %}">
+                    <img src="{{ dailylifeoffer.created_by.avatar.url }}" width="50" height="50" class="img-responsive">
+                  </a>
+                {% else %}
+                  <a href="{% url 'accounts:detail' dailylifeoffer.created_by.slug %}">
+                    <img src="{% static 'img/default_profile_pic.png' %}" class="img-responsive">
+                  </a>
+                {% endif %}
               </div>
               <div class="mainfeatures-item-lodging">
                  <div class="imp-feat-II">
                    <img src="{% static 'img/icons/diary-button.svg' %}" alt="">
-                   <p> {{ offers.offer_type }} </p>
+                   <p> {{ dailylifeoffer.offer_type }} </p>
                  </div>
               </div>
-                {% comment %}
-                {% if dailylifeoffer.created_by.first_name %}
-                    <p>Publicada por: {{ entrepreneurshipoffer.created_by.get_long_name }}</p>
-                {% endif %}
-                {% if dailylifeoffer.created_by.get_enterprise_name %}
-                    <p>Publicada por: {{ dailylifeoffer.created_by.get_enterprise_name }}</p>
-                {% endif %}
-                {% endcomment %}
             </div>
           </div>
           {% endwith %}
@@ -139,6 +141,8 @@
     {% endfor %}
 
 {% else %}
+
+    {% comment %} OFERTAS PUBLICADAS PAGAS/PROMOVIDAS EN HOSTAYNI  {% endcomment %}
     {% for po in offers_paid %}
     <div class="item-result-lodging" >
       <div class="img-item-container">
@@ -155,9 +159,10 @@
         <div class="info-item-lodging-firstpart">
           <div class="title-item-lodging">
               <h3>{{ po.ad_title }}</h3>
+              <div class="post-type"><b>OFERTA PROMOVIDA</b></div>
           </div>
           <div class="price-item-lodging">
-            <p> $ {{ po.room_value }} COP </p>
+            <p> $ {{ po.price }} COP </p>
           </div>
        </div>
        <div class="location-item-lodging">
@@ -165,15 +170,16 @@
        </div>
         <div class="info-item-lodging-lastpart">
           <div class="description-item-lodging">
-
-             <a href="{% url 'accounts:detail' po.created_by.username %}">
-                {% if po.created_by.user_type == "O" %}
-                    <span>{{ po.created_by.get_enterprise_name }} <br/>
-                {% else %}
-                    <span>{{ po.created_by.get_long_name }}<br/>
-                {% endif %}
-             </a>
-           <!-- <p> {{ po.additional_description|linebreaks|truncatechars:420 }} </p> -->
+            <p>{{ po.created_by.get_long_name }}</p>
+             {% if po.created_by.avatar %}
+                 <a href="{% url 'accounts:detail' po.created_by.slug %}">
+                   <img src="{{ po.created_by.avatar.url }}" width="50" height="50" class="img-responsive">
+                 </a>
+             {% else %}
+                 <a href="{% url 'accounts:detail' po.created_by.slug %}">
+                   <img src="{% static 'img/default_profile_pic.png' %}" class="img-responsive">
+                 </a>
+             {% endif %}
          </div>
           <div class="mainfeatures-item-lodging">
             <div class="imp-feat-II">
@@ -193,6 +199,9 @@
       </div>
     </div>
   {% endfor %}
+
+
+  {% comment %} OFERTAS PUBLICADAS GRATUITAMENTE EN HOSTAYNI  {% endcomment %}
   {% for offers in offer_list %}
    <div class="item-result-lodging" >
      <div class="img-item-container">
@@ -220,14 +229,19 @@
       </div>
        <div class="info-item-lodging-lastpart">
          <div class="description-item-lodging">
-
-             <a href="{% url 'accounts:detail' offers.created_by.username %}">
-                {% if entrepreneurshipoffer.created_by.user_type == "O" %}
-                    <span>{{ offers.created_by.get_enterprise_name }} <br/>
-                {% else %}
-                    <span>{{ offers.created_by.get_long_name }}<br/>
+             <p>{{ offers.created_by.get_long_name }}</p>
+             {% if offers.created_by.avatar %}
+                 <a href="{% url 'accounts:detail' offers.created_by.slug %}">
+                   <img src="{{ offers.created_by.avatar.url }}" width="50" height="50" class="img-responsive">
+                 </a>
+             {% else %}
+                 <a href="{% url 'accounts:detail' offers.created_by.slug %}">
+                   <img src="{% static 'img/default_profile_pic.png' %}" class="img-responsive">
+                 </a>
                 {% endif %}
-             </a>
+             <div class="description-item-lodging">
+               <!-- <p> {{ offers.additional_description|linebreaks|truncatechars:420 }} </p> -->
+             </div>
            <!-- <p> {{ offers.additional_description|linebreaks|truncatechars:420 }} </p> -->
          </div>
          <div class="mainfeatures-item-lodging">

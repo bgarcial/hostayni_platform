@@ -144,12 +144,15 @@
 
             <div class="second_part_postinfo">
               <div class="article-author">
-                {% if article.author.first_name %}
-                <p> {{ article.author.first_name }} {{ article.author.last_name }}</p>
-                {% endif %}
-
-                {% if article.author.get_enterprise_name %}
-                <p> {{ article.author.get_enterprise_name }}</p>
+                <p>{{ article.author.get_long_name }}</p>
+                {% if article.author.avatar %}
+                   <a href="{% url 'accounts:detail' article.author.slug %}">
+                      <img src="{{ article.author.avatar.url }}" width="50" height="50" class="img-responsive">
+                   </a>
+                {% else %}
+                   <a href="{% url 'accounts:detail' article.author.slug %}">
+                      <img src="{% static 'img/default_profile_pic.png' %}" class="img-responsive">
+                   </a>
                 {% endif %}
               </div>
 
@@ -198,14 +201,18 @@
             </div>
 
             <div class="second_part_postinfo" />
-              <div class="article-author">
-              {% if article.author.first_name %}
-              <p>{{ article.author.first_name }} {{ article.author.last_name }}</p>
-               {% endif %}
-               {% if article.author.get_enterprise_name %}
-               <p>Autor: {{ article.author.get_enterprise_name }}</p>
-               {% endif %}
-             </div>
+               <div class="article-author">
+                <p>{{ article.author.get_long_name }}</p>
+                {% if article.author.avatar %}
+                   <a href="{% url 'accounts:detail' article.author.slug %}">
+                      <img src="{{ article.author.avatar.url }}" width="50" height="50" class="img-responsive">
+                   </a>
+                {% else %}
+                   <a href="{% url 'accounts:detail' article.author.slug %}">
+                      <img src="{% static 'img/default_profile_pic.png' %}" class="img-responsive">
+                   </a>
+                {% endif %}
+              </div>
 
              <div class="article-date">{{ article.publish }}</div>
             </div>
@@ -255,13 +262,16 @@
             </div>
 
             <div class="second_part_postinfo">
-              <div class="article-author">
-                {% if article.author.first_name %}
-                <p>{{ article.author.first_name }} {{ article.author.last_name }}</p>
-                {% endif %}
-
-                {% if article.author.get_enterprise_name %}
-                <p>Autor: {{ article.author.get_enterprise_name }}</p>
+               <div class="article-author">
+                <p>{{ article.author.get_long_name }}</p>
+                {% if article.author.avatar %}
+                   <a href="{% url 'accounts:detail' article.author.slug %}">
+                      <img src="{{ article.author.avatar.url }}" width="50" height="50" class="img-responsive">
+                   </a>
+                {% else %}
+                   <a href="{% url 'accounts:detail' article.author.slug %}">
+                      <img src="{% static 'img/default_profile_pic.png' %}" class="img-responsive">
+                   </a>
                 {% endif %}
               </div>
 
@@ -313,12 +323,15 @@
 
             <div class="second_part_postinfo">
               <div class="article-author">
-                {% if article.author.first_name %}
-                <p>{{ article.author.first_name }} {{ article.author.last_name }}</p>
-                {% endif %}
-
-                {% if article.author.get_enterprise_name %}
-                <p> {{ article.author.get_enterprise_name }}</p>
+                <p>{{ article.author.get_long_name }}</p>
+                {% if article.author.avatar %}
+                   <a href="{% url 'accounts:detail' article.author.slug %}">
+                      <img src="{{ article.author.avatar.url }}" width="50" height="50" class="img-responsive">
+                   </a>
+                {% else %}
+                   <a href="{% url 'accounts:detail' article.author.slug %}">
+                      <img src="{% static 'img/default_profile_pic.png' %}" class="img-responsive">
+                   </a>
                 {% endif %}
               </div>
 
@@ -371,12 +384,15 @@
 
             <div class="second_part_postinfo">
               <div class="article-author">
-                {% if article.author.first_name %}
-                <p>{{ article.author.first_name }} {{ article.author.last_name }}</p>
-                {% endif %}
-
-                {% if article.author.get_enterprise_name %}
-                <p>Autor: {{ article.author.get_enterprise_name }}</p>
+                <p>{{ article.author.get_long_name }}</p>
+                {% if article.author.avatar %}
+                   <a href="{% url 'accounts:detail' article.author.slug %}">
+                      <img src="{{ article.author.avatar.url }}" width="50" height="50" class="img-responsive">
+                   </a>
+                {% else %}
+                   <a href="{% url 'accounts:detail' article.author.slug %}">
+                      <img src="{% static 'img/default_profile_pic.png' %}" class="img-responsive">
+                   </a>
                 {% endif %}
               </div>
 

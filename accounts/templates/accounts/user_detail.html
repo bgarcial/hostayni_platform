@@ -19,6 +19,10 @@
     <div class="column-profile-detail">
       {% if object.profile.user.user_type == "P"  %}
         <div class="img-profile">
+          {% if object.profile.user.slug == userprofile.user.slug %}
+              <a href="{% url 'accounts:preferences' userprofile.user.slug %}" >
+          Editar imagen de perfil</a><br/><br/>
+          {% endif %}
           {% if object.profile.user.avatar %}
                 <img src="{{ object.profile.user.avatar.url }}" width="100" height="100" class="img-responsive">
           {% else %}
@@ -120,6 +124,10 @@
 
       {% if object.profile.user.user_type == "O"  %}
         <div class="img-profile">
+          {% if object.profile.user.slug == userprofile.user.slug %}
+              <a href="{% url 'accounts:preferences' userprofile.user.slug %}" >
+          Editar imagen de perfil</a><br/><br/>
+          {% endif %}
           {% if object.profile.user.avatar %}
                 <img src="{{ object.profile.user.avatar.url }}" width="100" height="100" class="img-responsive">
           {% else %}
@@ -203,21 +211,167 @@
 
     <!-- INFORMATION OF POST AND ACTIVITY OF THE PROFILE -->
     <div class="post-info-profile">
-      <div class="actividad-post">
-          <p>Número de contactos: {{ object.followed_by.all.count }}</p>
-
-      <hr/>
-      </div>
-
       <div class="followed-by">
-        <h4>Contactos el usuario</h4>
-            {% for profile in object.followed_by.all %}
+
+      <h4>Seguidores: {{ object.profile.user.followed_by.all.count }}</h4>
+
+      {% comment %} VER EL PERFIL DE OTRO USUARIO, VER SUS SEGUIDORES QUE TIENE {% endcomment %}
+
+            {% for profile in object.profile.user.followed_by.all %}
                 <a href='../{{ profile.user.slug }}'>{{ profile.user.slug }}</a><br /><br />
             {% empty %}
-                <p>El usuario no tiene contactos aún</p>
+                <p>El usuario no tiene seguidores aún</p>
             {% endfor %}
 
-        <hr/>
+      {% comment %}
+          Averiguando a quienes sigo - No implementado aun
+      <h4>Siguiendo: {{ object.profile.user.is_following.all.count }}</h4>
+            {% for a in object.profile.user.is_following.all %}
+                <a href='../{{ a.user.slug }}'>{{ a.user.slug }}</a><br /><br />
+            {% empty %}
+                <p>El usuario no esta siguiendo a nadie aún</p>
+            {% endfor %}
+       {% endcomment %}
+
+      <hr/>
+
+  {% comment %} Preguntamos que si yo mismo veo mi perfil, no me aparezcan
+  mis ofertas y mis articulos, pero si otro usuario ve mi perfil, si me apareceran mis
+  ofertas (todas las que haya publicado) y articulos{% endcomment %}
+  {% if object.profile.user.slug != userprofile.user.slug %}
+
+      {% comment %} Si existen ARTÍCULOS de este usuario, muéstrelos {% endcomment %}
+      {% if articles %}
+          <h4>Artículos</h4>
+          {% for article in articles %}
+            <tr>
+              <td>
+                <h5><a href="{% url 'articles:detail' article.slug %}">{{ article.title }}</a>
+             </td>
+              {% if object.profile.user.slug == userprofile.user.slug %}
+             <td>
+                <p><a class="glyphicon glyphicon-pencil" aria-hidden="true" href = "{% url 'articles:update' article.slug %}"></a>
+                 &nbsp;&nbsp;&nbsp;&nbsp;| &nbsp;&nbsp;&nbsp;&nbsp;
+                <a class='glyphicon glyphicon-trash' href = "{% url 'articles:article_remove' article.slug %}"></a>
+            </p>
+             </td>
+                   <hr/>
+              {% endif %}
+          {% endfor %}
+      {% endif %}
+
+
+    {% comment %} Si existen ofertas de ALOJAMIENTO de este usuario, muéstrelas {% endcomment %}
+    {% if lodging_offers %}
+        <h4>Ofertas de alojamiento</h4>
+      {% for offers in lodging_offers %}
+
+        <tr>
+          <td>
+            <h5><a href="{% url 'host:detail' offers.slug %}">{{ offers.ad_title }}</a>
+          </td>
+          {% if object.profile.user.slug == userprofile.user.slug %}
+         <td>
+            <p><a class="glyphicon glyphicon-pencil" aria-hidden="true" href = "{% url 'host:edit-lodging-offer' offers.slug %}"></a>
+             &nbsp;&nbsp;&nbsp;&nbsp;| &nbsp;&nbsp;&nbsp;&nbsp;
+            <a class='glyphicon glyphicon-trash' href = "{% url 'host:delete-lodging-offer' offers.slug %}"></a>
+        </p>
+         </td>
+               <hr/>
+          {% endif %}
+      {% endfor %}
+    {% endif %}
+
+    {% comment %} Si existen ofertas de AYNI de este usuario, muéstrelas {% endcomment %}
+    {% if ayni_offers %}
+        <h4>Ofertas de AYNI</h4>
+      {% for offers in ayni_offers %}
+
+        <tr>
+          <td>
+            <h5><a href="{% url 'ayni_offer:detail' offers.slug %}">{{ offers.ad_title }}</a>
+          </td>
+          {% if object.profile.user.slug == userprofile.user.slug %}
+         <td>
+            <p><a class="glyphicon glyphicon-pencil" aria-hidden="true" href = "{% url 'ayni_offer:edit' offers.slug %}"></a>
+             &nbsp;&nbsp;&nbsp;&nbsp;| &nbsp;&nbsp;&nbsp;&nbsp;
+            <a class='glyphicon glyphicon-trash' href = "{% url 'ayni_offer:delete' offers.slug %}"></a>
+        </p>
+         </td>
+               <hr/>
+          {% endif %}
+      {% endfor %}
+    {% endif %}
+
+
+    {% comment %} Si existen ofertas de VIDA DIARIA de este usuario, muéstrelas {% endcomment %}
+    {% if daily_life_offers %}
+        <h4>Ofertas de Vida Diaria</h4>
+      {% for offers in daily_life_offers %}
+
+        <tr>
+          <td>
+            <h5><a href="{% url 'daily_life_offer:detail' offers.slug %}">{{ offers.ad_title }}</a>
+          </td>
+          {% if object.profile.user.slug == userprofile.user.slug %}
+         <td>
+            <p><a class="glyphicon glyphicon-pencil" aria-hidden="true" href = "{% url 'daily_life_offer:edit' offers.slug %}"></a>
+             &nbsp;&nbsp;&nbsp;&nbsp;| &nbsp;&nbsp;&nbsp;&nbsp;
+            <a class='glyphicon glyphicon-trash' href = "{% url 'daily_life_offer:delete' offers.slug %}"></a>
+        </p>
+         </td>
+               <hr/>
+          {% endif %}
+      {% endfor %}
+    {% endif %}
+
+
+    {% comment %} Si existen ofertas EDUCATIVAS de este usuario, muéstrelas {% endcomment %}
+    {% if educational_offers %}
+        <h4>Ofertas Educativas</h4>
+        {% for offers in educational_offers %}
+
+        <tr>
+          <td>
+            <h5><a href="{% url 'host:studyoffertdetail' offers.slug %}">{{ offers.ad_title }}</a>
+          </td>
+          {% if object.profile.user.slug == userprofile.user.slug %}
+         <td>
+            <p><a class="glyphicon glyphicon-pencil" aria-hidden="true" href = "{% url 'host:edit-study-offer' offers.slug %}"></a>
+             &nbsp;&nbsp;&nbsp;&nbsp;| &nbsp;&nbsp;&nbsp;&nbsp;
+            <a class='glyphicon glyphicon-trash' href = "{% url 'host:delete-study-offer' offers.slug %}"></a>
+        </p>
+         </td>
+               <hr/>
+          {% endif %}
+      {% endfor %}
+    {% endif %}
+
+
+    {% comment %} Si existen ofertas de EMPRENDIMIENTO de este usuario, muéstrelas {% endcomment %}
+    {% if entrepreneurship_offers %}
+        <h4>Ofertas de Emprendimiento</h4>
+      {% for offers in entrepreneurship_offers %}
+
+        <tr>
+          <td>
+            <h5><a href="{% url 'offer:detail' offers.slug %}">{{ offers.ad_title }}</a>
+          </td>
+          {% if object.profile.user.slug == userprofile.user.slug %}
+         <td>
+            <p><a class="glyphicon glyphicon-pencil" aria-hidden="true" href = "{% url 'offer:edit' offers.slug %}"></a>
+             &nbsp;&nbsp;&nbsp;&nbsp;| &nbsp;&nbsp;&nbsp;&nbsp;
+            <a class='glyphicon glyphicon-trash' href = "{% url 'offer:delete' offers.slug %}"></a>
+        </p>
+         </td>
+               <hr/>
+          {% endif %}
+      {% endfor %}
+    {% endif %}
+
+
+  {% endif %}
+
       </div>
 
       <div class="search-post">
