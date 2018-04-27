@@ -144,9 +144,9 @@ class StudyHostProfileForm(forms.ModelForm):
         choices=StudyHostProfile.ACCREDITATIONS_CHOICES,
     )
 
-    knowledge_topics = forms.CharField(label='Áreas de conocimiento',
-                                widget=forms.TextInput(attrs={
-                                    'placeholder': 'Una lista de temas separada por comas'}))
+    #knowledge_topics = forms.CharField(label='Áreas de conocimiento',
+    #                            widget=forms.TextInput(attrs={
+    #                                'placeholder': 'Una lista de temas separada por comas'}))
 
 
 

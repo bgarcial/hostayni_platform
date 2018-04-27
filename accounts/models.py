@@ -154,7 +154,7 @@ class User(AbstractBaseUser, PermissionsMixin):
         blank=True
     )
 
-    full_name = models.CharField(_('full name'), max_length=60, blank=False, null=False)
+    full_name = models.CharField(_('Nombre completo'), max_length=60, blank=False, null=False)
     first_name = models.CharField(_('first name'), max_length=30, blank=True)
 
     last_name = models.CharField(_('last name'), max_length=30, blank=True)
@@ -318,7 +318,7 @@ class User(AbstractBaseUser, PermissionsMixin):
     entertainment_activities = models.ManyToManyField(
         EntertainmentActivities,
         blank=True,
-        verbose_name='Actividades de entretenimiento',
+        verbose_name='Actividades de vida diaria',
         help_text='Mantenga presionado "Control" (o "Command" en un Mac), y haga click en las opciones que desea selecionar.',
     )
 
@@ -918,12 +918,10 @@ class StudyHostProfile(models.Model):
 
     PRIVATE = 'PRIVATE'
     PUBLIC = 'PUBLIC'
-    MIXED = 'MIXED'
 
     CHARACTER_INSTITUTE_CHOICES = (
         (PRIVATE, "Privada"),
         (PUBLIC, "Pública"),
-        (MIXED, "Privada - Pública"),
     )
 
     NATIONAL_ACCREDITATIONS = 'Acreditación Nacional'
