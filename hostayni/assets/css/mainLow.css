@@ -1488,7 +1488,7 @@ input[type="text"] .form-control{
 }
 
 .stayhost{
-  width: 80%;
+  width: 85%;
   display: table;
   margin: 0 auto;
 }
@@ -1508,14 +1508,14 @@ input[type="text"] .form-control{
 }
 
 .results-lodging-container{
-  margin: 3% 12%;
+  margin: 3% 7%;
 }
 
 .item-result-lodging{
   width: 100%;
-  margin: 20px 17px 0 17px;
-  border-radius: 10px;
+  margin: 25px 0px 0px 0px;
   border-width: 1px;
+  border-radius: 10px;
   box-shadow: 0 0 1px 1px rgba(20,23,28,.1), 0 3px 1px 0 rgba(20,23,28,.1);
   display: inline-flex;
   height: 243;
@@ -1526,7 +1526,7 @@ input[type="text"] .form-control{
 }
 
 .img-item-container{
-  width: 30%;
+  width: 40%;
   height: 100%;
 }
 
@@ -1543,30 +1543,40 @@ input[type="text"] .form-control{
 }
 
 .info-item-lodging{
-  width: 70%;
+  width: 60%;
   height: auto;
   margin-left: 1%;
 }
 
 .info-item-lodging-firstpart{
-  display: inline-flex;
+  display: inline-block;
   width: 100%;
 }
 
 .title-item-lodging{
-  width: 80%;
+  width: 100%;
 }
+
+.title-item-lodging h3{
+  font-size: 15px;
+}
+
 
 .price-item-lodging{
   width: 50%;
-  font-size: 21px;
-  text-align: right;
-  margin: 13px 20px;
+  font-size: 12px;
+  /*text-align: right;
+  margin: 13px 20px;*/
+}
+
+.price-item-lodging p{
+  margin: 0 0;
 }
 
 .location-item-lodging{
   width: 100%;
-  font-size: 15px;
+  font-size: 12px;
+  margin: 14px 0 0 0;
 }
 
 .info-item-lodging-lastpart{
@@ -1601,6 +1611,27 @@ input[type="text"] .form-control{
   height: 100%;
   border-top-left-radius: 10px;
   border-bottom-left-radius: 10px;
+}
+
+.btnAplicarLodging{
+  background-color: #036633;
+  border: none;
+  color: #FFFFFF;
+  text-align: center;
+  text-decoration: none;
+  /*display: inline-block;*/
+  display:block;
+  font-size: 16px;
+  cursor: pointer;
+  border-radius: 5px;
+  font-family: 'Source Sans Pro', sans-serif;
+  width: 150px;
+  height: 28px;
+  margin: 20px auto;
+}
+
+.btnAplicarLodging:hover {
+  background-color: #d6d6d6;
 }
 
 /* STUDY OFERT DETAIL */
