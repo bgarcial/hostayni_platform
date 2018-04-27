@@ -214,15 +214,148 @@
             {% empty %}
                 <p>El usuario no tiene seguidores aún</p>
             {% endfor %}
+
+      {% comment %}
+          Averiguando a quienes sigo - No implementado aun
       <h4>Siguiendo: {{ object.profile.user.is_following.all.count }}</h4>
             {% for a in object.profile.user.is_following.all %}
                 <a href='../{{ a.user.slug }}'>{{ a.user.slug }}</a><br /><br />
             {% empty %}
                 <p>El usuario no esta siguiendo a nadie aún</p>
             {% endfor %}
+       {% endcomment %}
+
+      <hr/>
+  {% comment %}{% if object.profile.user.slug != userprofile.user.slug %}{% endcomment %}
+
+      {% if articles %}
+          <h4>Artículos</h4>
+          {% for article in articles %}
+            <tr>
+              <td>
+                <h5><a href="{% url 'articles:detail' article.slug %}">{{ article.title }}</a>
+             </td>
+              {% if object.profile.user.slug == userprofile.user.slug %}
+             <td>
+                <p><a class="glyphicon glyphicon-pencil" aria-hidden="true" href = "{% url 'articles:update' article.slug %}"></a>
+                 &nbsp;&nbsp;&nbsp;&nbsp;| &nbsp;&nbsp;&nbsp;&nbsp;
+                <a class='glyphicon glyphicon-trash' href = "{% url 'articles:article_remove' article.slug %}"></a>
+            </p>
+             </td>
+                   <hr/>
+              {% endif %}
+          {% endfor %}
+      {% endif %}
 
 
-        <hr/>
+    {% if lodging_offers %}
+        <h4>Ofertas de alojamiento</h4>
+      {% for offers in lodging_offers %}
+
+        <tr>
+          <td>
+            <h5><a href="{% url 'host:detail' offers.slug %}">{{ offers.ad_title }}</a>
+          </td>
+          {% if object.profile.user.slug == userprofile.user.slug %}
+         <td>
+            <p><a class="glyphicon glyphicon-pencil" aria-hidden="true" href = "{% url 'host:edit-lodging-offer' offers.slug %}"></a>
+             &nbsp;&nbsp;&nbsp;&nbsp;| &nbsp;&nbsp;&nbsp;&nbsp;
+            <a class='glyphicon glyphicon-trash' href = "{% url 'host:delete-lodging-offer' offers.slug %}"></a>
+        </p>
+         </td>
+               <hr/>
+          {% endif %}
+      {% endfor %}
+    {% endif %}
+
+
+    {% if ayni_offers %}
+        <h4>Ofertas de AYNI</h4>
+      {% for offers in ayni_offers %}
+
+        <tr>
+          <td>
+            <h5><a href="{% url 'ayni_offer:detail' offers.slug %}">{{ offers.ad_title }}</a>
+          </td>
+          {% if object.profile.user.slug == userprofile.user.slug %}
+         <td>
+            <p><a class="glyphicon glyphicon-pencil" aria-hidden="true" href = "{% url 'ayni_offer:edit' offers.slug %}"></a>
+             &nbsp;&nbsp;&nbsp;&nbsp;| &nbsp;&nbsp;&nbsp;&nbsp;
+            <a class='glyphicon glyphicon-trash' href = "{% url 'ayni_offer:delete' offers.slug %}"></a>
+        </p>
+         </td>
+               <hr/>
+          {% endif %}
+      {% endfor %}
+    {% endif %}
+
+
+    {% if daily_life_offers %}
+        <h4>Ofertas de Vida Diaria</h4>
+      {% for offers in daily_life_offers %}
+
+        <tr>
+          <td>
+            <h5><a href="{% url 'daily_life_offer:detail' offers.slug %}">{{ offers.ad_title }}</a>
+          </td>
+          {% if object.profile.user.slug == userprofile.user.slug %}
+         <td>
+            <p><a class="glyphicon glyphicon-pencil" aria-hidden="true" href = "{% url 'daily_life_offer:edit' offers.slug %}"></a>
+             &nbsp;&nbsp;&nbsp;&nbsp;| &nbsp;&nbsp;&nbsp;&nbsp;
+            <a class='glyphicon glyphicon-trash' href = "{% url 'daily_life_offer:delete' offers.slug %}"></a>
+        </p>
+         </td>
+               <hr/>
+          {% endif %}
+      {% endfor %}
+    {% endif %}
+
+
+    {% if educational_offers %}
+        <h4>Ofertas Educativas</h4>
+        {% for offers in educational_offers %}
+
+        <tr>
+          <td>
+            <h5><a href="{% url 'host:studyoffertdetail' offers.slug %}">{{ offers.ad_title }}</a>
+          </td>
+          {% if object.profile.user.slug == userprofile.user.slug %}
+         <td>
+            <p><a class="glyphicon glyphicon-pencil" aria-hidden="true" href = "{% url 'host:edit-study-offer' offers.slug %}"></a>
+             &nbsp;&nbsp;&nbsp;&nbsp;| &nbsp;&nbsp;&nbsp;&nbsp;
+            <a class='glyphicon glyphicon-trash' href = "{% url 'host:delete-study-offer' offers.slug %}"></a>
+        </p>
+         </td>
+               <hr/>
+          {% endif %}
+      {% endfor %}
+    {% endif %}
+
+
+
+    {% if entrepreneurship_offers %}
+        <h4>Ofertas de Emprendimiento</h4>
+      {% for offers in entrepreneurship_offers %}
+
+        <tr>
+          <td>
+            <h5><a href="{% url 'offer:detail' offers.slug %}">{{ offers.ad_title }}</a>
+          </td>
+          {% if object.profile.user.slug == userprofile.user.slug %}
+         <td>
+            <p><a class="glyphicon glyphicon-pencil" aria-hidden="true" href = "{% url 'offer:edit' offers.slug %}"></a>
+             &nbsp;&nbsp;&nbsp;&nbsp;| &nbsp;&nbsp;&nbsp;&nbsp;
+            <a class='glyphicon glyphicon-trash' href = "{% url 'offer:delete' offers.slug %}"></a>
+        </p>
+         </td>
+               <hr/>
+          {% endif %}
+      {% endfor %}
+    {% endif %}
+
+
+  {% comment %}{% endif %}{% endcomment %}
+
       </div>
 
       <div class="search-post">

@@ -34,7 +34,11 @@ from .models import (
         ExecutiveProfile, User, UserProfile
         )
 
-from hosts.models import LodgingOffer
+from blog.models import Article
+from hosts.models import LodgingOffer, StudiesOffert
+from ayni.models import AyniOffer
+from daily_life.models import DailyLifeOffer
+from entrepreneurship.models import EntrepreneurshipOffer
 
 # --- Packages to signup and activate fbv's ---
 from django.contrib.sites.shortcuts import get_current_site
@@ -97,7 +101,29 @@ class UserDetailView(LoginRequiredMixin, UserProfileDataMixin, generic.DetailVie
 
         user_to_display = User.objects.get(slug=self.kwargs.get('slug'))
 
-        # print("Oe", user_to_display.user_type)
+        # We pass the active articles of user
+        context['articles'] = Article.objects.active().filter(author__slug=self.kwargs.get('slug'))
+        print(context['articles'])
+
+        # We pass the active lodging offers of user
+        context['lodging_offers'] = LodgingOffer.objects.active().filter(created_by__slug=self.kwargs.get('slug'))
+        print(context['lodging_offers'])
+
+        # We pass the active study offers of user
+        context['educational_offers'] = StudiesOffert.objects.active().filter(created_by__slug=self.kwargs.get('slug'))
+        print(context['educational_offers'])
+
+        # We pass the active ayni offers of user
+        context['ayni_offers'] = AyniOffer.objects.active().filter(created_by__slug=self.kwargs.get('slug'))
+        print(context['ayni_offers'])
+
+        # We pass the active daily life offers of user
+        context['daily_life_offers'] = DailyLifeOffer.objects.active().filter(created_by__slug=self.kwargs.get('slug'))
+        print(context['daily_life_offers'])
+
+        # We pass the active daily life offers of user
+        context['entrepreneurship_offers'] = EntrepreneurshipOffer.objects.active().filter(created_by__slug=self.kwargs.get('slug'))
+        print(context['entrepreneurship_offers'])
 
         if user_to_display.user_type != "0":
             speaklanguages = User.objects.get(slug=self.kwargs.get('slug'))
