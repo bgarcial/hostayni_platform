@@ -226,7 +226,11 @@
        {% endcomment %}
 
       <hr/>
-  {% comment %}{% if object.profile.user.slug != userprofile.user.slug %}{% endcomment %}
+
+  {% comment %} Preguntamos que si yo mismo veo mi perfil, no me aparezcan
+  mis ofertas y mis articulos, pero si otro usuario ve mi perfil, si me apareceran mis
+  ofertas (todas las que haya publicado) y articulos{% endcomment %}
+  {% if object.profile.user.slug != userprofile.user.slug %}
 
       {% if articles %}
           <h4>Artículos</h4>
@@ -354,7 +358,7 @@
     {% endif %}
 
 
-  {% comment %}{% endif %}{% endcomment %}
+  {% endif %}
 
       </div>
 
