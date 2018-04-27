@@ -91,6 +91,7 @@ class PostListView(LoginRequiredMixin, UserProfileDataMixin, ListView):
     # queryset = Post.objects.all().order_by('-updated')
     # queryset = User.objects.all()
 
+
     def get_queryset(self, *args, **kwargs):
         qs = Post.objects.all().order_by('-updated')
         # print(self.request.GET)
