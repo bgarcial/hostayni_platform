@@ -70,6 +70,18 @@
 
 <div class="detail-lodging-container">
 <main class="main-detail-lodging">
+  <div class="add-images-container">
+      {% if object.created_by_id == userprofile.user.id %}
+      <div class="main-content-lodging">
+        <a href="{% url 'offer:edit_entrepreneurship_images' slug=object.slug %}">
+            <img src="{% static 'img/icons/photo.svg' %}" alt=""> Agregar/Editar </a>
+      </div>
+      <p><a class='glyphicon glyphicon-pencil' href = "{% url 'offer:edit' slug=object.slug %}"></a>
+&nbsp;&nbsp;&nbsp;&nbsp;| &nbsp;&nbsp;&nbsp;&nbsp;
+      <a class='glyphicon glyphicon-trash' href = "{% url 'offer:delete' slug=object.slug %}"></a></p>
+      {% endif %}
+  </div>
+  <div class="info-offer-detail">
     <div class="acomodacion-lodging">
         <h4>{{ object.offer_type }}</h4>
     </div>
@@ -95,18 +107,6 @@
             <h1>{{ object.ad_title }}</h1>
         </div>
         {% endcomment %}
-
-        <div class="add-images-container">
-            {% if object.created_by_id == userprofile.user.id %}
-            <div class="main-content-lodging">
-              <a href="{% url 'offer:edit_entrepreneurship_images' slug=object.slug %}">
-                  <img src="{% static 'img/icons/photo.svg' %}" alt=""> Agregar/Editar </a>
-            </div>
-            <p><a class='glyphicon glyphicon-pencil' href = "{% url 'offer:edit' slug=object.slug %}"></a>
-      &nbsp;&nbsp;&nbsp;&nbsp;| &nbsp;&nbsp;&nbsp;&nbsp;
-            <a class='glyphicon glyphicon-trash' href = "{% url 'offer:delete' slug=object.slug %}"></a></p>
-            {% endif %}
-        </div>
 
         <div class="details-alojamiento">
 
@@ -162,7 +162,7 @@
                 {% endcomment %}
             </div>
         </div>
-
+      </div>
 
         <div id="disqus_thread"></div>
     </div>

@@ -70,6 +70,18 @@
 
 <div class="detail-lodging-container">
 <main class="main-detail-lodging">
+  <div class="add-images-container">
+      {% if dailylife.created_by_id == userprofile.user.id %}
+      <div class="main-content-lodging">
+        <a href="{% url 'daily_life_offer:edit_images' slug=dailylife.slug %}">
+            <img src="{% static 'img/icons/photo.svg' %}" alt=""> Agregar/Editar </a>
+      </div>
+      <p><a class='glyphicon glyphicon-pencil' href = "{% url 'daily_life_offer:edit' slug=dailylife.slug %}"></a>
+&nbsp;&nbsp;&nbsp;&nbsp;| &nbsp;&nbsp;&nbsp;&nbsp;
+      <a class='glyphicon glyphicon-trash' href = "{% url 'daily_life_offer:delete' slug=dailylife.slug %}"></a></p>
+      {% endif %}
+  </div>
+  <div class="info-offer-detail"/>
     <div class="acomodacion-lodging">
         <h4>{{ dailylife.offer_type }}</h4>
     </div>
@@ -96,17 +108,7 @@
         </div>
         {% endcomment %}
 
-        <div class="add-images-container">
-            {% if dailylife.created_by_id == userprofile.user.id %}
-            <div class="main-content-lodging">
-              <a href="{% url 'daily_life_offer:edit_images' slug=dailylife.slug %}">
-                  <img src="{% static 'img/icons/photo.svg' %}" alt=""> Agregar/Editar </a>
-            </div>
-            <p><a class='glyphicon glyphicon-pencil' href = "{% url 'daily_life_offer:edit' slug=dailylife.slug %}"></a>
-      &nbsp;&nbsp;&nbsp;&nbsp;| &nbsp;&nbsp;&nbsp;&nbsp;
-            <a class='glyphicon glyphicon-trash' href = "{% url 'daily_life_offer:delete' slug=dailylife.slug %}"></a></p>
-            {% endif %}
-        </div>
+
 
         <div class="details-alojamiento">
 
@@ -118,7 +120,7 @@
                     <span>{{ dailylife.additional_description }}</span>
                 </div>
         </div>
-
+      </div>
         <br/>
 
 
@@ -130,7 +132,6 @@
                 {% endcomment %}
             </div>
         </br>
-
 
         <div id="disqus_thread"></div>
     </div>

@@ -1211,22 +1211,23 @@ input[type="text"] .form-control{
 
 /* DETAIL LODGING OFFER */
 
+/* DETAIL LODGING OFFER */
+
 .title-cont-lodging{
   margin: 0 0 0 0;
   width: 100%;
-  text-align: center;
   font-family: "Source Sans Pro", sans-serif;
 }
 
 .acomodacion-lodging{
   width: 100%;
   text-align: left;
-  margin: 0 0 0 25%;
+  margin: 0 0 0 0;
   font-family: "Source Sans Pro", sans-serif;
 }
 
 .details-alojamiento{
-  width: 72%;
+  width: 100%;
   height: auto;
 }
 
@@ -1251,7 +1252,7 @@ input[type="text"] .form-control{
 
 .lodging-location-title{
   width: 100%;
-  margin: 0 0 4% 25%;
+  margin: 0 0 4% 0;
   display: inline-flex;
 }
 
@@ -1264,12 +1265,14 @@ input[type="text"] .form-control{
 .lodging-price{
   width: 40%;
   font-size: 20px;
+  text-align: right;
 }
 
 .servicios-ofrecidos-container{
   box-shadow: 0 0 1px 1px rgba(20,23,28,.1), 0 3px 1px 0 rgba(20,23,28,.1);
   padding: 2px 15px;
   margin-top: 13px;
+  border-radius: 10px;
 }
 
 .comodidades-destacadas-container{
@@ -1281,14 +1284,12 @@ input[type="text"] .form-control{
 
 .comodidades-destacadas-lodging{
   margin: 1px 0 8px 0;
-  border-radius: 10px;
 }
 
 .comodidades-destacadas-lodging img{
   width: 32px;
   height: 32px;
   margin: 0 0 0 1px;
-  border-radius: 10px;
 }
 
 .descripcion-container{
@@ -1337,12 +1338,18 @@ input[type="text"] .form-control{
 }
 
 .main-detail-lodging{
+  display: flex;
+  flex-flow: row wrap;
   width: 60%;
   margin: 21px 39px 0px 55px;
 }
 
+.info-offer-detail{
+  width: 74%;
+}
+
 .add-images-container{
-  width: 8%;
+  width: 10%;
   height: auto;
   margin: 1% 3% 0 0;
 }
@@ -1508,7 +1515,7 @@ input[type="text"] .form-control{
 }
 
 .results-lodging-container{
-  margin: 3% 7%;
+  margin: 3% 7% 9% 7%;
 }
 
 .item-result-lodging{
@@ -1545,7 +1552,7 @@ input[type="text"] .form-control{
 .info-item-lodging{
   width: 60%;
   height: auto;
-  margin-left: 1%;
+  margin-left: 3%;
 }
 
 .info-item-lodging-firstpart{
@@ -1558,12 +1565,12 @@ input[type="text"] .form-control{
 }
 
 .title-item-lodging h3{
-  font-size: 15px;
+  font-size: 17px;
 }
 
 
 .price-item-lodging{
-  width: 50%;
+  width: 100%;
   font-size: 12px;
   /*text-align: right;
   margin: 13px 20px;*/
@@ -1582,24 +1589,29 @@ input[type="text"] .form-control{
 .info-item-lodging-lastpart{
   display: inline-flex;
   width: 100%;
-  height: auto;
+  height: 40%;
   margin-top: 1%;
 }
 
 .description-item-lodging{
   width: 30%;
+  margin: auto;
 }
 
 .mainfeatures-item-lodging{
   display: inline-flex;
   width: 70%;
-  margin-top: 4%;
+  margin: auto;
   justify-content: flex-end;
 }
 
 .imp-feat-II{
   width: 30%;
   text-align: center;
+}
+
+.imp-feat-II p{
+  display: none;
 }
 
 .imp-feat-II img{
@@ -1642,6 +1654,8 @@ input[type="text"] .form-control{
 }
 
 .main-detail-study{
+  display: flex;
+  flex-flow: row wrap;
   width: 60%;
   margin: 21px 39px 0px 55px;
 }
@@ -1649,19 +1663,19 @@ input[type="text"] .form-control{
 .acomodacion-study{
   width: 100%;
   text-align: left;
-  margin: 0 0 0 20%;
+  margin: 0 0 0 0;
   font-family: "Source Sans Pro", sans-serif;
 }
 
 .title-cont-study{
-  margin: 0 0 0 20%;
+  margin: 0 0 0 0;
   width: 100%;
   font-family: "Source Sans Pro", sans-serif;
 }
 
 .study-location-title{
   width: 100%;
-  margin: 0 0 4% 20%;
+  margin: 0 0 4% 0;
   display: inline-flex;
 }
 
@@ -1674,6 +1688,7 @@ input[type="text"] .form-control{
 .study-price{
   width: 40%;
   font-size: 20px;
+  text-align: right;
 }
 
 .main-content-study{
@@ -1682,7 +1697,7 @@ input[type="text"] .form-control{
 }
 
 .details-studio{
-  width: 72%;
+  width: 100%;
   height: auto;
 }
 
@@ -1782,7 +1797,6 @@ input[type="text"] .form-control{
 .contact h4{
   font-size: 12px;
 }
-
 /* DETAIL ENTREPRENEURSHIP */
 
 .btnAplicarentrepreneurship{
