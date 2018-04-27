@@ -1320,7 +1320,7 @@ footer {
   border-radius: 10px;
   box-shadow: 0 0 1px 1px rgba(20,23,28,.1), 0 3px 1px 0 rgba(20,23,28,.1);
   display: inline-flex;
-  height: 243;
+  height: 251;
 }
 
 .item-result-lodging:hover{
@@ -1334,7 +1334,7 @@ footer {
   border-bottom-left-radius: 10px;
 }
 
-.img-item-search{description-item-lodging
+.img-item-search{
   width: 100%;
   height: 100%;
 }
@@ -1377,11 +1377,19 @@ footer {
   display: inline-flex;
   width: 100%;
   height: auto;
-  margin-top: 1%;
+  margin-top: 3%;
 }
 
 .description-item-lodging{
   width: 30%;
+}
+
+.description-item-lodging img{
+  border-radius: 31px;
+}
+
+.description-item-lodging p{
+  font-size: 12px;
 }
 
 .mainfeatures-item-lodging{
