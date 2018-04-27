@@ -193,14 +193,6 @@
                   <p> Cupo {{ po.maximum_quota }} </p>
                 </div>
             </div>
-              {% comment %}
-              {% if po.created_by.first_name %}
-                  <p>Publicada por: {{ po.created_by.get_long_name }}</p>
-              {% endif %}
-              {% if po.created_by.get_enterprise_name %}
-                  <p>Publicada por: {{ po.created_by.get_enterprise_name }}</p>
-              {% endif %}
-              {% endcomment %}
           </div>
         </div>
       </div>
@@ -234,6 +226,7 @@
         </div>
          <div class="info-item-lodging-lastpart">
            <div class="description-item-lodging">
+               <p>{{ offers.created_by.get_long_name }}</p>
                {% if offers.created_by.avatar %}
                  <a href="{% url 'accounts:detail' offers.created_by.slug %}">
                    <img src="{{ offers.created_by.avatar.url }}" width="50" height="50" class="img-responsive">

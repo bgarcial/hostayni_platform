@@ -146,7 +146,7 @@
     {% for po in offers_paid %}
     <div class="item-result-lodging" >
       <div class="img-item-container">
-        <a href="{% url 'offer:detail' po.slug %}">
+        <a href="{% url 'daily_life_offer:detail' po.slug %}">
             <div class="img-item-search">
                 {% if po.photo %}
                      <img src="{{ po.photo.url }}" width="auto" height="100%" alt="">

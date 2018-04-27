@@ -80,14 +80,18 @@
             <p> Intensidad {{ studyofferdetail.maximum_quota }} </p>
           </div>
         </div>
+        {% if studyofferdetail.academic_mobility_programs %}
         <div class="cont amenities">
           <div class="servicios-ofrecidos-container"/>
             <h3>Detalles de la oferta</h3>
             <div class="servicios-ofrecidos-study">
                 <img src="{% static 'img/icons/diary-button.svg' %}" alt="">
-                <span> {{ studyofferdetail.academic_mobility_programs }} </span>
+
+                    <span> {{ studyofferdetail.academic_mobility_programs }} </span>
+
             </div>
-          </div>
+        </div>
+        {% endif %}
           <div class="descripcion-container">
             <h3>Descripción Adicional</h3>
             <div class="container">
