@@ -334,11 +334,16 @@ article {
     margin-left: 10px;
     font-size: 80%;
     text-align: right;
+    margin-top: 10%;
   }
 
   article .article-author{
     width: 50%;
     font-size: 90%;
+  }
+
+  article .article-author img{
+    border-radius: 5px;
   }
 
   article .medium-post{
@@ -399,14 +404,14 @@ article {
 .first_part_postinfo{
   display: flex;
   flex-flow: row wrap;
-  height: 10%;
+  height: 7%;
   width: 100%;
 }
 
 .second_part_postinfo{
   display: flex;
   flex-flow: row wrap;
-  height: 3%;
+  height: 11%;
   width: 100%
 }
 
