@@ -232,6 +232,7 @@
   ofertas (todas las que haya publicado) y articulos{% endcomment %}
   {% if object.profile.user.slug != userprofile.user.slug %}
 
+      {% comment %} Si existen ARTÍCULOS de este usuario, muéstrelos {% endcomment %}
       {% if articles %}
           <h4>Artículos</h4>
           {% for article in articles %}
@@ -252,6 +253,7 @@
       {% endif %}
 
 
+    {% comment %} Si existen ofertas de ALOJAMIENTO de este usuario, muéstrelas {% endcomment %}
     {% if lodging_offers %}
         <h4>Ofertas de alojamiento</h4>
       {% for offers in lodging_offers %}
@@ -272,7 +274,7 @@
       {% endfor %}
     {% endif %}
 
-
+    {% comment %} Si existen ofertas de AYNI de este usuario, muéstrelas {% endcomment %}
     {% if ayni_offers %}
         <h4>Ofertas de AYNI</h4>
       {% for offers in ayni_offers %}
@@ -294,6 +296,7 @@
     {% endif %}
 
 
+    {% comment %} Si existen ofertas de VIDA DIARIA de este usuario, muéstrelas {% endcomment %}
     {% if daily_life_offers %}
         <h4>Ofertas de Vida Diaria</h4>
       {% for offers in daily_life_offers %}
@@ -315,6 +318,7 @@
     {% endif %}
 
 
+    {% comment %} Si existen ofertas EDUCATIVAS de este usuario, muéstrelas {% endcomment %}
     {% if educational_offers %}
         <h4>Ofertas Educativas</h4>
         {% for offers in educational_offers %}
@@ -336,7 +340,7 @@
     {% endif %}
 
 
-
+    {% comment %} Si existen ofertas de EMPRENDIMIENTO de este usuario, muéstrelas {% endcomment %}
     {% if entrepreneurship_offers %}
         <h4>Ofertas de Emprendimiento</h4>
       {% for offers in entrepreneurship_offers %}
