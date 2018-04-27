@@ -32,4 +32,4 @@ class DailyLifeOfferImagesForm(forms.ModelForm):
 
 class DailyLifeOfferSearchForm(forms.Form):
     query = forms.CharField(label='', widget=forms.TextInput(
-        attrs={'placeholder': 'Buscar por: '}))
+        attrs={'placeholder': 'Buscar por: País, ciudad, Tipo de Oferta '}))
