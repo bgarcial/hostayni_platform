@@ -100,7 +100,7 @@ header {
       height: auto;
       width: 59%;
       margin: 10% 0 0 0;
-      justify-content: center; }
+      justify-content: flex-end; }
 
       header .profile-options .name-options-cont .name {
         color: #706f6f;
@@ -111,7 +111,7 @@ header {
           text-align: right;
           cursor: pointer; }
       header .profile-options .name-options-cont .options {
-        width: 60px;
+        width: 25px;
         margin: 0 0 0 0; }
         header .profile-options .name-options-cont .options p {
           font-size: 0.9em; }
@@ -204,7 +204,7 @@ main {
 .icons{
   display: flex;
   flex-flow: row wrap;
-  width: 30%;
+  width: 40%;
   margin-left: 2.5%;
   margin-right: 2%;
   justify-content: center;
@@ -217,11 +217,11 @@ main {
   flex: 0 0 8%;
   margin: 1px;
   align-items: center;
-  margin: 4.5% 5px 0px 5px;
+  margin: 2.5% 5px 0px 5px;
 }
 
 .icons .pic_icon img{
-  height: 68%;
+  height: 81%;
 }
 
 .search_ele{
@@ -1428,6 +1428,17 @@ input[type="text"] .form-control{
 .imp-feat-II{
   width: 30%;
   text-align: center;
+}
+
+.imp-feat-II-entrepreneurship{
+  width: 30%;
+  text-align: center;
+  font-size: 10px;
+}
+
+.imp-feat-II-entrepreneurship img{
+  width: 32px;
+  height: 32px;
 }
 
 .imp-feat-II img{

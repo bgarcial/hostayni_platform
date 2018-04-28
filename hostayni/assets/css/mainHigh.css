@@ -101,7 +101,7 @@ header {
       height: auto;
       width: 70%;
       margin: 5% 0 0 0;
-      justify-content: center; }
+      justify-content: flex-end; }
 
       header .profile-options .name-options-cont .name {
         color: #706f6f;
@@ -111,8 +111,8 @@ header {
           text-align: right;
           cursor: pointer; }
       header .profile-options .name-options-cont .options {
-        width: 60px;
-        margin: 0 0 0 0; }
+        width: 25px;
+        margin: 0 0 0 3px; }
         header .profile-options .name-options-cont .options p {
           font-size: 0.9em; }
         header .profile-options .name-options-cont .options img {
@@ -1402,6 +1402,17 @@ footer {
 .imp-feat-II{
   width: 30%;
   text-align: center;
+}
+
+.imp-feat-II-entrepreneurship{
+  width: 30%;
+  text-align: center;
+  font-size: 10px;
+}
+
+.imp-feat-II-entrepreneurship img{
+  width: 32px;
+  height: 32px;
 }
 
 .imp-feat-II img{
