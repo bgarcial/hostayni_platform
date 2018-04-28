@@ -1173,6 +1173,10 @@ footer {
   margin: 90px 2px 10px 10px;
 }
 
+.search-column-lodging-low{
+  display: none;
+}
+
 .icon-lodging{
   margin: 0 0 15px 0;
 }
