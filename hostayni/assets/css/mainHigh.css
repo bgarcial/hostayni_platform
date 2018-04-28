@@ -1149,6 +1149,14 @@ footer {
   margin: 1% 3% 0 0;
 }
 
+.add-images-container-low{
+  display: none;
+}
+
+.apply-info-detail{
+  display: none;
+}
+
 .main-content-lodging{
   font-size: 12px;
   text-align: center;
