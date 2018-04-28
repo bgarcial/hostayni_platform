@@ -11,7 +11,8 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="shortcut icon" href="{% static 'img/favicons/favicon.ico' %}" type="image/x-icon">
-    <link rel="stylesheet" media="screen and (min-width:0px) and (max-width:767px)" href="{% static 'css/mainLow.css' %}">
+    <link rel="stylesheet" media="screen and (min-width:0px) and (max-width:390px)" href="{% static 'css/mainLow_Mobile.css' %}">
+    <link rel="stylesheet" media="screen and (min-width:390px) and (max-width:767px)" href="{% static 'css/mainLow.css' %}">
     <link rel="stylesheet" media="screen and (min-width:767px) and (max-width:1160px)" href="{% static 'css/mainMedium.css' %}">
     <!-- <link rel="stylesheet" media="screen and (min-width:1150px) and (max-width: 1250px)" href="{% static 'css/mainHigh.css' %}"> -->
     <link rel="stylesheet" media="screen and (min-width:1160px)" href="{% static 'css/mainHigh.css' %}">
@@ -130,11 +131,13 @@ s.setAttribute('data-timestamp', +new Date());
                     <div class="profile-options-low">
                       <div class="img-low">
                           {% if userprofile.user.avatar %}
-                               <a href="{% url 'accounts:detail' userprofile.user.slug %}">
+                               <!-- <a href="{% url 'accounts:detail' userprofile.user.slug %}"> -->
+                               <a href="#">
                                   <img src="{{ userprofile.user.avatar.url }}" width="100" height="100" class="img-responsive">
                                </a>
                           {% else %}
-                              <a href="{% url 'accounts:detail' userprofile.user.slug %}">
+                              <!-- <a href="{% url 'accounts:detail' userprofile.user.slug %}"> -->
+                              <a href="#">
                                   <img src="{% static 'img/default_profile_pic.png' %}" class="img-responsive">
                               </a>
                           {% endif %}

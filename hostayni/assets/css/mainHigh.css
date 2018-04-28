@@ -122,8 +122,8 @@ header {
         header .profile-options .name-options-cont .options .drop-down {
           display: none;
           position: relative;
-          top: 0;
-          right: 127px;
+          top: 7;
+          right: 186px;
           width: 200px;
           height: auto;
           padding: 13px;
@@ -1154,6 +1154,11 @@ footer {
   text-align: center;
 }
 
+.main-content-lodging img{
+  width: 68%;
+  height: auto;
+}
+
 .post-body-lodging{
   width: auto;
   height: 20%;
@@ -1781,6 +1786,7 @@ footer {
     height: 200px;
     box-shadow: 0 0 1px 1px rgba(20,23,28,.1), 0 3px 1px 0 rgba(20,23,28,.1);
     flex: 0 0 30%;
+    border-radius: 10px;
   }
 
   .publish-post:hover{
@@ -1892,6 +1898,11 @@ footer {
     height: 190px;
     box-shadow: 0 0 1px 1px rgba(20,23,28,.1), 0 3px 1px 0 rgba(20,23,28,.1);
     flex: 0 0 30%;
+    border-radius: 10px;
+  }
+
+  .history-post .history-each-post .media:hover{
+    box-shadow: 0 0 79px 19px rgba(20,23,28,.1), 0 3px 1px 0 rgba(20,23,28,.1);
   }
 
   .author-post-precontent{
