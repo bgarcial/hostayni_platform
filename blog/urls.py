@@ -32,14 +32,12 @@ urlpatterns = [
 
     url(r'^$', views.ArticleListView.as_view(), name='article_list'),
 
-
+    url(r'^category/(\d+)$', views.categories, name='category'),
 
 
     # url(r'^article/(?P<slug>[\w.\-]+)/$', article_detail, name='detail'),
 
-    url(r'^articles/by/u/@(?P<email>[-\w]+)/$',
-        views.articles_by_user, name='list'
-    ),
+    url(r'^articles/by/u/@(?P<email>[-\w]+)/$',views.articles_by_user, name='list'),
 
     # url(r'^article/(?P<pk>\d+)/$', views.ArticleDetailView.as_view(),
     #    name='article_detail'),

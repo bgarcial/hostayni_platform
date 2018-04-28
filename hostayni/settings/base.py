@@ -61,6 +61,7 @@ INSTALLED_APPS = [
     'haystack',
     # 'mail_panel',
     # https://github.com/scuml/django-mail-panel
+    'pagedown',
     'phonenumber_field',
     'rest_framework',
     # 'smart_selects',

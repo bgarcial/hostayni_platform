@@ -13,6 +13,9 @@ h1 {
 {% endblock style %}
 </style>
 -->
+
+
+
 {% block body_content %}
 
 <div class="article-container">
@@ -52,14 +55,7 @@ h1 {
           <div class="name-review-author">
             {% comment %} A quien corresponda {% endcomment %}
             <a href="{% url 'accounts:detail' instance.author.slug %}">
-                {% if instance.author.get_long_name %}
                 <span>{{ instance.author.get_long_name }}</span><br/>
-                <span>@{{ instance.author.username }}</span>
-                {% endif %}
-                {% if instance.author.get_enterprise_name %}
-                <span>{{ instance.author.get_enterprise_name }}</span>
-                <span>@{{ instance.author.username }}</span>
-                {% endif %}
             </a>
           </div>
           <div class="date">
@@ -108,23 +104,8 @@ h1 {
             <div class="side-icon">
                 <img src="{% static 'img/icons/blog-icon.svg' %}" alt="">
             </div>
-            <div class="main-text">
-                {{ instance.content|linebreaks }}<br/>
-
-
-                {% comment %}
-                Forma en como se ha distribuido el cuerpo del articulo
-                <h4>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent maximus nisi lorem, eu sodales risus cursus non. Quisque urna nulla, fermentum eget sagittis eu, egestas id eros. Praesent ante justo, ullamcorper vitae nisl blandit, tincidunt rhoncus justo. Vivamus hendrerit semper vestibulum.</h4>
-                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent maximus nisi lorem, eu sodales risus cursus non. Quisque urna nulla, fermentum eget sagittis eu, egestas id eros. Praesent ante justo, ullamcorper vitae nisl blandit, tincidunt rhoncus justo. Vivamus <a href="#">hendrerit semper vestibulum</a>. Maecenas fermentum felis consequat, suscipit magna ac, pulvinar quam. Aliquam vestibulum, nulla sed viverra tempus, ligula tortor auctor felis, sed feugiat nibh ipsum a velit. Praesent maximus nisi lorem, eu sodales risus cursus non. Quisque urna nulla, fermentum eget sagittis eu, egestas id eros. Praesent ante justo,</p>
-                <!-- contenedor para imagenes que tiene la imagen y un pie de foto opcional -->
-                <div class="img-cont">
-                    <img src="img/medellin.jpg" alt="">
-                    <span>Pie de foto</span>
-                </div>
-                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent maximus nisi lorem, eu sodales risus cursus non. Quisque urna nulla, fermentum eget sagittis eu, egestas id eros. Praesent ante justo, ullamcorper vitae nisl blandit, tincidunt rhoncus justo. Vivamus <a href="#">hendrerit semper vestibulum</a>. Maecenas fermentum felis consequat, suscipit magna ac, pulvinar quam. Aliquam vestibulum, nulla sed viverra tempus, ligula tortor auctor felis, sed feugiat nibh ipsum a velit.</p>
-                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent maximus nisi lorem, eu sodales risus cursus non. Quisque urna nulla, fermentum eget sagittis eu, egestas id eros. Praesent ante justo, ullamcorper vitae nisl blandit, tincidunt rhoncus justo. Vivamus <a href="#">hendrerit semper vestibulum</a>. Maecenas fermentum felis consequat, suscipit magna ac, pulvinar quam. Aliquam vestibulum, nulla sed viverra tempus, ligula tortor auctor felis, sed feugiat nibh ipsum a velit.</p>
-                {% endcomment %}
-
+            <div class='main-text'>
+                <div class='content-markdown'>{{ instance.content }}</div><br/>
             </div>
         </div>
     </div>
