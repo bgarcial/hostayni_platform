@@ -50,7 +50,7 @@ class LodgingOffer(models.Model):
 
     ONE_GUEST = 'Para 1 huésped'
     TWO_GUESTS = 'Para 2 huéspedes'
-    THREE_GUESTS = 'Para 3 huéspede'
+    THREE_GUESTS = 'Para 3 huéspedes'
     FOUR_GUESTS = 'Para 4 huéspedes'
     FIVE_GUESTS = 'Para 5 huéspedes'
     SIX_GUESTS = 'Para 6 huéspedes'
