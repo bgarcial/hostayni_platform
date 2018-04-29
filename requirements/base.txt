@@ -9,6 +9,7 @@ django-countries==4.2
 django-extensions==1.7.7
 django-filter==1.0.4
 django-haystack==2.6.0
+django-pagedown==1.0.4
 django-phonenumber-field==1.2.0
 djangorestframework==3.6.4
 django-smart-selects==1.5.2
