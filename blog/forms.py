@@ -1,11 +1,13 @@
 from django import forms
 from blog.models import Article
 from django.utils.text import slugify
+from pagedown.widgets import PagedownWidget
 
 
 class ArticleForm(forms.ModelForm):
 
-    content = forms.CharField(label='Contenido', widget=forms.Textarea(attrs={'placeholder': 'Contenido'}))
+    # content = forms.CharField(label='Contenido', widget=forms.Textarea(attrs={'placeholder': 'Contenido'}))
+    content = forms.CharField(label='Contenido', widget=PagedownWidget())
     ad = "Nuevo artículo"
 
     class Meta:

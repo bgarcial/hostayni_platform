@@ -4,13 +4,25 @@
 
 {% block extrahead %}   {# Extra Resources Start #}
    {{ form.media }}        {# Form required JS and CSS #}
-{% endblock %}          {# Extra Resources End #}
-
+{% endblock %}
 {% block title_tag %}Mi cuenta en {{ block.super }}{% endblock %}
 
 
 
 {% block body_content %}
+
+<script type="text/javascript">
+    $(function () {
+        $('#datepickerbirth').datepicker({
+            inline: true,
+            sideBySide: true,
+            autoclose: true,
+            format: 'yyyy-mm-dd',
+            todayHighlight: true,
+            useCurrent: true,
+        });
+    });
+</script>
 
 
 <div class="offert-form">

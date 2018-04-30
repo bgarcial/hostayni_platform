@@ -31,15 +31,17 @@ from django.db.models import Q
 # ****--- fbv CRUD blog posts ---*****
 
 def categories(request, id):
+
     categories = Category.objects.all()
     cat = Category.objects.get(pk=id)
     articles = Article.objects.filter(category=cat)
     context = {
         'categories': categories,
-        # 'cat': cat,
-        # 'articles': articles,
+        'cat': cat,
+        'articles': articles,
     }
     return render(request, 'hostayni/home.html', context)
+
 @login_required
 def article_create(request):
     user = request.user

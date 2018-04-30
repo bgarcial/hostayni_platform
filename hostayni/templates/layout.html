@@ -21,10 +21,14 @@
     <!-- <link rel="stylesheet" href="css/main.css"> -->
       <!-- Bootstrap CSS
     <link href="{% static 'css/bootstrap.min.css' %}"> -->
+
+    <!-- First jQuery -->
     <script src="https://code.jquery.com/jquery-3.2.1.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
+    <!-- First jQuery end -->
+
     <script type="text/javascript" src="{% static 'js/main.js' %}"></script>
 
-    {% block extrahead %} {# Embeds Extra Resources #}
+    {% block extrahead %} {# Embeds Extra Resources like bootstrap datefield and pagedown #}
     {% endblock %}        {# Ends Extra Resources #}
     <style>
         /* CSS styles to top green messages*/
@@ -91,6 +95,48 @@ s.setAttribute('data-timestamp', +new Date());
 
 
 {% comment %}end Disqus plugin comment{% endcomment %}
+
+<!-- Second jQuery
+    <script src="http://code.jquery.com/jquery-2.2.4.min.js" integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44="
+			  crossorigin="anonymous"></script>
+<!-- Second jQuery end -->
+<!-- Marked -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/marked/0.3.19/marked.min.js"></script>
+<!-- Marked end -->
+    <script type="text/javascript">
+        $(document).ready(function(){
+            $(".content-markdown").each(function(){
+                /* Llamamos a la clase content-markdown y le aplicamos
+                * el atributo text para que abarque lo que contenga*/
+                var content = $(this).text();
+                console.log(content);
+                var markedContent = marked(content);
+                console.log(markedContent);
+                $(this).html(markedContent)
+            })
+            /*Si existe un tag img dentro de content-markdown
+            * apliquele la clase img-responsive**/
+            $(".content-markdown img").each(function(){
+                $(this).addClass("img-responsive");
+            })
+        })
+    </script>
+
+
+    <!-- Marked end
+    <script type="text/javascript">
+        $(document).ready(function(){
+            $(".content-markdown").each(function(){
+                var content = $(this).text()
+                console.log(content)
+                var markedContent = marked(content)
+                console.log(markedContent)
+                $(this).html(markedContent)
+            })
+        })
+    </script>
+    -->
+
 
 
     <div class="wrapper">
@@ -566,7 +612,7 @@ s.setAttribute('data-timestamp', +new Date());
                  // y en el contenido del post, por eso estas dos variables arriba declaradas postContent y container
                  // POst original
                  postContent = "<div class=\"post-content\"><span class='content'>" + postValue.content + "</span></div>" + "<div class=\"post-author-fecha\"><div class=\"post-author\"><a href='" + postValue.user.url + "'>" + postValue.user.username +
-                     "</a></div>" + "<div class=\"post-date\">" + postValue.date_display + "</div></div>" +
+                     "</a></div>" + "<div class=\"post-date\">" + postValue.date_display + "</div></div>" + "<a href='/post/" + postValue.id +"'>View</a> | " +
                      "<div class=\"post-interaction\"><div class=\"post-repost\"><a class='repostBtn' href='/post/" + postValue.id + "/repost/'>Compartir</a></div>" + "<div class=\"post-liked\"><a href='#' " +
                      "class='post-like' data-id='"+ postValue.id + "'>" + verb + " (" + postValue.likes + ")</a></div>"
                     + "<div class=\"post-comentar\"><a href='#' " + "class='post-reply' data-user='" + postValue.user.username + "'  data-id='"+ replyId + "'>Comentar</a></div></div>"
@@ -809,6 +855,9 @@ s.setAttribute('data-timestamp', +new Date());
             }
         })
     </script>
+
+
+
 
       <!--  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script> -->
 
