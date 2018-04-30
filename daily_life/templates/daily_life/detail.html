@@ -81,6 +81,7 @@
       <a class='glyphicon glyphicon-trash' href = "{% url 'daily_life_offer:delete' slug=dailylife.slug %}"></a></p>
       {% endif %}
   </div>
+
   <div class="info-offer-detail"/>
     <div class="acomodacion-lodging">
         <h4>{{ dailylife.offer_type }}</h4>
@@ -97,86 +98,6 @@
       </div>
     </div>
 
-    <div class="apply-info-detail">
-      <!-- Search column -->
-      <div class="search-column-lodging-low">
-          <div class="post-column-lodging">
-              <div class="info-lodging">
-                  <div class="autor-lodging">
-                      <div class="profile-lodging">
-                          <div class="img-cont-lodging">
-                              {% if object.created_by.avatar %}
-                              <a href="{% url 'accounts:detail' object.created_by.slug %}">
-                                  <img src="{{ object.created_by.avatar.url }}" alt="" class="img-responsive">
-                              </a>
-                              {% else %}
-                                   <a href="{% url 'accounts:detail' object.created_by.slug %}">
-                                     <img src="{% static 'img/default_profile_pic.png' %}" class="img-responsive">
-                                   </a>
-                              {% endif %}
-                          </div>
-                          <div class="name-review-cont-lodging">
-                              {% comment %} A quien corresponda {% endcomment %}
-                               <a href="{% url 'accounts:detail' object.created_by.slug %}">
-                                      <span>{{ object.created_by.get_long_name }} <br/>@{{ object.created_by.username }}</span>
-                               </a>
-
-                              {% comment %}
-                              <img src="{% static 'img/stars.svg' %}" alt="">
-
-                              <div class="average">
-                                  <span>546</span>
-                                  <span>valoraciones</span>
-                              </div>
-                              {% endcomment %}
-                          </div>
-                      </div>
-                  </div>
-                  <div class="date-lodging-publish">
-                      <span>{{ object.pub_date }}</span>
-                  </div>
-
-
-
-                  {% if object.created_by_id != userprofile.user.id %}
-                  <div class="contact">
-                    <a class="btnAplicarDailyLife" href="
-                    {% url 'daily_life_offer:contact_owner_offer' offer_owner=offer_owner offer_owner_email=offer_owner_email interested_full_name=interested_full_name interested_email=interested_email offer_title=offer_title offer_url=offer_url %}">
-                      Aplicar
-                    </a>
-                                <h4 align="justify">Al hacer clic en <strong>Aplicar</strong>, se enviará una notificación de correo electrónico
-                                al dueño de la oferta y al usuario interesado en ella.</h4>
-                  </div>
-                  {% endif %}
-
-                  {% comment %}
-                  <div class="review">
-                      <p class="title">Calificación de la oferta</p>
-                      <img src="{% static 'img/stars.svg' %}" alt="">
-                      <div class="average">
-                          <span>546</span>
-                          <span>valoraciones</span>
-                      </div>
-                  </div>
-                   {% endcomment %}
-              </div>
-
-          </div>
-      </div>
-
-      <div class="add-images-container-low">
-          {% if dailylife.created_by_id == userprofile.user.id %}
-          <div class="main-content-lodging">
-            <a href="{% url 'daily_life_offer:edit_images' slug=dailylife.slug %}">
-                <img src="{% static 'img/icons/photo.svg' %}" alt=""> Agregar/Editar </a>
-          </div>
-          <p><a class='glyphicon glyphicon-pencil' href = "{% url 'daily_life_offer:edit' slug=dailylife.slug %}"></a>
-    &nbsp;&nbsp;&nbsp;&nbsp;| &nbsp;&nbsp;&nbsp;&nbsp;
-          <a class='glyphicon glyphicon-trash' href = "{% url 'daily_life_offer:delete' slug=dailylife.slug %}"></a></p>
-          {% endif %}
-      </div>
-    </div>
-
         {% comment %}
         <div class="post-body-lodging">
 
@@ -188,7 +109,86 @@
         </div>
         {% endcomment %}
 
+        <div class="apply-info-detail">
+          <!-- Search column -->
+          <div class="search-column-lodging-low">
+              <div class="post-column-lodging">
+                  <div class="info-lodging">
+                      <div class="autor-lodging">
+                          <div class="profile-lodging">
+                              <div class="img-cont-lodging">
+                                  {% if object.created_by.avatar %}
+                                  <a href="{% url 'accounts:detail' object.created_by.slug %}">
+                                      <img src="{{ object.created_by.avatar.url }}" alt="" class="img-responsive">
+                                  </a>
+                                  {% else %}
+                                       <a href="{% url 'accounts:detail' object.created_by.slug %}">
+                                         <img src="{% static 'img/default_profile_pic.png' %}" class="img-responsive">
+                                       </a>
+                                  {% endif %}
+                              </div>
+                              <div class="name-review-cont-lodging">
+                                  {% comment %} A quien corresponda {% endcomment %}
+                                   <a href="{% url 'accounts:detail' object.created_by.slug %}">
+                                          <span>{{ object.created_by.get_long_name }} <br/>@{{ object.created_by.username }}</span>
+                                   </a>
 
+                                  {% comment %}
+                                  <img src="{% static 'img/stars.svg' %}" alt="">
+
+                                  <div class="average">
+                                      <span>546</span>
+                                      <span>valoraciones</span>
+                                  </div>
+                                  {% endcomment %}
+                              </div>
+                          </div>
+                      </div>
+                      <div class="date-lodging-publish">
+                          <span>{{ object.pub_date }}</span>
+                      </div>
+
+                      {% comment %}
+                      <div class="review">
+                          <p class="title">Calificación de la oferta</p>
+                          <img src="{% static 'img/stars.svg' %}" alt="">
+                          <div class="average">
+                              <span>546</span>
+                              <span>valoraciones</span>
+                          </div>
+                      </div>
+                       {% endcomment %}
+                  </div>
+
+              </div>
+          </div>
+
+          {% if object.created_by_id != userprofile.user.id %}
+          <div class="contact-low">
+            <a class="btnAplicarDailyLife" href="
+            {% url 'daily_life_offer:contact_owner_offer' offer_owner=offer_owner offer_owner_email=offer_owner_email interested_full_name=interested_full_name interested_email=interested_email offer_title=offer_title offer_url=offer_url %}">
+              Aplicar
+            </a>
+            <h4 align="justify">Al hacer clic en <strong>Aplicar</strong>, se enviará una notificación de correo electrónico
+            al dueño de la oferta y al usuario interesado en ella.</h4>
+          </div>
+          {% endif %}
+
+          {% if dailylife.created_by_id == userprofile.user.id %}
+          <div class="add-images-container-low">
+
+              <div class="main-content-lodging">
+                <a href="{% url 'daily_life_offer:edit_images' slug=dailylife.slug %}">
+                    <img src="{% static 'img/icons/photo.svg' %}" alt=""> Agregar/Editar </a>
+              </div>
+              <div class="icons-add-images">
+              <p><a class='glyphicon glyphicon-pencil' href = "{% url 'daily_life_offer:edit' slug=dailylife.slug %}"></a>
+        &nbsp;&nbsp;&nbsp;&nbsp;| &nbsp;&nbsp;&nbsp;&nbsp;
+              <a class='glyphicon glyphicon-trash' href = "{% url 'daily_life_offer:delete' slug=dailylife.slug %}"></a></p>
+              </div>
+          </div>
+          {% endif %}
+        </div>
 
         <div class="details-alojamiento">
 

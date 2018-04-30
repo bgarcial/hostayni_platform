@@ -1295,6 +1295,13 @@ input[type="text"] .form-control{
   /*border-radius: 10px;*/
 }
 
+.servicios-ofrecidos-container-entrepreunership{
+  /*box-shadow: 0 0 1px 1px rgba(20,23,28,.1), 0 3px 1px 0 rgba(20,23,28,.1);*/
+  padding: 2px 15px;
+  margin-top: 13px;
+  /*border-radius: 10px;*/
+}
+
 .comodidades-destacadas-container{
   /*box-shadow: 0 0 1px 1px rgba(20,23,28,.1), 0 3px 1px 0 rgba(20,23,28,.1);*/
   padding: 2px 15px;
@@ -1957,6 +1964,29 @@ input[type="text"] .form-control{
 }
 
 .btnAplicarDailyLife:hover {
+  background-color: #d6d6d6;
+}
+
+/* DETAIL AYNI */
+
+.btnAplicarAyni{
+  background-color: #DDDB00;
+  border: none;
+  color: #FFFFFF;
+  text-align: center;
+  text-decoration: none;
+  /*display: inline-block;*/
+  display:block;
+  font-size: 16px;
+  cursor: pointer;
+  border-radius: 5px;
+  font-family: 'Source Sans Pro', sans-serif;
+  width: 150px;
+  height: 28px;
+  margin: 20px auto;
+}
+
+.btnAplicarAyni:hover {
   background-color: #d6d6d6;
 }
 
