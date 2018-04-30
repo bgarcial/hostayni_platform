@@ -158,21 +158,6 @@
                           <span>{{ lodgingofferdetail.pub_date }}</span>
                       </div>
 
-                      {% if lodgingofferdetail.created_by_id != userprofile.user.id %}
-                      <div class="contact">
-                        <a class="btnAplicarLodging" href="
-                        {% url 'host:contact_owner_offer' lodging_offer_owner_full_name=lodging_offer_owner_full_name lodging_offer_owner_email=lodging_offer_owner_email user_interested_full_name=user_interested_full_name  interested_email=user_interested_email lodging_offer_title=lodging_offer_title offer_url=offer_url %}">
-                        Aplicar</a>
-                        <!-- <a class="contact-button" href="
-                        {% url 'host:contact_owner_offer' lodging_offer_owner_full_name=lodging_offer_owner_full_name lodging_offer_owner_email=lodging_offer_owner_email user_interested_full_name=user_interested_full_name  interested_email=user_interested_email lodging_offer_title=lodging_offer_title offer_url=offer_url %}">
-                          <img src="{% static 'img/icons/social-lines.svg' %}" alt="">
-                          <span>Aplicar</span>
-                        </a> -->
-                                    <h4 align="justify">Al hacer clic en <strong>Aplicar</strong>, se enviará una notificación de correo electrónico
-                                    al dueño de la oferta y al usuario interesado en ella.</h4>
-                      </div>
-                      {% endif %}
-
                       {% comment %}
                       <div class="review">
                           <p class="title">Calificación de la oferta</p>
@@ -188,8 +173,24 @@
               </div>
           </div>
 
+          {% if lodgingofferdetail.created_by_id != userprofile.user.id %}
+          <div class="contact-low">
+            <a class="btnAplicarLodging" href="
+            {% url 'host:contact_owner_offer' lodging_offer_owner_full_name=lodging_offer_owner_full_name lodging_offer_owner_email=lodging_offer_owner_email user_interested_full_name=user_interested_full_name  interested_email=user_interested_email lodging_offer_title=lodging_offer_title offer_url=offer_url %}">
+            Aplicar</a>
+            <!-- <a class="contact-button" href="
+            {% url 'host:contact_owner_offer' lodging_offer_owner_full_name=lodging_offer_owner_full_name lodging_offer_owner_email=lodging_offer_owner_email user_interested_full_name=user_interested_full_name  interested_email=user_interested_email lodging_offer_title=lodging_offer_title offer_url=offer_url %}">
+              <img src="{% static 'img/icons/social-lines.svg' %}" alt="">
+              <span>Aplicar</span>
+            </a> -->
+            <h4 align="justify">Al hacer clic en <strong>Aplicar</strong>, se enviará una notificación de correo electrónico
+            al dueño de la oferta y al usuario interesado en ella.</h4>
+          </div>
+          {% endif %}
+
+          {% if lodgingofferdetail.created_by_id == userprofile.user.id %}
           <div class="add-images-container-low">
-              {% if lodgingofferdetail.created_by_id == userprofile.user.id %}
+
               <div class="main-content-lodging">
                 <a href="{% url 'host:edit_lodging_offer_uploads_image' slug=lodgingofferdetail.slug %}">
                     <img src="{% static 'img/icons/photo.svg' %}" alt=""> Agregar/Editar </a>
@@ -198,10 +199,10 @@
                 <p><a class='glyphicon glyphicon-pencil' href = "{% url 'host:edit-lodging-offer' slug=lodgingofferdetail.slug %}"></a>
           &nbsp;&nbsp;&nbsp;&nbsp;| &nbsp;&nbsp;&nbsp;&nbsp;
                 <a class='glyphicon glyphicon-trash' href = "{% url 'host:delete-lodging-offer' slug=lodgingofferdetail.slug %}"></a></p>
-              {% endif %}
+
             </div>
           </div>
-          <hr>
+          {% endif %}
         </div>
 
         <div class="details-alojamiento">

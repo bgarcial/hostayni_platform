@@ -1181,6 +1181,10 @@ footer {
   margin: 90px 2px 10px 10px;
 }
 
+.search-column-study-low{
+  display: none;
+}
+
 .search-column-lodging-low{
   display: none;
 }
@@ -1772,6 +1776,10 @@ footer {
   margin: 10px;
   width: 150px;
   height: auto;
+}
+
+.contact-low{
+  display: none;
 }
 
 /* PROFILE POST */

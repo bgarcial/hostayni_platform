@@ -1247,6 +1247,10 @@ input[type="text"] .form-control{
   display: none;
 }
 
+.search-column-study-low{
+  display: none;
+}
+
 .icon-lodging{
   margin: 0 0 15px 0;
 }
@@ -1935,6 +1939,10 @@ input[type="text"] .form-control{
   margin: 10px;
   width: 150px;
   height: auto;
+}
+
+.contact-low{
+  display: none;
 }
 
 /* PROFILE POST */

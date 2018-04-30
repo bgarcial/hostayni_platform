@@ -65,6 +65,85 @@
       </div>
     </div>
 
+    <div class="apply-info-detail">
+      <div class="search-column-study-low">
+          <div class="post-column-study">
+              <div class="info-study">
+                  <div class="autor-study">
+                      <div class="profile-study">
+                          <div class="img-cont-study">
+                              {% if studyofferdetail.created_by.avatar %}
+                              <a href="{% url 'accounts:detail' studyofferdetail.created_by.slug %}">
+                                  <img src="{{ studyofferdetail.created_by.avatar.url }}" alt="" class="img-responsive">
+                              </a>
+                              {% else %}
+                                   <a href="{% url 'accounts:detail' studyofferdetail.created_by.slug %}">
+                                     <img src="{% static 'img/default_profile_pic.png' %}" class="img-responsive">
+                                   </a>
+                              {% endif %}
+                          </div>
+                          <div class="name-review-cont-study">
+                              {% comment %} A quien corresponda {% endcomment %}
+                              <a href="{% url 'accounts:detail' object.created_by.slug %}">
+                                <span>{{ studyofferdetail.created_by.get_long_name }} <br/>@{{ studyofferdetail.created_by.username }}</span>
+                             </a>
+                              {% comment %}
+                              <img src="{% static 'img/stars.svg' %}" alt="">
+
+                              <div class="average">
+                                  <span>546</span>
+                                  <span>valoraciones</span>
+                              </div>
+                              {% endcomment %}
+                          </div>
+                      </div>
+                  </div>
+                  <div class="date-study-publish">
+                      <span>{{ studyofferdetail.pub_date }}</span>
+                  </div>
+
+                   {% comment %}
+                  <div class="review">
+                      <p class="title">Calificación de la oferta</p>
+                      <img src="{% static 'img/stars.svg' %}" alt="">
+                      <div class="average">
+                          <span>546</span>
+                          <span>valoraciones</span>
+                      </div>
+                  </div>
+                   {% endcomment %}
+              </div>
+
+
+          </div>
+      </div>
+
+      {% if studyofferdetail.created_by_id != userprofile.user.id %}
+      <div class="contact-low">
+          <a class="btnAplicarStudy" href="
+          {% url 'host:contact_study_owner_offer' study_offer_owner_full_name=study_offer_owner_full_name study_offer_owner_email=study_offer_owner_email user_interested_full_name=user_interested_full_name user_interested_email=user_interested_email study_offer_title=study_offer_title offer_url=offer_url %}">
+              Aplicar
+          </a>
+          <h4 align="justify">Al hacer clic en <strong>Aplicar</strong>, se enviará una notificación de correo electrónico
+          al dueño de la oferta y al usuario interesado en ella.</h4>
+      </div>
+      {% endif %}
+
+      {% if studyofferdetail.created_by_id == userprofile.user.id %}
+      <div class="add-images-container-low">
+
+          <div class="main-content-study">
+                <a href="{% url 'host:edit_study_offer_uploads' slug=studyofferdetail.slug %}">
+                <img src="{% static 'img/icons/photo.svg' %}" alt=""> Agregar/Editar </a>
+          </div>
+
+          <p><a class='glyphicon glyphicon-pencil' href = "{% url 'host:edit-study-offer' slug=studyofferdetail.slug %}"></a>
+    &nbsp;&nbsp;&nbsp;&nbsp;| &nbsp;&nbsp;&nbsp;&nbsp;
+  <a class='glyphicon glyphicon-trash' href = "{% url 'host:delete-study-offer' slug=studyofferdetail.slug %}"></a></p>
+      </div>
+      {% endif %}
+    </div>
+
     <div class="details-studio">
         <div class="important-features-study">
           <div class="imp-feat-study-I">
