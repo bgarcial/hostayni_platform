@@ -136,11 +136,12 @@
                 <a href="{% url 'host:edit_study_offer_uploads' slug=studyofferdetail.slug %}">
                 <img src="{% static 'img/icons/photo.svg' %}" alt=""> Agregar/Editar </a>
           </div>
-
+          <div class="icons-add-images">
           <p><a class='glyphicon glyphicon-pencil' href = "{% url 'host:edit-study-offer' slug=studyofferdetail.slug %}"></a>
     &nbsp;&nbsp;&nbsp;&nbsp;| &nbsp;&nbsp;&nbsp;&nbsp;
   <a class='glyphicon glyphicon-trash' href = "{% url 'host:delete-study-offer' slug=studyofferdetail.slug %}"></a></p>
       </div>
+    </div>
       {% endif %}
     </div>
 
@@ -161,7 +162,7 @@
         </div>
         {% if studyofferdetail.academic_mobility_programs %}
         <div class="cont amenities">
-          <div class="servicios-ofrecidos-container"/>
+          <div class="servicios-ofrecidos-container-study"/>
             <h3>Detalles de la oferta</h3>
             <div class="servicios-ofrecidos-study">
                 <img src="{% static 'img/icons/diary-button.svg' %}" alt="">

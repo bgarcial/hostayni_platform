@@ -1121,6 +1121,13 @@ input[type="text"] .form-control{
   border-radius: 10px;
 }
 
+.servicios-ofrecidos-container-study{
+  box-shadow: 0 0 1px 1px rgba(20,23,28,.1), 0 3px 1px 0 rgba(20,23,28,.1);
+  padding: 2px 15px;
+  margin-top: 13px;
+  border-radius: 10px;
+}
+
 .servicios-ofrecidos-container-entrepreunership{
   box-shadow: 0 0 1px 1px rgba(20,23,28,.1), 0 3px 1px 0 rgba(20,23,28,.1);
   padding: 2px 15px;
@@ -1577,6 +1584,11 @@ input[type="text"] .form-control{
 .main-content-study{
   font-size: 12px;
   text-align: center;
+}
+
+.main-content-study img{
+  width: 60px;
+  height: auto;
 }
 
 .details-studio{

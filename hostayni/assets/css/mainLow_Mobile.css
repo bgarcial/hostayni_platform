@@ -1257,7 +1257,9 @@ input[type="text"] .form-control{
 }
 
 .imp-feat-I{
-  width: 30%
+  width: 30%;
+  margin: auto;
+  text-align: center;
 }
 
 .imp-feat-I img{
@@ -1292,6 +1294,13 @@ input[type="text"] .form-control{
   padding: 2px 15px;
   margin-top: 13px;
   border-bottom: 1px solid gray;
+  /*border-radius: 10px;*/
+}
+
+.servicios-ofrecidos-container-study{
+  /*box-shadow: 0 0 1px 1px rgba(20,23,28,.1), 0 3px 1px 0 rgba(20,23,28,.1);*/
+  padding: 2px 15px;
+  margin-top: 13px;
   /*border-radius: 10px;*/
 }
 
@@ -1425,7 +1434,7 @@ input[type="text"] .form-control{
 }
 
 .main-content-lodging img{
-  width: 25%;
+  width: 50px;
   height: auto;
 }
 
@@ -1458,6 +1467,7 @@ input[type="text"] .form-control{
   width: 55px;
   height: auto;
   border-radius: 10%;
+  margin: auto;
 }
 
 .search-column-lodging .post-column-lodging .info-lodging .icon-lodging img{
@@ -1468,6 +1478,8 @@ input[type="text"] .form-control{
 .post-column-lodging{
   display: flex;
   flex-flow: row wrap;
+  margin: auto;
+  text-align: center;
 }
 
 
@@ -1811,6 +1823,11 @@ input[type="text"] .form-control{
   text-align: center;
 }
 
+.main-content-study img{
+  width: 50px;
+  height: auto;
+}
+
 .details-studio{
   width: 100%;
   height: auto;
@@ -1867,6 +1884,8 @@ input[type="text"] .form-control{
 .post-column-study{
   display: flex;
   flex-flow: row wrap;
+  margin: auto;
+  text-align: center;
 }
 
 .search-column-study .post-column-study .info-study .icon-study img{
@@ -1882,6 +1901,7 @@ input[type="text"] .form-control{
   width: 55px;
   height: auto;
   border-radius: 10%;
+  margin: auto;
 }
 
 .post-column-study{
