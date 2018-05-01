@@ -42,9 +42,11 @@ p {
     color: #706f6f; }
 
 header {
-  height: 60px;
+  height: 120px;
+  /*display: flex;
+  flex-flow: row wrap;*/
   display: flex;
-  flex-flow: row wrap;
+  flex-direction: column;
   box-shadow: 0 0 1px 1px rgba(20,23,28,.1), 0 3px 1px 0 rgba(20,23,28,.1);
   width: 100%;
   position: fixed;
@@ -54,6 +56,38 @@ header {
   justify-content: space-between;
   /*justify-content: space-evenly;*/
   }
+
+  .header-container {
+    height: 60px;
+    display: flex;
+    flex-flow: row wrap;
+    /*box-shadow: 0 0 1px 1px rgba(20,23,28,.1), 0 3px 1px 0 rgba(20,23,28,.1);*/
+    width: 100%;
+    z-index: 2;
+    justify-content: space-between;
+    }
+
+    .icons-header-low{
+      display: flex;
+      flex-flow: row wrap;
+      width: 100%;
+      justify-content: center;
+      height: 60px;
+      z-index: 1;
+      /*margin-top: 46px;
+      margin-bottom: 20px;*/
+    }
+
+    .pic_icon_low{
+      padding: 0;
+      flex: 0 0 43px;
+      margin: 1px;
+      align-items: center;
+      margin: 2.5% 4px 0px 4px;
+      /*margin-left: 3px;
+      margin-right: 3px;*/
+    }
+
   header .registration {
     display: flex;
     flex-flow: row wrap;
@@ -981,7 +1015,7 @@ input[type="text"] .form-control{
 .form-cont-signup-low{
   display: flex;
   flex-flow: row wrap;
-  margin: -9px 0px 0px 0px;
+  margin: 38px 0px 0px 0px;
   /*height: 77%;*/
   height: 90%;
   overflow: auto;
@@ -1501,6 +1535,7 @@ input[type="text"] .form-control{
 .container{
   width: 100%;
   padding: 0;
+  margin-top: 23px;
 }
 
 .carousel {
@@ -1562,6 +1597,7 @@ input[type="text"] .form-control{
 
 .banner-lodging-search{
   width: 100%;
+  margin-top: 23px;
 }
 
 .banner-lodging-search img{

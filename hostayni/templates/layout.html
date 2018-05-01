@@ -142,6 +142,9 @@ s.setAttribute('data-timestamp', +new Date());
     <div class="wrapper">
         <!-- Botones de registro e inicio de sesión -->
         <header>
+
+          <!-- header for high, medium and low resolutions -->
+          <div class="header-container">
           <!-- Icon for the logo -->
           <div class="logo_container">
 
@@ -337,6 +340,27 @@ s.setAttribute('data-timestamp', +new Date());
                         </div>
                     </div>
             {% endif %}
+          </div>
+
+          <!-- Icons for offers -->
+          <div class="icons-header-low">
+            <div class="pic_icon_low">
+              <a href="{% url 'host:hostingoffer-search' %}"><img src="{% static 'img/icons/Alojamiento.svg' %}" title="Ofertas de alojamiento" alt=""></a>
+            </div>
+            <div class="pic_icon_low">
+              <a href="{% url 'host:studyoffer-search' %}"><img src="{% static 'img/icons/Educacion.svg' %}" title="Ofertas de educación" alt=""></a>
+            </div>
+            <div class="pic_icon_low">
+              <a href="{% url 'offer:entrepreneurship_offer_search' %}"><img src="{% static 'img/icons/Emprendimiento.svg' %}" alt="" title="Ofertas de emprendimiento"></a>
+            </div>
+            <div class="pic_icon_low">
+              <a href="{% url 'daily_life_offer:search' %}"><img src="{% static 'img/icons/VidaDiaria.svg' %}" alt="" title="Ofertas de vida diaria"></a>
+            </div>
+            <div class="pic_icon_low">
+              <a href="{% url 'ayni_offer:search' %}"><img src="{% static 'img/icons/Ayni.svg' %}" alt="" title="Ofertas AYNI"></a>
+            </div>
+          </div>
+
         </header>
 
         <br/><br/><br/>

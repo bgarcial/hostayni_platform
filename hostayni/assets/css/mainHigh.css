@@ -54,6 +54,21 @@ header {
   z-index: 2;
   justify-content: space-between;
   }
+
+  .header-container {
+    height: 60px;
+    display: flex;
+    flex-flow: row wrap;
+    box-shadow: 0 0 1px 1px rgba(20,23,28,.1), 0 3px 1px 0 rgba(20,23,28,.1);
+    width: 100%;
+    position: fixed;
+    top: 0;
+    background-color: #ffffff;
+    z-index: 2;
+    justify-content: space-between;
+    }
+
+
   header .registration {
     display: flex;
     flex-flow: row wrap;
@@ -212,6 +227,10 @@ main {
   justify-content: center;
   /*margin-top: 50px;
   margin-bottom: 20px;*/
+}
+
+.icons-header-low{
+  display: none;
 }
 
 
