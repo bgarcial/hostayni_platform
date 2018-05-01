@@ -263,9 +263,9 @@ AWS_S3_CUSTOM_DOMAIN = 's3-sa-east-1.amazonaws.com/%s' % AWS_STORAGE_BUCKET_NAME
 
 #---- To S3 -----
 STATICFILES_LOCATION = 'assets'
-#STATICFILES_STORAGE = 'custom_storages.StaticStorage' # comment to  local
+# STATICFILES_STORAGE = 'custom_storages.StaticStorage' # comment to  local
 
-#STATIC_URL = "https://%s/%s/" % (AWS_S3_CUSTOM_DOMAIN, STATICFILES_LOCATION) # comment to local
+# STATIC_URL = "https://%s/%s/" % (AWS_S3_CUSTOM_DOMAIN, STATICFILES_LOCATION) # comment to local
 #---- To S3 end -----
 
 MEDIAFILES_LOCATION = 'media'
