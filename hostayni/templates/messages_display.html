@@ -1,9 +1,16 @@
-{% if messages %}
-<div class="messages">
-    <ul class="messages">
+<div class="container">
+    {% if messages %}
         {% for message in messages %}
-        <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{% if "html_safe" in message.tags%}{{ message|safe }}{% else %} {{ message }}{% endif %}</li>
+        <div class='alert {% if "success" in message.tags %}alert-success{% elif "warning" in message.tags%}alert-
+        warning{% elif "error" in message.tags %}alert-danger{% endif %} alert-dismissible' role='alert'>
+            <!-- Boton para cerrar el alert-->
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+             <!--End Boton para cerrar el alert
+                 Haciendo uso del Django messages framework-->
+                {% if "safe" in message.tags %}{{ message|safe }}{%else%}{{ message }}{% endif %}
+        </div>
         {% endfor %}
-    </ul>
+    {% endif %}
 </div>
-{% endif %}

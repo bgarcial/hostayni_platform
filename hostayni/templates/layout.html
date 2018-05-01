@@ -122,23 +122,6 @@ s.setAttribute('data-timestamp', +new Date());
         })
     </script>
 
-
-    <!-- Marked end
-    <script type="text/javascript">
-        $(document).ready(function(){
-            $(".content-markdown").each(function(){
-                var content = $(this).text()
-                console.log(content)
-                var markedContent = marked(content)
-                console.log(markedContent)
-                $(this).html(markedContent)
-            })
-        })
-    </script>
-    -->
-
-
-
     <div class="wrapper">
         <!-- Botones de registro e inicio de sesión -->
         <header>
@@ -340,25 +323,10 @@ s.setAttribute('data-timestamp', +new Date());
         </header>
 
         <br/><br/><br/>
-        <div class="container">
-            {% if messages %}
-                {% for message in messages %}
-                <div class='alert {% if "success" in message.tags %}alert-success{% elif "warning" in message.tags%}alert-
-                warning{% elif "error" in message.tags %}alert-danger{% endif %} alert-dismissible' role='alert'>
-                    <!-- Boton para cerrar el alert-->
-                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                     <!--End Boton para cerrar el alert
-                         Haciendo uso del Django messages framework-->
-                        {% if "safe" in message.tags %}{{ message|safe }}{%else%}{{ message }}{% endif %}
-                </div>
-                {% endfor %}
-            {% endif %}
-        </div>
+
+        {% include "messages_display.html" %}
+
         {% block body_content %}
-
-
         {% endblock body_content %}
 
 
