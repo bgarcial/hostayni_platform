@@ -4,8 +4,8 @@ from time import sleep
 
 from django.conf import settings
 from django.contrib import messages
-from django.db import transaction
-from django.forms import modelformset_factory
+# from django.db import transaction
+# from django.forms import modelformset_factory
 from django.http import HttpResponseNotModified, HttpResponse, HttpResponseRedirect, Http404
 from django.views.generic.edit import (CreateView, UpdateView,)
 from django.views.generic import DeleteView, ListView
@@ -217,8 +217,9 @@ def studies_offers_by_user(request, username):
 '''
 
 
-class LodgingOffersByUser(LoginRequiredMixin, UserProfileDataMixin, ListView):
+class LodgingOffersByUser(SuccessMessageMixin, LoginRequiredMixin, UserProfileDataMixin, ListView):
     template_name = 'hosts/lodgingoffer_list.html'
+    success_message = "ddsds"
 
     def get_queryset(self, *args, **kwargs):
         user = self.request.user
@@ -526,7 +527,7 @@ def contact_owner_offer(request, lodging_offer_owner_full_name, lodging_offer_ow
 
 class HostingOfferDeleteView(SuccessMessageMixin, UserProfileDataMixin, LoginRequiredMixin, DeleteView):
     model = LodgingOffer
-    success_url = reverse_lazy("articles:article_list")
+    # success_url = reverse_lazy("articles:article_list")
 
     # success_url = reverse_lazy("host:list")
     context_object_name = 'lodgingofferdelete'

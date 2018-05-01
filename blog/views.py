@@ -244,7 +244,7 @@ def article_delete(request, slug=None):
     return redirect("articles:article_list")
 
 
-def articles_by_user(request, email):
+def articles_by_user(request, username):
     user = request.user
     profile = user.profile
     articles = Article.objects.filter(author__username=user.username)
@@ -326,11 +326,14 @@ class ArticleUpdateView(LoginRequiredMixin, UserProfileDataMixin, UpdateView):
 
 class ArticleDeleteView(SuccessMessageMixin, LoginRequiredMixin, UserProfileDataMixin, DeleteView):
     model=Article
-    success_url = reverse_lazy('articles:article_list')
-    success_message = "Tu artículo ha sido eliminado exitsamente"
+    # success_url = reverse_lazy('articles:article_list')
+    success_message = "Tu artículo ha sido eliminado exitosamente"
 
-    #def get_success_url(self):
-    #    return reverse_lazy('articles:list', kwargs={'slug': self.kwargs['slug']})
+    def get_success_url(self):
+        articles = self.get_object()
+        # print(entrepreneurship_offer)
+        # return reverse_lazy("offer:list", kwargs={'created_by': entrepreneurship_offer.created_by.username})
+        return reverse_lazy("articles:list", kwargs={'username': articles.author.username})
 
     '''
     def get_context_data(self, **kwargs):

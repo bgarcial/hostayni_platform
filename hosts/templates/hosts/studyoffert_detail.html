@@ -157,7 +157,11 @@
           </div>
           <div class="imp-feat-study-I">
             <img src="{% static 'img/icons/diary-button.svg' %}" alt="">
-            <p> Intensidad {{ studyofferdetail.maximum_quota }} </p>
+            <p> Intensidad {{ studyofferdetail.intensity }} </p>
+          </div>
+            <div class="imp-feat-study-I">
+            <img src="{% static 'img/icons/diary-button.svg' %}" alt="">
+            <p> Cupos {{ studyofferdetail.maximum_quota }} </p>
           </div>
         </div>
         {% if studyofferdetail.academic_mobility_programs %}
