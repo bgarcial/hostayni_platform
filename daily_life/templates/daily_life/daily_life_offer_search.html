@@ -246,7 +246,29 @@
          </div>
          <div class="mainfeatures-item-lodging">
              <div class="imp-feat-II">
-               <img src="{% static 'img/icons/diary-button.svg' %}" alt="">
+               {% if offers.offer_type == 'Turismo' %}
+                <img src="{% static 'img/icons/vidadiaria/Turismo.svg' %}" title="Turismo" alt="">
+               {% elif offers.offer_type == 'Salud y bienestar' %}
+                <img src="{% static 'img/icons/vidadiaria/Salud-Y-Bienestar.svg' %}" title="Salud y bienestar" alt="">
+               {% elif offers.offer_type == 'Transporte' %}
+                <img src="{% static 'img/icons/vidadiaria/Transporte.svg' %}" title="Transporte" alt="">
+               {% elif offers.offer_type == 'Deporte' %}
+                <img src="{% static 'img/icons/vidadiaria/Deporte.svg' %}" title="Deporte" alt="">
+               {% elif offers.offer_type == 'Compras' %}
+                <img src="{% static 'img/icons/vidadiaria/Compras.svg' %}" title="Compras" alt="">
+               {% elif offers.offer_type == 'Gastronomía' %}
+                <img src="{% static 'img/icons/vidadiaria/Gastronomia.svg' %}" title="Gastronomía" alt="">
+               {% elif offers.offer_type == 'Actividades al aire libre' %}
+                <img src="{% static 'img/icons/vidadiaria/Actividades-al-aire-libre.svg' %}" title="Actividades al aire libre" alt="">
+               {% elif offers.offer_type == 'Vida nocturna' %}
+                <img src="{% static 'img/icons/vidadiaria/Vida-Nocturna.svg' %}" title="Vida nocturna" alt="">
+               {% elif offers.offer_type == 'Eventos y espectáculos' %}
+                <img src="{% static 'img/icons/vidadiaria/Eventos-y-Espectaculos.svg' %}" title="Eventos y espectáculos" alt="">
+               {% elif offers.offer_type == 'Actividades al aire libre' %}
+                <img src="{% static 'img/icons/vidadiaria/Actividades-al-aire-libre.svg' %}" title="Actividades al aire libre" alt="">
+               {% else %}
+                  <<img src="{% static 'img/icons/diary-button.svg' %}" alt="">
+                {% endif %}
                <p> {{ offers.offer_type }} </p>
              </div>
          </div>

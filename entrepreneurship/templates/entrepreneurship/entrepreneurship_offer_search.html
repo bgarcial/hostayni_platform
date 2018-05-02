@@ -271,8 +271,13 @@
              <p> {{ offers.date }} </p>
             </div>
             <div class="imp-feat-II-entrepreneurship">
-              <img src="{% static 'img/icons/diary-button.svg' %}" alt="">
-              <p> {{ offers.offer_type }} </p>
+              {% if offers.offer_type == 'Convocatoria para emprendedores o empresarios' %}
+                <img src="{% static 'img/icons/emprendimiento/Convocatoria-Emprendedores.svg' %}" title="Convocatoria para emprendedores o empresarios" alt="">
+                <p> {{ offers.offer_type }} </p>
+              {% else %}
+                <img src="{% static 'img/icons/emprendimiento/Formacion-o-Mentorias.svg' %}" title="Formación o mentorías" alt="">
+                <p> {{ offers.offer_type }} </p>
+              {% endif %}
              </div>
              <div class="imp-feat-II-entrepreneurship">
                <img src="{% static 'img/icons/diary-button.svg' %}" alt="">
