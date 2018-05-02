@@ -1053,6 +1053,7 @@ footer {
   box-shadow: 0 0 1px 1px rgba(20,23,28,.1), 0 3px 1px 0 rgba(20,23,28,.1);
   padding: 11px 0px 0 15px;
   border-radius: 10px;
+  text-align: center;
 }
 
 .imp-feat-I{
