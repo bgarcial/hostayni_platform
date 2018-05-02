@@ -128,7 +128,29 @@
               </div>
               <div class="mainfeatures-item-lodging">
                  <div class="imp-feat-II">
-                   <img src="{% static 'img/icons/diary-button.svg' %}" alt="">
+                   {% if dailylifeoffer.offer_type == 'Turismo' %}
+                    <img src="{% static 'img/icons/vidadiaria/Turismo.svg' %}" title="Turismo" alt="">
+                   {% elif dailylifeoffer.offer_type == 'Salud y bienestar' %}
+                    <img src="{% static 'img/icons/vidadiaria/Salud-Y-Bienestar.svg' %}" title="Salud y bienestar" alt="">
+                   {% elif dailylifeoffer.offer_type == 'Transporte' %}
+                    <img src="{% static 'img/icons/vidadiaria/Transporte.svg' %}" title="Transporte" alt="">
+                   {% elif dailylifeoffer.offer_type == 'Deporte' %}
+                    <img src="{% static 'img/icons/vidadiaria/Deporte.svg' %}" title="Deporte" alt="">
+                   {% elif dailylifeoffer.offer_type == 'Compras' %}
+                    <img src="{% static 'img/icons/vidadiaria/Compras.svg' %}" title="Compras" alt="">
+                   {% elif dailylifeoffer.offer_type == 'Gastronomía' %}
+                    <img src="{% static 'img/icons/vidadiaria/Gastronomia.svg' %}" title="Gastronomía" alt="">
+                   {% elif dailylifeoffer.offer_type == 'Actividades al aire libre' %}
+                    <img src="{% static 'img/icons/vidadiaria/Actividades-al-aire-libre.svg' %}" title="Actividades al aire libre" alt="">
+                   {% elif dailylifeoffer.offer_type == 'Vida nocturna' %}
+                    <img src="{% static 'img/icons/vidadiaria/Vida-Nocturna.svg' %}" title="Vida nocturna" alt="">
+                   {% elif dailylifeoffer.offer_type == 'Eventos y espectáculos' %}
+                    <img src="{% static 'img/icons/vidadiaria/Eventos-y-Espectaculos.svg' %}" title="Eventos y espectáculos" alt="">
+                   {% elif dailylifeoffer.offer_type == 'Actividades al aire libre' %}
+                    <img src="{% static 'img/icons/vidadiaria/Actividades-al-aire-libre.svg' %}" title="Actividades al aire libre" alt="">
+                   {% else %}
+                      <img src="{% static 'img/icons/diary-button.svg' %}" alt="">
+                    {% endif %}
                    <p> {{ dailylifeoffer.offer_type }} </p>
                  </div>
               </div>
@@ -183,8 +205,30 @@
          </div>
           <div class="mainfeatures-item-lodging">
             <div class="imp-feat-II">
-              <img src="{% static 'img/icons/diary-button.svg' %}" alt="">
-              <p> {{ po.offer_type }} </p>
+               {% if po.offer_type == 'Turismo' %}
+                <img src="{% static 'img/icons/vidadiaria/Turismo.svg' %}" title="Turismo" alt="">
+               {% elif po.offer_type == 'Salud y bienestar' %}
+                <img src="{% static 'img/icons/vidadiaria/Salud-Y-Bienestar.svg' %}" title="Salud y bienestar" alt="">
+               {% elif po.offer_type == 'Transporte' %}
+                <img src="{% static 'img/icons/vidadiaria/Transporte.svg' %}" title="Transporte" alt="">
+               {% elif po.offer_type == 'Deporte' %}
+                <img src="{% static 'img/icons/vidadiaria/Deporte.svg' %}" title="Deporte" alt="">
+               {% elif po.offer_type == 'Compras' %}
+                <img src="{% static 'img/icons/vidadiaria/Compras.svg' %}" title="Compras" alt="">
+               {% elif po.offer_type == 'Gastronomía' %}
+                <img src="{% static 'img/icons/vidadiaria/Gastronomia.svg' %}" title="Gastronomía" alt="">
+               {% elif po.offer_type == 'Actividades al aire libre' %}
+                <img src="{% static 'img/icons/vidadiaria/Actividades-al-aire-libre.svg' %}" title="Actividades al aire libre" alt="">
+               {% elif po.offer_type == 'Vida nocturna' %}
+                <img src="{% static 'img/icons/vidadiaria/Vida-Nocturna.svg' %}" title="Vida nocturna" alt="">
+               {% elif po.offer_type == 'Eventos y espectáculos' %}
+                <img src="{% static 'img/icons/vidadiaria/Eventos-y-Espectaculos.svg' %}" title="Eventos y espectáculos" alt="">
+               {% elif po.offer_type == 'Actividades al aire libre' %}
+                <img src="{% static 'img/icons/vidadiaria/Actividades-al-aire-libre.svg' %}" title="Actividades al aire libre" alt="">
+               {% else %}
+                  <img src="{% static 'img/icons/diary-button.svg' %}" alt="">
+                {% endif %}
+               <p> {{ po.offer_type }} </p>
              </div>
           </div>
             {% comment %}
@@ -272,14 +316,6 @@
                <p> {{ offers.offer_type }} </p>
              </div>
          </div>
-           {% comment %}
-           {% if offers.created_by.first_name %}
-               <p>Publicada por: {{ offers.created_by.get_long_name }}</p>
-           {% endif %}
-           {% if offers.created_by.get_enterprise_name %}
-               <p>Publicada por: {{ offers.created_by.get_enterprise_name }}</p>
-           {% endif %}
-           {% endcomment %}
        </div>
      </div>
    </div>
