@@ -139,9 +139,8 @@ class ArticleListView(UserProfileDataMixin, ListView):
                 Q(title__icontains=query) |
                 Q(content__icontains=query) |
                 Q(category__title__icontains=query) |
-                Q(author__first_name__icontains=query) |
-                Q(author__last_name__icontains=query) |
-                Q(author__enterprise_name__icontains=query)
+                Q(author__full_name__icontains=query) |
+                Q(author__username__icontains=query)
             ).distinct()
         return queryset_list
         #return Article.objects.filter(published_date__lte=timezone.now()).order_by('-published_date')
