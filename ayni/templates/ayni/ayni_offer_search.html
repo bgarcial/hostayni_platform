@@ -128,11 +128,17 @@
               </div>
               <div class="mainfeatures-item-lodging">
                  <div class="imp-feat-II">
-                   <img src="{% static 'img/icons/diary-button.svg' %}" alt="">
-                   <p> {{ aynioffer.offer_type }} </p>
-                  </div>
+                  {% if aynioffer.offer_type == 'Protección del medio ambiente' %}
+                  <img src="{% static 'img/icons/ayni/Proteccion-Medio-Ambiente.svg' %}" alt="">
+                  {% elif aynioffer.offer_type == 'Proyección Social' %}
+                  <img src="{% static 'img/icons/ayni/Proyeccion-Social.svg' %}" alt="">
+                  {% else %}
+                  <img src="{% static 'img/icons/ayni/Proteccion-Animal.svg' %}" alt="">
+                  {% endif %}
+                  <p> {{ aynioffer.offer_type }} </p>
+              </div>
                   <div class="imp-feat-II">
-                    <img src="{% static 'img/icons/diary-button.svg' %}" alt="">
+                    <img src="{% static 'img/icons/ayni/Numero-de-Cupo.svg' %}" alt="">
                     <p> {{ aynioffer.maximum_quota }} cupos </p>
                   </div>
               </div>
@@ -186,11 +192,17 @@
          </div>
           <div class="mainfeatures-item-lodging">
             <div class="imp-feat-II">
-              <img src="{% static 'img/icons/diary-button.svg' %}" alt="">
+              {% if po.offer_type == 'Protección del medio ambiente' %}
+              <img src="{% static 'img/icons/ayni/Proteccion-Medio-Ambiente.svg' %}" alt="">
+              {% elif po.offer_type == 'Proyección Social' %}
+              <img src="{% static 'img/icons/ayni/Proyeccion-Social.svg' %}" alt="">
+              {% else %}
+              <img src="{% static 'img/icons/ayni/Proteccion-Animal.svg' %}" alt="">
+              {% endif %}
               <p> {{ po.offer_type }} </p>
-             </div>
+            </div>
              <div class="imp-feat-II">
-               <img src="{% static 'img/icons/diary-button.svg' %}" alt="">
+               <img src="{% static 'img/icons/ayni/Numero-de-Cupo.svg' %}" alt="">
                <p> {{ po.maximum_quota }} cupos </p>
              </div>
          </div>
@@ -250,11 +262,17 @@
          </div>
          <div class="mainfeatures-item-lodging">
             <div class="imp-feat-II">
-              <img src="{% static 'img/icons/diary-button.svg' %}" alt="">
+              {% if offers.offer_type == 'Protección del medio ambiente' %}
+              <img src="{% static 'img/icons/ayni/Proteccion-Medio-Ambiente.svg' %}" alt="">
+              {% elif offers.offer_type == 'Proyección Social' %}
+              <img src="{% static 'img/icons/ayni/Proyeccion-Social.svg' %}" alt="">
+              {% else %}
+              <img src="{% static 'img/icons/ayni/Proteccion-Animal.svg' %}" alt="">
+              {% endif %}
               <p> {{ offers.offer_type }} </p>
-             </div>
+            </div>
              <div class="imp-feat-II">
-               <img src="{% static 'img/icons/diary-button.svg' %}" alt="">
+               <img src="{% static 'img/icons/ayni/Numero-de-Cupo.svg' %}" alt="">
                <p> {{ offers.maximum_quota }} cupos </p>
              </div>
          </div>
