@@ -285,14 +285,14 @@
                 </div>
                 {% endfor %}
               </div>
+
               {% for offer in lodgingoffer %}
-                  {% if offer|stringformat:"s" == 'Ninguno de los anteriores' %}
-                      <span></span>
-                  {% endif %}
+
               {% endfor %}
               <div class="caract-cuarto-container">
                   <h3>Características de la habitación</h3>
                   {% for offer in lodgingoffer %}
+                      {% if offer|stringformat:"s" != 'Ninguno de los anteriores' %}
                       <div class="caract-cuarto-lodging">
                           {% if offer|stringformat:"s" == 'Aire acondicionado' %}
                               <img src="{% static 'img/icons/alojamiento/Aire-Acondicionado.svg' %}" title="Aire acondicionado" alt="">
@@ -306,9 +306,13 @@
                               <img src="{% static 'img/icons/alojamiento/Bano-Privado.svg' %}" title="Baño privado" alt="">
                           {% elif offer|stringformat:"s" == 'Baño compartido' %}
                               <img src="{% static 'img/icons/alojamiento/Bano-Compartido.svg' %}" title="Baño compartido" alt="">
+
                           {% endif %}
-                          <span>{{ offer }}</span>
+                      <span>{{ offer }}</span>
                       </div>
+                      {% else %}
+                      El propietario ha indicado que este cuarto no tiene características adicionales a las básicas
+                      {% endif %}
                   {% endfor %}
               </div>
 
