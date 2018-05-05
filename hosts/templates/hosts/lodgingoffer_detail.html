@@ -285,27 +285,35 @@
                 </div>
                 {% endfor %}
               </div>
+              {% for offer in lodgingoffer %}
+                  {% if offer|stringformat:"s" == 'Ninguno de los anteriores' %}
+                      <span></span>
+                  {% endif %}
+              {% endfor %}
               <div class="caract-cuarto-container">
-                      <h3>Características del cuarto</h3>
-                      {% for offer in lodgingoffer %}
+                  <h3>Características de la habitación</h3>
+                  {% for offer in lodgingoffer %}
                       <div class="caract-cuarto-lodging">
-                        {% if offer|stringformat:"s" == 'Aire acondicionado' %}
-                          <img src="{% static 'img/icons/alojamiento/Aire-Acondicionado.svg' %}" title="Aire acondicionado" alt="">
-                        {% elif offer|stringformat:"s" == 'Televisor pantalla plana' %}
-                          <img src="{% static 'img/icons/alojamiento/Tv-Pantalla-Plana.svg' %}" title="Televisor pantalla plana" alt="">
-                        {% elif offer|stringformat:"s" == 'Cafetera' %}
-                          <img src="{% static 'img/icons/alojamiento/Cafetera.svg' %}" title="Cafetera" alt="">
-                        {% elif offer|stringformat:"s" == 'No fumadores' %}
-                          <img src="{% static 'img/icons/alojamiento/No-Fumar.svg' %}" title="No fumadores" alt="">
-                        {% elif offer|stringformat:"s" == 'Baño privado' %}
-                          <img src="{% static 'img/icons/alojamiento/Bano-Privado.svg' %}" title="Baño privado" alt="">
-                        {% elif offer|stringformat:"s" == 'Baño compartido' %}
-                          <img src="{% static 'img/icons/alojamiento/Bano-Compartido.svg' %}" title="Baño compartido" alt="">
-                        {% endif %}
+                          {% if offer|stringformat:"s" == 'Aire acondicionado' %}
+                              <img src="{% static 'img/icons/alojamiento/Aire-Acondicionado.svg' %}" title="Aire acondicionado" alt="">
+                          {% elif offer|stringformat:"s" == 'Televisor pantalla plana' %}
+                              <img src="{% static 'img/icons/alojamiento/Tv-Pantalla-Plana.svg' %}" title="Televisor pantalla plana" alt="">
+                          {% elif offer|stringformat:"s" == 'Cafetera' %}
+                              <img src="{% static 'img/icons/alojamiento/Cafetera.svg' %}" title="Cafetera" alt="">
+                          {% elif offer|stringformat:"s" == 'No fumadores' %}
+                              <img src="{% static 'img/icons/alojamiento/No-Fumar.svg' %}" title="No fumadores" alt="">
+                          {% elif offer|stringformat:"s" == 'Baño privado' %}
+                              <img src="{% static 'img/icons/alojamiento/Bano-Privado.svg' %}" title="Baño privado" alt="">
+                          {% elif offer|stringformat:"s" == 'Baño compartido' %}
+                              <img src="{% static 'img/icons/alojamiento/Bano-Compartido.svg' %}" title="Baño compartido" alt="">
+                          {% endif %}
                           <span>{{ offer }}</span>
                       </div>
-                      {% endfor %}
+                  {% endfor %}
               </div>
+
+
+
 
             <div class="lodging-mapa">
                 {% comment %}
