@@ -75,7 +75,11 @@ class EntrepreneurshipOffer(TimeStampModel):
         verbose_name='Tipo de oferta',
     )
 
-    price = models.CharField(_("Precio"), max_length=128, help_text='Precio en pesos colombianos')
+    price = models.CharField(_("Precio"), max_length=128,
+                             help_text='Precio en pesos colombianos',
+                             null=True,
+                             blank=True
+                             )
 
     country = CountryField(blank_label='(Seleccionar país)', verbose_name='Pais')
 
@@ -88,8 +92,8 @@ class EntrepreneurshipOffer(TimeStampModel):
     date = models.DateField(
         blank=True,
         null=True,
-        verbose_name='Fecha del evento',
-        help_text="Ingresar aquí la fecha del evento, inicio del curso o voluntariado",
+        verbose_name='Fecha del evento o cierre de la convocatoria',
+        help_text="Ingresar aquí la fecha del evento o cierre de la convocatoria",
     )
 
     url = models.TextField(
@@ -103,18 +107,23 @@ class EntrepreneurshipOffer(TimeStampModel):
     contact_name = models.CharField(
         max_length=100,
         verbose_name='Nombre de contacto',
+        null=True,
+        blank=True
     )
 
     phone_number = PhoneNumberField(
         blank=True,
         help_text="Por favor use el siguiente formato: <em>+Country Code-Number</em>.",
-        verbose_name='Número telefónico de contacto'
+        verbose_name='Número telefónico de contacto',
+        null = True,
     )
 
-    email = models.EmailField(null=False, verbose_name='Correo electrónico de contacto',
-            # help_text=_('Required. Letters, digits and ''@/./+/-/_ only.'),
-            validators=[RegexValidator(r'^[\w.@+-]+$', _('Ingrese una dirección de correo válida.'), 'Precaución')
-                                          ])
+    email = models.CharField(
+        max_length=100,
+        verbose_name='Correo electrónico de contacto',
+        null=True,
+        blank=True
+    )
 
     photo = models.ImageField(
         upload_to=get_entrepreneurship_image_path,
