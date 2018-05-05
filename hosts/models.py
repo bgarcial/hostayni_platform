@@ -265,9 +265,17 @@ class LodgingOffer(models.Model):
     location_zone = models.CharField(_("Zona/Barrio"),
                     max_length=128, help_text='Sector por donde está ubicada la oferta')
 
-    monthly_price = models.CharField(_("Precio mensual"), max_length=128, help_text='Precio en pesos colombianos')
+    monthly_price = models.CharField(_("Precio mensual"), max_length=128,
+                                     help_text='Precio en pesos colombianos',
+                                     null=True,
+                                     blank=True,
+                                     )
 
-    room_night_value = models.CharField(_("Precio por noche"), max_length=128, help_text='Precio en pesos colombianos')
+    room_night_value = models.CharField(_("Precio por noche"), max_length=128,
+                                        help_text='Precio en pesos colombianos',
+                                        null=True,
+                                        blank=True,
+                                        )
 
     additional_description = models.TextField(
         null=True,

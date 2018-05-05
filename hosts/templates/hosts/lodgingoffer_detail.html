@@ -92,6 +92,9 @@
         {% else %}
             <h4>{{ lodgingofferdetail.lodging_offer_type }}</h4>
         {% endif %}
+        {% if lodgingofferdetail.lodging_offer_type_org == "Hotel" %}
+            <p> {{ lodgingofferdetail.stars }} </p>
+        {% endif %}
     </div>
     <div class="title-cont-lodging">
         <h1>{{ lodgingofferdetail.ad_title }}</h1>
@@ -101,8 +104,12 @@
         <span>{{ lodgingofferdetail.address }}, {{ lodgingofferdetail.city }} - {{ lodgingofferdetail.country }}</span>
       </div>
       <div class="lodging-price">
-        <p>Noche: $ {{ lodgingofferdetail.room_night_value }} COP </p>
-        <p>Mensual: $ {{ lodgingofferdetail.monthly_price }} COP </p>
+          {% if lodgingofferdetail.room_night_value  %}
+            <p>Noche: $ {{ lodgingofferdetail.room_night_value }} COP </p>
+          {% endif %}
+          {% if lodgingofferdetail.monthly_price %}
+            <p>Mensual: $ {{ lodgingofferdetail.monthly_price }} COP </p>
+          {% endif %}
       </div>
     </div>
 
