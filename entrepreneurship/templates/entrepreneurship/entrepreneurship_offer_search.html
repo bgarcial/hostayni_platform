@@ -96,7 +96,8 @@
             <a href="{% url 'offer:detail' entrepreneurshipoffer.slug %}">
                 <div class="img-item-search">
                     {% if entrepreneurshipoffer.photo %}
-                         <img src="{{ entrepreneurshipoffer.photo.url }}" width="auto" height="100%" alt="">
+                        <div class="img-item-offer" style="background: url('{{ entrepreneurshipoffer.photo.url }}') no-repeat center; background-size:cover;"></div>
+                        <!-- <img src="{{ entrepreneurshipoffer.photo.url }}" width="auto" height="100%" alt=""> -->
                      {% endif %}
                  </div>
             </a>
@@ -107,7 +108,7 @@
                   <h3>{{ entrepreneurshipoffer.ad_title }}</h3>
               </div>
               <div class="price-item-lodging">
-                <p> $ {{ entrepreneurshipoffer.price }} COP </p>
+                <p> $ {{ entrepreneurshipoffer.price }} COP</p>
               </div>
            </div>
            <div class="location-item-lodging">
@@ -127,17 +128,20 @@
                   {% endif %}
               </div>
               <div class="mainfeatures-item-lodging">
-                <div class="imp-feat-II">
+                <div class="imp-feat-II-entrepreneurship">
                   <img src="{% static 'img/icons/diary-button.svg' %}" alt="">
                   <p> {{ entrepreneurshipoffer.date }} </p>
                  </div>
-                 <div class="imp-feat-II">
-                   <img src="{% static 'img/icons/diary-button.svg' %}" alt="">
-                   {% comment %}
-                   <p> {{ entrepreneurshipoffer.email }} </p>
-                   {% endcomment %}
+                 <div class="imp-feat-II-entrepreneurship">
+                   {% if entrepreneurshipoffer.offer_type == 'Convocatoria para emprendedores o empresarios' %}
+                     <img src="{% static 'img/icons/emprendimiento/Convocatoria-Emprendedores.svg' %}" title="Convocatoria para emprendedores o empresarios" alt="">
+                     <p> {{ entrepreneurshipoffer.offer_type }} </p>
+                   {% else %}
+                     <img src="{% static 'img/icons/emprendimiento/Formacion-o-Mentorias.svg' %}" title="Formación o mentorías" alt="">
+                     <p> {{ entrepreneurshipoffer.offer_type }} </p>
+                   {% endif %}
                   </div>
-                  <div class="imp-feat-II">
+                  <div class="imp-feat-II-entrepreneurship">
                     <img src="{% static 'img/icons/diary-button.svg' %}" alt="">
                     <p> {{ entrepreneurshipoffer.phone_number }} </p>
                   </div>
@@ -150,15 +154,15 @@
                     <p>Publicada por: {{ entrepreneurshipoffer.created_by.get_enterprise_name }}</p>
                 {% endif %}
                 {% endcomment %}
-                <div class="photo-profile">
+                <!-- <div class="photo-profile">
                   <img src="{{ entrepreneurshipoffer.photo.url }}" width="auto" height="100%" alt="">
-                </div>
+                </div> -->
             </div>
           </div>
           {% endwith %}
+        </div>
           {% empty %}
           <p>No existen resultados para tu búsqueda de "{{ cd.query }}".</p>
-        </div>
     {% endfor %}
 
 {% else %}
@@ -170,7 +174,8 @@
         <a href="{% url 'offer:detail' po.slug %}">
             <div class="img-item-search">
                 {% if po.photo %}
-                     <img src="{{ po.photo.url }}" width="auto" height="100%" alt="">
+                     <!-- <img src="{{ po.photo.url }}" width="auto" height="100%" alt=""> -->
+                     <div class="img-item-offer" style="background: url('{{ po.photo.url }}') no-repeat center; background-size:cover;"></div>
                      <!-- <div class="img-item" style="background: url('{{ offers.photo.url }}') no-repeat center; background-size:cover;"></div> -->
                  {% endif %}
              </div>

@@ -95,7 +95,8 @@
             <a href="{% url 'host:detail' lodgingoffer.slug %}">
                 <div class="img-item-search">
                     {% if lodgingoffer.photo %}
-                         <img src="{{ lodgingoffer.photo.url }}" width="auto" height="100%" alt="">
+                         <!-- <img src="{{ lodgingoffer.photo.url }}" width="auto" height="100%" alt=""> -->
+                         <div class="img-item-offer" style="background: url('{{ lodgingoffer.photo.url }}') no-repeat center; background-size:cover;"></div>
                          <!-- <div class="img-item" style="background: url('{{ offers.photo.url }}') no-repeat center; background-size:cover;"></div> -->
                      {% endif %}
                  </div>
@@ -126,6 +127,10 @@
                         <img src="{% static 'img/default_profile_pic.png' %}" class="img-responsive">
                       </a>
                   {% endif %}
+                  <div class="description-item-lodging">
+                    <!-- <p> {{ offers.additional_description|linebreaks|truncatechars:420 }} </p> -->
+                  </div>
+                <!-- <p> {{ offers.additional_description|linebreaks|truncatechars:420 }} </p> -->
               </div>
               <div class="mainfeatures-item-lodging">
                 <div class="imp-feat-II">
@@ -144,9 +149,9 @@
             </div>
           </div>
           {% endwith %}
-          {% empty %}
-          <p>No existen resultados para tu búsqueda de "{{ cd.query }}".</p>
         </div>
+        {% empty %}
+        <p>No existen resultados para tu búsqueda de "{{ cd.query }}".</p>
     {% endfor %}
 
 {% else %}
@@ -158,7 +163,8 @@
         <a href="{% url 'host:detail' po.slug %}">
             <div class="img-item-search">
                 {% if po.photo %}
-                     <img src="{{ po.photo.url }}" width="auto" height="100%" alt="">
+                     <!-- <img src="{{ po.photo.url }}" width="auto" height="100%" alt=""> -->
+                     <div class="img-item-offer" style="background: url('{{ po.photo.url }}') no-repeat center; background-size:cover;"></div>
                      <!-- <div class="img-item" style="background: url('{{ offers.photo.url }}') no-repeat center; background-size:cover;"></div> -->
                  {% endif %}
              </div>
@@ -250,7 +256,7 @@
                  <a href="{% url 'accounts:detail' offers.created_by.slug %}">
                    <img src="{% static 'img/default_profile_pic.png' %}" class="img-responsive">
                  </a>
-                {% endif %}
+              {% endif %}
              <div class="description-item-lodging">
                <!-- <p> {{ offers.additional_description|linebreaks|truncatechars:420 }} </p> -->
              </div>
