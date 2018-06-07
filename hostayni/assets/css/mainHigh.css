@@ -1954,7 +1954,7 @@ footer {
     border-width: 1px;
     margin-top: 15px;
     margin-bottom: 15px;
-    height: 190px;
+    /*height: 190px;*/
     box-shadow: 0 0 1px 1px rgba(20,23,28,.1), 0 3px 1px 0 rgba(20,23,28,.1);
     flex: 0 0 30%;
     border-radius: 10px;
@@ -1964,53 +1964,68 @@ footer {
     box-shadow: 0 0 79px 19px rgba(20,23,28,.1), 0 3px 1px 0 rgba(20,23,28,.1);
   }
 
+  .history-post .history-each-post .media .media-body{
+    padding: 2.5%;
+  }
+
   .author-post-precontent{
-    width: 100%;
-    margin: 20px 20px 20px 70px;
-    height: 20px;
+    margin: 2px 20px 2px 20px;
+    height: 10px;
   }
 
   .post-content{
-    width: 100%;
-    margin: 20px 20px 20px 70px;
-    height: 20px;
+    margin: 20px 20px 20px 20px;
+    /*height: 20px;*/
+    overflow-wrap: break-word;
   }
 
   .post-author{
     width: 50%;
-    margin: 10px 20px 10px 70px;
+    margin: 10px 20px 10px 20px;
     height: 20px;
   }
 
   .post-date{
     width: 50%;
-    margin: 10px 70px 10px 20px;
+    margin: 10px 20px 10px 20px;
     height: 20px;
     text-align: right;
   }
 
-  .post-liked{
-    width: 7%;
+  .post-view{
+    width: 7.5%;
     margin: 10px 5px 10px 5px;
     height: 23px;
     text-align: center;
     background-color: #e5e5e5;
+    border-radius: 5px;
+  }
+
+  .post-liked{
+    width: 7.5%;
+    margin: 10px 5px 10px 5px;
+    height: 23px;
+    text-align: center;
+    background-color: #e5e5e5;
+    border-radius: 5px;
   }
 
   .post-repost{
-    width: 7%;
+    width: 7.5%;
     margin: 10px 5px 10px 5px;
     height: 23px;
     text-align: center;
     background-color: #e5e5e5;
+    border-radius: 5px;
   }
 
   .post-comentar{
-    width: 7%;
+    width: 7.5%;
     margin: 10px 5px 10px 5px;
     height: 23px;
     text-align: center;
     background-color: #e5e5e5;
+    border-radius: 5px;
   }
 
 .post-author-fecha{
@@ -2021,7 +2036,7 @@ footer {
 .post-interaction{
   width: 100%;
   display: flex;
-  margin-left: 73%;
+  justify-content: flex-end;
 }
 
 
