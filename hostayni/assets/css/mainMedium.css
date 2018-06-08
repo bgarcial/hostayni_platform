@@ -1904,59 +1904,75 @@ input[type="text"] .form-control{
   flex: 0 0 20%;
   width: auto;
   /*margin: 90px 2px 10px 10px;*/
-  padding: 90px 20px 65px 100px;
+  padding: 20px 65px 65px 50px;
   background-color: #e5e5e5;
 }
 
 .full-column-profile{
-  flex:0 0 20%;
-  flex-flow: row wrap;
-  width: auto;
+  /*flex:0 0 20%;
+  flex-flow: row wrap;*/
+  width: 100%;
   background-color: #e5e5e5;
 }
 
 .post-info-profile{
-  width: auto;
-  margin: 90px 20px 65px 120px;
-  flex: 0 0 60%;
+  width: 100%;
+  margin: 50px 20px 65px 20px;
+}
+
+.load-more-post{
+  text-align: center;
 }
 
 .img-profile{
   width: 100%;
-  margin: 10% 0 2% 0;
+  margin: 20px 0 2% 0;
   display: block;
   justify-content: center;
 }
 
+.img-profile a{
+  margin: auto;
+}
+
 .img-profile img{
-  width: 70%;
+  width: 100px;
   height: auto;
   border-radius: 10%;
+  margin: auto;
+}
+
+.edit-image-profile{
+  width: 100%;
+  margin: auto;
+  text-align: center;
 }
 
 .nombre-profile{
   width: 100%;
   font-size: 20px;
+  text-align: center;
 }
 
 .lugar-nacimiento-profile{
   width: 100%;
-  text-align: left;
+  text-align: center;
 }
 
 .fecha-nacimiento-profile{
   width: 100%;
-  text-align: left;
+  text-align: center;
 }
 
 .datos-contacto-profile{
   width: 100%;
-  text-align: left;
+  text-align: center;
 }
 
 .idiomas-profile{
   width: 100%;
-  justify-content: left;
+  justify-content: center;
+  text-align: center;
 }
 
 .idioma-icon{
@@ -1970,18 +1986,29 @@ input[type="text"] .form-control{
 }
 
 .idioma-text{
-  width: 80%;
+  width: 8%;
   display: inline-block;
+  text-align: left;
 }
 
 .lugar-residencia-profile{
   width: 100%;
-  text-align: left;
+  text-align: center;
 }
 
 .biografia-profile{
   width: 100%;
-  text-align: left;
+  text-align: center;
+}
+
+.roles-profile{
+  width: 100%;
+  text-align: center;
+}
+
+.act-entretenimiento-profile{
+  width: 100%;
+  text-align: center;
 }
 
 .column-profile-detail hr{
@@ -2007,6 +2034,10 @@ input[type="text"] .form-control{
 }
 
 /* PROFILE POST */
+
+.followed-by{
+  text-align: center;
+}
 
 .search-post {
   width: auto;
@@ -2076,10 +2107,10 @@ input[type="text"] .form-control{
       cursor: pointer;
       border-radius: 5px;
       font-family: 'Source Sans Pro', sans-serif;
-      width: 10%;
+      width: 111px;
       height: 30px;
       margin-top: 5px;
-      margin-left: 90%;
+      margin-left: 81%;
   }
 
   .btnSearchPost{
@@ -2096,7 +2127,7 @@ input[type="text"] .form-control{
     width: 10%;
     height: 30px;
     margin-top: 5px;
-    margin-left: 70%;
+    margin-left: 64%;
   }
 
   .btnSearchPost:hover {
@@ -2139,7 +2170,7 @@ input[type="text"] .form-control{
     border-width: 1px;
     margin-top: 15px;
     margin-bottom: 15px;
-    height: 190px;
+    /*height: 190px;*/
     box-shadow: 0 0 1px 1px rgba(20,23,28,.1), 0 3px 1px 0 rgba(20,23,28,.1);
     flex: 0 0 30%;
     border-radius: 10px;
@@ -2149,53 +2180,72 @@ input[type="text"] .form-control{
     box-shadow: 0 0 79px 19px rgba(20,23,28,.1), 0 3px 1px 0 rgba(20,23,28,.1);
   }
 
+  .history-post .history-each-post .media .media-body{
+    padding: 2.5%;
+  }
+
   .author-post-precontent{
-    width: 100%;
-    margin: 20px 20px 20px 70px;
-    height: 20px;
+    margin: 2px 20px 2px 20px;
+    height: 10px;
   }
 
   .post-content{
-    width: 100%;
-    margin: 20px 20px 20px 70px;
-    height: 20px;
+    margin: 20px 20px 20px 20px;
+    /*height: 20px;*/
+    overflow-wrap: break-word;
   }
 
   .post-author{
     width: 50%;
-    margin: 10px 20px 10px 70px;
+    margin: 10px 20px 10px 20px;
     height: 20px;
   }
 
   .post-date{
     width: 50%;
-    margin: 10px 70px 10px 20px;
+    margin: 10px 20px 10px 20px;
     height: 20px;
     text-align: right;
   }
 
-  .post-liked{
-    width: 7%;
+  .post-view{
+    width: 65px;
     margin: 10px 5px 10px 5px;
     height: 23px;
     text-align: center;
     background-color: #e5e5e5;
+    border-radius: 5px;
+    padding: 2px;
+  }
+
+  .post-liked{
+    width: 75px;
+    margin: 10px 5px 10px 5px;
+    height: 23px;
+    text-align: center;
+    background-color: #e5e5e5;
+    border-radius: 5px;
+    padding: 2px;
   }
 
   .post-repost{
-    width: 7%;
+    width: 85px;
     margin: 10px 5px 10px 5px;
     height: 23px;
     text-align: center;
     background-color: #e5e5e5;
+    border-radius: 5px;
+    padding: 2px;
   }
 
   .post-comentar{
-    width: 7%;
+    width: 85px;
     margin: 10px 5px 10px 5px;
     height: 23px;
     text-align: center;
     background-color: #e5e5e5;
+    border-radius: 5px;
+    padding: 2px;
   }
 
 .post-author-fecha{
@@ -2206,5 +2256,5 @@ input[type="text"] .form-control{
 .post-interaction{
   width: 100%;
   display: flex;
-  margin-left: 73%;
+  justify-content: flex-end;
 }

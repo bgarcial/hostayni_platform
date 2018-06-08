@@ -1891,10 +1891,10 @@ footer {
       cursor: pointer;
       border-radius: 5px;
       font-family: 'Source Sans Pro', sans-serif;
-      width: 10%;
+      width: 111px;
       height: 30px;
       margin-top: 5px;
-      margin-left: 90%;
+      margin-left: 81%;
   }
 
   .btnSearchPost{
@@ -1993,39 +1993,43 @@ footer {
   }
 
   .post-view{
-    width: 7.5%;
+    width: 65px;
     margin: 10px 5px 10px 5px;
     height: 23px;
     text-align: center;
     background-color: #e5e5e5;
     border-radius: 5px;
+    padding: 2px;
   }
 
   .post-liked{
-    width: 7.5%;
+    width: 75px;
     margin: 10px 5px 10px 5px;
     height: 23px;
     text-align: center;
     background-color: #e5e5e5;
     border-radius: 5px;
+    padding: 2px;
   }
 
   .post-repost{
-    width: 7.5%;
+    width: 85px;
     margin: 10px 5px 10px 5px;
     height: 23px;
     text-align: center;
     background-color: #e5e5e5;
     border-radius: 5px;
+    padding: 2px;
   }
 
   .post-comentar{
-    width: 7.5%;
+    width: 85px;
     margin: 10px 5px 10px 5px;
     height: 23px;
     text-align: center;
     background-color: #e5e5e5;
     border-radius: 5px;
+    padding: 2px;
   }
 
 .post-author-fecha{
