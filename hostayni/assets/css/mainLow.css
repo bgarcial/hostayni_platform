@@ -1117,7 +1117,8 @@ input[type="text"] .form-control{
 
 
 .config-container{
-  display: none;
+  display: inline-flex;
+  /*display: none;*/
   width: 97%;
   height: auto;
 }
@@ -1125,7 +1126,8 @@ input[type="text"] .form-control{
 /* Accordion for mobile */
 
 .config-container-low{
-  display: block;
+  display: none;
+  /*display: block;*/
   width: 100%;
   height: auto;
 }

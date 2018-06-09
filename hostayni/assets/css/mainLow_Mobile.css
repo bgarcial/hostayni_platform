@@ -1124,14 +1124,15 @@ input[type="text"] .form-control{
 }
 
 .offert-form{
-  margin: 20% 11% 0 11%;
-  width: 74%;
+  margin: 20% 5% 0 5%;
+  width: 95%;
   height: auto;
 }
 
 
 .config-container{
-  display: none;
+  display: inline-flex;
+  /*display: none;*/
   width: 97%;
   height: auto;
 }
@@ -1139,7 +1140,8 @@ input[type="text"] .form-control{
 /* Accordion for mobile */
 
 .config-container-low{
-  display: block;
+  display: none;
+  /*display: block;*/
   width: 100%;
   height: auto;
 }
