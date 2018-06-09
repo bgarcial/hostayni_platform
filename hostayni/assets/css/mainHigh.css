@@ -2140,3 +2140,21 @@ footer {
 .container-iniciar-reset{
   margin: 18% 30% 21% 30%;
 }
+
+
+/* SEARCH POST RESULT VIEW */
+
+.result-post-search {
+    width: 100%;
+    margin: 50px 20px 65px 20px;
+}
+
+.info-results-post{
+  margin: 90px 20px 65px 120px;
+  width: auto;
+}
+
+.result-post-usuarios{
+  margin: 90px 20px 65px 120px;
+  width: auto;
+}

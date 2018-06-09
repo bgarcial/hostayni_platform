@@ -2180,7 +2180,7 @@ input[type="text"] .form-control{
   flex: 0 0 20%;
   width: auto;
   /*margin: 90px 2px 10px 10px;*/
-  padding: 20px 65px 65px 50px;
+  padding: 39px 65px 65px 50px;
   background-color: #e5e5e5;
 }
 
@@ -2539,4 +2539,57 @@ input[type="text"] .form-control{
   width: 100%;
   display: flex;
   justify-content: center;
+}
+
+.educative-offers-profile{
+  margin: auto;
+  text-align: center;
+}
+
+.daily-offers-profile{
+  margin: auto;
+  text-align: center;
+}
+
+.entrepreunership-offers-profile{
+  margin: auto;
+  text-align: center;
+}
+
+.ayni-offers-profile{
+  margin: auto;
+  text-align: center;
+}
+
+.lodging-offers-profile{
+  margin: auto;
+  text-align: center;
+}
+
+.articles-profile{
+  margin: auto;
+  text-align: center;
+}
+
+/* SEARCH POST RESULT VIEW */
+
+.result-post-search {
+    width: 100%;
+    margin: 50px 20px 65px 20px;
+}
+
+.info-results-post{
+  margin: 90px 20px 65px 20px;
+  width: auto;
+  text-align: center;
+}
+
+.results-title-posts{
+  text-align: center;
+}
+
+.result-post-usuarios{
+  margin: 90px 20px 65px 20px;
+  width: auto;
+  text-align: center;
 }

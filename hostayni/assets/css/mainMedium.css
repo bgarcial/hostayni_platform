@@ -2258,3 +2258,50 @@ input[type="text"] .form-control{
   display: flex;
   justify-content: flex-end;
 }
+
+.educative-offers-profile{
+  text-align: center;
+}
+
+.daily-offers-profile{
+  text-align: center;
+}
+
+.entrepreunership-offers-profile{
+  text-align: center;
+}
+
+.ayni-offers-profile{
+  text-align: center;
+}
+
+.lodging-offers-profile{
+  text-align: center;
+}
+
+.articles-profile{
+  text-align: center;
+}
+
+/* SEARCH POST RESULT VIEW */
+
+.result-post-search {
+    width: 100%;
+    margin: 50px 20px 65px 20px;
+}
+
+.info-results-post{
+  margin: 90px 20px 65px 20px;
+  width: auto;
+  text-align: center;
+}
+
+.results-title-posts{
+  text-align: center;
+}
+
+.result-post-usuarios{
+  margin: 90px 20px 65px 20px;
+  width: auto;
+  text-align: center;
+}
