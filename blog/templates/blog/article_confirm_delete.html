@@ -1,10 +1,22 @@
 {% extends "layout.html" %}
 
 {% block body_content %}
-    <form action="" method="post">
+
+<div class="container-confirm-myarticles">
+    <form class="form-confirm-myarticles" action="" method="post">
         {% csrf_token %}
-        <h1>¿ Estas seguro que deseas borrar el artículo "{{ object }}" ?</h1>
-        <input class='btn btn-danger' type="submit" value="Confirmar" />
-        <a href="{% url 'articles:list' object.author.slug %}">Cancel</a>
+        <div class="title-confirm-myarticles">
+          <p>¿ Estas seguro que deseas borrar el artículo "{{ object }}" ?</p>
+        </div>
+        <div class="buttons-confirm-myarticles">
+          <input class='btn btn-danger' type="submit" value="Confirmar" />
+          <div class="button-confirm-myarticles-cancel">
+            <div class="cancel-text">
+              <a href="{% url 'articles:list' object.author.slug %}">Cancel</a>
+            </div>
+          </div>
+        </div>
   </form>
+
+</div>
 {% endblock %}

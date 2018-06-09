@@ -1054,6 +1054,48 @@ input[type="text"] .form-control{
   box-shadow: 0 0 1px 1px rgba(20,23,28,.1), 0 3px 1px 0 rgba(20,23,28,.1);
 }
 
+/* CONFIRM DELETE MYARTICLES */
+
+.container-confirm-myarticles{
+  width: 90%;
+  margin: 23% 5% 23% 5%;
+  height: auto;
+}
+
+.form-confirm-myarticles{
+  text-align: center;
+}
+
+.container-myarticles .form-confirm-myarticles h1{
+  text-align: center;
+}
+
+.title-confirm-myarticles{
+  font-size: 20px;
+}
+
+.buttons-confirm-myarticles{
+  justify-content: center;
+  display: inline-flex;
+}
+
+.button-confirm-myarticles-cancel{
+  font-size: 14px;
+  border-radius: 4px;
+  width: 91px;
+  height: 34px;
+  background-color: #d9534f;
+  color: white;
+  text-align: center;
+  vertical-align: baseline;
+  margin: 0 15px;
+}
+
+.cancel-text{
+  margin: 6px 0;
+  color: white;
+}
+
 /* MY LODGING OFFERS*/
 
 .panel-lodging{
