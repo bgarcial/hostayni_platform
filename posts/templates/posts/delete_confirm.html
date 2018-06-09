@@ -1,9 +1,22 @@
 {% extends "layout.html" %}
 
 {% block body_content %}
+  <div class="container-delete-view">
+    <div class="title-delete-view">
+      <p> Borrar el comentario </p>
+    </div>
+    <div class="form-delete-view">
     <form action="" method="post">{% csrf_token %}
         <p>¿Estás seguro de querer borrar este post:? "{{ object }}"?</p>
-        <input type="submit" value="Confirmar" />
-        <a href="{% url 'post:detail' object.pk %}">Cancelar</a>
+        <div class="buttons-confirm-myarticles">
+        <input class="btn btn-danger" type="submit" value="Confirmar" />
+        <div class="button-confirm-myarticles-cancel">
+        <div class="cancel-text">
+          <a href="{% url 'post:detail' object.pk %}">Cancelar</a>
+        </div>
+        </div>
+        </div>
     </form>
+  </div>
+  </div>
 {% endblock body_content %}

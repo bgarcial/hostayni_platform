@@ -2635,3 +2635,79 @@ input[type="text"] .form-control{
   width: auto;
   text-align: center;
 }
+
+/* VIEW POST RESULT */
+
+.container-post-view {
+    width: 95%;
+    margin: 50px 20px 65px 20px;
+}
+
+.title-post-view{
+  text-align: center;
+  width: 100%;
+  margin: 20px auto;
+}
+
+.container-post-view .list-post-view .media{
+  width: auto;
+  margin-right: 17px;
+  margin-left: 17px;
+  border-width: 1px;
+  margin-top: 15px;
+  margin-bottom: 15px;
+  /*height: 190px;*/
+  box-shadow: 0 0 1px 1px rgba(20,23,28,.1), 0 3px 1px 0 rgba(20,23,28,.1);
+  flex: 0 0 30%;
+  border-radius: 10px;
+}
+
+.container-post-view .list-post-view .media:hover{
+  box-shadow: 0 0 79px 19px rgba(20,23,28,.1), 0 3px 1px 0 rgba(20,23,28,.1);
+}
+
+.container-post-view .list-post-view .media .media-body{
+  padding: 2.5%;
+}
+
+/* UPDATE VIEW POST */
+
+.container-update-view{
+  width: 95%;
+  margin: 230px 20px 230px 20px;
+}
+
+.title-update-view{
+  margin: 0 42px;
+}
+
+.container-update-view .title-update-view p{
+  font-size: 25px;
+}
+
+.container-update-view .form-update-view .btnSubmitPost{
+  margin-left: 62%;
+}
+
+.container-update-view .form-update-view .form-post{
+  width: 90%;
+}
+
+/* DELETE VIEW POST */
+
+.container-delete-view{
+  width: 95%;
+  margin: 230px 20px 230px 20px;
+}
+
+.title-delete-view{
+  margin: 0 42px;
+}
+
+.container-delete-view .title-delete-view p{
+  font-size: 25px;
+}
+
+.container-delete-view .form-delete-view{
+  margin: 0 44px;
+}
