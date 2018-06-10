@@ -104,8 +104,8 @@ header {
     }
       header .profile-options .img img {
         display: inline-block;
-        width: inherit;
-        height: auto;
+        width: auto;
+        height: 54px;
         cursor: pointer;
         border-radius: 10%; }
     header .profile-options .name-options-cont {
@@ -1528,6 +1528,8 @@ input[type="text"] .form-control{
 
 .description-item-lodging img{
   border-radius: 31px;
+  width: auto;
+  height: 50px;
 }
 
 .description-item-lodging p{
