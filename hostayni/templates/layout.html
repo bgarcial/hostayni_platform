@@ -603,9 +603,9 @@ s.setAttribute('data-timestamp', +new Date());
                 // Separamos el formato del post en un container que son los estilos css
                  // y en el contenido del post, por eso estas dos variables arriba declaradas postContent y container
                  // POst original
-                 postContent = "<div class=\"post-content\"><span class='content'>" + postValue.content + "</span></div>" + "<div class=\"post-author-fecha\"><div class=\"post-author\"><a href='" + postValue.user.url + "'>" + postValue.user.username +
-                     "</a></div>" + "<div class=\"post-date\">" + postValue.date_display + "</div></div>" + "<a href='/post/" + postValue.id +"'>View</a> | " +
-                     "<div class=\"post-interaction\"><div class=\"post-repost\"><a class='repostBtn' href='/post/" + postValue.id + "/repost/'>Compartir</a></div>" + "<div class=\"post-liked\"><a href='#' " +
+                 postContent = "<div class=\"post-author-fecha\"><div class=\"post-author\"><a href='" + postValue.user.url + "'>" + postValue.user.username +
+                     "</a></div>" + "<div class=\"post-date\">" + postValue.date_display + "</div></div>" + "<div class=\"post-content\"><span class='content'>" + postValue.content + "</span></div>" +
+                     "<div class=\"post-interaction\"><div class=\"post-view\"><a href='/post/" + postValue.id +"'>View</a></div><div class=\"post-repost\"><a class='repostBtn' href='/post/" + postValue.id + "/repost/'>Compartir</a></div>" + "<div class=\"post-liked\"><a href='#' " +
                      "class='post-like' data-id='"+ postValue.id + "'>" + verb + " (" + postValue.likes + ")</a></div>"
                     + "<div class=\"post-comentar\"><a href='#' " + "class='post-reply' data-user='" + postValue.user.username + "'  data-id='"+ replyId + "'>Comentar</a></div></div>"
 

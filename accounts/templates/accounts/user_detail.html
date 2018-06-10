@@ -20,8 +20,10 @@
       {% if object.profile.user.user_type == "P"  %}
         <div class="img-profile">
           {% if object.profile.user.slug == userprofile.user.slug %}
+          <div class="edit-image-profile">
               <a href="{% url 'accounts:preferences' userprofile.user.slug %}" >
           Editar imagen de perfil</a><br/><br/>
+          </div>
           {% endif %}
           {% if object.profile.user.avatar %}
                 <img src="{{ object.profile.user.avatar.url }}" width="100" height="100" class="img-responsive">
@@ -57,7 +59,7 @@
           {% endif %}
         </div>
         <div class="fecha-nacimiento-profile">
-          <p>{{ object.profile.user.date_of_birth }}</p>
+          <p>{{ object.profile.user.date_of_birth }} </p>
         </div>
         <div class="idiomas-profile">
           <div class="idioma-icon">
@@ -235,7 +237,8 @@
             {% endfor %}
        {% endcomment %}
 
-      <hr/>
+    </div>
+    <hr/>
 
   {% comment %} Preguntamos que si yo mismo veo mi perfil, no me aparezcan
   mis ofertas y mis articulos, pero si otro usuario ve mi perfil, si me apareceran mis
@@ -244,6 +247,7 @@
 
       {% comment %} Si existen ARTÍCULOS de este usuario, muéstrelos {% endcomment %}
       {% if articles %}
+      <div class="articles-profile">
           <h4>Artículos</h4>
           {% for article in articles %}
             <tr>
@@ -260,11 +264,14 @@
                    <hr/>
               {% endif %}
           {% endfor %}
+      </div>
+      <hr/>
       {% endif %}
 
 
     {% comment %} Si existen ofertas de ALOJAMIENTO de este usuario, muéstrelas {% endcomment %}
     {% if lodging_offers %}
+    <div class="lodging-offers-profile">
         <h4>Ofertas de alojamiento</h4>
       {% for offers in lodging_offers %}
 
@@ -282,10 +289,13 @@
                <hr/>
           {% endif %}
       {% endfor %}
+    </div>
+    <hr/>
     {% endif %}
 
     {% comment %} Si existen ofertas de AYNI de este usuario, muéstrelas {% endcomment %}
     {% if ayni_offers %}
+    <div class="ayni-offers-profile">
         <h4>Ofertas de AYNI</h4>
       {% for offers in ayni_offers %}
 
@@ -303,11 +313,14 @@
                <hr/>
           {% endif %}
       {% endfor %}
+    </div>
+    <hr/>
     {% endif %}
 
 
     {% comment %} Si existen ofertas de VIDA DIARIA de este usuario, muéstrelas {% endcomment %}
     {% if daily_life_offers %}
+    <div class="daily-offers-profile">
         <h4>Ofertas de Vida Diaria</h4>
       {% for offers in daily_life_offers %}
 
@@ -325,11 +338,14 @@
                <hr/>
           {% endif %}
       {% endfor %}
+    </div>
+    <hr/>
     {% endif %}
 
 
     {% comment %} Si existen ofertas EDUCATIVAS de este usuario, muéstrelas {% endcomment %}
     {% if educational_offers %}
+    <div class="educative-offers-profile">
         <h4>Ofertas Educativas</h4>
         {% for offers in educational_offers %}
 
@@ -347,11 +363,14 @@
                <hr/>
           {% endif %}
       {% endfor %}
+    </div>
+    <hr/>
     {% endif %}
 
 
     {% comment %} Si existen ofertas de EMPRENDIMIENTO de este usuario, muéstrelas {% endcomment %}
     {% if entrepreneurship_offers %}
+    <div class="entrepreunership-offers-profile">
         <h4>Ofertas de Emprendimiento</h4>
       {% for offers in entrepreneurship_offers %}
 
@@ -369,12 +388,13 @@
                <hr/>
           {% endif %}
       {% endfor %}
+    </div>
+    <hr/>
     {% endif %}
 
 
   {% endif %}
 
-      </div>
 
       <div class="search-post">
         {% include "posts/search_form.html" %}
@@ -390,7 +410,9 @@
         <div class="history-each-post" id="post-container" data-url="/api/{{ object.username }}/post/">
 
         </div>
-        <a href="#" id="loadmore">Ver mas posts</a>
+        <div class="load-more-post">
+          <a href="#" id="loadmore">Ver mas posts</a>
+        </div>
       </div>
 
     </div>

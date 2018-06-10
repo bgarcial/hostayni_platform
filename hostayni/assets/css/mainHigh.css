@@ -106,8 +106,8 @@ header {
     }
       header .profile-options .img img {
         display: inline-block;
-        width: inherit;
-        height: auto;
+        width: auto;
+        height: 54px;
         cursor: pointer;
         border-radius: 10%; }
     header .profile-options .name-options-cont {
@@ -1007,9 +1007,52 @@ footer {
   height: auto;
 }
 
+
 .panel-myarticles{
   /*box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);*/
   box-shadow: 0 0 1px 1px rgba(20,23,28,.1), 0 3px 1px 0 rgba(20,23,28,.1);
+}
+
+/* CONFIRM DELETE MYARTICLES */
+
+.container-confirm-myarticles{
+  width: 90%;
+  margin: 18% 5% 18% 5%;
+  height: auto;
+}
+
+.form-confirm-myarticles{
+  text-align: center;
+}
+
+.container-myarticles .form-confirm-myarticles h1{
+  text-align: center;
+}
+
+.title-confirm-myarticles{
+  font-size: 30px;
+}
+
+.buttons-confirm-myarticles{
+  justify-content: center;
+  display: inline-flex;
+}
+
+.button-confirm-myarticles-cancel{
+  font-size: 14px;
+  border-radius: 4px;
+  width: 91px;
+  height: 34px;
+  background-color: #d9534f;
+  color: white;
+  text-align: center;
+  vertical-align: baseline;
+  margin: 0 15px;
+}
+
+.cancel-text{
+  margin: 6px 0;
+  color: white;
 }
 
 /* MY LODGING OFFERS*/
@@ -1441,6 +1484,8 @@ footer {
 
 .description-item-lodging img{
   border-radius: 31px;
+  width: auto;
+  height: 50px;
 }
 
 .description-item-lodging p{
@@ -1891,10 +1936,10 @@ footer {
       cursor: pointer;
       border-radius: 5px;
       font-family: 'Source Sans Pro', sans-serif;
-      width: 10%;
+      width: 111px;
       height: 30px;
       margin-top: 5px;
-      margin-left: 90%;
+      margin-left: 81%;
   }
 
   .btnSearchPost{
@@ -1954,7 +1999,7 @@ footer {
     border-width: 1px;
     margin-top: 15px;
     margin-bottom: 15px;
-    height: 190px;
+    /*height: 190px;*/
     box-shadow: 0 0 1px 1px rgba(20,23,28,.1), 0 3px 1px 0 rgba(20,23,28,.1);
     flex: 0 0 30%;
     border-radius: 10px;
@@ -1964,53 +2009,72 @@ footer {
     box-shadow: 0 0 79px 19px rgba(20,23,28,.1), 0 3px 1px 0 rgba(20,23,28,.1);
   }
 
+  .history-post .history-each-post .media .media-body{
+    padding: 2.5%;
+  }
+
   .author-post-precontent{
-    width: 100%;
-    margin: 20px 20px 20px 70px;
-    height: 20px;
+    margin: 2px 20px 2px 20px;
+    height: 10px;
   }
 
   .post-content{
-    width: 100%;
-    margin: 20px 20px 20px 70px;
-    height: 20px;
+    margin: 20px 20px 20px 20px;
+    /*height: 20px;*/
+    overflow-wrap: break-word;
   }
 
   .post-author{
     width: 50%;
-    margin: 10px 20px 10px 70px;
+    margin: 10px 20px 10px 20px;
     height: 20px;
   }
 
   .post-date{
     width: 50%;
-    margin: 10px 70px 10px 20px;
+    margin: 10px 20px 10px 20px;
     height: 20px;
     text-align: right;
   }
 
-  .post-liked{
-    width: 7%;
+  .post-view{
+    width: 65px;
     margin: 10px 5px 10px 5px;
     height: 23px;
     text-align: center;
     background-color: #e5e5e5;
+    border-radius: 5px;
+    padding: 2px;
+  }
+
+  .post-liked{
+    width: 75px;
+    margin: 10px 5px 10px 5px;
+    height: 23px;
+    text-align: center;
+    background-color: #e5e5e5;
+    border-radius: 5px;
+    padding: 2px;
   }
 
   .post-repost{
-    width: 7%;
+    width: 85px;
     margin: 10px 5px 10px 5px;
     height: 23px;
     text-align: center;
     background-color: #e5e5e5;
+    border-radius: 5px;
+    padding: 2px;
   }
 
   .post-comentar{
-    width: 7%;
+    width: 85px;
     margin: 10px 5px 10px 5px;
     height: 23px;
     text-align: center;
     background-color: #e5e5e5;
+    border-radius: 5px;
+    padding: 2px;
   }
 
 .post-author-fecha{
@@ -2021,7 +2085,7 @@ footer {
 .post-interaction{
   width: 100%;
   display: flex;
-  margin-left: 73%;
+  justify-content: flex-end;
 }
 
 
@@ -2120,4 +2184,96 @@ footer {
 
 .container-iniciar-reset{
   margin: 18% 30% 21% 30%;
+}
+
+
+/* SEARCH POST RESULT VIEW */
+
+.result-post-search {
+    width: 100%;
+    margin: 50px 20px 65px 20px;
+}
+
+.info-results-post{
+  margin: 90px 20px 65px 120px;
+  width: auto;
+}
+
+.result-post-usuarios{
+  margin: 90px 20px 65px 120px;
+  width: auto;
+}
+
+
+/* VIEW POST RESULT */
+
+.container-post-view {
+    width: 95%;
+    margin: 50px 20px 65px 20px;
+}
+
+.title-post-view{
+  text-align: center;
+  width: 100%;
+  margin: 20px auto;
+}
+
+.container-post-view .list-post-view .media{
+  width: auto;
+  margin-right: 17px;
+  margin-left: 17px;
+  border-width: 1px;
+  margin-top: 15px;
+  margin-bottom: 15px;
+  /*height: 190px;*/
+  box-shadow: 0 0 1px 1px rgba(20,23,28,.1), 0 3px 1px 0 rgba(20,23,28,.1);
+  flex: 0 0 30%;
+  border-radius: 10px;
+}
+
+.container-post-view .list-post-view .media:hover{
+  box-shadow: 0 0 79px 19px rgba(20,23,28,.1), 0 3px 1px 0 rgba(20,23,28,.1);
+}
+
+.container-post-view .list-post-view .media .media-body{
+  padding: 2.5%;
+}
+
+/* UPDATE VIEW POST */
+
+.container-update-view{
+  width: 95%;
+  margin: 230px 20px 230px 20px;
+}
+
+.title-update-view{
+  margin: 0 42px;
+}
+
+.container-update-view .title-update-view p{
+  font-size: 30px;
+}
+
+.container-update-view .form-update-view .btnSubmitPost{
+  margin-left: 92%;
+}
+
+
+/* DELETE VIEW POST */
+
+.container-delete-view{
+  width: 95%;
+  margin: 230px 20px 230px 20px;
+}
+
+.title-delete-view{
+  margin: 0 42px;
+}
+
+.container-delete-view .title-delete-view p{
+  font-size: 30px;
+}
+
+.container-delete-view .form-delete-view{
+  margin: 0 44px;
 }

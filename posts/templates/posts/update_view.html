@@ -1,5 +1,12 @@
 {% extends "layout.html" %}
 
 {% block body_content %}
+    <div class="container-update-view">
+    <div class="title-update-view">
+      <p> Actualizar el comentario </p>
+    </div>
+    <div class="form-update-view">
     {% include  "posts/form.html" with form=form btn_title='Update' %}
+    </div>
+    </div>
 {% endblock body_content %}

@@ -95,7 +95,8 @@
             <a href="{% url 'daily_life_offer:detail' dailylifeoffer.slug %}">
                 <div class="img-item-search">
                     {% if dailylifeoffer.photo %}
-                         <img src="{{ dailylifeoffer.photo.url }}" width="auto" height="100%" alt="">
+                         <!-- <img src="{{ dailylifeoffer.photo.url }}" width="auto" height="100%" alt=""> -->
+                         <div class="img-item-offer" style="background: url('{{ dailylifeoffer.photo.url }}') no-repeat center; background-size:cover;"></div>
                          <!-- <div class="img-item" style="background: url('{{ offers.photo.url }}') no-repeat center; background-size:cover;"></div> -->
                      {% endif %}
                  </div>
@@ -157,9 +158,9 @@
             </div>
           </div>
           {% endwith %}
+          </div>
           {% empty %}
           <p>No existen resultados para tu búsqueda de "{{ cd.query }}".</p>
-        </div>
     {% endfor %}
 
 {% else %}
@@ -171,7 +172,8 @@
         <a href="{% url 'daily_life_offer:detail' po.slug %}">
             <div class="img-item-search">
                 {% if po.photo %}
-                     <img src="{{ po.photo.url }}" width="auto" height="100%" alt="">
+                     <!-- <img src="{{ po.photo.url }}" width="auto" height="100%" alt=""> -->
+                     <div class="img-item-offer" style="background: url('{{ po.photo.url }}') no-repeat center; background-size:cover;"></div>
                      <!-- <div class="img-item" style="background: url('{{ offers.photo.url }}') no-repeat center; background-size:cover;"></div> -->
                  {% endif %}
              </div>

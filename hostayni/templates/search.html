@@ -21,16 +21,13 @@
 
 
 
-    <div class="row">
-        <div class='col-sm-12'>
+    <div class="result-post-search ">
+        <div class="info-results-post">
             {% if request.GET.q %}
-                <p class="lead">Resultados para {{ request.GET.q }}</p>
-                <hr/>
+                <h1>Resultados para {{ request.GET.q }}</h1>
             {% endif %}
         </div>
-        <div class='col-sm-9'>
-        <h1>Publicaciones</h1>
-        <hr/>
+        <div class="post-info-profile">
          {% include "posts/search_form.html" %} <br />
 
 
@@ -43,7 +40,12 @@
             listarlo
 
         {% endcomment %}
-        <div id="post-container" data-url="/api/search/">
+        <hr/>
+        <div class="history-post">
+        <div class="results-title-posts">
+            <h2>Comentarios</h2>
+        </div>
+        <div class="history-each-post" id="post-container" data-url="/api/search/">
             {% comment %}
                 Con data-url="/api/post/ solo puedo buscar posts de personas a las que sigo
                 Con data-url="/api/search/" buscare posts de personas asi no las siga, para
@@ -51,17 +53,25 @@
             {% endcomment %}
 
         </div>
-        <a href="#" id="loadmore">Ver mas posts</a>
+        <div class="load-more-post">
+          <a href="#" id="loadmore">Ver mas posts</a>
         </div>
-        <div class="col-sm-3">
-            <h1>Usuarios</h1>
-            <hr/>
+        </div>
+        </div>
+
+        <div class="result-post-usuarios">
+        <hr/>
+        <div class="results-title-usuarios">
+            <h2>Usuarios</h2>
+        </div>
+        <div class="results-usuarios-container">
             {% for user in users %}
                 <a href='{% url 'accounts:detail' user.slug %}'>{{ user.username }}</a><br />
 
                 {% empty %}
                 <p>Usuarios no encontrados</p>
             {% endfor %}
+        </div>
 
         </div>
 
