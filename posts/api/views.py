@@ -7,8 +7,10 @@ from rest_framework.response import Response
 
 from hostayni.mixins import UserProfileDataMixin
 from posts.models import Post
+from accounts.models import User
 from .serializers import PostModelSerializer
 from .pagination import StandardResultsPagination
+
 
 class LikeToggleAPIView(APIView):
     permission_classes = [permissions.IsAuthenticated]
@@ -92,6 +94,7 @@ class PostDetailAPIView(generics.ListAPIView):
 
 class SearchPostAPIView(UserProfileDataMixin, generics.ListAPIView):
     queryset = Post.objects.all().order_by('-timestamp')
+    # queryset = User.objects.all()
     serializer_class = PostModelSerializer
     pagination_class = StandardResultsPagination
 
@@ -108,10 +111,10 @@ class SearchPostAPIView(UserProfileDataMixin, generics.ListAPIView):
             # qs = qs.filter(content__icontains=query)
             # Mirar esto
             # https://docs.djangoproject.com/en/1.11/topics/db/queries/#complex-lookups-with-q-objects
-            # que busque por contenido y email un post de cualquier persona
+            # que busque por contenido y username un post de cualquier persona
             qs = qs.filter(
                 Q(content__icontains=query) |
-                Q(user__email__icontains=query)
+                Q(user__username__icontains=query)
                 )
         return qs
 

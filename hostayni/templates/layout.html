@@ -156,7 +156,13 @@ s.setAttribute('data-timestamp', +new Date());
               <div class="pic_icon">
                 <a href="{% url 'ayni_offer:search' %}"><img src="{% static 'img/icons/Ayni.svg' %}" alt="" title="Ofertas AYNI"></a>
               </div>
+                <ul>
+                  <li><a href="{% url 'how-it-works' %}" >Como funciona</a></li>
+                  <li><a href="{% url 'how-it-works2' %}">Infografia 2</a></li>
+                </ul>
             </div>
+
+
 
             {% if request.user.is_authenticated %}
                 {% if userprofile %}
