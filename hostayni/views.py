@@ -137,6 +137,24 @@ class PrivacyPolicy(UserProfileDataMixin, TemplateView):
 
 class SearchView(UserProfileDataMixin, ListView):
     template_name = 'search.html'
+    model = get_user_model()
+
+    def get_context_data(self, **kwargs):
+        query = self.request.GET.get("q")
+        qs = None
+        if query:
+            qs = User.objects.filter(
+                Q(username__icontains=query) |
+                Q(full_name__icontains=query)
+                # Aca podriamos buscar por cualquier atributo
+                # relacionado con el usuario o del usuario
+                # # https://docs.djangoproject.com/en/1.11/topics/db/queries/#complex-lookups-with-q-objects
+                # http://www.michelepasin.org/blog/2010/07/20/the-power-of-djangos-q-objects/ gran referencia
+            )
+        context = super(SearchView, self).get_context_data(**kwargs)
+        context["users"] = qs
+        return context
+
     '''
     def get(self, request, *args, **kwargs):
         query = request.GET.get("q")
@@ -152,37 +170,24 @@ class SearchView(UserProfileDataMixin, ListView):
         context = {"users": qs}
 
         return render(request, "search.html", context)
-
-    '''
+    
     def get_queryset(self):
         query = self.request.GET.get("q")
-        qs = None
+        qs = User.objects
         if query:
-            qs = User.objects.filter(
+            qs = qs.filter(
                 Q(username__icontains=query) |
                 Q(full_name__icontains=query)
-                # Aca podriamos buscar por cualquier atributo
-                # relacionado con el usuario o del usuario
-                # # https://docs.djangoproject.com/en/1.11/topics/db/queries/#complex-lookups-with-q-objects
-                # http://www.michelepasin.org/blog/2010/07/20/the-power-of-djangos-q-objects/ gran referencia
             )
-        context = {"users": qs}
-        return render(self.request, "search.html", context)
-
-
-
+        return qs
 
     '''
-    def get_context_data(self,  **kwargs):
-        context = super(SearchView, self).get_context_data(**kwargs)
-        # messages.info(self.request, 'hello http://example.com')
-        user = self.request.user
-        #context['userprofile'] = user.profile
-        if user.is_authenticated():
-            context['userprofile'] = user.profile
-        return context
 
-    '''
+
+
+
+
+
 
 
 def home(request):
