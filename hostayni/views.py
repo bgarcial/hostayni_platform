@@ -9,8 +9,8 @@ from django.contrib.auth import get_user_model
 
 from django.db.models import Q
 
-from django.views.generic.base import TemplateView
-from django.views.generic import TemplateView, CreateView, UpdateView
+# from django.views.generic.base import TemplateView
+from django.views.generic import TemplateView, CreateView, UpdateView, ListView
 
 from .mixins import UserProfileDataMixin
 from .forms import ContactForm
@@ -128,22 +128,24 @@ class PrivacyPolicy(UserProfileDataMixin, TemplateView):
 
 # Buscando Users en hostayni social
 
-class SearchView(UserProfileDataMixin, TemplateView):
+class SearchView(UserProfileDataMixin, ListView):
+    template_name = 'search.html'
 
-    def get(self, request, *args, **kwargs):
-        query = request.GET.get("q")
+    def get_queryset(self):
+        query = self.request.GET.get("q")
         qs = None
         if query:
             qs = User.objects.filter(
-                    Q(username__icontains=query)
-                    # Aca podriamos buscar por cualquier atributo
-                    # relacionado con el usuario o del usuario
-                    # # https://docs.djangoproject.com/en/1.11/topics/db/queries/#complex-lookups-with-q-objects
-                )
+                Q(username__icontains=query)
+                # Aca podriamos buscar por cualquier atributo
+                # relacionado con el usuario o del usuario
+                # # https://docs.djangoproject.com/en/1.11/topics/db/queries/#complex-lookups-with-q-objects
+            )
         context = {"users": qs}
-        return render(request, "search.html", context)
+        return render(self.request, "search.html", context)
 
-    def get_context_data(self, **kwargs):
+    """
+    def get_context_data(self,  **kwargs):
         context = super(SearchView, self).get_context_data(**kwargs)
         # messages.info(self.request, 'hello http://example.com')
         user = self.request.user
@@ -151,8 +153,7 @@ class SearchView(UserProfileDataMixin, TemplateView):
         if user.is_authenticated():
             context['userprofile'] = user.profile
         return context
-
-
+    """
 
 def home(request):
     context = {}
