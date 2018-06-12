@@ -20,7 +20,7 @@ from django.conf.urls import url, include
 
 from django.contrib import admin
 
-from .views import WhoWeArePageView, TermsAndConditions, PrivacyPolicy, contact, HowItWorksPageView
+from .views import WhoWeArePageView, TermsAndConditions, PrivacyPolicy, contact, HowItWorksPageView, HowItWorks2PageView
 
 from accounts.views import activation_view, activate
 
@@ -51,7 +51,7 @@ urlpatterns = [
 
     url(r'^how-it-works/$', HowItWorksPageView.as_view(), name='how-it-works'),
 
-    url(r'^how-it-works2/$', HowItWorksPageView.as_view(), name='how-it-works2'),
+    url(r'^how-it-works2/$', HowItWorks2PageView.as_view(), name='how-it-works2'),
 
     # Call the accounts.urls.py
     url(r'^accounts/profiles/', include('accounts.urls', namespace='accounts')),
@@ -148,4 +148,3 @@ if settings.DEBUG:
         url(r'^__debug__/', include(debug_toolbar.urls)),
     ] + urlpatterns
 '''
-

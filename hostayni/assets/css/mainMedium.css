@@ -2423,3 +2423,53 @@ input[type="text"] .form-control{
 .container-delete-view .form-delete-view{
   margin: 0 44px;
 }
+
+/* INSTRUCTIONS HOW IT WORKS AND HOW OFFERS WORKS */
+
+.container-info-howitworks-high{
+  display: none;
+  width: 100%;
+  height: auto;
+}
+
+.container-info-howitworks-medium{
+  display: inline-block;
+  width: 100%;
+  height: auto;
+}
+
+.container-info-howitworks-medium img{
+  display: inline-block;
+  width: 100%;
+  height: auto;
+}
+
+.container-info-howitworks-low{
+  display: none;
+  width: 100%;
+  height: auto;
+}
+
+.container-info-howofferswork-high{
+  display: none;
+  width: 100%;
+  height: auto;
+}
+
+.container-info-howofferswork-medium{
+  display: inline-block;
+  width: 100%;
+  height: auto;
+}
+
+.container-info-howofferswork-medium img{
+  display: inline-block;
+  width: 100%;
+  height: auto;
+}
+
+.container-info-howofferswork-low{
+  display: none;
+  width: 100%;
+  height: auto;
+}

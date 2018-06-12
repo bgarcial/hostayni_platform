@@ -2277,3 +2277,54 @@ footer {
 .container-delete-view .form-delete-view{
   margin: 0 44px;
 }
+
+/* INSTRUCTIONS HOW IT WORKS AND HOW OFFERS WORKS */
+
+.container-info-howitworks-high{
+  display: inline-block;
+  width: 100%;
+  height: auto;
+}
+
+.container-info-howitworks-high img{
+  display: inline-block;
+  width: 100%;
+  height: auto;
+}
+
+.container-info-howitworks-medium{
+  display: none;
+  width: 100%;
+  height: auto;
+}
+
+.container-info-howitworks-low{
+  display: none;
+  width: 100%;
+  height: auto;
+}
+
+
+.container-info-howofferswork-high{
+  display: inline-block;
+  width: 100%;
+  height: auto;
+}
+
+.container-info-howofferswork-high img{
+  display: inline-block;
+  width: 100%;
+  height: auto;
+}
+
+.container-info-howofferswork-medium{
+  display: none;
+  width: 100%;
+  height: auto;
+}
+
+.container-info-howofferswork-low{
+  display: none;
+  width: 100%;
+  height: auto;
+}

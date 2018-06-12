@@ -1,10 +1,16 @@
 {% extends "layout.html" %}
 {% load bootstrap3 %}
 {% load staticfiles %}
-{% block title_tag %}Como funciona 2 | {{ block.super }}{% endblock %}
+{% block title_tag %}Como funcionan las ofertas de hostayni | {{ block.super }}{% endblock %}
 
 {% block body_content %}
-    {% comment %}
-        Poner infografia
-    {% endcomment %}
+    <div class="container-info-howofferswork-high">
+      <img src="{% static 'img/howofferswork/howofferswork-1160.jpg' %}" alt="">
+    </div>
+    <div class="container-info-howofferswork-medium">
+      <img src="{% static 'img/howofferswork/howofferswork-767.jpg' %}" alt="">
+    </div>
+    <div class="container-info-howofferswork-low">
+      <img src="{% static 'img/howofferswork/howofferswork-415.jpg' %}" alt="">
+    </div>
 {% endblock %}

@@ -1,10 +1,16 @@
 {% extends "layout.html" %}
 {% load bootstrap3 %}
 {% load staticfiles %}
-{% block title_tag %}Como funciona | {{ block.super }}{% endblock %}
+{% block title_tag %} Como funciona Hostayni | {{ block.super }}{% endblock %}
 
 {% block body_content %}
-    {% comment %}
-        Poner infografia
-    {% endcomment %}
+        <div class="container-info-howitworks-high">
+          <img src="{% static 'img/howitworks/howitworks-1160.jpg' %}" alt="">
+        </div>
+        <div class="container-info-howitworks-medium">
+          <img src="{% static 'img/howitworks/howitworks-767.jpg' %}" alt="">
+        </div>
+        <div class="container-info-howitworks-low">
+          <img src="{% static 'img/howitworks/howitworks-415.jpg' %}" alt="">
+        </div>
 {% endblock %}
