@@ -241,10 +241,10 @@ header .profile-options-low {
 
       header .profile-options-low .drop-down-low {
         display: none;
-        position: relative;
-        top: 0;
-        right: 55px;
-        width: 200px;
+        position: absolute;
+        top: 62px;
+        right: 20px;
+        width: 204px;
         height: auto;
         padding: 13px;
         border: 1px solid #d6d6d6;
@@ -465,6 +465,8 @@ article {
 
   article .article-author img{
     border-radius: 5px;
+    width: 48px;
+    height: auto;
   }
 
   article .medium-post{
@@ -2746,3 +2748,30 @@ input[type="text"] .form-control{
   width: 100%;
   height: auto;
 }
+
+/* NEW OPTIONS OF THE HEADER FOR HELP OPTIONS */
+
+      header .options-help {
+        width: 25px;
+        margin: 14px 5px; }
+
+      header .options-help img {
+        width: 26px;
+        height: 30px;
+        cursor: pointer; }
+
+      header .options-help .drop-down-help {
+            display: none;
+            position: relative;
+            left: -143px;
+            top: 7px;
+            background-color: #f9f9f9;
+            min-width: 160px;
+            box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+            padding: 12px 16px;
+            z-index: 1;
+        }
+
+        header .options-help:hover .drop-down-help {
+            display: block;
+        }
