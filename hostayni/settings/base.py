@@ -371,7 +371,7 @@ EMAIL_HOST_PASSWORD = get_env_variable('EMAIL_HOST_PASSWORD')
 EMAIL_PORT = 587
 EMAIL_USE_TLS = True
 
-SITE_URL = 'https://hostayni.herokuapp.com/'
+SITE_URL = 'https://hostayni.com/'
 
 INTERNAL_IPS = ['127.0.0.1', '::1', '0.0.0.0']
 
