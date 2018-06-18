@@ -294,9 +294,9 @@
         </div>
         <div class="iconsFooterUp">
           <div class="iconServices">
-           <a href="{{ SITE_URL }}{% url 'host:hostingoffer-search' %}" target="_blank">
+           <a href="{% url {{ SITE_URL }} 'host:hostingoffer-search' %}" target="_blank">
                 <img class="iconImageHost" src="{% static 'img/icons/Alojamiento.png' %}" width="38" height="38">
-                <p class="iconTextHost">ALOJAMIENTOS</p>
+                <p class="iconTextHost">ALOJAMIENTO</p>
            </a>
           </div>
           <div class="iconServices">
