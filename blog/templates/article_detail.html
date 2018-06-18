@@ -140,7 +140,7 @@ h1 {
                         <a href="{% url 'accounts:detail' instance.author.slug %}">
                             <span>{{ instance.author.get_long_name }}</span> <span>(@{{ instance.author.username }})</span>
                         </a>
-                        <p><div class="fb-like" data-href="{{ request.build_absolute_uri }" data-layout="standard"
+                        <p><div class="fb-like" data-href="{{ request.build_absolute_uri }}" data-layout="standard"
                                 data-action="like" data-size="small" data-show-faces="true" data-share="true"></div>
                         </p>
                         <hr/>
