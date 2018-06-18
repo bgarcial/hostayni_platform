@@ -120,8 +120,8 @@ class WhoWeArePageView(UserProfileDataMixin, TemplateView):
 class HowItWorksPageView(UserProfileDataMixin, TemplateView):
     template_name = 'how_it_works.html'
 
-class HowItWorks2PageView(UserProfileDataMixin, TemplateView):
-    template_name = 'how_it_works2.html'
+class HowTheOffersWorksPageView(UserProfileDataMixin, TemplateView):
+    template_name = 'how_the_offers_works.html'
 
 
 
