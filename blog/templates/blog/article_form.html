@@ -7,7 +7,7 @@
 {% bootstrap_css %}
 {% bootstrap_javascript %}
 {% load staticfiles %}
-{% block title_tag %}Crear un artículo en {{ block.super }}{% endblock %}
+{% block title_tag %}Crear un artículo o noticia en {{ block.super }}{% endblock %}
 
 
 {% block body_content %}
@@ -16,7 +16,7 @@
     {% if not form.instance.slug %}
         {{ form.ad }}
       {% else %}
-      Actualizar artículo
+      Actualizar artículo o noticia
       {% endif %}
     </h1>
 
@@ -26,7 +26,7 @@
           <img src="{% static 'img/icons/lang.svg' %}" alt="">
           <div class="title">
             <h2>Contenidos</h2>
-            <span>Crear un Artículo</span>
+            <span>Crear noticia - artículo</span>
           </div>
         </div>
         <div class="submit-button-cont">

@@ -98,10 +98,11 @@
             {% bootstrap_field form.is_ayni_host %}
             {% bootstrap_field form.is_daily_life_host %}
             {% if user.user_type == 'P' %}
+                {% comment %}
                 {% bootstrap_field form.is_student %}
                 {% bootstrap_field form.is_professor %}
                 {% bootstrap_field form.is_executive %}
-
+                {% endcomment %}
             {% else %}
                 {% bootstrap_field form.is_study_host %}
             {% endif %}

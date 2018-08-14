@@ -48,11 +48,17 @@ class EntrepreneurshipOffer(TimeStampModel):
     TRAINING_MENTORING = 'Formación o Mentorías'
     CALL_FOR_ENTREPRENEURS = 'Convocatoria para emprendedores o empresarios'
     VOLUNTEERS = 'Voluntariados'
+    CONFERENCES = 'Conferencias'
+    SIMPOSIUMS = 'Simposios'
+    NETWORKING = 'Espacios de Networking'
 
     OFFER_TYPE = (
         (TRAINING_MENTORING, "Formación o Mentorías"),
         (CALL_FOR_ENTREPRENEURS, "Convocatoria para emprendedores o empresarios"),
         (VOLUNTEERS, "Voluntariados"),
+        (CONFERENCES, "Conferencias"),
+        (SIMPOSIUMS, "Simposios"),
+        (NETWORKING, "Espacios de Networking"),
     )
 
     created_by = models.ForeignKey(

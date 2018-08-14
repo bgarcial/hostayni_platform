@@ -318,7 +318,7 @@ class User(AbstractBaseUser, PermissionsMixin):
     entertainment_activities = models.ManyToManyField(
         EntertainmentActivities,
         blank=True,
-        verbose_name='Actividades de vida diaria',
+        verbose_name='Actividades de entretenimiento',
         help_text='Mantenga presionado "Control" (o "Command" en un Mac), y haga click en las opciones que desea selecionar.',
     )
 

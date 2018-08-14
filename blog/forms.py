@@ -8,7 +8,7 @@ class ArticleForm(forms.ModelForm):
 
     # content = forms.CharField(label='Contenido', widget=forms.Textarea(attrs={'placeholder': 'Contenido'}))
     content = forms.CharField(label='Contenido', widget=PagedownWidget())
-    ad = "Nuevo artículo"
+    ad = "Nuevo artículo o noticia"
 
     class Meta:
         model = Article
@@ -39,8 +39,6 @@ class ArticleForm(forms.ModelForm):
                 # "unique": "El campo content debe ser unico.",
             },
         }
-
-
 
     def __init__(self, *args, **kwargs):
         super(ArticleForm, self).__init__(*args, **kwargs)
