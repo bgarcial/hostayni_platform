@@ -119,14 +119,14 @@ class UserDetailView(LoginRequiredMixin, UserProfileDataMixin, generic.DetailVie
         # We pass the active entrepreneurship offers of user
         context['entrepreneurship_offers'] = EntrepreneurshipOffer.objects.active().filter(created_by__slug=self.kwargs.get('slug'))
 
-        if user_to_display.user_type != "0":
-            speaklanguages = User.objects.get(slug=self.kwargs.get('slug'))
-            speak_languages_query = speaklanguages.speak_languages.all()
-            context['speak_languages'] = speak_languages_query
+        # if user_to_display.user_type != "0":
+        speaklanguages = User.objects.get(slug=self.kwargs.get('slug'))
+        speak_languages_query = speaklanguages.speak_languages.all()
+        context['speak_languages'] = speak_languages_query
 
-            entertainmentactivities = User.objects.get(slug=self.kwargs.get('slug'))
-            entertainment_activities_query = entertainmentactivities.entertainment_activities.all()
-            context['entertainment_activities'] = entertainment_activities_query
+        # entertainmentactivities = User.objects.get(slug=self.kwargs.get('slug'))
+        # entertainment_activities_query = entertainmentactivities.entertainment_activities.all()
+        # context['entertainment_activities'] = entertainment_activities_query
         if user.is_authenticated():
             context['userprofile'] = user.profile
 
