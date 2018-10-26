@@ -34,7 +34,7 @@ class UserCreateForm(UserCreationForm):
             'full_name':forms.TextInput(attrs={'placeholder':'Nombre Completo'})
         }
 
-        fields = ("full_name", "username", "email", "password1", "password2", "user_type",)
+        fields = ("full_name", "username", "email", "password1", "password2",)
         model = get_user_model()
 
     def __init__(self, *args, **kwargs):
@@ -75,9 +75,8 @@ class UserUpdateForm(forms.ModelForm):
 
         fields = ("full_name", "gender", "country_of_origin", "city_of_origin", "country_current_residence",
         "city_current_residence", 'speak_languages', "phone_number", "address", "biography", 'description',
-        "avatar", "date_of_birth", "creation_date", 'entertainment_activities', "is_student", "is_professor",
-        'is_entrepreneurship_host', "is_executive", "is_study_host", "is_hosting_host", 'is_ayni_host',
-        'is_daily_life_host')
+        "avatar", "date_of_birth", "creation_date", 'entertainment_activities', "is_student", "is_employed",
+        'is_independent', 'educational_titles', 'complete_studies_school')
 
         model = get_user_model()
 

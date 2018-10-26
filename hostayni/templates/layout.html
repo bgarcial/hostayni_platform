@@ -215,56 +215,46 @@ s.setAttribute('data-timestamp', +new Date());
                       </div>
                       <div class="drop-down-low">
                           <ul>
-                              <li><a href="{% url 'accounts:preferences' userprofile.user.slug %}" >
-          Configuración</a></li>
-                              <li><a href="{% url 'accounts:profile' userprofile.user.slug %}">Mis roles de usuario</a></li>
-                              <li class="line"></li>
-                              <p><strong>Contenidos</strong></p>
-                              <li><a href="{% url 'articles:new' %}">Crear Artículo</a></li>
-                              <li><a href="{% url 'articles:list' userprofile.user.slug %}">Mis artículos</a></li>
+                            <li><a href="{% url 'accounts:preferences' userprofile.user.slug %}" >Mi perfil</a></li>
+                            <li class="line"></li>
+                            <p><strong>Contenidos</strong></p>
+                              <li><a href="{% url 'articles:new' %}">Crear Publicación</a></li>
+                              <li><a href="{% url 'articles:list' userprofile.user.slug %}">Mis publicaciones</a></li>
                               <li class="line"></li>
                               <p><strong>Social</strong></p>
                               <li><a href="{% url 'post:list' %}">Mi Red Social</a></li>
                               <li class="line"></li>
-                              <p><strong>Anfitrión</strong></p>
-                              {% if userprofile.user.is_hosting_host %}
+                              {% if userprofile.user.is_superuser %}
+                                <p><strong>Super Usuario</strong></p>
                                 <li><a href="{% url 'host:hosting-host' %}">Crear oferta de alojamiento</a></li>
                                 <li><a href="{% url 'host:list' userprofile.user.slug %}">Mis ofertas de alojamiento</a></li>
-                              {% endif %}
-                              {% if userprofile.user.is_study_host %}
-                                <li><a href="{% url 'host:study-host' %}">Crear oferta de educación</a></li>
-                                   <li><a href="{% url 'host:studiesofferlist' userprofile.user.slug %}">Mis ofertas de educación</a></li>
-                              {% endif %}
-                              {% if userprofile.user.is_entrepreneurship_host %}
+                                <li><a href="{% url 'host:study-host' %}">Crear oferta de formación</a></li>
+                                <li><a href="{% url 'host:studiesofferlist' userprofile.user.slug %}">Mis ofertas de formación</a></li>
                                 <li><a href="{% url 'offer:create' %}">Crear oferta de emprendimiento</a></li>
                                 <li><a href="{% url 'offer:list' userprofile.user.slug %}">Mis ofertas de emprendimiento</a></li>
-                              {% endif %}
-                              {% if userprofile.user.is_ayni_host %}
+
+                                {% comment %}
                                 <li><a href="{% url 'ayni_offer:create' %}">Crear oferta AYNI</a></li>
                                 <li><a href="{% url 'ayni_offer:list' userprofile.user.slug %}">Mis ofertas AYNI</a></li>
-                              {% endif %}
-                              {% if userprofile.user.is_daily_life_host %}
                                 <li><a href="{% url 'daily_life_offer:create' %}">Crear oferta de vida diaria</a></li>
-                                  <li><a href="{% url 'daily_life_offer:list' userprofile.user.slug %}">Mis ofertas de vida diaria</a></li>
+                                <li><a href="{% url 'daily_life_offer:list' userprofile.user.slug %}">Mis ofertas de vida diaria</a></li>
+                                {% endcomment %}
+                                <li class="line"></li>
+                                <p><strong>Carrusel de imágenes</strong></p>
+                                <li><a href="{% url 'carousels:home-slider' %}">Agregar en el inicio</a></li>
+                                <li><a href="{% url 'carousels:lodging-offers-slider' %}">Agregar en ofertas de alojamiento</a></li>
+                                <li><a href="{% url 'carousels:educational-offers-slider' %}">Agregar en ofertas de educación</a></li>
+                                <li><a href="{% url 'carousels:entrepreneurship-offers-slider' %}">Agregar en ofertas de emprendimiento</a></li>
+                                <li><a href="{% url 'carousels:daily-life-offers-slider' %}">Agregar en ofertas de vida diaria</a></li>
+                                <li><a href="{% url 'carousels:ayni-offers-slider' %}">Agregar en ofertas AYNI</a></li>
                               {% endif %}
-                              {% if userprofile.user.is_superuser %}
-                                  <li class="line"></li>
-                                  <p><strong>Carrusel de imágenes</strong></p>
-                                  <li><a href="{% url 'carousels:home-slider' %}">Agregar en el inicio</a></li>
-                                  <li><a href="{% url 'carousels:lodging-offers-slider' %}">Agregar en ofertas de alojamiento</a></li>
-                                  <li><a href="{% url 'carousels:educational-offers-slider' %}">Agregar en ofertas de educación</a></li>
-                                  <li><a href="{% url 'carousels:entrepreneurship-offers-slider' %}">Agregar en ofertas de emprendimiento</a></li>
-                                  <li><a href="{% url 'carousels:daily-life-offers-slider' %}">Agregar en ofertas de vida diaria</a></li>
-                                  <li><a href="{% url 'carousels:ayni-offers-slider' %}">Agregar en ofertas AYNI</a></li>
-                              {% endif %}
-                              <li class="line"></li>
+
                               <li><a href="{% url 'accounts:logout' %}">Salir</a></li>
                           </ul>
                       </div>
                     </div>
                     <div class="profile-options">
                         {% comment %} Begin settings drowdown {% endcomment %}
-
                         <div class="name-options-cont">
                             <div class="name">
                                 <p>{{ userprofile.user.full_name }}</p>
@@ -273,40 +263,31 @@ s.setAttribute('data-timestamp', +new Date());
                                 <img src="{% static 'img/icons/gear.svg' %}" alt="">
                                 <div class="drop-down">
                                     <ul>
-                                        <li><a href="{% url 'accounts:preferences' userprofile.user.slug %}" >
-                    Configuración</a></li>
-                                        <li><a href="{% url 'accounts:profile' userprofile.user.slug %}">Mis roles de usuario</a></li>
+                                        <li><a href="{% url 'accounts:preferences' userprofile.user.slug %}" >Mi perfil</a></li>
+                                    <li class="line"></li>
+                                    <p><strong>Contenidos</strong></p>
+                                    <li><a href="{% url 'articles:new' %}">Crear Publicación</a></li>
+                                    <li><a href="{% url 'articles:list' userprofile.user.slug %}">Mis publicaciones</a></li>
                                         <li class="line"></li>
-                                        <p><strong>Contenidos</strong></p>
-                                        <li><a href="{% url 'articles:new' %}">Crear Artículo</a></li>
-                                        <li><a href="{% url 'articles:list' userprofile.user.slug %}">Mis artículos</a></li>
-                                        <li class="line"></li>
-                                        <p><strong>Social</strong></p>
+                                        {% comment %}<p><strong>Social</strong></p>{% endcomment %}
                                         <li><a href="{% url 'post:list' %}">Mi Red Social</a></li>
                                         <li class="line"></li>
-                                        <p><strong>Anfitrión</strong></p>
-                                        {% if userprofile.user.is_hosting_host %}
-                                          <li><a href="{% url 'host:hosting-host' %}">Crear oferta de alojamiento</a></li>
-                                          <li><a href="{% url 'host:list' userprofile.user.slug %}">Mis ofertas de alojamiento</a></li>
-                                        {% endif %}
-                                        {% if userprofile.user.is_study_host %}
-                                          <li><a href="{% url 'host:study-host' %}">Crear oferta de educación</a></li>
-                                             <li><a href="{% url 'host:studiesofferlist' userprofile.user.slug %}">Mis ofertas de educación</a></li>
-                                        {% endif %}
-                                        {% if userprofile.user.is_entrepreneurship_host %}
+                                        {% if userprofile.user.is_superuser %}
+                                            <p><strong>Super Usuario</strong></p>
+                                            <li><a href="{% url 'host:hosting-host' %}">Crear oferta de alojamiento</a></li>
+                                            <li><a href="{% url 'host:list' userprofile.user.slug %}">Mis ofertas de alojamiento</a></li>
+                                            <li><a href="{% url 'host:study-host' %}">Crear oferta de formación</a></li>
+                                            <li><a href="{% url 'host:studiesofferlist' userprofile.user.slug %}">Mis ofertas de formación</a></li>
                                             <li><a href="{% url 'offer:create' %}">Crear oferta de emprendimiento</a></li>
                                             <li><a href="{% url 'offer:list' userprofile.user.slug %}">Mis ofertas de emprendimiento</a></li>
-                                        {% endif %}
-                                        {% if userprofile.user.is_ayni_host %}
+
+                                            {% comment %}
                                             <li><a href="{% url 'ayni_offer:create' %}">Crear oferta AYNI</a></li>
                                             <li><a href="{% url 'ayni_offer:list' userprofile.user.slug %}">Mis ofertas AYNI</a></li>
-                                        {% endif %}
-                                        {% if userprofile.user.is_daily_life_host %}
                                             <li><a href="{% url 'daily_life_offer:create' %}">Crear oferta de vida diaria</a></li>
                                             <li><a href="{% url 'daily_life_offer:list' userprofile.user.slug %}">Mis ofertas de vida diaria</a></li>
-                                        {% endif %}
-                                         {% if userprofile.user.is_superuser %}
-                                             <li class="line"></li>
+                                            {% endcomment %}
+                                            <li class="line"></li>
                                             <p><strong>Carrusel de imágenes</strong></p>
                                             <li><a href="{% url 'carousels:home-slider' %}">Agregar en el inicio</a></li>
                                             <li><a href="{% url 'carousels:lodging-offers-slider' %}">Agregar en ofertas de alojamiento</a></li>
@@ -314,8 +295,8 @@ s.setAttribute('data-timestamp', +new Date());
                                             <li><a href="{% url 'carousels:entrepreneurship-offers-slider' %}">Agregar en ofertas de emprendimiento</a></li>
                                             <li><a href="{% url 'carousels:daily-life-offers-slider' %}">Agregar en ofertas de vida diaria</a></li>
                                             <li><a href="{% url 'carousels:ayni-offers-slider' %}">Agregar en ofertas AYNI</a></li>
-                                         {% endif %}
-                                        <li class="line"></li>
+                                        {% endif %}
+
                                         <li><a href="{% url 'accounts:logout' %}">Salir</a></li>
                                     </ul>
                                 </div>
@@ -900,11 +881,7 @@ s.setAttribute('data-timestamp', +new Date());
                 </div>
                 <div class="quienes-somos">
                     <strong>¿Qué es Hostayni?</strong>
-                  <p>Hostayni es un espacio de contacto para emprendedores interesados en socializar sus
-                      proyectos, compartir y enterarse de noticias de emprendimiento, participar en
-                      eventos de innovación y sostenibilidad, potencializar sus conocimientos y
-                      habilidades de emprendimiento, aportando así a la construcción de ciudades
-                      globales sostenibles
+                  <p>Somos una red de comunicación, contacto y formación para el emprendimiento y la innovación.
                   </p>
                 </div>
                 <div class="links-servicios">
@@ -912,16 +889,16 @@ s.setAttribute('data-timestamp', +new Date());
                     <a href="{% url 'host:hostingoffer-search' %}">Alojamiento</a>
                   </div>
                   <div class="link-each">
-                    <a href="{% url 'host:studyoffer-search' %}">Educación</a>
+                    <a href="{% url 'host:studyoffer-search' %}">Formación</a>
                   </div>
                   <div class="link-each">
-                    <a href="{% url 'offer:entrepreneurship_offer_search' %}">Emprendimiento</a>
+                    <a href="{% url 'offer:entrepreneurship_offer_search' %}">Eventos</a>
                   </div>
                   <div class="link-each">
-                    <a href="{% url 'daily_life_offer:search' %}">Vida diaria</a>
+                    <a href="{% url 'daily_life_offer:search' %}">Membresías</a>
                   </div>
                   <div class="link-each">
-                    <a href="{% url 'ayni_offer:search' %}">Ayni</a>
+                    <a href="{% url 'ayni_offer:search' %}">Spinlab</a>
                   </div>
                 </div>
                 <div class="terminos-contactenos">

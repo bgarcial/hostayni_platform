@@ -5,7 +5,7 @@
 {% block extrahead %}   {# Extra Resources Start #}
    {{ form.media }}        {# Form required JS and CSS #}
 {% endblock %}
-{% block title_tag %}Mi cuenta en {{ block.super }}{% endblock %}
+{% block title_tag %}Mi perfil en {{ block.super }}{% endblock %}
 
 
 
@@ -32,7 +32,7 @@
             <div class="icon-picture">
                 <img src="{% static 'img/icons/gear.svg' %}" alt="">
                 <div class="title">
-                    <h2>Configuración de mi cuenta</h2>
+                    <h2>Mi perfil</h2>
                 </div>
             </div>
             <div class="submit-button-config">
@@ -42,113 +42,26 @@
                 </div>
             </div>
         </div>
-
-        <!-- Buttons accordeon type - TABS -->
-        <div class="config-container">
-          <div class="tabConfiguracion">
-            <button type="button" class="tablinks" onclick="openCity(event, 'usuario')">Detalles de usuario</button>
-            <button type="button" class="tablinks" onclick="openCity(event, 'perfil')">Perfil</button>
-            <button type="button" class="tablinks" onclick="openCity(event, 'localizacion')">Localización</button>
-            <button type="button" class="tablinks" onclick="openCity(event, 'roles')">Roles</button>
-          </div>
-
-        <!-- Development of each TAB Buttons accordeon type  -->
-
-            <!-- TAB Detalles de Usuario -->
-          <div id="usuario" class="tabcontent">
-            {% bootstrap_field form.full_name %}
-            {% if user.user_type == 'P' %}
-                {% bootstrap_field form.gender %}
-                {% bootstrap_field form.date_of_birth %}
-                {% bootstrap_field form.speak_languages %}
-                {% bootstrap_field form.entertainment_activities %}
-            {% elif user.user_type == 'O' %}
-                {% bootstrap_field form.creation_date %}
-            {% endif %}
-          </div>
-
-            <!-- TAB Perfil -->
-          <div id="perfil" class="tabcontent">
-            {% if user.user_type == 'P' %}
-                {% bootstrap_field form.biography %}
-            {% elif user.user_type == 'O' %}
-                {% bootstrap_field form.description %}
-            {% endif %}
-                <!-- Avatar es indistinto del usuario -->
-                {% bootstrap_field form.avatar %}
-          </div>
-
-            <!-- TAB LOcalizacion -->
-          <div id="localizacion" class="tabcontent">
-            {% bootstrap_field form.country_of_origin %}
-            {% bootstrap_field form.city_of_origin %}
-            {% bootstrap_field form.phone_number %}
-            {% bootstrap_field form.address %}
-              {% if user.user_type == 'P' %}
-                  {% bootstrap_field form.city_current_residence %}
-              {% endif %}
-          </div>
-
-        <!-- TAB ROLES -->
-          <div id="roles" class="tabcontent">
-          <!-- Los dos tipos de usuario (persona y organizacion) pueden ser
-           anfitriones de alojamiento, de emprendimiento, de vida diaria y de ayni-->
-            {% bootstrap_field form.is_hosting_host %}
-            {% bootstrap_field form.is_entrepreneurship_host %}
-            {% bootstrap_field form.is_ayni_host %}
-            {% bootstrap_field form.is_daily_life_host %}
-            {% if user.user_type == 'P' %}
-                {% comment %}
-                {% bootstrap_field form.is_student %}
-                {% bootstrap_field form.is_professor %}
-                {% bootstrap_field form.is_executive %}
-                {% endcomment %}
-            {% else %}
-                {% bootstrap_field form.is_study_host %}
-            {% endif %}
-          </div>
-        </div>
-
-
-            <!-- Accordion application -->
-
-            {% comment %}
-                Aqui lo de los divs de button sobra, si los borro sigue funcionando,
-                pero lo que sucede es que quiero con la clase config-container-low
-                la cual tiene css media query responsive, asignarle un nuevo tamano
-                de despliegue cuando se redimensione el navegador, pero
-                no se como hacerlo.
-
-                Es decir estabamos volviendo a citar los campos con bootstrap aca y por eso
-                lo de los dos strings en el request.POST y por eso no llegaba o llegaban vacios
-                que es el error que tenia.
-
-                Pero ...
-                Como podemos decirle que cuando se redimensione el browser, renderize esos mismos
-                campos en otro tamano y otro orden, si no los replico o vuelvo a referenciar?
-            {% endcomment %}
-            <div class="config-container-low">
-              <button type="button" class="accordion">Detalles de usuario</button>
-              <div class="panel">
-                  fff
-              </div>
-
-              <button type="button" class="accordion">Perfil</button>
-              <div class="panel">
-
-              </div>
-
-              <button type="button" class="accordion">Localización</button>
-              <div class="panel">
-
-              </div>
-
-              <button type="button" class="accordion">Roles</button>
-              <div class="panel">
-
-              </div>
-            </div>
-
+        {% comment %} RENDERING FIELDS FORM {% endcomment %}
+        {% bootstrap_field form.full_name %}
+        {% bootstrap_field form.gender %}
+        {% bootstrap_field form.date_of_birth %}
+        {% bootstrap_field form.speak_languages %}
+        {% bootstrap_field form.entertainment_activities %}
+        {% bootstrap_field form.creation_date %}
+        {% bootstrap_field form.biography %}
+        {% bootstrap_field form.description %}
+        {% bootstrap_field form.avatar %}
+        {% bootstrap_field form.country_of_origin %}
+        {% bootstrap_field form.city_of_origin %}
+        {% bootstrap_field form.phone_number %}
+        {% bootstrap_field form.address %}
+        {% bootstrap_field form.city_current_residence %}
+        {% bootstrap_field form.is_student %}
+        {% bootstrap_field form.is_independent %}
+        {% bootstrap_field form.is_employed %}
+        {% bootstrap_field form.educational_titles %}
+        {% bootstrap_field form.complete_studies_school %}
 
 
         <div class="submit-button-config">

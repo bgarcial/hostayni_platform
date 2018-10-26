@@ -250,6 +250,7 @@ class User(AbstractBaseUser, PermissionsMixin):
         help_text="Por favor use el formato: <em>YYYY-MM-DD</em>.",
     )
 
+    '''
     user_type = models.CharField(
         max_length=10,
         choices=USER_TYPE_CHOICES,
@@ -257,16 +258,20 @@ class User(AbstractBaseUser, PermissionsMixin):
         default=False,
         blank=False,
     )
+    '''
 
-    '''
-    terms_and_conditions = models.BooleanField(
-        default=False,
-        verbose_name='Aceptar términos y condiciones de uso de HOSTAYNI',
-        help_text='Al hacer click en registrarse usted acepta los siguientes',
-        blank=False,
-        null=False
+    educational_titles = models.CharField(
+        max_length=255,
+        verbose_name='Titulos Educativos',
+        blank=True,
+        null=True,
     )
-    '''
+
+    complete_studies_school = models.CharField(
+        _("Institución en donde completó sus estudios anteriores"), max_length=255,
+        blank=True,
+        null=True,
+    )
 
     is_student = models.BooleanField(
         default=False,
@@ -274,44 +279,17 @@ class User(AbstractBaseUser, PermissionsMixin):
 
     )
 
-    is_professor = models.BooleanField(
+    is_independent = models.BooleanField(
         default=False,
-        verbose_name='Profesor',
+        verbose_name='Independiente',
 
     )
 
-    is_executive = models.BooleanField(
+    is_employed = models.BooleanField(
         default=False,
-        verbose_name='Ejecutivo/Emprendedor',
+        verbose_name='Empleado',
     )
 
-    is_study_host = models.BooleanField(
-        default=False,
-        verbose_name='Anfitrion de estudio',
-    )
-
-    is_entrepreneurship_host = models.BooleanField(
-        default=False,
-        verbose_name='Anfitrión de emprendimiento',
-
-    )
-
-    is_hosting_host = models.BooleanField(
-        default=False,
-        verbose_name='Anfitrión de alojamiento',
-
-    )
-
-    is_ayni_host = models.BooleanField(
-        default=False,
-        verbose_name='Anfitrión AYNI',
-
-    )
-
-    is_daily_life_host = models.BooleanField(
-        default=False,
-        verbose_name='Anfitrión de servicios de vida diaria',
-    )
 
     # Adicionarla ahora despues de la migración
 
@@ -442,51 +420,8 @@ class User(AbstractBaseUser, PermissionsMixin):
     def save(self, *args, **kwargs):
         super(User, self).save(*args, **kwargs)
 
-
         if self.is_student and getattr(self, 'studentprofile', None) is None:
             StudentProfile.objects.create(
-                user=self,
-                slug=self.username
-            )
-        if self.is_professor and getattr(self, 'professorprofile', None) is None:
-            ProfessorProfile.objects.create(
-                user=self,
-                slug=self.username
-            )
-        if self.is_executive and getattr(self, 'executiveprofile', None) is None:
-            ExecutiveProfile.objects.create(
-                user=self,
-                slug=self.username
-            )
-        if self.is_study_host and getattr(self, 'studyhostprofile', None) is None:
-            StudyHostProfile.objects.create(
-                user=self,
-                slug=self.username
-            )
-
-        # Hosting Host data details was removed by team decisions
-
-        if self.is_hosting_host and getattr(self, 'hostinghostprofile', None) is None:
-            HostingHostProfile.objects.create(
-                user=self,
-                slug=self.username
-            )
-
-
-        if self.is_entrepreneurship_host and getattr(self, 'entrepreneurshiphostprofile', None) is None:
-            EntrepreneurshipHostProfile.objects.create(
-                user=self,
-                slug=self.username
-            )
-
-        if self.is_daily_life_host and getattr(self, 'dailylifehostprofile', None) is None:
-            DailyLifeHostProfile.objects.create(
-                user=self,
-                slug=self.username
-            )
-
-        if self.is_ayni_host and getattr(self, 'aynihostprofile', None) is None:
-            AyniHostProfile.objects.create(
                 user=self,
                 slug=self.username
             )
