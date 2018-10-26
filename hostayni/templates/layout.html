@@ -176,25 +176,6 @@ s.setAttribute('data-timestamp', +new Date());
                 </div>
             </div>
 
-            <!-- <div class="options-help">
-                <img src="{% static 'img/icons/info.svg' %}" alt="">
-                <div class="drop-down-help">
-                  <ul>
-                    <li> <a href="{% url 'how-it-works' %}" >¿Cómo funciona?</a> </li>
-                    <li> <a href="{% url 'how-the-offers-works' %}">¿Cómo funcionan las ofertas?</a> </li>
-                  </ul>
-                </div>
-            </div> -->
-
-            <!-- <div class="howitworks-header-container">
-              <div class="howitworks-header">
-                <a href="{% url 'how-it-works' %}" >¿Cómo funciona?</a>
-              </div>
-              <div class="howofferswork-header">
-                <a href="{% url 'how-the-offers-works' %}">¿Cómo funcionan las ofertas?</a>
-              </div>
-            </div> -->
-
             {% if request.user.is_authenticated %}
                 {% if userprofile %}
                     <div class="profile-options-low">
