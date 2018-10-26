@@ -593,8 +593,9 @@ class UserProfileManager(models.Manager):
         return qs
 
 
+# volvera ver Model Manager for following
+# https://www.udemy.com/tweetme-django/learn/v4/t/lecture/6134698?start=0 y el de signals
 
-# volvera ver Model Manager for following https://www.udemy.com/tweetme-django/learn/v4/t/lecture/6134698?start=0 y el de signals
 
 class UserProfile(models.Model):
     # user.profile

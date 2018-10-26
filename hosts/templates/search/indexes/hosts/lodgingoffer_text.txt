@@ -24,3 +24,4 @@
 
 
 {{ object.bed_type }}
+{{ object.pub_date }}

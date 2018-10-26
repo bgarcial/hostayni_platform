@@ -22,7 +22,10 @@ class TimeStampModel(models.Model):
     An abstract base class model that provide self-updating
     created and modify fields
     """
+    # Este campo sera grabado solo una vez cuando se cree el modelo
     created = models.DateTimeField(auto_now_add=True)
+
+    # Cada vez que se grabe en la base de datos se actualice el campo modified
     modified = models.DateTimeField(auto_now=True)
 
     class Meta:
