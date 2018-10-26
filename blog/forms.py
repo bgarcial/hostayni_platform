@@ -8,14 +8,14 @@ class ArticleForm(forms.ModelForm):
 
     # content = forms.CharField(label='Contenido', widget=forms.Textarea(attrs={'placeholder': 'Contenido'}))
     content = forms.CharField(label='Contenido', widget=PagedownWidget())
-    ad = "Nuevo artículo o noticia"
+    ad = "Nueva publicación"
 
     class Meta:
         model = Article
         fields = [
             'title',
             'content',
-            'category',
+            # 'category',
             'image',
             'draft',
             # 'publish',

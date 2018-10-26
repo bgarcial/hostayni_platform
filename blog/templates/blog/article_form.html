@@ -7,7 +7,7 @@
 {% bootstrap_css %}
 {% bootstrap_javascript %}
 {% load staticfiles %}
-{% block title_tag %}Crear un artículo o noticia en {{ block.super }}{% endblock %}
+{% block title_tag %}Crea una publicación en {{ block.super }}{% endblock %}
 
 
 {% block body_content %}
@@ -16,7 +16,7 @@
     {% if not form.instance.slug %}
         {{ form.ad }}
       {% else %}
-      Actualizar artículo o noticia
+      Actualizar publicación
       {% endif %}
     </h1>
 
@@ -39,7 +39,6 @@
     {% csrf_token %}
         {% bootstrap_field form.title %}
         {% bootstrap_field form.content %}
-        {% bootstrap_field form.category %}
         {% bootstrap_field form.image %}
         {% bootstrap_field form.draft %}
 

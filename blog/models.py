@@ -45,11 +45,11 @@ class Article(models.Model):
     title = models.CharField(max_length=255)
     slug = models.SlugField(max_length=255, blank=True)
     content = models.TextField(verbose_name=_("Contenido"),)
-    draft = models.BooleanField(default=False, verbose_name='Borrador',
-                                help_text='Si seleccionas esta  opción tu artículo no será publicado por el momento')
+    draft = models.BooleanField(default=False, verbose_name='Guardar publicación',
+                                help_text='Si seleccionas esta  opción tu artículo no será publicado, solo guardado por el momento')
     publish = models.DateField(auto_now=False, auto_now_add=False)
 
-    category = models.ForeignKey("Category", verbose_name='Categoría')
+    # category = models.ForeignKey("Category", verbose_name='Categoría')
 
     # Digital Marketplace cubre como manipular y oredenar imagenes en thumbnails
     image = models.ImageField(upload_to= upload_location, null=False, blank=False,
