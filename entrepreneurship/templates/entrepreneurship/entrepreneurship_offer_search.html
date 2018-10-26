@@ -8,6 +8,8 @@
 </div>
 
 {% comment %}
+    Esta va cuando se pongan los sliders de forma dinamica desde la aplicacion,
+    NO QUITARLA
 {% if sliders %}
 <div class="container" style="margin-top: -19px;margin-bottom: 19px;">
    <!-- <div class="col-sm-8 col-sm-offset-4"> -->
@@ -80,8 +82,14 @@
 </div>
 
 
-<div class="results-lodging-container">
 
+
+<div class="results-lodging-container">
+<p align="justify">
+    Hostayni ofrece a todos sus usuarios la posibilidad de participar de diferentes eventos
+    con el fin de establecer nuevos contactos, aprender de otros emprendedores y adquirir
+    experiencias únicas para implementar en sus propios emprendimientos.
+</p>
 {% if "query" in request.GET %}<br />
     <div class="info-results-query">
         <p><h3>Ofertas de emprendimiento que contengan: "{{ cd.query }}"</h3></p>

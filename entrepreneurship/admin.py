@@ -5,8 +5,8 @@ from .models import EntrepreneurshipOffer, EntrepreneurshipOfferImage
 
 @admin.register(EntrepreneurshipOffer)
 class EntrepreneurshipOfferAdmin(admin.ModelAdmin):
-    list_display = ('id', 'ad_title', 'is_taked', 'is_paid', 'offer_type', 'price',
-                     'country', 'city', 'date', 'url', 'contact_name')
+    list_display = ('id', 'ad_title', 'is_taked', 'is_paid', 'price',
+                     'country', 'city', 'date',)
 
     list_editable = ('is_taked', 'is_paid')
 

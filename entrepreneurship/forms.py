@@ -16,7 +16,7 @@ class DateInput(DatePicker):
 
 
 class EntrepreneurshipOfferForm(forms.ModelForm):
-    title = "Crear oferta de emprendimiento"
+    title = "Crear evento"
     offer_taked = ("\n" 
      " Indica si esta oferta ya fue tomada por un usuario.Este campo es solo para uso de \n"
      " actualización de una oferta cuando ya ha habido un acuerdo por ella. "
@@ -29,8 +29,8 @@ class EntrepreneurshipOfferForm(forms.ModelForm):
             'country': CountrySelectWidget(),
         }
         model = EntrepreneurshipOffer
-        fields = ('ad_title', 'offer_type', 'price', 'country', 'city', 'date', 'url', 'contact_name',
-                  'phone_number', 'email', 'photo', 'additional_description', 'is_taked',)
+        fields = ('ad_title', 'price', 'country', 'city', 'date',
+                  'photo', 'discounts', 'status', 'additional_description', 'is_taked',)
 
 
 class EntrepreneurshipOfferImagesForm(forms.ModelForm):

@@ -48,20 +48,18 @@ def get_entrepreneurship_image_path(instance, filename):
 
 class EntrepreneurshipOffer(TimeStampModel):
 
-    TRAINING_MENTORING = 'Formación o Mentorías'
-    CALL_FOR_ENTREPRENEURS = 'Convocatoria para emprendedores o empresarios'
-    VOLUNTEERS = 'Voluntariados'
-    CONFERENCES = 'Conferencias'
-    SIMPOSIUMS = 'Simposios'
-    NETWORKING = 'Espacios de Networking'
+    AVAILABLE_TICKETS = 'Cupos disponibles'
+    CALL_FOR_ENTREPRENEURS = 'Cupos agotados'
+    QUOTA_FINISHED = 'Voluntariados'
+    FINISHED = 'Finalizado'
+    CANCELLED = 'Cancelado'
 
-    OFFER_TYPE = (
-        (TRAINING_MENTORING, "Formación o Mentorías"),
-        (CALL_FOR_ENTREPRENEURS, "Convocatoria para emprendedores o empresarios"),
-        (VOLUNTEERS, "Voluntariados"),
-        (CONFERENCES, "Conferencias"),
-        (SIMPOSIUMS, "Simposios"),
-        (NETWORKING, "Espacios de Networking"),
+    STATUS = (
+        (AVAILABLE_TICKETS, "Cupos disponibles"),
+        (QUOTA_FINISHED, "Cupos agotados"),
+        (FINISHED, "Finalizado"),
+        (CANCELLED, "Cancelado"),
+
     )
 
     created_by = models.ForeignKey(
@@ -78,13 +76,13 @@ class EntrepreneurshipOffer(TimeStampModel):
 
     slug = models.SlugField(max_length=100, blank=True)
 
-    offer_type = models.CharField(
-        max_length=100,
-        choices=OFFER_TYPE,
-        verbose_name='Tipo de oferta',
-    )
-
     price = models.CharField(_("Precio"), max_length=128,
+                             help_text='Precio en pesos colombianos',
+                             null=True,
+                             blank=True
+                             )
+
+    discounts = models.CharField(_("Descuento"), max_length=128,
                              help_text='Precio en pesos colombianos',
                              null=True,
                              blank=True
@@ -101,37 +99,16 @@ class EntrepreneurshipOffer(TimeStampModel):
     date = models.DateField(
         blank=True,
         null=True,
-        verbose_name='Fecha del evento o cierre de la convocatoria',
+        verbose_name='Fecha',
         help_text="Ingresar aquí la fecha del evento o cierre de la convocatoria",
     )
 
-    url = models.TextField(
-        validators=[URLValidator()],
-        verbose_name='Dirección de enlace',
-        help_text='Para mayor información referencie una dirección o enlace web',
-        null=True,
-        blank=True,
-    )
-
-    contact_name = models.CharField(
-        max_length=100,
-        verbose_name='Nombre de contacto',
-        null=True,
-        blank=True
-    )
-
-    phone_number = PhoneNumberField(
-        blank=True,
-        help_text="Por favor use el siguiente formato: <em>+Country Code-Number</em>.",
-        verbose_name='Número telefónico de contacto',
-        null = True,
-    )
-
-    email = models.CharField(
-        max_length=100,
-        verbose_name='Correo electrónico de contacto',
-        null=True,
-        blank=True
+    status = models.CharField(
+        max_length=10,
+        choices=STATUS,
+        verbose_name='Estado',
+        default=False,
+        blank=False,
     )
 
     photo = models.ImageField(
@@ -186,7 +163,6 @@ class EntrepreneurshipOffer(TimeStampModel):
                 entrepreneurship_offer=self,
                 image=self.photo
             )
-
 
 
 def create_slug(instance, new_slug=None):

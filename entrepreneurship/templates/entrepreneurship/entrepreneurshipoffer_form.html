@@ -30,7 +30,7 @@
       {% if not form.instance.pk %}
         {{ form.title }}
       {% else %}
-      Actualizar oferta de emprendimiento
+      Actualizar evento
       {% endif %}
     </h1>
     <form class="stayhost" enctype="multipart/form-data" method="post">
@@ -38,8 +38,7 @@
         <div class="ofert-icon">
           <img src="{% static 'img/icons/Emprendimiento.svg' %}" alt="">
           <div class="title">
-            <h2>EMPRENDIMIENTO</h2>
-            <span>Crear oferta</span>
+            <span>Emprendimiento</span>
           </div>
         </div>
         <div class="submit-button-cont">
@@ -53,17 +52,17 @@
       <div class="col margin-right">
           <div class="formgroup">
               {% bootstrap_field form.ad_title %}
-              {% bootstrap_field form.offer_type %}
               {% bootstrap_field form.price %}
+              {% bootstrap_field form.discounts %}
               {% bootstrap_field form.country %}
               {% bootstrap_field form.city %}
               {% bootstrap_field form.date %}
-              {% bootstrap_field form.url %}
-              {% bootstrap_field form.contact_name %}
-              {% bootstrap_field form.phone_number %}
-              {% bootstrap_field form.email %}
               {% bootstrap_field form.photo %}
+              {% bootstrap_field form.status %}
+
               {% bootstrap_field form.additional_description %}
+
+              Contacto: Mayores informes info@hostayni.com, Tel. (+57) 312 265 71 04
           </div>
       </div>
       <div class="col">
