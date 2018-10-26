@@ -293,12 +293,20 @@ class User(AbstractBaseUser, PermissionsMixin):
 
     # Adicionarla ahora despues de la migración
 
+    entrepreneurship_areas = models.CharField(
+        _("Areas de emprendimiento"), max_length=255,
+        blank=True,
+        null=True,
+    )
+
+    '''
     entertainment_activities = models.ManyToManyField(
         EntertainmentActivities,
         blank=True,
         verbose_name='Actividades de entretenimiento',
         help_text='Mantenga presionado "Control" (o "Command" en un Mac), y haga click en las opciones que desea selecionar.',
     )
+    '''
 
     is_staff = models.BooleanField(
         _('staff status'),

@@ -32,7 +32,7 @@ class CustomUserAdmin(UserAdmin):
                     'country_current_residence',
                     'city_current_residence',
                     'speak_languages',
-                    'entertainment_activities',
+                    'entrepreneurship_areas',
                     #'email',
                     'phone_number',
                     'address',

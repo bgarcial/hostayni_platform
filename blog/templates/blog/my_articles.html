@@ -1,20 +1,20 @@
 {% extends 'layout.html' %}
 
-{% block title_tag %}Articles created | {{ block.super }}{% endblock %}
+{% block title_tag %}Publicaciones creadas | {{ block.super }}{% endblock %}
 
 {% block body_content %}
 
 <div class="container-myarticles">
  <div class="panel-myarticles panel-default">
  <!-- Default panel contents -->
-  <div class="panel-heading">Mis Artículos
+  <div class="panel-heading">Mis Publicaciones
       &nbsp;&nbsp;&nbsp;&nbsp;| &nbsp;&nbsp;&nbsp;&nbsp;
-       <a href = "{% url 'articles:new' %}">Crear artículo</a>
+       <a href = "{% url 'articles:new' %}">Crear publicación</a>
   </div>
    <!-- Table -->
    <table class="table">
     <tr>
-     <th>Artículo</th>
+     <th>Publicación</th>
      <th>Acciones</th>
     </tr>
   {% for article in articles %}

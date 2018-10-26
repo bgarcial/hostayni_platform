@@ -75,7 +75,7 @@ class UserUpdateForm(forms.ModelForm):
 
         fields = ("full_name", "gender", "country_of_origin", "city_of_origin", "country_current_residence",
         "city_current_residence", 'speak_languages', "phone_number", "address", "biography", 'description',
-        "avatar", "date_of_birth", "creation_date", 'entertainment_activities', "is_student", "is_employed",
+        "avatar", "date_of_birth", "creation_date", 'entrepreneurship_areas', "is_student", "is_employed",
         'is_independent', 'educational_titles', 'complete_studies_school')
 
         model = get_user_model()
