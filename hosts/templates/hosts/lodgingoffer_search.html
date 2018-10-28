@@ -112,7 +112,7 @@
             <div class="info-item-lodging-firstpart">
               <div class="title-item-lodging">
                   <h3>{{ lodgingoffer.ad_title }}</h3>
-                  Desde: {{ lodgingoffer.check_in }}
+                  Disponible desde: {{ lodgingoffer.check_in }}
               </div>
               <div class="price-item-lodging">
                 <p> Mensual: $ {{ lodgingoffer.monthly_price }} COP </p>
@@ -226,7 +226,9 @@
 
 
 
-  {% comment %} OFERTAS PUBLICADAS GRATUITAMENTE EN HOSTAYNI  {% endcomment %}
+  {% comment %} OFERTAS PUBLICADAS GRATUITAMENTE EN HOSTAYNI
+  COMO SOLO NOSOTROS PUBLICAREMOS, EN TEORIA ESTE BLOQUE DESAPARECERÍA, PORQUE
+  ACA SE GESTIONABA LA PUBLICACION GRATIS DE LOS USUARIOS{% endcomment %}
   {% for offers in offer_list %}
    <div class="item-result-lodging" >
      <div class="img-item-container">
@@ -244,6 +246,7 @@
        <div class="info-item-lodging-firstpart">
          <div class="title-item-lodging">
              <h3>{{ offers.ad_title }}</h3>
+             Disponible desde: {{ offers.check_in }}
          </div>
          <div class="price-item-lodging">
            <p> Mensual: $ {{ offers.monthly_price }} COP </p>

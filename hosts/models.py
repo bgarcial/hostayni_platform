@@ -306,45 +306,28 @@ class StudiesOffertManager(models.Manager):
 
 class StudiesOffert(models.Model):
 
-    ACADEMIC_SEMESTER = 'Semestre académico'
-    RESEARCH = 'Investigación'
-    ROTATIONS_OR_PRACTICES = 'Rotaciones o prácticas'
-    SUMMER_SCHOOL = 'Escuela de verano'
-
-    ACADEMIC_MOBILITY_PROGRAMS_CHOICES = (
-
-        (ACADEMIC_SEMESTER, 'Semestre académico'),
-        (RESEARCH, 'Investigación'),
-        (ROTATIONS_OR_PRACTICES, 'Rotaciones o prácticas'),
-        (SUMMER_SCHOOL, 'Escuela de verano'),
-    )
-
-    CONTINUING_EDUCATION_STUDIES = 'Estudios de educación contínua'
+    SHORT_COURSE = 'Curso corto'
+    SEMINAR = 'Seminario'
+    DIPLOMAT = 'Diplomado'
+    WORKSHOP = 'Taller'
     TECHNIQUE = 'Técnica'
-    TECHNOLOGY = 'Tecnología'
-    PREGRADO = 'Pregrado'
-    SPECIALIZATION = 'Especialización'
-    MASTER = 'Maestría'
-    DOCTORATE = 'Doctorado'
-    ACADEMIC_MOBILITY = 'Movilidad académica'
 
-    STUDIES_TYPE_CHOICES = (
-        (CONTINUING_EDUCATION_STUDIES, u'Estudios de educación contínua'),
+    FORMATION_TYPE_CHOICES = (
+        (SHORT_COURSE, u'Curso corto'),
+        (SEMINAR, u'Seminario'),
+        (DIPLOMAT, u'Diplomado'),
+        (WORKSHOP, u'Taller'),
         (TECHNIQUE, u'Técnica'),
-        (TECHNOLOGY, u'Tecnología'),
-        (PREGRADO, u'Pregrado'),
-        (SPECIALIZATION, u'Especialización'),
-        (MASTER, u'Maestría'),
-        (DOCTORATE, u'Doctorado'),
-        (ACADEMIC_MOBILITY, u'Movilidad académica'),
     )
 
     VIRTUAL = 'Virtual'
     ON_SITE = 'Presencial'
+    SEMI_ON_SITE = 'Semi-presencial'
 
     MODALITY_CHOICES = (
         (VIRTUAL, "Virtual"),
         (ON_SITE, "Presencial"),
+        (SEMI_ON_SITE, "Semi-presencial"),
 
     )
 
@@ -376,44 +359,36 @@ class StudiesOffert(models.Model):
     latitude = models.CharField(_("latitude"), max_length=255, null=True, blank=True)
     longitude = models.CharField(_("longitude"), max_length=255, null=True, blank=True)
 
-    maximum_quota = models.PositiveSmallIntegerField(
-        verbose_name='Cupo máximo de estudiantes'
-    )
-
-    knowledge_topics = TaggableManager(
-        verbose_name="Tópicos de conocimiento",
-        help_text=_("Una lista de temáticas separada por comas.")
-    )
-
-    studies_type_offered = models.CharField(
+    formation_type_offered = models.CharField(
         max_length=255,
-        choices=STUDIES_TYPE_CHOICES,
-        verbose_name='Tipo de estudios ofertados',
+        choices=FORMATION_TYPE_CHOICES,
+        verbose_name='Tipo de formación',
     )
 
-    academic_mobility_programs = models.CharField(
-        max_length=255,
-        choices=ACADEMIC_MOBILITY_PROGRAMS_CHOICES,
-        verbose_name='Programas de movilidad académica',
-        # help_text='Available student academic mobility programs',
-        null=True,
-        blank=True
-    )
 
     duration = models.CharField(
         max_length=255,
         verbose_name='Duración',
     )
 
-    intensity = models.CharField(
-        max_length=255,
-        verbose_name='Intensidad',
-    )
-
     modality = models.CharField(
         max_length=20,
         choices=MODALITY_CHOICES,
         verbose_name='Modalidad',
+    )
+
+    start_date = models.DateField(
+        blank=True,
+        null=True,
+        verbose_name='Fecha de inicio:',
+        help_text="Por favor use el formato: <em>YYYY-MM-DD</em>.",
+    )
+
+    finish_date = models.DateField(
+        blank=True,
+        null=True,
+        verbose_name='Fecha de terminación:',
+        help_text="Por favor use el formato: <em>YYYY-MM-DD</em>.",
     )
 
     studies_value = models.CharField(_("Precio"), max_length=128, help_text='Precio en pesos colombianos')
