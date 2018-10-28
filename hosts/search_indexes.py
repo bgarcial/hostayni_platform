@@ -86,8 +86,6 @@ class LodgingOfferIndex(indexes.SearchIndex, indexes.Indexable):
 
     room_type_offered = indexes.CharField(model_attr='room_type_offered', null=True)
 
-    lodging_offer_type = indexes.CharField(model_attr='lodging_offer_type', null=True)
-
     number_guest_room_type = indexes.CharField(model_attr='number_guest_room_type', null=True)
 
     monthly_price = indexes.CharField(model_attr='monthly_price', null=True)
@@ -98,13 +96,7 @@ class LodgingOfferIndex(indexes.SearchIndex, indexes.Indexable):
 
     room_information = indexes.MultiValueField()
 
-    stars = indexes.CharField(model_attr='stars', null=True)
-
     featured_amenities = indexes.MultiValueField()
-
-    bed_type = indexes.CharField(model_attr='bed_type', null=True)
-
-    # bathroom = indexes.CharField(model_attr='bathroom', null=True)
 
     pub_date = indexes.DateTimeField(model_attr='pub_date')
 

@@ -87,14 +87,7 @@
 
   <div class="info-offer-detail">
     <div class="acomodacion-lodging">
-        {% if lodgingofferdetail.created_by.user_type == "O" %}
-            <h4>{{ lodgingofferdetail.lodging_offer_type_org }}</h4>
-        {% else %}
-            <h4>{{ lodgingofferdetail.lodging_offer_type }}</h4>
-        {% endif %}
-        {% if lodgingofferdetail.lodging_offer_type_org == "Hotel" %}
-            <p> {{ lodgingofferdetail.stars }} </p>
-        {% endif %}
+        <h4>{{ lodgingofferdetail.room_type_offered }}</h4>
     </div>
     <div class="title-cont-lodging">
         <h1>{{ lodgingofferdetail.ad_title }}</h1>
@@ -109,6 +102,9 @@
           {% endif %}
           {% if lodgingofferdetail.monthly_price %}
             <p>Mensual: $ {{ lodgingofferdetail.monthly_price }} COP </p>
+          {% endif %}
+          {% if lodgingofferdetail.discounts %}
+            <p>Descuento: {{ lodgingofferdetail.discounts }}  </p>
           {% endif %}
       </div>
     </div>
@@ -221,7 +217,7 @@
               </div>
               <div class="imp-feat-I">
                 <img src="{% static 'img/icons/alojamiento/Compartir.svg' %}" title="Tipo de Habitación" alt="">
-                <p> {{ lodgingofferdetail.bed_type }} </p>
+                <p> {{ lodgingofferdetail.room_type_offered }} </p>
               </div>
               <div class="imp-feat-I">
                 <img src="{% static 'img/icons/alojamiento/Zona-Barrio.svg' %}" title="Barrio o zona" alt="">

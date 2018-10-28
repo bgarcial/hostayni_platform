@@ -56,17 +56,14 @@
               {% bootstrap_field form.city %}
           </div>
 
+          <div class="formgroup">
 
-          {% if userprofile.user.user_type == "P" %}
-              <div class="formgroup">
-                  {% bootstrap_field form.lodging_offer_type %}
-              </div>
-          {% else %}
-              <div class="formgroup">
-                  {% bootstrap_field form.lodging_offer_type_org %}
-                  {% bootstrap_field form.stars %}
-              </div>
-          {% endif %}
+          </div>
+
+          <div class="formgroup">
+
+          </div>
+
 
 
           <div class="formgroup">
@@ -81,12 +78,12 @@
             {% bootstrap_field form.room_type_offered %}
             {% bootstrap_field form.number_guest_room_type %}
             {% bootstrap_field form.photo %}
-            {% bootstrap_field form.bed_type %}
             {% bootstrap_field form.room_information %}
             {% bootstrap_field form.address %}
             {% bootstrap_field form.location_zone %}
             {% bootstrap_field form.monthly_price %}
             {% bootstrap_field form.room_night_value %}
+            {% bootstrap_field form.discounts %}
 
             {% comment %}
           <div class="map-cont">

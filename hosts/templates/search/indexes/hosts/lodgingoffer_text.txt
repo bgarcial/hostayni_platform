@@ -3,7 +3,6 @@
 {{ object.city }}
 {{ object.address }}
 {{ object.room_type_offered }}
-{{ object.lodging_offer_type }}
 {{ object.number_guest_room_type }}
 {{ object.monthly_price }}
 {{ object.room_night_value }}
@@ -16,12 +15,8 @@
     {{ caracteristics.name }}
 {% endfor %}
 
-{{ object.stars }}
-
 {% for amenities in object.featured_amenities.all %}
     {{ amenities.name }}
 {% endfor %}
 
-
-{{ object.bed_type }}
 {{ object.pub_date }}

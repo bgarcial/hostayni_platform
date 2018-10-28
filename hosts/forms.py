@@ -56,10 +56,9 @@ class LodgingOfferForm(forms.ModelForm):
             'country': CountrySelectWidget(),
         }
         model = LodgingOffer
-        fields = ('ad_title', 'country', 'city', 'address', 'location_zone', 'lodging_offer_type' ,
-                  'lodging_offer_type_org', 'stars', 'check_in', 'check_out', 'offered_services',
+        fields = ('ad_title', 'country', 'city', 'address', 'location_zone', 'check_in', 'check_out', 'offered_services',
                   'featured_amenities', 'room_type_offered', 'number_guest_room_type', 'photo',
-                  'bed_type', 'room_information', 'monthly_price', 'room_night_value',
+                  'room_information', 'monthly_price', 'room_night_value', 'discounts',
                   'additional_description', 'is_taked')
 
     def __init__(self, *args, **kwargs):

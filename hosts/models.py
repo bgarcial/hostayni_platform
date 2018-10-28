@@ -38,88 +38,14 @@ def get_lodging_image_search_path(instance, filename):
 
 
 class LodgingOffer(models.Model):
-    ALL_PROPERTY = 'Toda la propiedad'
-    PRIVATE_ROOM = 'Habitación privada'
-    SHARED_ROOM = 'Habitación compartida'
+
+    PRIVATE_ROOM = 'Privada'
+    SHARED_ROOM = 'Compartida'
 
     ROOM_TYPE_OFFERED_CHOICES = (
-        (ALL_PROPERTY, "Toda la propiedad"),
-        (PRIVATE_ROOM, "Habitación privada"),
-        (SHARED_ROOM, "Habitación compartida"),
-    )
 
-    ONE_GUEST = 'Para 1 huésped'
-    TWO_GUESTS = 'Para 2 huéspedes'
-    THREE_GUESTS = 'Para 3 huéspedes'
-    FOUR_GUESTS = 'Para 4 huéspedes'
-    FIVE_GUESTS = 'Para 5 huéspedes'
-    SIX_GUESTS = 'Para 6 huéspedes'
-    SEVEN_GUESTS = 'Para 7 huéspedes'
-    EIGHT_GUESTS = 'Para 8 huéspedes'
-
-
-    NUMBER_GUESS_ROOM_TYPE_CHOICES = (
-        (ONE_GUEST, "Para 1 huésped"),
-        (TWO_GUESTS, "Para 2 huéspedes"),
-        (THREE_GUESTS, "Para 3 huéspedes"),
-        (FOUR_GUESTS, "Para 4 huéspedes"),
-        (FIVE_GUESTS, "Para 5 huéspedes"),
-        (SIX_GUESTS, "Para 6 huéspedes"),
-        (SEVEN_GUESTS, "Para 7 huéspedes"),
-        (EIGHT_GUESTS, "Para 8 huéspedes"),
-    )
-
-    EMPTY = ' '
-    STUDENT_RESIDENCE = 'Residencia estudiantil'
-    ACCOMODATION_WITH_LOCAL_FAMILY = 'Acomodación con familia local'
-    HOUSE_APT_SHARE_VISITORS = 'Casa o apartamento para compartir con otros huéspedes'
-    HOUSE_OR_PRIV_APT = 'Casa o apartamento privado'
-
-    LODGING_OFFER_TYPE_CHOICES = (
-        (STUDENT_RESIDENCE, "Residencia estudiantil"),
-        (ACCOMODATION_WITH_LOCAL_FAMILY, "Acomodación con familia local"),
-        (HOUSE_APT_SHARE_VISITORS, "Casa o apartamento para compartir con otros huéspedes"),
-        (HOUSE_OR_PRIV_APT, "Casa o apartamento privado"),
-    )
-
-    # LODGING_OFFER_TYPE_EMPTY = [('', '-------')] +
-
-    HOTEL = 'Hotel'
-    HOSTEL = 'Hostal'
-    STUDENT_RESIDENCE = 'Residencia estudiantil'
-    ACCOMODATION_WITH_LOCAL_FAMILY = 'Acomodación con familia local'
-    HOUSE_APT_SHARE_VISITORS = 'Casa o apartamento para compartir con otros huéspedes'
-    HOUSE_OR_PRIV_APT = 'Casa o apartamento privado'
-
-    LODGING_OFFER_TYPE_ORG_CHOICES = (
-        (HOTEL, "Hotel"),
-        (HOSTEL, "Hostal"),
-        (STUDENT_RESIDENCE, "Residencia estudiantil"),
-        (ACCOMODATION_WITH_LOCAL_FAMILY, "Acomodación con familia local"),
-        (HOUSE_APT_SHARE_VISITORS, "Casa o apartamento para compartir con otros huéspedes"),
-        (HOUSE_OR_PRIV_APT, "Casa o apartamento privado"),
-    )
-
-    ONE_STAR = '1 estrella'
-    TWO_STARS = '2 estrellas'
-    THREE_STARS = '3 estrellas'
-    FOUR_STARS = '4 estrellas'
-    FIVE_STARS = '5 estrellas'
-
-    STARS_NUMBER_CHOICES = (
-        (ONE_STAR, "1 estrella"),
-        (TWO_STARS, "2 estrellas"),
-        (THREE_STARS, "3 estrellas"),
-        (FOUR_STARS, "4 estrellas"),
-        (FIVE_STARS, "5 estrellas"),
-    )
-
-    SINGLE_BED = 'Cama individual'
-    DOUBLE_BED = 'Cama doble'
-
-    BED_TYPE_OFFERED_CHOICES = (
-        (SINGLE_BED, "Cama individual"),
-        (DOUBLE_BED, "Cama doble"),
+        (PRIVATE_ROOM, "Privada"),
+        (SHARED_ROOM, "Compartida"),
     )
 
     created_by = models.ForeignKey(
@@ -151,58 +77,17 @@ class LodgingOffer(models.Model):
 
     longitude = models.CharField(_("longitude"), max_length=255, null=True, blank=True)
 
-    lodging_offer_type_org = models.CharField(
-        max_length=255,
-        choices=LODGING_OFFER_TYPE_ORG_CHOICES,
-        verbose_name='Tipo de oferta de alojamiento',
-        null=True,
-        blank=True
-    )
-
-    lodging_offer_type = models.CharField(
-        max_length=255,
-        choices=LODGING_OFFER_TYPE_CHOICES,
-        verbose_name='Tipo de oferta de alojamiento',
-        null=True,
-        blank=True
-    )
-
-    stars = models.CharField(
-        max_length=255,
-        choices=STARS_NUMBER_CHOICES,
-        verbose_name='Número de estrellas',
-        null=True,
-        blank=True
-    )
-    '''
-    available_dates = models.DateField(
-        blank=True,
-        null=True,
-        verbose_name='Available dates',
-        help_text="Days in which is possible bookings",
-    )
-
-    BIRTH_YEAR_CHOICES = ('1980', '1981', '1982')
-
-    birth_year = models.DateField(
-        blank=True,
-        null=True,
-        verbose_name='Available dates',
-        help_text="Days in which is possible bookings",
-    )
-    '''
-
     check_in = models.DateField(
         blank=True,
         null=True,
-        verbose_name='Fecha de ingreso',
+        verbose_name='Disponibilidad desde:',
         help_text="Por favor use el formato: <em>YYYY-MM-DD</em>.",
     )
 
     check_out = models.DateField(
         blank=True,
         null=True,
-        verbose_name='Fecha de salida',
+        verbose_name='Disponibilidad hasta:',
         help_text="Por favor use el formato: <em>YYYY-MM-DD</em>.",
     )
 
@@ -229,23 +114,13 @@ class LodgingOffer(models.Model):
 
     number_guest_room_type = models.CharField(
         max_length=255,
-        choices=NUMBER_GUESS_ROOM_TYPE_CHOICES,
         verbose_name='Número de huéspedes en habitación',
     )
 
-    bed_type = models.CharField(
+    discounts = models.CharField(
         max_length=20,
-        choices=BED_TYPE_OFFERED_CHOICES,
-        verbose_name='Tipo de cama',
+        verbose_name='Descuentos',
     )
-
-    '''
-    bathroom = models.CharField(
-        max_length=20,
-        choices=BATHROOM_CHOICES,
-        verbose_name='Baño',
-    )
-    '''
 
     room_information = models.ManyToManyField(
         RoomInformation,
@@ -309,8 +184,6 @@ class LodgingOffer(models.Model):
         _('Oferta promovida'),
         default=False,
     )
-
-
 
     objects = LodgingOfferManager()
 

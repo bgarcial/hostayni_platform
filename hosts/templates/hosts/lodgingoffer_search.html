@@ -80,6 +80,12 @@
 
 
 <div class="results-lodging-container">
+<p align="justify">
+    Hostayni cuenta con diferentes opciones de alojamiento ofertadas
+    por aliados estratégicos en lugares estratégicos con excelentes
+    instalaciones físicas para que todos los miembros de la red Hostayni
+    se sientan como en su propia casa mientras están de viaje.
+</p>
 
 {% if "query" in request.GET %}<br />
     <div class="info-results-query">
@@ -106,6 +112,7 @@
             <div class="info-item-lodging-firstpart">
               <div class="title-item-lodging">
                   <h3>{{ lodgingoffer.ad_title }}</h3>
+                  Desde: {{ lodgingoffer.check_in }}
               </div>
               <div class="price-item-lodging">
                 <p> Mensual: $ {{ lodgingoffer.monthly_price }} COP </p>
@@ -174,6 +181,7 @@
         <div class="info-item-lodging-firstpart">
           <div class="title-item-lodging">
               <h3>{{ po.ad_title }}</h3>
+              Disponible desde: {{ po.check_in }}
               <div class="post-type"><b>OFERTA PROMOVIDA</b></div>
           </div>
           <div class="price-item-lodging">
