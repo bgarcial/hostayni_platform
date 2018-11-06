@@ -51,17 +51,19 @@
     </div>
     <div class="info-offer-detail">
     <div class="acomodacion-study">
-      <h4>{{ studyofferdetail.studies_type_offered }}</h2>
+      <h4>{{ studyofferdetail.formation_type_offered }}</h4>
     </div>
     <div class="title-cont-study">
       <h1>{{ studyofferdetail.ad_title }}</h1>
     </div>
     <div class="study-location-title">
       <div class="study-location">
-        <span>{{ studyofferdetail.address }}, {{ studyofferdetail.city }} - {{ studyofferdetail.country }}</span>
+        <span>{{ studyofferdetail.place }}, {{ studyofferdetail.city }} - {{ studyofferdetail.country }}</span>
       </div>
       <div class="study-price">
         <span>$ {{ studyofferdetail.studies_value }} COP </span>
+          <br/>
+        <span>Descuento: {{ studyofferdetail.discounts }}</span>
       </div>
     </div>
 
@@ -149,30 +151,58 @@
         <div class="important-features-study">
           <div class="imp-feat-study-I">
             <img src="{% static 'img/icons/educacion/Duracion.svg' %}" title="Duración" alt="">
-            <p> Duracion {{ studyofferdetail.duration }} </p>
+            <p> <strong>Horario:</strong> {{ studyofferdetail.schedule }} </p>
           </div>
           <div class="imp-feat-study-I">
             <img src="{% static 'img/icons/educacion/Modalidad.svg' %}" title="Modalidad" alt="">
-            <p> Modalidad {{ studyofferdetail.modality }} </p>
+            <p> <strong>Modalidad:</strong> {{ studyofferdetail.modality }} </p>
           </div>
           <div class="imp-feat-study-I">
             <img src="{% static 'img/icons/educacion/Intensidad.svg' %}" alt="">
-            <p> Intensidad {{ studyofferdetail.intensity }} </p>
+            <p> <strong>Duración:</strong> {{ studyofferdetail.duration }} </p>
           </div>
             <div class="imp-feat-study-I">
             <img src="{% static 'img/icons/educacion/Detalles.svg' %}" title="Cupo" alt="">
-            <p> Cupo {{ studyofferdetail.maximum_quota }} </p>
+                <p><strong>Estado:</strong>
+                    {% if studyofferdetail.status == "Cupos disponibles" %}
+                        {{ studyofferdetail.status }}
+                    {% elif studyofferdetail.status == "Cupos agotados" %}
+                        Lo sentimos, se han agotado los cupos para esta oferta
+                    {% elif studyofferdetail.status == "Cancelada" %}
+                        Lo sentimos, se ha cancelado esta oferta</p>
+                {% endif %}
           </div>
         </div>
-        {% if studyofferdetail.academic_mobility_programs %}
+        {% if studyofferdetail.organizers %}
         <div class="cont amenities">
           <div class="servicios-ofrecidos-container-study"/>
-            <h3>Detalles de la oferta</h3>
+            <h3>Organiza:</h3>
             <div class="servicios-ofrecidos-study">
                 <img src="{% static 'img/icons/educacion/Detalles.svg' %}" alt="">
-
-                    <span> {{ studyofferdetail.academic_mobility_programs }} </span>
-
+                <!-- <div class="img-item-offer" style="background: url('{{ studyoffer.organizers.url }}') no-repeat center; background-size:cover;"></div>
+                --> <img src="{{ studyofferdetail.organizers.url }}" width="2200" height="2200" alt="">
+            </div>
+        </div>
+        {% endif %}
+        {% if studyofferdetail.sponsors %}
+        <div class="cont amenities">
+          <div class="servicios-ofrecidos-container-study"/>
+            <h3>Patrocina:</h3>
+            <div class="servicios-ofrecidos-study">
+                <img src="{% static 'img/icons/educacion/Detalles.svg' %}" alt="">
+                <div class="img-item-offer" style="background: url('{{ studyofferdetail.sponsors.url }}') no-repeat center; background-size:cover;"></div>
+                <!-- <img src="{{ studyofferdetail.sponsors.url }}" width="auto" height="100%" alt="">  -->
+            </div>
+        </div>
+        {% endif %}
+        {% if studyofferdetail.support %}
+        <div class="cont amenities">
+          <div class="servicios-ofrecidos-container-study"/>
+            <h3>Patrocina:</h3>
+            <div class="servicios-ofrecidos-study">
+                <img src="{% static 'img/icons/educacion/Detalles.svg' %}" alt="">
+                <div class="img-item-offer" style="background: url('{{ studyofferdetail.support.url }}') no-repeat center; background-size:cover;"></div>
+                <!-- <img src="{{ studyofferdetail.support.url }}" width="auto" height="100%" alt="">  -->
             </div>
         </div>
         {% endif %}

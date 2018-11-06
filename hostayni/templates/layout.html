@@ -152,19 +152,13 @@ s.setAttribute('data-timestamp', +new Date());
             <!-- Icons for offers -->
             <div class="icons">
               <div class="pic_icon">
-                <a href="{% url 'host:hostingoffer-search' %}"><img src="{% static 'img/icons/Alojamiento.svg' %}" title="Ofertas de alojamiento" alt=""></a>
+                <a href="{% url 'host:hostingoffer-search' %}"><img src="{% static 'img/icons/alojamiento.svg' %}" title="Ofertas de alojamiento" alt=""></a>
               </div>
               <div class="pic_icon">
-                <a href="{% url 'host:studyoffer-search' %}"><img src="{% static 'img/icons/Educacion.svg' %}" title="Ofertas de educación" alt=""></a>
+                <a href="{% url 'host:studyoffer-search' %}"><img src="{% static 'img/icons/formacion.svg' %}" title="Ofertas de formación" alt=""></a>
               </div>
               <div class="pic_icon">
-                <a href="{% url 'offer:entrepreneurship_offer_search' %}"><img src="{% static 'img/icons/Emprendimiento.svg' %}" alt="" title="Ofertas de emprendimiento"></a>
-              </div>
-              <div class="pic_icon">
-                <a href="{% url 'daily_life_offer:search' %}"><img src="{% static 'img/icons/VidaDiaria.svg' %}" alt="" title="Ofertas de vida diaria"></a>
-              </div>
-              <div class="pic_icon">
-                <a href="{% url 'ayni_offer:search' %}"><img src="{% static 'img/icons/Ayni.svg' %}" alt="" title="Ofertas AYNI"></a>
+                <a href="{% url 'offer:entrepreneurship_offer_search' %}"><img src="{% static 'img/icons/eventos.svg' %}" alt="" title="Eventos"></a>
               </div>
             </div>
 
@@ -878,9 +872,11 @@ s.setAttribute('data-timestamp', +new Date());
                   <div class="link-each">
                     <a href="{% url 'daily_life_offer:search' %}">Membresías</a>
                   </div>
+                  {% comment %}
                   <div class="link-each">
                     <a href="{% url 'ayni_offer:search' %}">Spinlab</a>
                   </div>
+                  {% endcomment %}
                 </div>
                 <div class="terminos-contactenos">
                   <div class="terminos-each">

@@ -4,32 +4,6 @@ from django_countries.widgets import CountrySelectWidget
 from bootstrap_datepicker.widgets import DatePicker
 
 
-
-class StudiesOffertForm(forms.ModelForm):
-    #user = self.request.user
-    ad = "Oferta de estudios"
-    #scholarships = forms.ModelForm(queryset=Scholarship.objects.filter(created_by__username=user))
-    offer_taked = ("\n"
-                   " Indica si esta oferta ya fue tomada por un usuario.Este campo es solo para uso de \n"
-                   " actualización de una oferta cuando ya ha habido un acuerdo por ella. "
-                   " Si se selecciona, no aparecerá en los resultados de búsquedas. \n "
-                   "Des-seleccionéla en lugar de eliminar la oferta ")
-
-    class Meta:
-        model = StudiesOffert
-        fields = ('ad_title', 'country', 'city', 'duration', 'formation_type_offered',
-                  'additional_description', 'photo', 'address', 'modality', 'studies_value',
-                  'is_taked')
-        # exclude = ('hosting_host_user',)
-        # to put after: 'accreditations'
-
-
-class StudyOfferImagesUploadForm(forms.ModelForm):
-    class Meta:
-        model = StudyOfferImage
-        fields = ('image',)
-
-
 class DateInput(DatePicker):
     def __init__(self):
         DatePicker.__init__(self,format="%Y-%m-%d")
@@ -39,6 +13,35 @@ class DateInput(DatePicker):
             attrs.update(extra_attrs)
         return attrs
 
+class StudiesOffertForm(forms.ModelForm):
+    #user = self.request.user
+    ad = "Oferta de estudios"
+    #scholarships = forms.ModelForm(queryset=Scholarship.objects.filter(created_by__username=user))
+    offer_taked = ("\n"
+                   " Indica si esta oferta ya fue finalizada por sus oferentes. Este campo es solo para uso de \n"
+                   " actualización de una oferta cuando ésta ya ha caducado. "
+                   " Si se selecciona, no aparecerá en los resultados de búsquedas. \n "
+                   "Des-seleccionéla en lugar de eliminar la oferta ")
+
+    class Meta:
+        widgets = {
+            'start_date': DateInput(),
+            'finish_date': forms.DateInput(attrs={'id': 'datepicker2'}),
+            'country': CountrySelectWidget(),
+        }
+        model = StudiesOffert
+        fields = ('ad_title', 'country', 'city', 'formation_type_offered', 'modality',
+                  'start_date', 'finish_date', 'place', 'duration', 'schedule', 'studies_value',
+                  'discounts', 'status', 'organizers', 'sponsors', 'support', 'additional_description',
+                  'photo', 'finished')
+        # exclude = ('hosting_host_user',)
+        # to put after: 'accreditations'
+
+
+class StudyOfferImagesUploadForm(forms.ModelForm):
+    class Meta:
+        model = StudyOfferImage
+        fields = ('image',)
 
 
 class LodgingOfferForm(forms.ModelForm):

@@ -22,19 +22,7 @@ class StudiesOffertIndex(indexes.SearchIndex, indexes.Indexable):
 
     city = indexes.CharField(model_attr='city', null=True)
 
-    # institute_character = indexes.CharField(model_attr='institute_character', null=True)
-
-    # accreditations = indexes.MultiValueField()
-
-
-    maximum_quota = indexes.CharField(model_attr='maximum_quota', null=True)
-
-    studies_type_offered = indexes.MultiValueField()
-
-
-    # knowledge_topics = indexes.MultiValueField()
-
-    academic_mobility_programs = indexes.CharField(model_attr='academic_mobility_programs', null=True)
+    formation_type_offered = indexes.MultiValueField()
 
     duration = indexes.CharField(model_attr='duration', null=True)
 

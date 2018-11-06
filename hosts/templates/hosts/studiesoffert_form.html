@@ -1,7 +1,7 @@
 {% extends 'layout.html' %}
 {% load staticfiles %}
 {% load bootstrap3 %}
-{% block title_tag %}Lodging Offert | {{ block.super }}{% endblock %}
+{% block title_tag %}Oferta de formación | {{ block.super }}{% endblock %}
 {% block body_content %}
 
 {% comment %}
@@ -19,6 +19,23 @@
   });
 </script>
 {% endcomment %}
+<script type="text/javascript">
+    $(function () {
+        $('#datepicker2').datepicker({
+            inline: true,
+            sideBySide: true,
+            autoclose: true,
+            format: 'yyyy-mm-dd',
+            todayHighlight: true,
+            useCurrent: true,
+        });
+    });
+</script>
+{% block extrahead %}   {# Extra Resources Start #}
+   {{ form.media }}        {# Form required JS and CSS #}
+{% endblock %}
+
+
 <div class="offert-form">
     <h1>
       {% if not form.instance.pk %}
@@ -45,30 +62,32 @@
       </div>
       {% csrf_token %}
       <div class="col margin-right">
-          <div class="formgroup">
-              {% bootstrap_field form.ad_title %}
-              {% bootstrap_field form.country %}
-              {% bootstrap_field form.city %}
-              {% bootstrap_field form.maximum_quota %}
-              {% bootstrap_field form.knowledge_topics %}
-              {% bootstrap_field form.studies_type_offered %}
-              {% bootstrap_field form.academic_mobility_programs %}
-              {% bootstrap_field form.photo %}
-          </div>
-
+        <div class="formgroup">
+            {% bootstrap_field form.ad_title %}
+            {% bootstrap_field form.country %}
+            {% bootstrap_field form.city %}
+            {% bootstrap_field form.formation_type_offered %}
+            {% bootstrap_field form.modality %}
+            {% bootstrap_field form.start_date %}
+            {% bootstrap_field form.finish_date %}
+            {% bootstrap_field form.place %}
+      </div>
       </div>
       <div class="col">
         <div class="formgroup">
-
             {% bootstrap_field form.duration %}
-            {% bootstrap_field form.intensity %}
-            {% bootstrap_field form.modality %}
-            {% bootstrap_field form.address %}
+            {% bootstrap_field form.schedule %}
             {% bootstrap_field form.studies_value %}
+            {% bootstrap_field form.discounts %}
+            {% bootstrap_field form.status %}
+            {% bootstrap_field form.organizers %}
+            {% bootstrap_field form.sponsors %}
+            {% bootstrap_field form.support %}
             {% bootstrap_field form.additional_description %}
+            {% bootstrap_field form.photo %}
             {% if not form.instance.pk %}
             {% else %}
-                {% bootstrap_field form.is_taked %}
+                {% bootstrap_field form.finished %}
                 {{ form.offer_taked }}
             {% endif %}
             {% comment %}

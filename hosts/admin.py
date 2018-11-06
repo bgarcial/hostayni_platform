@@ -26,11 +26,14 @@ class LodgingOfferAdmin(admin.ModelAdmin):
 
 @admin.register(StudiesOffert)
 class StudiesOffertAdmin(admin.ModelAdmin):
-    list_display = ('id', 'is_taked', 'is_paid', 'ad_title', 'slug', 'tag_list',)
-    list_editable = ('is_taked', 'is_paid')
+    list_display = ('id', 'finished', 'is_paid', 'ad_title', 'slug',)
+    list_editable = ('finished', 'is_paid')
 
+    '''
     def get_queryset(self, request):
         return super(StudiesOffertAdmin, self).get_queryset(request).prefetch_related('knowledge_topics')
 
     def tag_list(self, obj):
         return u", ".join(o.name for o in obj.knowledge_topics.all())
+    
+    '''

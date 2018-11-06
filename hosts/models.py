@@ -294,10 +294,13 @@ def get_image_search_path(instance, filename):
     return '/'.join(['educational_offer_images', instance.slug, filename])
 
 
+def get_image_supporters_search_path(instance, filename):
+    return '/'.join(['educational_offer_images/supporters', instance.slug, filename])
+
 class StudiesOffertManager(models.Manager):
 
     def active(self, *args, **kwargs):
-        return super(StudiesOffertManager, self).filter(is_taked=False).filter(is_paid=False).filter(
+        return super(StudiesOffertManager, self).filter(finished=False).filter(is_paid=False).filter(
             pub_date__lte=timezone.now())
 
     def paid(self, *args, **kwargs):
@@ -329,6 +332,16 @@ class StudiesOffert(models.Model):
         (ON_SITE, "Presencial"),
         (SEMI_ON_SITE, "Semi-presencial"),
 
+    )
+
+    SPACE_AVAILABLE = 'Cupos disponibles'
+    SOLD_OUT_SPACES_ = 'Cupos agotados'
+    CANCELLED = 'Cancelada'
+
+    STATUS_CHOICES = (
+        (SPACE_AVAILABLE, u'Cupos disponibles'),
+        (SOLD_OUT_SPACES_, u'Cupos agotados'),
+        (CANCELLED, u'Cancelada'),
     )
 
     created_by = models.ForeignKey(
@@ -365,7 +378,6 @@ class StudiesOffert(models.Model):
         verbose_name='Tipo de formación',
     )
 
-
     duration = models.CharField(
         max_length=255,
         verbose_name='Duración',
@@ -375,6 +387,16 @@ class StudiesOffert(models.Model):
         max_length=20,
         choices=MODALITY_CHOICES,
         verbose_name='Modalidad',
+    )
+
+    place = models.CharField(
+        max_length=255,
+        verbose_name='Lugar',
+    )
+
+    schedule = models.CharField(
+        max_length=255,
+        verbose_name='Horario',
     )
 
     start_date = models.DateField(
@@ -392,6 +414,39 @@ class StudiesOffert(models.Model):
     )
 
     studies_value = models.CharField(_("Precio"), max_length=128, help_text='Precio en pesos colombianos')
+
+    discounts = models.CharField(_("Descuento"),
+                                 max_length=128, help_text='Descuentos')
+
+    status = models.CharField(
+        max_length=255,
+        choices=STATUS_CHOICES,
+        verbose_name='Estado',
+    )
+
+    organizers = models.ImageField(
+        upload_to=get_image_search_path,
+        blank=True,
+        verbose_name='Organizadores',
+        null=True,
+        help_text='Logos de los organizadores'
+    )
+
+    sponsors = models.ImageField(
+        upload_to=get_image_search_path,
+        blank=True,
+        verbose_name='Patrocinadores',
+        null=True,
+        help_text='Logos de los patrocinadores'
+    )
+
+    support = models.ImageField(
+        upload_to=get_image_search_path,
+        blank=True,
+        verbose_name='Apoya',
+        null=True,
+        help_text='Logos de quien apoya'
+    )
 
     additional_description = models.TextField(
         null=True,
@@ -417,8 +472,8 @@ class StudiesOffert(models.Model):
     # Cada vez que se grabe en la base de datos se actualice el campo updated
     updated = models.DateTimeField(auto_now=True, auto_now_add=False)
 
-    is_taked = models.BooleanField(
-        _('Oferta tomada'),
+    finished = models.BooleanField(
+        _('Oferta finalizada'),
         default=False,
     )
 
