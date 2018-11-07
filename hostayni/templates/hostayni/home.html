@@ -154,9 +154,7 @@
                 <p class="tags">
                     Tags:
                     {% for tag in article.tags.all %}
-                        <a href="{% url "articles:post_list_by_tag" tag.slug %}">
                           {{ tag.name }}
-                        </a>
                         {% if not forloop.last %}, {% endif %}
                     {% endfor %}
                 </p>
