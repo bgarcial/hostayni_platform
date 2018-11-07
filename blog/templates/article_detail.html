@@ -100,7 +100,7 @@ h1 {
             </div>
         </div> -->
 
-        <p class="tags">Tags: {{ instance.tags.all|join:", " }}</p>
+        <p class="tags">Etiquetas: {{ instance.tags.all|join:", " }}</p>
         <div class="text-cont">
             <!-- icono verde del blog que aparece al lado del texto -->
             <div class="side-icon">
@@ -113,7 +113,7 @@ h1 {
     </div>
     <!-- <div class="fb-comments" data-href="{{ request.build_absolute_uri }}" data-numposts="5"></div> -->
 
-    <h2>Similar posts</h2>
+    <h2>Publicaciones similares</h2>
     {% for article in similar_posts %}
       <p>
         <a href="{{ article.get_absolute_url }}">{{ article.title }}</a>
