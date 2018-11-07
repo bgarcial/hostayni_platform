@@ -8,18 +8,26 @@ from django.db.models.signals import pre_save
 from django.utils.text import slugify
 from django.conf import settings
 from django.utils import timezone
-
+from taggit.managers import TaggableManager
 
 # Model manager es una forma de controlar como
 # los modelos trabajan
 # Article.objects.all()
 # Article.objects.create(user=user, title='Some title')
+
+
 class ArticleManager(models.Manager):
     # Override the default .all() method
     # # Article.objects.all() = super(ArticleManager, self).all()
     def active(self, *args, **kwargs):
         return super(ArticleManager, self).filter(draft=False).filter(publish__lte=timezone.now())
 
+    '''
+    def get_queryset(self):
+        return super(ArticleManager,
+                     self).get_queryset() \
+            .filter(draft=False)
+    '''
 
 # Controlando como son subidas las im[agenes con
 # el id del post se crea una carpeta y se guarda con su nombre de earhcivo
@@ -45,6 +53,7 @@ class Article(models.Model):
     title = models.CharField(max_length=255)
     slug = models.SlugField(max_length=255, blank=True)
     content = models.TextField(verbose_name=_("Contenido"),)
+    tags = TaggableManager()
     draft = models.BooleanField(default=False, verbose_name='Guardar publicación',
                                 help_text='Si seleccionas esta  opción tu artículo no será publicado, solo guardado por el momento')
     publish = models.DateField(auto_now=False, auto_now_add=False)

@@ -23,7 +23,8 @@ from django.http import HttpResponseRedirect, HttpResponse, Http404
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 
 from django.db.models import Q
-
+from django.db.models import Count
+from taggit.models import Tag
 
 # Create your views here.
 
@@ -90,7 +91,7 @@ def article_create(request):
     return render(request, 'article_form.html', context)
 
 
-def artic_detail(request, slug=None): # retrieve
+def artic_detail(request, slug=None, tag_slug=None): # retrieve
     user = request.user
     # instance = Article.objects.get(id=3)
     # instance = get_object_or_404(Article, title='Hola, esto es una pruea')
@@ -99,15 +100,37 @@ def artic_detail(request, slug=None): # retrieve
     # cambiamos en el manager de all a active para que funcione el detail
     instance = get_object_or_404(Article, slug=slug)
 
+    object_list = Article.objects.all()
+
     # Si un usuario anonimo entra al detalle de un articulo que esta en draft
     # no lo encontrara
     # if instance.draft or instance.publish > timezone.now().date():
     if instance.publish > timezone.now().date() or instance.draft:
         if not user.is_active:
             raise Http404
+
+    tag = None
+    if tag_slug:
+        # we build the initial QuerySet, retrieving
+        # all active publications, and if there is a given
+        # tag slug, we get the Tag object with the given slug
+        # using the get_object_or_404() shortcut.
+        tag = get_object_or_404(Tag, slug=tag_slug)
+        object_list = object_list.filter(tags__in=[tag])
+
+    # List of similar posts
+    post_tags_ids = instance.tags.values_list('id', flat=True)
+    similar_posts = Article.objects.filter(tags__in=post_tags_ids) \
+        .exclude(id=instance.id)
+    similar_posts = similar_posts.annotate(same_tags=Count('tags')) \
+                        .order_by('-same_tags', '-publish')[:4]
+
+
     context = {
         'title': instance.title,
         'instance': instance,
+        'similar_posts':similar_posts,
+        'tag':tag
     }
     if user.is_authenticated():
         context['userprofile'] = user.profile
@@ -138,7 +161,7 @@ class ArticleListView(UserProfileDataMixin, ListView):
             queryset_list = queryset_list.filter(
                 Q(title__icontains=query) |
                 Q(content__icontains=query) |
-                Q(category__title__icontains=query) |
+                # Q(category__title__icontains=query) |
                 Q(author__full_name__icontains=query) |
                 Q(author__username__icontains=query)
             ).distinct()
@@ -157,8 +180,12 @@ class ArticleListView(UserProfileDataMixin, ListView):
         return context
 
 
-def article_list(request):
+# It takes an optional tag_slug parameter that has
+# a None default value. This parameter will come in the URL.
+def article_list(request, tag_slug=None):
     user = request.user
+
+    sliders = HomeCarousel.objects.all_featured()
 
     # Capturamos la fecha actual
     today = timezone.now().date()
@@ -166,21 +193,22 @@ def article_list(request):
     # queryset_list = Article.objects.filter(draft=False).filter(publish__lte=timezone.now()) #all() #.order_by('-timestamp')
     queryset_list = Article.objects.active() #.order_by('-timestamp')
 
+
+
     # Que me liste tambien los articulos draft o con fecha de publicacion mayor a la actual si es un super usuario
     # o user.is_staff
-    if user.is_staff or user.is_superuser:
-        queryset_list = Article.objects.all()
+    # if user.is_staff or user.is_superuser:
+    #    queryset_list = Article.objects.all()
 
     query = request.GET.get("q")
     if query:
         queryset_list = queryset_list.filter(
                 Q(title__icontains=query)|
                 Q(content__icontains=query)|
-                Q(author__first_name__icontains=query)|
-                Q(author__last_name__icontains=query)|
-                Q(author__enterprise_name__icontains=query)
+                Q(author__full_name__icontains=query)
                 ).distinct()
 
+    '''
     paginator = Paginator(queryset_list, 4)  # Show 5 articles per page
 
     page_request_var = "page"
@@ -194,11 +222,24 @@ def article_list(request):
     except EmptyPage:
         # If page is out of range (e.g. 9999), deliver last page of results.
         queryset = paginator.page(paginator.num_pages)
+    '''
+    object_list = Article.objects.all()
+    tag = None
+    if tag_slug:
+        # we build the initial QuerySet, retrieving
+        # all active publications, and if there is a given
+        # tag slug, we get the Tag object with the given slug
+        # using the get_object_or_404() shortcut.
+        tag = get_object_or_404(Tag, slug=tag_slug)
+        object_list = queryset_list.filter(tags__in=[tag])
+
     context = {
-        'article_list':queryset,
-        'title': "List is working",
-        'page_request_var': page_request_var,
+        'article_list':queryset_list,
+        #'title': "List is working",
+        #'page_request_var': page_request_var,
+        'sliders':sliders,
         'today': today,
+        'tag': tag
     }
     if user.is_authenticated():
         context['userprofile'] = user.profile

@@ -30,7 +30,16 @@ urlpatterns = [
 
     # ---*** URLs with fbv ***---
 
-    url(r'^$', views.ArticleListView.as_view(), name='article_list'),
+    # url(r'^$', views.ArticleListView.as_view(), name='article_list'),
+    url(r'^$', views.article_list, name='article_list'),
+    url(r'^tag/(?P<tag_slug>[-\w]+)/$', views.article_list,
+                name='post_list_by_tag'),
+    # both patterns point to the same view, but we are
+    # naming them differently. The first pattern will call
+    # the article_list view without any optional parameters,
+    # while the second pattern will call the view with the
+    # tag_slug parameter.
+
 
     url(r'^category/(\d+)$', views.categories, name='category'),
 

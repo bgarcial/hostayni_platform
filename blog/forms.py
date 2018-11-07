@@ -15,6 +15,7 @@ class ArticleForm(forms.ModelForm):
         fields = [
             'title',
             'content',
+            'tags',
             # 'category',
             'image',
             'draft',

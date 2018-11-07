@@ -109,9 +109,10 @@
 <!-- Contenido principal articulos -->
 
 <main>
-
+    {% if tag %}
+        <h2>Artículos etiquetados con "{{ tag.name }}"</h2><br/>
+    {% endif %}
   {% for article in article_list %}
-
     <!-- fecha de hoy {{ today }}-->
     <!-- la clase full-width es para las ofertas que ocupan las dos columnas -->
     <article class="entrepreneurship full-width">
@@ -119,7 +120,8 @@
         {% comment %} Si el articulo tiene draft entonces es borrador {%endcomment%}
         {% comment %} Si el articulo tiene una fecha de ublicacion mayor a la actual today  es futuro articulo {%endcomment%}
 
-        {% if article.draft %}<h3> Hostayni Staff Only Draft</h3>{% endif %} {% if article.publish > today %}<h3>Hostayni Staff Only: Futuro articulo</h3>{% endif %}
+        {% if article.draft %}<h3> Hostayni Staff Only Draft</h3>{% endif %}
+        {% if article.publish > today %}<h3>Hostayni Staff Only: Futuro articulo</h3>{% endif %}
         <a href="{% url 'articles:detail' slug=article.slug %}">
         <div class="img-title-cont">
             <!-- la imagen de las publicaciones debe ser una imagen de background para poder modificar el
@@ -141,7 +143,23 @@
               <!-- Este es el ícono que muestra el tipo de categoria, el color de la etiqueda depende de
               la categoria que tenga el artículo, -->
               <div class="post-type"><i>{{ article.category.title }}</i></div>
+
+                  we loop through all the tags of a post displaying a custom link
+              to the URL to filter posts by that tag. We build the URL with
+              {% url "articles:post_list_by_tag" tag.slug %}, using the name of
+              the URL and the slug tag as its parameter. We separate the tags
+              by commas.
               {% endcomment %}
+
+                <p class="tags">
+                    Tags:
+                    {% for tag in article.tags.all %}
+                        <a href="{% url "articles:post_list_by_tag" tag.slug %}">
+                          {{ tag.name }}
+                        </a>
+                        {% if not forloop.last %}, {% endif %}
+                    {% endfor %}
+                </p>
             </div>
 
             <div class="second_part_postinfo">
@@ -179,7 +197,6 @@
         </div>
     </article>
     {% endfor %}
-
     </main>
 
 
