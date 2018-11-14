@@ -44,7 +44,7 @@ class UserCreateForm(UserCreationForm):
         self.fields["email"].label = ""
         self.fields["password1"].label = ""
         self.fields["password2"].label = ""
-        self.fields["user_type"].label = ""
+        
 
 
 class DateInput(DatePicker):
