@@ -1,22 +1,6 @@
 # Hostayni Platform
 
-
-
-
-
-# Todo
-
-- [ ] Users Schema
-- [ ] Contents Data Schema
-
-- [View Markdown Cheatsheet](https://github.com/adam-p/markdown-here/wiki/Markdown-Cheatsheet "Markdown Cheatsheet")
-- [View Markdown Navigator](https://plugins.jetbrains.com/plugin/7896-markdown-navigator "Markdown Navigator - JetBrains Plugin")
-- 
-# Credits
-
-
-
-======
+Hostayni is a contact space for entrepreneurs interested in socializing their projects, sharing and learning about entrepreneurship news, participating in innovation and sustainability events, and empowering their knowledge and entrepreneurial skills, thus contributing to the construction of sustainable global cities.
 
 # How to install
 
@@ -58,14 +42,11 @@ bgarcial@elpug ‹ master ●● › : ~/workspace/hostayni_platform/blog
   * Find yourself in the project's root directory 
   
   
-  `(hostayni) 
-bgarcial@elpug ‹ master ●● › : ~/workspace/hostayni_platform/
-[1] % `
+`(hostayni) hostayni_platform/`
   
   * And type the following command to install packages:
   
-  `(hostayni) 
-bgarcial@elpug ‹ master ●● › : ~/workspace/hostayni_platform/blog
+  `(hostayni) hostayni_platform/blog
 [1] %  pip install -r requirements.txt`
 
 It is necessary to wait for the packages to install, which support the Hostayni project
