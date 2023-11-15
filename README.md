@@ -51,56 +51,5 @@ bgarcial@elpug ‹ master ●● › : ~/workspace/hostayni_platform/blog
 
 It is necessary to wait for the packages to install, which support the Hostayni project
 
-======
-------
-
-# Enter to virtual environment and frontend branch
-
-<dt>Activating virtuelenvwrapper</dt>
-  
- In your CLI enter:
- 
- `workon hostayni`
- 
- 
- *  Enter to the projects root directory
-  
-  
-`(hostayni) 
-bgarcial@elpug ‹ master ●● › : ~/workspace/hostayni_platform/
-[1] % `
-  
-  
-* Enter to branch to work
-
-`git checkout frontend`
-    
-`Switched to branch 'frontend'`
-
-`(hostayni) 
-bgarcial@elpug ‹ frontend ●● › : ~/workspace/hostayni_platform
-[0] %`
-
-
-<dt>git lifecycle basics</dt>
-
-* Check status files project
-
-`git status`
-
-* Add files to commit repository
-
-`git add <filename-modified>
-
-* Preparing files to push repository
-
-`git commit -m 'I am commiting files to the Hostayni project'`
-
-* Push files to the github repository
-
-`git push origin frontend`
-
-</dl>
-
 
 
